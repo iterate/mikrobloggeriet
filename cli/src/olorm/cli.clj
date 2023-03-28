@@ -3,7 +3,8 @@
    [babashka.cli :as cli]
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [olorm.lib :as lib]))
 
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
@@ -47,12 +48,14 @@ your system, so we need to know where to find OLORM pages.
       (println "Error: config file not set")
       (System/exit 1))))
 
-(defn olorm-new [{}]
+(defn olorm-create [{}]
+  (prn (lib/hi))
   (prn 'olorm-new))
 
 (def subcommands
-  [{:cmds ["help"]          :fn olorm-help}
-   {:cmds ["new"]           :fn olorm-new}
+  [
+   {:cmds ["create"]        :fn olorm-create}
+   {:cmds ["help"]          :fn olorm-help}
    {:cmds ["repo-path"]     :fn olorm-repo-path}
    {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
    {:cmds []                :fn olorm-help}])
