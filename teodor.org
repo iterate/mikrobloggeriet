@@ -19,3 +19,9 @@ Git commit og push
 
 #olorm på Slack
 Teodor følger opp manuelt i starten, backup fra Magnus (?)
+** retro
+funka det!
+
+- Var nok jobb i å ta CLI-biten.
+- Og ignorerer støtte for flere input-formater for nå.
+- Mulig IKI-gjenbruk her er ... lite / optimistisk.
