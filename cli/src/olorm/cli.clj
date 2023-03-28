@@ -10,7 +10,7 @@
 
 (declare subcommands)
 
-(defn olorm-help [{:keys [opts]}]
+(defn olorm-help [{:keys [_opts]}]
   (println "Available subcommands:")
   (println)
   (doseq [{:keys [cmds]} subcommands]
