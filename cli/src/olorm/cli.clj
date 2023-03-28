@@ -6,7 +6,6 @@
    [clojure.string :as str]
    [olorm.lib :as lib]))
 
-
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
 (defn config-file [] (str (config-folder) "/config.edn"))
 
@@ -45,11 +44,31 @@ your system, so we need to know where to find OLORM pages.
   (if (fs/exists? (config-file))
     (println (repo-path))
     (do
-      (println "Error: config file not set")
+      (println "Error: config file not found")
       (System/exit 1))))
 
 (defn olorm-create [{}]
-  (prn (lib/pages {:repo-path (repo-path)})))
+  (let [pages (lib/pages {:repo-path (repo-path)})
+        ;; need to find last
+        ;; then find next
+        ;;
+        last-olorm (->> pages
+                        (map :slug)
+                        #_#_#_#_
+                        (map (fn [s] (re-find #"olorm-([0-9]+)" s)))
+                        (map second)
+                        (filter some?)
+                        (map edn/read-string)
+                        (map lib/slug->olorm)
+                        (map :olorm)
+                        sort
+                        last)
+        next-olom (inc (or last-olorm 0))
+        ]
+    (prn last-olorm)
+    (prn (re-find #"olorm-([0-9]+)" (:slug (first pages))))
+    (prn (re-find #"olorm-([0-9]+)" "wtf"))
+    ))
 
 (def subcommands
   [
