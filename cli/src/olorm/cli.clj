@@ -50,11 +50,8 @@ your system, so we need to know where to find OLORM pages.
 
 (defn olorm-create [{}]
   (let [repo-path (repo-path)
-        pages (lib/olorms {:repo-path repo-path})
-        ;; need to find last
-        ;; then find next
-        ;;
-        last-olorm (->> pages (map :olorm) sort last)
+        olorms (lib/olorms {:repo-path repo-path})
+        last-olorm (->> olorms (map :olorm) sort last)
         next-olorm (inc (or last-olorm 0))
         next-dir (lib/olorm-path {:repo-path repo-path :olorm next-olorm})
         ]
