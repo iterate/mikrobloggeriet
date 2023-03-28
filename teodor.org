@@ -12,7 +12,7 @@ Olorm.iterate.no
 
 #+begin_src
 Bb tui
-Git commit --rebase
+git pull --rebase
 FZF for å velge builder
 $EDITOR
 Save
