@@ -48,13 +48,13 @@ your system, so we need to know where to find OLORM pages.
       (System/exit 1))))
 
 (defn olorm-create [{}]
-  (let [pages (lib/pages {:repo-path (repo-path)})
+  (let [pages (lib/olorms {:repo-path (repo-path)})
         ;; need to find last
         ;; then find next
         ;;
         last-olorm (->> pages
-                        (map (fn [{:keys [slug]}] (lib/slug->olorm slug)))
                         (filter :olorm)
+                        (map :olorm)
                         sort
                         last)
         next-olom (inc (or last-olorm 0))

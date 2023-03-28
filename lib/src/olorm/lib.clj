@@ -17,6 +17,8 @@
       {:slug slug :olorm (edn/read-string olorm-str)}
       {:slug slug})))
 
-(defn pages [{:keys [repo-path]}]
-  (for [folder (fs/list-dir (str repo-path "/p"))]
-    {:slug (fs/file-name folder)}))
+(defn olorms [{:keys [repo-path]}]
+  (->> (fs/list-dir (str repo-path "/p"))
+       (map str)
+       (map slug->olorm)
+       (filter :olorm)))
