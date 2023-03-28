@@ -53,9 +53,9 @@ your system, so we need to know where to find OLORM pages.
         next-olorm (inc (or (->> (lib/olorms {:repo-path repo-path}) (map :olorm) sort last)
                             0))
         next-dir (lib/olorm-path {:repo-path repo-path :olorm next-olorm})]
+    (shell {:dir repo-path} "git pull --rebase")
     (fs/create-dirs next-dir)
     (let [next-index-md (str next-dir "/index.md")]
-      (shell {:dir repo-path} "git pull --rebase")
       (spit next-index-md (lib/md-skeleton {:olorm next-olorm}))
       (shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
       (shell {:dir repo-path} "git add .")
