@@ -11,7 +11,12 @@ Then, install the `olorm` CLI:
 You should then be able to invoke the CLI:
 
     $ olorm -h
-    olorm
+    Available subcommands:
+    
+      olorm create
+      olorm help
+      olorm repo-path
+      olorm set-repo-path
 
 [babashka]: https://babashka.org/
 [bbin]: https://github.com/babashka/bbin
