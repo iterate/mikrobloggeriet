@@ -21,8 +21,8 @@
   (println "Available subcommands:")
   (println)
   (doseq [{:keys [cmds]} subcommands]
-    (if (seq cmds)
-      (println (str "  " (str/join " " cmds))))))
+    (when (seq cmds)
+      (println (str "  olorm " (str/join " " cmds))))))
 
 (defn olorm-set-repo-path [{:keys [opts]}]
   (let [repo-path (:repo-path opts)]
