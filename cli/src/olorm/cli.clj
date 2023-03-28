@@ -2,11 +2,18 @@
   (:require
    [babashka.cli :as cli]
    [babashka.fs :as fs]
+   [clojure.edn :as edn]
    [clojure.string :as str]))
 
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
 (defn config-file [] (str (config-folder) "/config.edn"))
+
+(defn repo-path []
+  (-> (config-file)
+      slurp
+      edn/read-string
+      :repo-path))
 
 (declare subcommands)
 
@@ -32,8 +39,16 @@ your system, so we need to know where to find OLORM pages.
       (fs/create-dirs (config-folder))
       (spit (config-file) (prn-str {:repo-path (str repo-path)})))))
 
+(defn olorm-repo-path [{:keys [_opts]}]
+  (if (fs/exists? (config-file))
+    (println (repo-path))
+    (do
+      (println "Error: config file not set")
+      (System/exit 1))))
+
 (def subcommands
   [{:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
+   {:cmds ["repo-path"]     :fn olorm-repo-path}
    {:cmds []                :fn olorm-help}])
 
 (defn -main [& args]
