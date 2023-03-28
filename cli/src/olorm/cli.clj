@@ -11,7 +11,10 @@
 (declare subcommands)
 
 (defn olorm-help [{:keys [opts]}]
-  (prn 'olorm))
+  (println "Available subcommands:")
+  (println)
+  (doseq [{:keys [cmds]} subcommands]
+    (println (str "  " (str/join " " cmds)))))
 
 (defn olorm-set-repo-path [{:keys [opts]}]
   (let [repo-path (:repo-path opts)]
@@ -20,6 +23,9 @@
 Usage:
 
     olorm set-repo-path REPO_PATH
+
+REPO_PATH is the path to the OLORM repo. The CLI can be used from any folder on
+your system, so we need to know where to find OLORM pages.
 "))
       (System/exit 1))
     (let [repo-path (fs/absolutize repo-path)]
