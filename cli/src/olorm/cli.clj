@@ -53,14 +53,8 @@ your system, so we need to know where to find OLORM pages.
         ;; then find next
         ;;
         last-olorm (->> pages
-                        (map :slug)
-                        #_#_#_#_
-                        (map (fn [s] (re-find #"olorm-([0-9]+)" s)))
-                        (map second)
-                        (filter some?)
-                        (map edn/read-string)
-                        (map lib/slug->olorm)
-                        (map :olorm)
+                        (map (fn [{:keys [slug]}] (lib/slug->olorm slug)))
+                        (filter :olorm)
                         sort
                         last)
         next-olom (inc (or last-olorm 0))
