@@ -1,0 +1,21 @@
+#+title: Teodor
+
+* 2023-03-28
+** notater
+Oddmund, Lars og Richards mikroblogg
+
+1. Hva gjør du akkurat nå?
+2. Finner du kvalitet i det?
+3. Hvorfor / hvorfor ikke?
+
+Olorm.iterate.no
+
+Bb tui
+Git commit --rebase
+FZF for å velge builder
+$EDITOR
+Save
+Git commit og push
+
+#olorm på Slack
+Teodor følger opp manuelt i starten, backup fra Magnus (?)
