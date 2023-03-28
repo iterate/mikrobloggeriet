@@ -7,9 +7,12 @@
 ;;
 ;; shared between CLI and server. Runs on both JVM Clojure and Babashka.
 
-;; olom data format
+;; olom data format example:
 
-{:slug "olorm-1" :olom 1}
+{:slug "olorm-1" :olorm 1}
+
+;; :slug is a string. :slug will appear in the URL.
+;; :olorm is an int.
 
 (defn slug->olorm [slug]
   (let [olorm-str (second (re-find #"olorm-([0-9]+)" slug))]
