@@ -47,10 +47,14 @@ your system, so we need to know where to find OLORM pages.
       (println "Error: config file not set")
       (System/exit 1))))
 
+(defn olorm-new [{}]
+  (prn 'olorm-new))
+
 (def subcommands
-  [{:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
+  [{:cmds ["help"]          :fn olorm-help}
+   {:cmds ["new"]           :fn olorm-new}
    {:cmds ["repo-path"]     :fn olorm-repo-path}
-   {:cmds ["help"]          :fn olorm-help}
+   {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
    {:cmds []                :fn olorm-help}])
 
 (defn -main [& args]
