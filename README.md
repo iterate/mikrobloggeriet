@@ -12,7 +12,7 @@ You should then be able to invoke the CLI:
 
     $ olorm -h
     Available subcommands:
-    
+
       olorm create
       olorm help
       olorm repo-path
