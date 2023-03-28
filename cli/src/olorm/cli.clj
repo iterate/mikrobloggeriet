@@ -49,6 +49,7 @@ your system, so we need to know where to find OLORM pages.
 (def subcommands
   [{:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
    {:cmds ["repo-path"]     :fn olorm-repo-path}
+   {:cmds ["help"]          :fn olorm-help}
    {:cmds []                :fn olorm-help}])
 
 (defn -main [& args]
