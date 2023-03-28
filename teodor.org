@@ -10,12 +10,14 @@ Oddmund, Lars og Richards mikroblogg
 
 Olorm.iterate.no
 
+#+begin_src
 Bb tui
 Git commit --rebase
 FZF for å velge builder
 $EDITOR
 Save
 Git commit og push
+#+end_src
 
 #olorm på Slack
 Teodor følger opp manuelt i starten, backup fra Magnus (?)
