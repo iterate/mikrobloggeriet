@@ -49,8 +49,7 @@ your system, so we need to know where to find OLORM pages.
       (System/exit 1))))
 
 (defn olorm-create [{}]
-  (prn (lib/hi))
-  (prn 'olorm-new))
+  (prn (lib/pages {:repo-path (repo-path)})))
 
 (def subcommands
   [

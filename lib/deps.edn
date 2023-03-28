@@ -1,1 +1,2 @@
-{:paths ["src" "vendor"]}
+{:paths ["src" "vendor"]
+ :deps {babashka/fs {:mvn/version "0.3.17"}}}
