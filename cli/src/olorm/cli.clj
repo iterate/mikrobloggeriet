@@ -4,7 +4,8 @@
    [babashka.fs :as fs]
    [clojure.edn :as edn]
    [clojure.string :as str]
-   [olorm.lib :as lib]))
+   [olorm.lib :as lib]
+   [babashka.process :refer [shell]]))
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
 (defn config-file [] (str (config-folder) "/config.edn"))
@@ -48,21 +49,22 @@ your system, so we need to know where to find OLORM pages.
       (System/exit 1))))
 
 (defn olorm-create [{}]
-  (let [pages (lib/olorms {:repo-path (repo-path)})
+  (let [repo-path (repo-path)
+        pages (lib/olorms {:repo-path repo-path})
         ;; need to find last
         ;; then find next
         ;;
-        last-olorm (->> pages
-                        (filter :olorm)
-                        (map :olorm)
-                        sort
-                        last)
-        next-olom (inc (or last-olorm 0))
+        last-olorm (->> pages (map :olorm) sort last)
+        next-olorm (inc (or last-olorm 0))
+        next-dir (lib/olorm-path {:repo-path repo-path :olorm next-olorm})
         ]
-    (prn last-olorm)
-    (prn (re-find #"olorm-([0-9]+)" (:slug (first pages))))
-    (prn (re-find #"olorm-([0-9]+)" "wtf"))
-    ))
+    (fs/create-dirs next-dir)
+    (let [next-index-md (str next-dir "/index.md")]
+      (spit next-index-md (lib/md-skeleton {:olorm next-olorm}))
+      (shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
+      (shell {:dir repo-path} "git add .")
+      (shell {:dir repo-path} "git commit -m" (str "olorm-" next-olorm))
+      (shell {:dir repo-path} "git push"))))
 
 (def subcommands
   [

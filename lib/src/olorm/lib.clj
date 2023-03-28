@@ -1,7 +1,8 @@
 (ns olorm.lib
   (:require
    [babashka.fs :as fs]
-   [clojure.edn :as edn]))
+   [clojure.edn :as edn]
+   [clojure.string :as str]))
 
 ;; olorm core library
 ;;
@@ -25,3 +26,17 @@
        (map str)
        (map slug->olorm)
        (filter :olorm)))
+
+(defn olorm-path [{:keys [olorm repo-path]}]
+  (when (and olorm repo-path)
+    (str repo-path "/p/olorm-" olorm)))
+
+(defn md-skeleton [{:keys [olorm]}]
+  (str "# OLORM-" olorm "\n\n"
+       (str/trim "
+<!-- 1. Hva gjør du akkurat nå? -->
+
+<!-- 2. Finner du kvalitet i det? -->
+
+<!-- 3. Hvorfor / hvorfor ikke? -->
+")))
