@@ -12,7 +12,7 @@ Olorm.iterate.no
 
 #+begin_src
 Bb tui
-git pull --rebase
+git pul l --rebase
 FZF for å velge builder
 $EDITOR
 Save
@@ -27,3 +27,10 @@ funka det!
 - Var nok jobb i å ta CLI-biten.
 - Og ignorerer støtte for flere input-formater for nå.
 - Mulig IKI-gjenbruk her er ... lite / optimistisk.
+* 2023-03-30
+** prate med Lars
+1. lars sa han var villig til å prøve en uke
+2. tirsdag eller onsdag etter lunsj etter påske fungerte sannsynligvis bra for lars
+
+Ikke hørt med Oddmund og Richard ennå.
+Håper vi kan finne et tidspunkt der alle kan være på kontoret.
