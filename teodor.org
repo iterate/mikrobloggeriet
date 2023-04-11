@@ -28,7 +28,7 @@ funka det!
 - Og ignorerer støtte for flere input-formater for nå.
 - Mulig IKI-gjenbruk her er ... lite / optimistisk.
 * 2023-03-30
-** prate med Lars
+** prat med Lars
 1. lars sa han var villig til å prøve en uke
 2. tirsdag eller onsdag etter lunsj etter påske fungerte sannsynligvis bra for lars
 
