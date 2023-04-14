@@ -1,0 +1,6 @@
+{:deps {babashka/fs {:mvn/version "0.3.17"}
+        babashka/process {:mvn/version "0.4.16"}
+        compojure/compojure {:mvn/version "1.7.0"}
+        hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
+        http-kit/http-kit {:mvn/version "2.7.0-alpha1"}
+        olorm/lib {:local/root "../lib"}}}
