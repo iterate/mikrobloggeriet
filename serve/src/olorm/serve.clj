@@ -6,11 +6,13 @@
 
 (defn index [_req]
   (page/html5
+   [:head (hiccup.page/include-css "/vanilla.css")]
    [:body
     [:h1 "OLORM"]]))
 
 (defroutes app
-  (GET "/" req (index req)))
+  (GET "/" req (index req))
+  (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")}))
 
 (defonce server (atom nil))
 (def port 7223)
