@@ -2,7 +2,7 @@
 
 ## Installing the CLI
 
-First, please install [babashka] and [bbin].
+First, please clone this repo, and install [babashka] and [bbin].
 
 Then, install the `olorm` CLI:
 
