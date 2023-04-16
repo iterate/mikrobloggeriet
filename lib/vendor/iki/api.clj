@@ -17,7 +17,7 @@
 (defn cache-fn-by
   "A simple in-memory caching mechanism
 
-  Example:
+  Example usage:
 
     (def cached+ (cache-fn-by slow+ (fn [a b] (str a \" \" b)))
 
