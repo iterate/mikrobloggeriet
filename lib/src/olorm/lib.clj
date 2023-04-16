@@ -10,7 +10,7 @@
 
 ;; olom data format example:
 
-{:slug "olorm-1" :olorm 1}
+{:slug "olorm-1" :olorm 1 :repo-path "."}
 
 ;; :slug is a string. :slug will appear in the URL.
 ;; :olorm is an int.
