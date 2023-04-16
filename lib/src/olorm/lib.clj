@@ -41,7 +41,8 @@
                 (when-let [number (parse-slug slug)]
                   (assoc olorm
                          :slug slug
-                         :number number)))]
+                         :number number))
+                olorm)]
     olorm))
 
 (defn olorms [{:keys [repo-path]}]
