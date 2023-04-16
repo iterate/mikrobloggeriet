@@ -27,16 +27,16 @@
 
 (defn olorm [req]
   (reset! devui/xx req)
-  (page/html5
-   [:head (hiccup.page/include-css "/vanilla.css")]
-   [:body
-    [:h1 "HI!"]
-    [:p (:olorm (:route-params req))]]))
+  (let [olorm (select-keys (:route-params req) [:slug])]
+    (page/html5
+     [:head (hiccup.page/include-css "/vanilla.css")]
+     [:body
+      (olorm->html (assoc olorm :repo-path ".."))])))
 
 (defroutes app
   (GET "/" req (index req))
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
-  (GET "/p/:olorm/" req (olorm req)))
+  (GET "/p/:slug/" req (olorm req)))
 
 (defonce server (atom nil))
 (def port 7223)
