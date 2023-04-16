@@ -27,7 +27,7 @@
        (map slug->olorm)
        (filter :olorm)))
 
-(defn olorm-path [{:keys [olorm repo-path]}]
+(defn path [{:keys [olorm repo-path]}]
   (when (and olorm repo-path)
     (str repo-path "/p/olorm-" olorm)))
 
@@ -40,3 +40,16 @@
 
 <!-- 3. Hvorfor / hvorfor ikke? -->
 ")))
+
+(defn path [olorm]
+  (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
+  (fs/path (:repo-path olorm) "p" (:slug olorm)))
+
+(defn index-md-path [olorm]
+  (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
+  (fs/file (path olorm) "index.md"))
+
+(defn exists? [olorm]
+  (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
+  (and (fs/directory? (path olorm))
+       (fs/exists? (index-md-path olorm))))

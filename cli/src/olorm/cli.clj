@@ -4,7 +4,7 @@
    [babashka.fs :as fs]
    [clojure.edn :as edn]
    [clojure.string :as str]
-   [olorm.lib :as lib]
+   [olorm.lib :as olorm]
    [babashka.process :refer [shell]]))
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
@@ -51,12 +51,12 @@ your system, so we need to know where to find OLORM pages.
 (defn olorm-create [{}]
   (shell {:dir repo-path} "git pull --rebase")
   (let [repo-path (repo-path)
-        next-olorm (inc (or (->> (lib/olorms {:repo-path repo-path}) (map :olorm) sort last)
+        next-olorm (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :olorm) sort last)
                             0))
-        next-dir (lib/olorm-path {:repo-path repo-path :olorm next-olorm})]
+        next-dir (olorm/path {:repo-path repo-path :olorm next-olorm})] ;; TODO check! I've refactored lib/path. Need to avoid regression. (there are no tests)
     (fs/create-dirs next-dir)
     (let [next-index-md (str next-dir "/index.md")]
-      (spit next-index-md (lib/md-skeleton {:olorm next-olorm}))
+      (spit next-index-md (olorm/md-skeleton {:olorm next-olorm}))
       (shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
       (shell {:dir repo-path} "git add .")
       (shell {:dir repo-path} "git commit -m" (str "olorm-" next-olorm))

@@ -78,20 +78,9 @@
 (def markdown->html
   (iki/cache-fn-by iki/markdown->html identity))
 
-(defn olorm->html [{:keys [repo-path slug]}]
-  ;; canonicalize
-  (let [olorm-path (fs/path repo-path "p" slug)
-        index-md-file (fs/file olorm-path "index.md")]
-    ;; validate
-    (when (and (fs/directory? olorm-path)
-             (fs/exists? index-md-file))
-      (markdown->html (slurp index-md-file)))))
-
-;; infer builder
-;;
-;; no!
-;;
-;; we just support markdown for now.
+(defn olorm->html [olorm]
+  (when (olorm/exists? olorm)
+    (markdown->html (slurp (olorm/index-md-path olorm) ))))
 
 (clerk/html
  (olorm->html {:slug "olorm-1" :repo-path ".."}))
