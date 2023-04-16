@@ -17,6 +17,9 @@
   (when-let [number (second (re-find #"olorm-([0-9]+)" slug))]
     (edn/read-string number)))
 
+(when-let [html (requiring-resolve 'nextjournal.clerk/html)]
+  (parse-slug "olorm-42"))
+
 (defn ->olorm
   "Try creating an olorm from \"what we've got\".
 
