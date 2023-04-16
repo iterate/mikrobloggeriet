@@ -8,13 +8,19 @@
 
 ;; ## Look at things, like http requests
 
-(defonce xx (atom nil))
+(defonce last-tapped (atom nil))
 
-@xx
+(defn store-tapped [val]
+  (reset! last-tapped val))
 
-(clerk/table
- (for [[h v] (:headers @xx)]
-   {:header h :value v}))
+(add-tap #'store-tapped)
+
+@last-tapped
+
+(when-let [headers (:headers @last-tapped)]
+          (clerk/table
+           (for [[h v] headers]
+             {:header h :value v})))
 
 ;; ## View an olorm
 

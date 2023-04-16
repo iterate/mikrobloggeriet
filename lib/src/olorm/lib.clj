@@ -22,7 +22,7 @@
       {:slug slug})))
 
 (defn olorms [{:keys [repo-path]}]
-  (->> (fs/list-dir (fs/file repo-path "p"))
+  (->> (fs/list-dir (fs/file repo-path "o"))
        (map fs/file-name)
        (map slug->olorm)
        (filter :olorm)
