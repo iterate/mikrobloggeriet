@@ -21,7 +21,7 @@
     (markdown->html (slurp (olorm/index-md-path olorm) ))))
 
 (defn olorm [req]
-  (reset! devui/xx req) ;; i want to use tap> here
+  (tap> req)
   (let [olorm (select-keys (:route-params req) [:slug])]
     (page/html5
      [:head (hiccup.page/include-css "/vanilla.css")]
