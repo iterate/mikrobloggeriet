@@ -54,7 +54,7 @@
   (->> (fs/list-dir (fs/file repo-path "o"))
        (map fs/file-name)
        (map slug->olorm)
-       (filter :olorm)
+       (filter :number)
        (map #(assoc % :repo-path repo-path))))
 
 (defn md-skeleton [olorm]
