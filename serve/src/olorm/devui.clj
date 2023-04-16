@@ -1,4 +1,4 @@
-;; OLORM DEVUI
+;; OLORM DEVELOPMENT INTERFACE
 
 (ns olorm.devui
   (:require
