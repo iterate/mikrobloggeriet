@@ -17,7 +17,7 @@
 
 (defn olorm->html [olorm]
   (when (olorm/exists? olorm)
-    (markdown->html (slurp (olorm/index-md-path olorm) ))))
+    (markdown->html (slurp (olorm/index-md-path olorm)))))
 
 (defn olorm [req]
   (tap> req)
