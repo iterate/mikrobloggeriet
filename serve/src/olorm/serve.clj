@@ -21,11 +21,12 @@
 
 (defn olorm [req]
   (tap> req)
-  (let [olorm (select-keys (:route-params req) [:slug])]
+  (let [olorm {:slug (:slug (:route-params req))
+               :repo-path ".."}]
     (page/html5
      [:head (hiccup.page/include-css "/vanilla.css")]
      [:body
-      (olorm->html (assoc olorm :repo-path ".."))])))
+      (olorm->html olorm)])))
 
 (defroutes app
   (GET "/" req (index req))
