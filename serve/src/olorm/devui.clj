@@ -67,8 +67,31 @@
 ;;
 ;; Okay, let's to the same here.
 
+(let [repo-path ".." slug "olorm-1"]
+  [(str (fs/canonicalize repo-path) "/p/" slug)
+   (str
+    (fs/canonicalize
+     (fs/file repo-path "p" slug)))]
+  )
 
+(defn olorm->html [{:keys [repo-path slug]}]
+  ;; canonicalize
+  (let [olorm-path (fs/path repo-path "p" slug)
+        index-md-file (fs/file olorm-path "index.md")]
+    ;; validate
+    (if (and (fs/directory? olorm-path)
+             (fs/exists? index-md-file))
+      [:h3 slug]
+      [:div "OLORM NOT FOUND"])))
 
+;; infer builder
+;;
+;; no!
+;;
+;; we just support markdown for now.
+
+(clerk/html
+ (olorm->html {:slug "olorm-1" :repo-path ".."}))
 
 
 
