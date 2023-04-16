@@ -25,11 +25,13 @@
   (when (olorm/exists? olorm)
     (markdown->html (slurp (olorm/index-md-path olorm) ))))
 
-(clerk/html (olorm->html {:slug "olorm-1" :repo-path ".."}))
-(clerk/html (olorm->html {:slug "olorm-2" :repo-path ".."}))
+(def olorms (olorm/olorms {:repo-path ".."}))
+
+(clerk/html (olorm->html (first olorms)))
+(clerk/html (olorm->html (second olorms)))
 
 (olorm/olorms {:repo-path ".."})
-(clerk/table (olorm/olorms {:repo-path ".."}))
+(clerk/table olorms)
 
 ^
 {:nextjournal.clerk/visibility {:code :hide}}
