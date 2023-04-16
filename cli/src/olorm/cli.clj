@@ -48,20 +48,23 @@ your system, so we need to know where to find OLORM pages.
       (println "Error: config file not found")
       (System/exit 1))))
 
-(defn olorm-create [{}]
+(defn olorm-create [{:keys [opts]}]
   (let [repo-path (repo-path)]
-    (shell {:dir repo-path} "git pull --rebase")
+    (when-not (:disable-git-magic opts)
+      (shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :olorm) sort last)
                               0))
           olorm (-> olorm/->olorm {:repo-path repo-path :number next-number})
+          _ (prn olorm)
           next-olorm-dir (olorm/path olorm)]
       (fs/create-dirs next-olorm-dir)
       (let [next-index-md (olorm/index-md-path olorm)]
         (spit next-index-md (olorm/md-skeleton olorm))
         (shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
-        (shell {:dir repo-path} "git add .")
-        (shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
-        (shell {:dir repo-path} "git push")))))
+        (when-not (:disable-git-magic opts)
+          (shell {:dir repo-path} "git add .")
+          (shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
+          (shell {:dir repo-path} "git push"))))))
 
 (def subcommands
   [
