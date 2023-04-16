@@ -26,10 +26,10 @@
     (markdown->html (slurp (olorm/index-md-path olorm) ))))
 
 (clerk/html (olorm->html {:slug "olorm-1" :repo-path ".."}))
-
 (clerk/html (olorm->html {:slug "olorm-2" :repo-path ".."}))
 
 (olorm/olorms {:repo-path ".."})
+(clerk/table (olorm/olorms {:repo-path ".."}))
 
 ^
 {:nextjournal.clerk/visibility {:code :hide}}
