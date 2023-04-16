@@ -55,7 +55,6 @@ your system, so we need to know where to find OLORM pages.
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
                               0))
           olorm (olorm/->olorm {:repo-path repo-path :number next-number})
-          _ (prn olorm)
           next-olorm-dir (olorm/path olorm)]
       (fs/create-dirs next-olorm-dir)
       (let [next-index-md (olorm/index-md-path olorm)]
