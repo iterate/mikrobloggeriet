@@ -85,7 +85,7 @@
     ;; validate
     (if (and (fs/directory? olorm-path)
              (fs/exists? index-md-file))
-      (markdown->html "- hei\n- trolo")
+      (markdown->html (slurp index-md-file))
       [:div "OLORM NOT FOUND"])))
 
 ;; infer builder
