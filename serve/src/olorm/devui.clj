@@ -29,3 +29,7 @@
   (map str)
   (map olorm/slug->olorm)
   (filter :olorm))
+
+(defn olorm->html [& _args])
+
+(olorm->html {:slug "olorm-1" :repo-path ".."})
