@@ -21,9 +21,9 @@
       {:slug slug :olorm (edn/read-string olorm-str)}
       {:slug slug})))
 
-(defn olorms [{:keys [repo-path]}]
-  (->> (fs/list-dir (str repo-path "/p"))
-       (map str)
+(defn olorms2 [{:keys [repo-path]}]
+  (->> (fs/list-dir (fs/file repo-path "p"))
+       (map fs/file-name)
        (map slug->olorm)
        (filter :olorm)))
 
