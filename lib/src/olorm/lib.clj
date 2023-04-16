@@ -6,7 +6,8 @@
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [nextjournal.clerk :as clerk]))
 
 ;; olorm example:
 
@@ -52,10 +53,13 @@
 
 (defn olorms [{:keys [repo-path]}]
   (->> (fs/list-dir (fs/file repo-path "o"))
-       (map fs/file-name)
-       (map slug->olorm)
+       (map (fn [f]
+              (->olorm {:repo-path repo-path :slug (fs/file-name f)})))
        (filter :number)
        (map #(assoc % :repo-path repo-path))))
+
+(when-let [html (requiring-resolve 'nextjournal.clerk/html)]
+  (olorms {:repo-path ".."}))
 
 (defn md-skeleton [olorm]
   (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))
