@@ -28,10 +28,6 @@
        (filter :olorm)
        (map #(assoc % :repo-path repo-path))))
 
-(defn path [{:keys [olorm repo-path]}]
-  (when (and olorm repo-path)
-    (str repo-path "/p/olorm-" olorm)))
-
 (defn md-skeleton [{:keys [olorm]}]
   (str "# OLORM-" olorm "\n\n"
        (str/trim "
