@@ -23,6 +23,27 @@
        :number (edn/read-string olorm-str)}
       {:slug slug})))
 
+(defn ^:private parse-slug [slug]
+  (when-let [number (second (re-find #"olorm-([0-9]+)" slug))]
+    (edn/read-string number)))
+
+(defn ->olorm
+  "Try creating an olorm from \"what we've got\"."
+  [{:keys [slug number repo-path]}]
+  (let [olorm {}
+        olorm (if repo-path (assoc olorm :repo-path repo-path) olorm)
+        olorm (if number
+                (assoc olorm
+                       :number number
+                       :slug (str "olorm-" number))
+                olorm)
+        olorm (if (and slug (not number))
+                (when-let [number (parse-slug slug)]
+                  (assoc olorm
+                         :slug slug
+                         :number number)))]
+    olorm))
+
 (defn olorms [{:keys [repo-path]}]
   (->> (fs/list-dir (fs/file repo-path "o"))
        (map fs/file-name)
