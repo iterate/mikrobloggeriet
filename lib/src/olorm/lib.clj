@@ -18,7 +18,9 @@
 (defn slug->olorm [slug]
   (let [olorm-str (second (re-find #"olorm-([0-9]+)" slug))]
     (if olorm-str
-      {:slug slug :olorm (edn/read-string olorm-str)}
+      {:slug slug
+       :olorm (edn/read-string olorm-str)
+       :number (edn/read-string olorm-str)}
       {:slug slug})))
 
 (defn olorms [{:keys [repo-path]}]
