@@ -47,5 +47,4 @@ COPY o/                /olorm/o
 WORKDIR /olorm/serve
 CMD clj -X olorm.serve/start!
 
-
 EXPOSE 7223
