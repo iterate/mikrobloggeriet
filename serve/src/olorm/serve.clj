@@ -11,12 +11,13 @@
    [:body
     [:h1 "OLORM"]]))
 
-(defn olorm [_req]
-  (reset! devui/xx _req)
+(defn olorm [req]
+  (reset! devui/xx req)
   (page/html5
    [:head (hiccup.page/include-css "/vanilla.css")]
    [:body
-    [:h1 "HI!"]]))
+    [:h1 "HI!"]
+    [:p (:olorm (:route-params req))]]))
 
 (defroutes app
   (GET "/" req (index req))
