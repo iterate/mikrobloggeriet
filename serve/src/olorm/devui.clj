@@ -83,10 +83,9 @@
   (let [olorm-path (fs/path repo-path "p" slug)
         index-md-file (fs/file olorm-path "index.md")]
     ;; validate
-    (if (and (fs/directory? olorm-path)
+    (when (and (fs/directory? olorm-path)
              (fs/exists? index-md-file))
-      (markdown->html (slurp index-md-file))
-      [:div "OLORM NOT FOUND"])))
+      (markdown->html (slurp index-md-file)))))
 
 ;; infer builder
 ;;
