@@ -4,6 +4,7 @@
   (:require
    [nextjournal.clerk :as clerk]
    [olorm.lib :as olorm]
+   [iki.api :as iki]
    [babashka.fs :as fs]))
 
 ;; ## Session 1
@@ -74,6 +75,9 @@
      (fs/file repo-path "p" slug)))]
   )
 
+(def markdown->html
+  (iki/cache-fn-by iki/markdown->html identity))
+
 (defn olorm->html [{:keys [repo-path slug]}]
   ;; canonicalize
   (let [olorm-path (fs/path repo-path "p" slug)
@@ -81,7 +85,7 @@
     ;; validate
     (if (and (fs/directory? olorm-path)
              (fs/exists? index-md-file))
-      [:h3 slug]
+      (markdown->html "- hei\n- trolo")
       [:div "OLORM NOT FOUND"])))
 
 ;; infer builder
