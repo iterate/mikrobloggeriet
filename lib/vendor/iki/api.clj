@@ -17,6 +17,13 @@
 (defn cache-fn-by
   "A simple in-memory caching mechanism
 
+  Example:
+
+    (def cached+ (cache-fn-by slow+ (fn [a b] (str a \" \" b)))
+
+    (cached+ 1 2) ; normal speed first time
+    (cached+ 1 2) ; next invokation is a cache lookup
+
   - `f` is the function you want to cache
 
   - `cache-key-fn` is a function taking the same arguments as `f`, returning a
