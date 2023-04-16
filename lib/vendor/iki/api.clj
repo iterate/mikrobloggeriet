@@ -15,7 +15,15 @@
     (slurp (:out (babashka.process/process "pandoc --from markdown+smart --to html" {:in markdown})))))
 
 (defn cache-fn-by
-  "A simple in-memory caching mechanism"
+  "A simple in-memory caching mechanism
+
+  - `f` is the function you want to cache
+
+  - `cache-key-fn` is a function taking the same arguments as `f`, returning a
+    string which is used as cache key.
+
+  - `warn-fn` (optional, function from string to any) is called when the caching
+    mechanism fails. It defaults to nil, no reporting."
   ([f cache-key-fn] (cache-fn-by f cache-key-fn {}))
   ([f cache-key-fn {:keys [warn-fn]}]
    (let [cache (atom {})]
