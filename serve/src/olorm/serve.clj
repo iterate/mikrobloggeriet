@@ -2,7 +2,8 @@
   (:require
    [hiccup.page :as page]
    [compojure.core :refer [defroutes GET]]
-   [org.httpkit.server :as httpkit]))
+   [org.httpkit.server :as httpkit]
+   [olorm.devui :as devui]))
 
 (defn index [_req]
   (page/html5
@@ -11,6 +12,7 @@
     [:h1 "OLORM"]]))
 
 (defn olorm [_req]
+  (reset! devui/xx _req)
   (page/html5
    [:head (hiccup.page/include-css "/vanilla.css")]
    [:body

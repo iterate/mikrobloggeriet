@@ -35,3 +35,9 @@
 (defn stop! []
   (let [stop-fn (requiring-resolve 'olorm.serve/stop!)]
     (stop-fn)))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn clerk-start! []
+  (let [clerk-serve (requiring-resolve 'nextjournal.clerk/serve!)
+        clerk-port 7743]
+    (clerk-serve {:browse? true :port clerk-port})))
