@@ -3,7 +3,6 @@
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [iki.api :as iki]
-   [olorm.devui :as devui]
    [olorm.lib :as olorm]
    [org.httpkit.server :as httpkit]))
 
