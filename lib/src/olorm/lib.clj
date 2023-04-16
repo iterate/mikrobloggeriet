@@ -40,7 +40,7 @@
 
 (defn path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
-  (fs/path (:repo-path olorm) "p" (:slug olorm)))
+  (fs/path (:repo-path olorm) "o" (:slug olorm)))
 
 (defn index-md-path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")

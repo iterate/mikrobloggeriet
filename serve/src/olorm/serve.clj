@@ -18,7 +18,7 @@
 
 (defn olorm->html [{:keys [repo-path slug]}]
   ;; canonicalize
-  (let [olorm-path (fs/path repo-path "p" slug)
+  (let [olorm-path (fs/path repo-path "o" slug)
         index-md-file (fs/file olorm-path "index.md")]
     ;; validate
     (when (and (fs/directory? olorm-path)
