@@ -33,3 +33,8 @@
 (defn olorm->html [& _args])
 
 (olorm->html {:slug "olorm-1" :repo-path ".."})
+
+;; ... or do I want hiccup?
+;; not sure.
+;; how do I want this to integrate with the rest of the system?
+;; what am I doing (really) in OGGPOW?
