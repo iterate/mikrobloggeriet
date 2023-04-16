@@ -34,3 +34,26 @@ funka det!
 
 Ikke hørt med Oddmund og Richard ennå.
 Håper vi kan finne et tidspunkt der alle kan være på kontoret.
+* 2023-04-16
+** Åhh, kjempefornøyd med =olorm.lib=!!!
+Dette synes jeg begynner å bli skikkelig bra.
+** Og =clerk= og =babashka/fs=!
+❤️
+** meeeen
+Jeg har hardkodet meg inn i at URL til OLORM-er skal være
+
+#+begin_src
+/p/$OLORM
+#+end_src
+
+ooog nå vil jeg ha
+
+#+begin_src
+/o/$OLORM
+#+end_src
+
+, selvfølgelig.
+*** men meen
+jeg kan jo bare fikse routeren, og la filene ligge?
+
+hmm.
