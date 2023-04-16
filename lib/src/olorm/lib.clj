@@ -8,18 +8,14 @@
    [clojure.edn :as edn]
    [clojure.string :as str]))
 
-;; olom data format example:
+;; olorm example:
 
-{:slug "olorm-1" :olorm 1 :number 1 :repo-path "."}
-
-;; :slug is a string. :slug will appear in the URL.
-;; :olorm is an int.
+{:slug "olorm-1" :number 1 :repo-path "."}
 
 (defn slug->olorm [slug]
   (let [olorm-str (second (re-find #"olorm-([0-9]+)" slug))]
     (if olorm-str
       {:slug slug
-       :olorm (edn/read-string olorm-str)
        :number (edn/read-string olorm-str)}
       {:slug slug})))
 
