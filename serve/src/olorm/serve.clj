@@ -30,6 +30,7 @@
 
 (defroutes app
   (GET "/" req (index req))
+  (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
   (GET "/o/:slug/" req (olorm req)))
 
