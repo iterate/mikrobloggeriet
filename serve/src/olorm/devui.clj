@@ -6,7 +6,7 @@
    [olorm.lib :as olorm]
    [iki.api :as iki]))
 
-;; ## Looking at things, eg http requests
+;; ## Look at things, like http requests
 
 (defonce xx (atom nil))
 
