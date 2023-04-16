@@ -1,10 +1,10 @@
 (ns olorm.serve
   (:require
-   [babashka.fs :as fs]
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [iki.api :as iki]
    [olorm.devui :as devui]
+   [olorm.lib :as olorm]
    [org.httpkit.server :as httpkit]))
 
 (defn index [_req]
@@ -16,17 +16,12 @@
 (def markdown->html
   (iki/cache-fn-by iki/markdown->html identity))
 
-(defn olorm->html [{:keys [repo-path slug]}]
-  ;; canonicalize
-  (let [olorm-path (fs/path repo-path "o" slug)
-        index-md-file (fs/file olorm-path "index.md")]
-    ;; validate
-    (when (and (fs/directory? olorm-path)
-               (fs/exists? index-md-file))
-      (markdown->html (slurp index-md-file)))))
+(defn olorm->html [olorm]
+  (when (olorm/exists? olorm)
+    (markdown->html (slurp (olorm/index-md-path olorm) ))))
 
 (defn olorm [req]
-  (reset! devui/xx req)
+  (reset! devui/xx req) ;; i want to use tap> here
   (let [olorm (select-keys (:route-params req) [:slug])]
     (page/html5
      [:head (hiccup.page/include-css "/vanilla.css")]
