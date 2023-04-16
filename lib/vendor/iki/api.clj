@@ -14,9 +14,9 @@
 
 (defn markdown->html
   "Converts mardown to html by shelling out to Pandoc"
-  [md]
-  (when (string? md)
-    [:div 123]))
+  [markdown]
+  (when (string? markdown)
+    (slurp (:out (babashka.process/process "pandoc --from markdown+smart --to html" {:in markdown})))))
 
 (clerk/html
  (markdown->html (str/trim "
