@@ -61,15 +61,18 @@
        (filter :olorm)
        (map #(assoc % :repo-path repo-path))))
 
-(defn md-skeleton [{:keys [olorm]}]
-  (str "# OLORM-" olorm "\n\n"
-       (str/trim "
+(defn md-skeleton [olorm]
+  (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))
+                  (:slug olorm)
+                  "OLORM")]
+    (str "# " title "\n\n"
+         (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
 
 <!-- 2. Finner du kvalitet i det? -->
 
 <!-- 3. Hvorfor / hvorfor ikke? -->
-")))
+"))))
 
 (defn path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")

@@ -54,7 +54,7 @@ your system, so we need to know where to find OLORM pages.
       (shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :olorm) sort last)
                               0))
-          olorm (-> olorm/->olorm {:repo-path repo-path :number next-number})
+          olorm (olorm/->olorm {:repo-path repo-path :number next-number})
           _ (prn olorm)
           next-olorm-dir (olorm/path olorm)]
       (fs/create-dirs next-olorm-dir)
