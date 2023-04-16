@@ -51,15 +51,16 @@ your system, so we need to know where to find OLORM pages.
 (defn olorm-create [{}]
   (let [repo-path (repo-path)]
     (shell {:dir repo-path} "git pull --rebase")
-    (let [next-olorm (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :olorm) sort last)
+    (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :olorm) sort last)
                               0))
-          next-dir (olorm/path {:repo-path repo-path :olorm next-olorm})] ;; TODO check! I've refactored lib/path. Need to avoid regression. (there are no tests)
+          olorm (-> olorm/->olorm {:repo-path repo-path :number next-number})
+          next-dir (olorm/path olorm)]
       (fs/create-dirs next-dir)
       (let [next-index-md (str next-dir "/index.md")]
-        (spit next-index-md (olorm/md-skeleton {:olorm next-olorm}))
+        (spit next-index-md (olorm/md-skeleton olorm))
         (shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
         (shell {:dir repo-path} "git add .")
-        (shell {:dir repo-path} "git commit -m" (str "olorm-" next-olorm))
+        (shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
         (shell {:dir repo-path} "git push")))))
 
 (def subcommands
