@@ -1,15 +1,29 @@
 (ns olorm.serve
   (:require
-   [hiccup.page :as page]
+   [babashka.fs :as fs]
    [compojure.core :refer [defroutes GET]]
-   [org.httpkit.server :as httpkit]
-   [olorm.devui :as devui]))
+   [hiccup.page :as page]
+   [iki.api :as iki]
+   [olorm.devui :as devui]
+   [org.httpkit.server :as httpkit]))
 
 (defn index [_req]
   (page/html5
    [:head (hiccup.page/include-css "/vanilla.css")]
    [:body
     [:h1 "OLORM"]]))
+
+(def markdown->html
+  (iki/cache-fn-by iki/markdown->html identity))
+
+(defn olorm->html [{:keys [repo-path slug]}]
+  ;; canonicalize
+  (let [olorm-path (fs/path repo-path "p" slug)
+        index-md-file (fs/file olorm-path "index.md")]
+    ;; validate
+    (when (and (fs/directory? olorm-path)
+               (fs/exists? index-md-file))
+      (markdown->html (slurp index-md-file)))))
 
 (defn olorm [req]
   (reset! devui/xx req)
