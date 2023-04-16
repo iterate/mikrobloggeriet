@@ -36,7 +36,7 @@
 (defroutes app
   (GET "/" req (index req))
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
-  (GET "/p/:slug/" req (olorm req)))
+  (GET "/o/:slug/" req (olorm req)))
 
 (defonce server (atom nil))
 (def port 7223)
