@@ -13,13 +13,6 @@
 
 {:slug "olorm-1" :number 1 :repo-path "."}
 
-(defn slug->olorm [slug]
-  (let [olorm-str (second (re-find #"olorm-([0-9]+)" slug))]
-    (if olorm-str
-      {:slug slug
-       :number (edn/read-string olorm-str)}
-      {:slug slug})))
-
 (defn ^:private parse-slug [slug]
   (when-let [number (second (re-find #"olorm-([0-9]+)" slug))]
     (edn/read-string number)))
