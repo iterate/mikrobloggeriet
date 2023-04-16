@@ -28,7 +28,16 @@
     (edn/read-string number)))
 
 (defn ->olorm
-  "Try creating an olorm from \"what we've got\"."
+  "Try creating an olorm from \"what we've got\".
+
+  Examples:
+
+    (->olorm {:slug \"olorm-2\"})
+    ;; => {:slug \"olorm-2\" :number 2}
+
+    (->olorm {:number 3})
+    ;; => {:slug \"olorm-3\" :number 3}
+  "
   [{:keys [slug number repo-path]}]
   (let [olorm {}
         olorm (if repo-path (assoc olorm :repo-path repo-path) olorm)
