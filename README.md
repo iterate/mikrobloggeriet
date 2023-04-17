@@ -6,7 +6,9 @@ First, please clone this repo, and install [babashka] and [bbin].
 
 Then, install the `olorm` CLI:
 
-    bbin install ./cli
+```shell
+bbin install ./cli
+```
 
 You should then be able to invoke the CLI:
 
