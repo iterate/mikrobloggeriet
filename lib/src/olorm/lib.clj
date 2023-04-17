@@ -6,8 +6,7 @@
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [clojure.string :as str]
-   [nextjournal.clerk :as clerk]))
+   [clojure.string :as str]))
 
 ;; olorm example:
 
@@ -17,8 +16,9 @@
   (when-let [number (second (re-find #"olorm-([0-9]+)" slug))]
     (edn/read-string number)))
 
-(when-let [html (requiring-resolve 'nextjournal.clerk/html)]
-  (parse-slug "olorm-42"))
+(comment
+  (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
+    (parse-slug "olorm-42")))
 
 (defn ->olorm
   "Try creating an olorm from \"what we've got\".
@@ -54,8 +54,9 @@
        (filter :number)
        (map #(assoc % :repo-path repo-path))))
 
-(when-let [html (requiring-resolve 'nextjournal.clerk/html)]
-  (olorms {:repo-path ".."}))
+(comment
+  (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
+    (olorms {:repo-path ".."})))
 
 (defn md-skeleton [olorm]
   (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))
