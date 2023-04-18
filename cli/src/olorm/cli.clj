@@ -57,7 +57,7 @@ Usage:
 
 Allowed options:
 
-  --help               Show this helptext
+  --help               Show this helptext.
   --disable-git-magic  Disable running any Git commands. Useful for testing.
 "))
     (System/exit 0))
