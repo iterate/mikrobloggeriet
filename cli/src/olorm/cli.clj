@@ -49,6 +49,18 @@ your system, so we need to know where to find OLORM pages.
       (System/exit 1))))
 
 (defn olorm-create [{:keys [opts]}]
+  (when (or (:help opts) (:h opts))
+    (println (str/trim "
+Usage:
+
+  olorm create [OPTION...]
+
+Allowed options:
+
+  --help               Show this helptext
+  --disable-git-magic  Disable running any Git commands. Useful for testing.
+"))
+    (System/exit 0))
   (let [repo-path (repo-path)]
     (when-not (:disable-git-magic opts)
       (shell {:dir repo-path} "git pull --rebase"))
