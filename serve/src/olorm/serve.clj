@@ -9,8 +9,8 @@
 
 (defn index [_req]
   (let [olorm-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
-        github-olorm-url "xx"
-        tech-forum-url "xx"
+        github-olorm-url "https://github.com/iterate/olorm/"
+        tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"]
