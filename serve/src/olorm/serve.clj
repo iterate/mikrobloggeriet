@@ -4,13 +4,17 @@
    [hiccup.page :as page]
    [iki.api :as iki]
    [olorm.lib :as olorm]
+   [clojure.pprint]
    [org.httpkit.server :as httpkit]))
 
 (defn index [_req]
   (page/html5
    [:head (hiccup.page/include-css "/vanilla.css")]
    [:body
-    [:h1 "OLORM"]]))
+    [:h1 "OLORM"]
+    [:pre (with-out-str (clojure.pprint/pprint (olorm/olorms {:repo-path ".."})))]
+    [:ul [:li "trala"]]
+    ]))
 
 (def markdown->html
   (iki/cache-fn-by iki/markdown->html identity))
@@ -26,6 +30,7 @@
     (page/html5
      [:head (hiccup.page/include-css "/vanilla.css")]
      [:body
+      [:p [:a {:href "/"} "alle OLORM-er"]]
       (olorm->html olorm)])))
 
 (defroutes app
