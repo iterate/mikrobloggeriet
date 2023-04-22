@@ -8,16 +8,34 @@
    [org.httpkit.server :as httpkit]))
 
 (defn index [_req]
-  (page/html5
-   [:head (hiccup.page/include-css "/vanilla.css")]
-   [:body
-    [:h1 "OLORM"]
-    [:p
-     (interpose " · "
-                (for [olorm (olorm/olorms {:repo-path ".."})]
-                  [:span
-                   [:a {:href (olorm/href olorm)} (:slug olorm)]]))]
-    [:p "OLORM på Github: " [:a {:href "https://github.com/iterate/olorm"} "iterate/olorm"]]]))
+  (let [olorm-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
+        github-olorm-url "xx"
+        tech-forum-url "xx"
+        teodor-url "https://teod.eu/"
+        hops-url "https://www.headless-operations.no/"
+        iterate-url "https://www.iterate.no/"]
+    (page/html5
+     [:head (hiccup.page/include-css "/vanilla.css")]
+     [:body
+      [:h1 "OLORM"]
+      [:p
+       (interpose " · "
+                  (for [olorm (olorm/olorms {:repo-path ".."})]
+                    [:span
+                     [:a {:href (olorm/href olorm)} (:slug olorm)]]))]
+
+      [:hr]
+
+      [:p [:strong "For Iterate-ansatte:"] " "
+       "Diskuter gjerne på OLORM-er i " [:a {:href tech-forum-url} "#tech-forum"] " eller i tråder på " [:a {:href olorm-announce-url} "#olorm-announce"] ". "
+       "Vi velger å skrive fordi vi " [:em "liker"] " å snakke om fag, og fordi vi bryr oss!"]
+
+      [:p [:strong "For andre:"] " "
+       "OLORM er et initiativ der teknologer fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
+       "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
+       "Innhold og kode for OLORM ligger åpent på " [:a {:href github-olorm-url} "github.com/iterate/olorm"] ". "
+       "OLORM kjører på " [:a {:href hops-url} "Headless Operations"] ". "
+       "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]])))
 
 (def markdown->html
   (iki/cache-fn-by iki/markdown->html identity))
