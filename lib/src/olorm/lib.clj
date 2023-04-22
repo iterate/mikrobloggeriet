@@ -47,11 +47,24 @@
                 olorm)]
     olorm))
 
-(defn olorms [{:keys [repo-path]}]
-  (->> (fs/list-dir (fs/file repo-path "o"))
+(def ^:private olorms-folder "o")
+
+(defn href
+  "Link to an olorm"
+  [olorm]
+  (let [olorm (->olorm olorm)]
+    (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
+    (str "/" olorms-folder "/" (:slug olorm) "/")))
+
+(defn olorms
+  "All olorms sorted by olorm number"
+  [{:keys [repo-path]}]
+  (assert repo-path)
+  (->> (fs/list-dir (fs/file repo-path olorms-folder))
        (map (fn [f]
               (->olorm {:repo-path repo-path :slug (fs/file-name f)})))
        (filter :number)
+       (sort-by :number)
        (map #(assoc % :repo-path repo-path))))
 
 (comment
@@ -73,7 +86,7 @@
 
 (defn path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
-  (fs/path (:repo-path olorm) "o" (:slug olorm)))
+  (fs/path (:repo-path olorm) olorms-folder (:slug olorm)))
 
 (defn index-md-path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")

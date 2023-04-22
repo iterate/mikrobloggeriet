@@ -12,9 +12,12 @@
    [:head (hiccup.page/include-css "/vanilla.css")]
    [:body
     [:h1 "OLORM"]
-    [:pre (with-out-str (clojure.pprint/pprint (olorm/olorms {:repo-path ".."})))]
-    [:ul [:li "trala"]]
-    ]))
+    [:p
+     (interpose " · "
+                (for [olorm (olorm/olorms {:repo-path ".."})]
+                  [:span
+                   [:a {:href (olorm/href olorm)} (:slug olorm)]]))]
+    [:p "OLORM på Github: " [:a {:href "https://github.com/iterate/olorm"} "iterate/olorm"]]]))
 
 (def markdown->html
   (iki/cache-fn-by iki/markdown->html identity))
@@ -30,7 +33,7 @@
     (page/html5
      [:head (hiccup.page/include-css "/vanilla.css")]
      [:body
-      [:p [:a {:href "/"} "alle OLORM-er"]]
+      [:p [:a {:href "/"} ".."]]
       (olorm->html olorm)])))
 
 (defroutes app
