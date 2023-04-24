@@ -244,7 +244,7 @@ meeen det teller ikke, vi skal trekke på ekte i morgen.
 2. Det var litt gøy å skrive :)
 3. Jeg er glad vi har et CLI for OLORM så vi kan fikse småting som "å trekke OLORM-forfatter er kjedelig"
 4. Hvis man skal skrive så langt som dette hver gang, er hver tredje dag alt for ofte.
-   Jeg kunne kanskje satt av tid til en sånn en hver uke.
+   Jeg kunne kanskje satt av tid til en sånn en hver uke. Eller annenhver uke.
    Men jeg kunne jo også gjort noe "mindre".
    Feks trukket en tilfeldig [personlig aforisme], og forklart hva jeg legger i den.
 
