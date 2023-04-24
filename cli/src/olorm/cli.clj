@@ -53,7 +53,7 @@ your system, so we need to know where to find OLORM pages.
     (println (str/trim "
 Usage:
 
-  olorm create [OPTION...]
+  $ olorm create [OPTION...]
 
 Allowed options:
 
@@ -79,11 +79,27 @@ Allowed options:
 
 (defn olorm-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
-    (prn `(str/blank? ~pool)
-         (str/blank? pool))
-    (prn `(rand-nth ~pool)
-         (rand-nth pool))
-    ))
+    (when (or (:h opts)
+              (:help opts)
+              (not pool))
+      (println (str/trim "
+Usage:
+
+  $ olorm create POOL
+
+POOL is a string that can contain the first letters of the OLORM authors.
+Example usage:
+
+  $ olorm draw olr
+  Richard
+"
+                         ))
+      (if (or (:h opts) (:help opts))
+        (System/exit 0)
+        (System/exit 1)))
+    (prn
+     (get (zipmap "olr" '(oddmund lars richard))
+          (rand-nth pool)))))
 
 (def subcommands
   [
