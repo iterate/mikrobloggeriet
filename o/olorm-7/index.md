@@ -201,6 +201,8 @@ Example usage:
           (rand-nth pool)))))
 ```
 
+Den kan brukes sånn:
+
 ```shell
 $ olorm draw
 Usage:
