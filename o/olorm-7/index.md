@@ -2,12 +2,9 @@
 
 Hei!
 
-I dag er det Teodor som skriver OLORM.
-
-## Introduksjon
-
-Det er mye jeg har lyst til å si, men jeg vil fokusere på hvor viktig det er å ta eierskap over egen arbeidsprosess for oss som jobber med utvikling.
-En flott formulering av dette er TODO GEEPAW DEVX CLI
+Jeg (i dag Teodor) synes det er viktig å ta eierskap til egen arbeidsprosess for oss som jobber med utvikling.
+Ofte ender jeg opp med å bygge meg et CLI for å gjøre ting lett å jobbe med.
+I dag vil jeg dele et konkret eksempel.
 
 Hopp forbi `Digresjon: litt Clojure-koding` hvis du bare vil lese konklusjonen.
 
@@ -249,3 +246,10 @@ meeen det teller ikke, vi skal trekke på ekte i morgen.
    Feks trukket en tilfeldig [personlig aforisme], og forklart hva jeg legger i den.
 
 [personlig aforisme]: https://play.teod.eu/aphorisms/
+
+## Referanser
+
+GeePaw Hill er en flink fyr som også snakker om hvordan vi utviklere kan ta kontroll over arbeidsprosessen vår.
+Hvis du synes denne artikkelen var spennnede, vil du kanskje like [podcasten hans][geepaw-podcast].
+
+[geepaw-podcast]: https://www.geepawhill.org/tag/podcast/
