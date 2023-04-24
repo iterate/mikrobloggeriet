@@ -235,3 +235,17 @@ meeen det teller ikke, vi skal trekke på ekte i morgen.
    [The Pragmatic Programmer] har et kapittel som heter "Don't leave broken windows" om dette.
    
 [The Pragmatic Programmer]: https://play.teod.eu/the-pragmatic-programmer/
+
+## Retrospektiv
+
+1. OLORM-er skal ta 5-10 minutter å skrive.
+   Jeg sprente tidsskjemaet med cirka ti-gangeren.
+   Dette setter dårlig presedens, og jeg innser at det er _kjempevanskelig_ å vise "en liten bit uten å bruke masse tid."
+2. Det var litt gøy å skrive :)
+3. Jeg er glad vi har et CLI for OLORM så vi kan fikse småting som dette.
+4. Hvis man skal skrive så langt som dette hver gang, er hver tredje dag alt for ofte.
+   Jeg kunne kanskje satt av tid til en sånn en hver uke.
+   Men jeg kunne jo også gjort noe "mindre".
+   Feks trukket en tilfeldig [personlig aforisme], og forklart hva jeg legger i den.
+
+[personlig aforisme]: https://play.teod.eu/aphorisms/
