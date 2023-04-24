@@ -239,7 +239,7 @@ meeen det teller ikke, vi skal trekke på ekte i morgen.
 ## Retrospektiv
 
 1. OLORM-er skal ta 5-10 minutter å skrive.
-   Jeg sprente tidsskjemaet med cirka ti-gangeren.
+   Jeg sprengte tidsskjemaet med cirka ti-gangeren.
    Dette setter dårlig presedens, og jeg innser at det er _kjempevanskelig_ å vise "en liten bit uten å bruke masse tid."
 2. Det var litt gøy å skrive :)
 3. Jeg er glad vi har et CLI for OLORM så vi kan fikse småting som dette.
