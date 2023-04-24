@@ -77,8 +77,13 @@ Allowed options:
           (shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
           (shell {:dir repo-path} "git push"))))))
 
-(defn olorm-draw [stuff]
-  (prn stuff))
+(defn olorm-draw [{:keys [opts]}]
+  (let [pool (:pool opts)]
+    (prn `(str/blank? ~pool)
+         (str/blank? pool))
+    (prn `(rand-nth ~pool)
+         (rand-nth pool))
+    ))
 
 (def subcommands
   [
