@@ -77,12 +77,16 @@ Allowed options:
           (shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
           (shell {:dir repo-path} "git push"))))))
 
+(defn olorm-draw [stuff]
+  (prn stuff))
+
 (def subcommands
   [
    {:cmds ["create"]        :fn olorm-create}
    {:cmds ["help"]          :fn olorm-help}
    {:cmds ["repo-path"]     :fn olorm-repo-path}
    {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
+   {:cmds ["draw"]          :fn olorm-draw          :args->opts [:pool]}
    {:cmds []                :fn olorm-help}])
 
 (defn -main [& args]
