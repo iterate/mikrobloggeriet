@@ -19,7 +19,7 @@ Jeg gjorde så et søk i kodebasen etter flere tilfeller:
 find . -name \*.go -exec \
     awk '/= make\(\[\][^,]*,[^,]*$/ {    # linjer med "= make([]" og ett komma
         if ($1 == "var")                 # hvis 1. ord er "var":
-            for (i=1;i<NF;i++) $i=$(i+1) # dropp første ord ("shift")
+            for (i=1;i<NF;i++) $i=$(i+1) # dropp første ord (som `shift`)
         if ($4 != "0)")                  # hvis siste arg != 0:
             v = $1                       # sett 'v' til variabelnavnet
     } v && $0 ~ (v " = append\\(" v) {   # hvis vi finner "v = append(v":
