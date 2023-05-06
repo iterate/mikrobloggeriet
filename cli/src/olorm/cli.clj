@@ -86,7 +86,7 @@ Allowed options:
         (when-not (:disable-git-magic opts)
           (eval-or-show-work `(do
                                 (shell {:dir ~repo-path} "git add .")
-                                (shell {:dir ~repo-path} "git commit -m" (str "olorm-" (:number olorm)))
+                                (shell {:dir ~repo-path} "git commit -m" (str "olorm-" ~(:number olorm)))
                                 (shell {:dir ~repo-path} "git push")))))
       (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
                                       "\n\n"
