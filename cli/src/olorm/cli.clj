@@ -62,24 +62,24 @@ Allowed options:
 "))
     (System/exit 0))
   (let [repo-path (repo-path)
-        dispatch2 (fn [cmd & args]
-                    (if (:dry-run opts)
-                      (prn `(~cmd ~@args))
-                      (apply (eval cmd) args)))]
+        dispatch (fn [cmd & args]
+                   (if (:dry-run opts)
+                     (prn `(~cmd ~@args))
+                     (apply (eval cmd) args)))]
     (when-not (:disable-git-magic opts)
-      (dispatch2 `shell {:dir repo-path} "git pull --rebase"))
+      (dispatch `shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
                                0))
           olorm (olorm/->olorm {:repo-path repo-path :number next-number})
           next-olorm-dir (olorm/path olorm)]
-      (dispatch2 `fs/create-dirs next-olorm-dir)
+      (dispatch `fs/create-dirs next-olorm-dir)
       (let [next-index-md (olorm/index-md-path olorm)]
-        (dispatch2 `spit next-index-md (olorm/md-skeleton olorm))
-        (dispatch2 `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
+        (dispatch `spit next-index-md (olorm/md-skeleton olorm))
+        (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
         (when-not (:disable-git-magic opts)
-          (dispatch2 `shell {:dir repo-path} "git add .")
-          (dispatch2 `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
-          (dispatch2 `shell {:dir repo-path} "git push")))
+          (dispatch `shell {:dir repo-path} "git add .")
+          (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
+          (dispatch `shell {:dir repo-path} "git push")))
       (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
                                       "\n\n"
                                       (str "   OLORM-" (:number olorm) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
