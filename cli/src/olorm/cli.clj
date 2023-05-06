@@ -62,10 +62,6 @@ Allowed options:
 "))
     (System/exit 0))
   (let [repo-path (repo-path)
-        dispatch (fn [form]
-                   (if (:dry-run opts)
-                     (prn form)
-                     (eval form)))
         dispatch2 (fn [cmd & args]
                     (if (:dry-run opts)
                       (prn `(~cmd ~@args))
