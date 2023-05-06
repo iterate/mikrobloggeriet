@@ -59,6 +59,7 @@ Allowed options:
 
   --help               Show this helptext.
   --disable-git-magic  Disable running any Git commands. Useful for testing.
+  --dry-run            Supress side effects and print commands instead
 "))
     (System/exit 0))
   (let [repo-path (repo-path)
