@@ -6,7 +6,8 @@
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [babashka.process :refer [shell]]))
 
 ;; olorm example:
 
@@ -91,6 +92,20 @@
 (defn index-md-path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
   (fs/file (path olorm) "index.md"))
+
+(defn meta-path [olorm]
+  (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
+  (fs/file (path olorm) "meta.edn"))
+
+(defn git-user-email [{:keys [repo-path]}]
+  (str/trim (:out (shell {:out :string :dir repo-path} "git config user.email"))))
+
+(defn uuid []
+  (str (java.util.UUID/randomUUID)))
+
+(defn today []
+  (.format (java.time.LocalDateTime/now)
+           (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd")))
 
 (defn exists? [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
