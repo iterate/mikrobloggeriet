@@ -83,18 +83,13 @@ Allowed options:
         (println olorm-announce-nudge)))))
 
 (defn lol [{:keys [opts]}]
-  (let [shell-or-show-work (fn [& args]
-                             (if (:dry-run opts)
-                               (prn `(shell ~@args)) ; jeg tror dette hadde blitt bedre med en makro, men jeg klarer ikke skrive makroen
-                               (apply shell args)))
-        exec-or-show-work (fn [form]
+  (let [eval-or-show-work (fn [form]
                              (if (:dry-run opts)
                                (prn form)
                                (eval form)))
         ]
-    ;; (shell-or-show-work "ls" "..")
-    (exec-or-show-work `(prn "trolololo"))
-    (exec-or-show-work `(shell "ls" ".."))
+    (eval-or-show-work `(prn "trolololo"))
+    (eval-or-show-work `(shell "ls" ".."))
     ))
 
 (defn olorm-draw [{:keys [opts]}]
