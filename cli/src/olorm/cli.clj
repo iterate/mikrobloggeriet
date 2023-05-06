@@ -70,19 +70,15 @@ Allowed options:
                               (eval form)))
         ]
     (when-not (:disable-git-magic opts)
-      (eval-or-show-work
-       `(shell {:dir repo-path} "git pull --rebase")))
+      (eval-or-show-work (list `shell {:dir repo-path} "git pull --rebase")))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
                                0))
           olorm (olorm/->olorm {:repo-path repo-path :number next-number})
           next-olorm-dir (olorm/path olorm)]
-      (eval-or-show-work
-       `(fs/create-dirs ~next-olorm-dir))
+      (eval-or-show-work (list `fs/create-dirs next-olorm-dir))
       (let [next-index-md (olorm/index-md-path olorm)]
-        (eval-or-show-work
-         `(spit ~next-index-md (olorm/md-skeleton ~olorm)))
-        (eval-or-show-work
-         `(shell {:dir ~repo-path} (System/getenv "EDITOR") ~next-index-md))
+        (eval-or-show-work (list `spit next-index-md (olorm/md-skeleton olorm)))
+        (eval-or-show-work (list `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md))
         (when-not (:disable-git-magic opts)
           (eval-or-show-work (list `shell {:dir repo-path} "git add ."))
           (eval-or-show-work (list `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm))))
