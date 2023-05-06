@@ -86,11 +86,9 @@ Allowed options:
   (let [eval-or-show-work (fn [form]
                              (if (:dry-run opts)
                                (prn form)
-                               (eval form)))
-        ]
+                               (eval form)))]
     (eval-or-show-work `(prn "trolololo"))
-    (eval-or-show-work `(shell "ls" ".."))
-    ))
+    (eval-or-show-work `(shell "ls" ".."))))
 
 (defn olorm-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
