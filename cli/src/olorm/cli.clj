@@ -65,7 +65,11 @@ Allowed options:
         dispatch (fn [form]
                    (if (:dry-run opts)
                      (prn form)
-                     (eval form)))]
+                     (eval form)))
+        dispatch2 (fn [cmd & args]
+                    (if (:dry-run opts)
+                      (prn `(~cmd ~@args))
+                      (apply (eval cmd) args)))]
     (when-not (:disable-git-magic opts)
       (dispatch (list `shell {:dir repo-path} "git pull --rebase")))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
