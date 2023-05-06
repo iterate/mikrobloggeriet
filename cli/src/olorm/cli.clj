@@ -61,21 +61,33 @@ Allowed options:
   --disable-git-magic  Disable running any Git commands. Useful for testing.
 "))
     (System/exit 0))
-  (let [repo-path (repo-path)]
+  (let [repo-path (repo-path)
+        eval-or-show-work (fn eval-or-show
+                            [form]
+                            ;; Respects --dry run to either do the thing, or display what would have been done.
+                            (if (:dry-run opts)
+                              (prn form)
+                              (eval form)))
+        ]
     (when-not (:disable-git-magic opts)
-      (shell {:dir repo-path} "git pull --rebase"))
+      (eval-or-show-work
+       `(shell {:dir repo-path} "git pull --rebase")))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
                                0))
           olorm (olorm/->olorm {:repo-path repo-path :number next-number})
           next-olorm-dir (olorm/path olorm)]
-      (fs/create-dirs next-olorm-dir)
+      (eval-or-show-work
+       `(fs/create-dirs ~next-olorm-dir))
       (let [next-index-md (olorm/index-md-path olorm)]
-        (spit next-index-md (olorm/md-skeleton olorm))
-        (shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
+        (eval-or-show-work
+         `(spit ~next-index-md (olorm/md-skeleton ~olorm)))
+        (eval-or-show-work
+         `(shell {:dir ~repo-path} (System/getenv "EDITOR") ~next-index-md))
         (when-not (:disable-git-magic opts)
-          (shell {:dir repo-path} "git add .")
-          (shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
-          (shell {:dir repo-path} "git push")))
+          (eval-or-show-work `(do
+                                (shell {:dir ~repo-path} "git add .")
+                                (shell {:dir ~repo-path} "git commit -m" (str "olorm-" (:number olorm)))
+                                (shell {:dir ~repo-path} "git push")))))
       (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
                                       "\n\n"
                                       (str "   OLORM-" (:number olorm) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
