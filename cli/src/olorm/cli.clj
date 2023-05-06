@@ -22,7 +22,7 @@
   (println "Available subcommands:")
   (println)
   (doseq [{:keys [cmds]} subcommands]
-    (when (seq cmds)
+    (when (and (seq cmds) (not= cmds ["lol"]))
       (println (str "  olorm " (str/join " " cmds))))))
 
 (defn olorm-set-repo-path [{:keys [opts]}]
@@ -82,6 +82,13 @@ Allowed options:
                                            (:slug olorm) "/"))]
         (println olorm-announce-nudge)))))
 
+(defn lol [{:keys [opts]}]
+  (let [shell-or-show-work (fn [& args]
+                             (if (:dry-run opts)
+                               (prn `(shell ~@args)) ; jeg tror dette hadde blitt bedre med en makro, men jeg klarer ikke skrive makroen
+                               (apply shell args)))]
+    (shell-or-show-work "ls" "..")))
+
 (defn olorm-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
     (when (or (:h opts)
@@ -113,6 +120,7 @@ Example usage:
    {:cmds ["repo-path"]     :fn olorm-repo-path}
    {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
    {:cmds ["draw"]          :fn olorm-draw          :args->opts [:pool]}
+   {:cmds ["lol"]           :fn lol}
    {:cmds []                :fn olorm-help}])
 
 (defn -main [& args]
