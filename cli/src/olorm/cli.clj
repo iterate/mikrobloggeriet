@@ -85,7 +85,7 @@ Allowed options:
       (println (str/trim "
 Usage:
 
-  $ olorm create POOL
+  $ olorm draw POOL
 
 POOL is a string that can contain the first letters of the OLORM authors.
 Example usage:
