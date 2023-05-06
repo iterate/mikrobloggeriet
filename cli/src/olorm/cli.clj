@@ -62,27 +62,24 @@ Allowed options:
 "))
     (System/exit 0))
   (let [repo-path (repo-path)
-        eval-or-show-work (fn eval-or-show
-                            [form]
-                            ;; Respects --dry run to either do the thing, or display what would have been done.
-                            (if (:dry-run opts)
-                              (prn form)
-                              (eval form)))
-        ]
+        dispatch (fn [form]
+                   (if (:dry-run opts)
+                     (prn form)
+                     (eval form)))]
     (when-not (:disable-git-magic opts)
-      (eval-or-show-work (list `shell {:dir repo-path} "git pull --rebase")))
+      (dispatch (list `shell {:dir repo-path} "git pull --rebase")))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
                                0))
           olorm (olorm/->olorm {:repo-path repo-path :number next-number})
           next-olorm-dir (olorm/path olorm)]
-      (eval-or-show-work (list `fs/create-dirs next-olorm-dir))
+      (dispatch (list `fs/create-dirs next-olorm-dir))
       (let [next-index-md (olorm/index-md-path olorm)]
-        (eval-or-show-work (list `spit next-index-md (olorm/md-skeleton olorm)))
-        (eval-or-show-work (list `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md))
+        (dispatch (list `spit next-index-md (olorm/md-skeleton olorm)))
+        (dispatch (list `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md))
         (when-not (:disable-git-magic opts)
-          (eval-or-show-work (list `shell {:dir repo-path} "git add ."))
-          (eval-or-show-work (list `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm))))
-          (eval-or-show-work (list `shell {:dir repo-path} "git push"))))
+          (dispatch (list `shell {:dir repo-path} "git add ."))
+          (dispatch (list `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm))))
+          (dispatch (list `shell {:dir repo-path} "git push"))))
       (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
                                       "\n\n"
                                       (str "   OLORM-" (:number olorm) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
