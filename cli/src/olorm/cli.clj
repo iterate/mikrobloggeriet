@@ -57,9 +57,10 @@ Usage:
 
 Allowed options:
 
-  --help               Show this helptext.
   --disable-git-magic  Disable running any Git commands. Useful for testing.
   --dry-run            Supress side effects and print commands instead
+  --help               Show this helptext.
+  --no-git-magic       Alias for --disable-git-magic
 "))
     (System/exit 0))
   (let [repo-path (repo-path)
@@ -67,7 +68,7 @@ Allowed options:
                    (if (:dry-run opts)
                      (prn `(~cmd ~@args))
                      (apply (resolve cmd) args)))]
-    (when-not (:disable-git-magic opts)
+    (when-not (or (:no-git-magic opts) (:disable-git-magic opts))
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
                                0))
