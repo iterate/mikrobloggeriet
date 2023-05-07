@@ -66,7 +66,7 @@ Allowed options:
         dispatch (fn [cmd & args]
                    (if (:dry-run opts)
                      (prn `(~cmd ~@args))
-                     (apply (eval cmd) args)))]
+                     (apply (resolve cmd) args)))]
     (when-not (:disable-git-magic opts)
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
