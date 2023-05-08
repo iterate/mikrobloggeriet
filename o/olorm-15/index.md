@@ -11,7 +11,7 @@ Dette kan jeg også føle på indirekte i standup-runden med spørsmålet "hva h
 Avhengig av hva man jobber med er det lett å føle at "Mari & Per er mye mer produktive enn meg, de shipper jo saker i ett kjør".
 
 Selvfølgelig gjelder jo fortsatt kvalitet > kvantitet.
-(Jeg tar meg i å stadig oftere helle i retningen av at all ny kode er en "byrde", det er viktigere at du skrive _den riktige_ koden, enn at du _skriver kode_.)
+(Jeg tar meg i å stadig oftere helle i retningen av at all ny kode er en "byrde", det er viktigere at du skriver _den riktige_ koden, enn at du _skriver kode_.)
 Apropos: I fysikk skiller man mellom _fart_ og _hastighet_, der sistnevnte har retning. Høy utviklingsfart er ikke alt :)
 
 Men tilbake til Mari & Per. Jeg hørte nylig en podcast der en [forfatter](https://www.awesomecodereviews.com/best-practices/code-review-best-practices/) nevnte at det er _teamets_ fart som er interessant. Hvert individs fart er ganske irrelavant.
