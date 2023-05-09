@@ -15,7 +15,7 @@ Jeg kan prøve meg på et tenkt eksempel:
 
 Se for deg at du vil lage en funksjon som tar inn en liste med tall, og returnere en ny liste som er som input-listen—men alle tallene er lagt sammen med tallet til venstre for seg selv ganget med tallet til høyre for seg selv.
 Se for deg at du skriver litt eksempeltester, og det går greit til å begynne med, men etter hvert som eksemplene blir mer kompliserte blir implementasjonen vanskeligere.
-Helt til du innsert at inni implementasjonen din ligger det en litt ræva _reduce_-implementasjon.
+Helt til du innser at inni implementasjonen din ligger det en litt ræva _reduce_-implementasjon.
 (Her later vi som programmeringsspråket ditt ikke har noen _reduce_ fra før.)
 Nice! Da kan du zoome ut.
 
