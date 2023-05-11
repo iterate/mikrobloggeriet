@@ -12,8 +12,8 @@ Tragically, the "olorm" term is now ambiguous.
 But [Cool URIs don't change].
 I don't want to break existing URLs.
 
-The user experience of OLORM and JALS will suffer from this.
-I ask you to bear with me.
+The user experience of OLORM and JALS will suffer a bit from this.
+I ask you to to bear with me for the sake of the URIs :)
 
 [Cool URIs don't change]: https://www.w3.org/Provider/Style/URI
 
