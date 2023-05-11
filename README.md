@@ -2,11 +2,11 @@
 
 | term  | definition                                             |
 |-------|--------------------------------------------------------|
-| olorm | a tool for microblogging                               |
+| olorm | a CLI for microblogging                                |
 | olorm | a collection of microblogs                             |
 | olorm | Oddmund, Lars and Richard's microblog collective       |
 | jals  | Jørgen, Adrian, Lars and Sindre's microblog collective |
-| jals  | a tool for microblogging                               |
+| jals  | a CLI for microblogging                                |
 
 Tragically, the "olorm" term is now ambiguous.
 But [Cool URIs don't change].
