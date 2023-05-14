@@ -1,6 +1,9 @@
 ;; # Mikrobloggeriet
 ;;
 ;; An initiative for shared intent and  shared sense of quality among Iterate developers.
+;; View this namespace with [Clerk] for a nice reading experience.
+;;
+;; [Clerk]: https://clerk.vision/
 
 (ns mikrobloggeriet.api
   {:nextjournal.clerk/toc true})
