@@ -18,6 +18,8 @@
 
 ;; This is a valid client:
 
+{:nextjournal.clerk/visibility {:code :fold}}
+
 {:repo-path "/home/teodorlu/dev/iterate/olorm"
  :document-dir "o"
  :document-prefix "olorm-"}
@@ -41,12 +43,18 @@
 ;;
 ;; For example:
 
+{:nextjournal.clerk/visibility {:code :hide :result :hide}}
+
 (declare documents)
 (declare client)
+
+{:nextjournal.clerk/visibility {:code :show :result :show}}
 
 (documents (client {:repo-path ".."
                     :doc-dir "o"
                     :doc-prefix "olorm-"}))
+
+;; ## TODO write the code
 
 (defn documents [client])
 (defn client [opts]
