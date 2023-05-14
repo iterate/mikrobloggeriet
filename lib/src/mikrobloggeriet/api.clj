@@ -58,6 +58,8 @@
 ;; ## TODO write the code
 
 (defn ->client [opts]
+  ;; todo validate
   opts)
 (defn ->html [client doc]
-  "should return html")
+  ;; todo actually make html
+  )
