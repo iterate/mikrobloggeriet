@@ -58,3 +58,27 @@ jeg kan jo bare fikse routeren, og la filene ligge?
 
 hmm.
 *** Jepp, vi gjør det sånn
+* 2023-05-14
+** status
+1. jals starter tirsdag
+2. dagens arkitektur er laget for at OLORM er verktøyet, plattformen og kohorten
+3. jeg vil ha:
+   1. én plattform (mikrobloggeriet)
+   2. CLI per kohort
+   3. forskjellige kohorter.
+
+Skisse:
+
+- =mikrobloggeriet.api= - kjernelogikk.
+  - =client= -- hvilken mappe, etc.
+  - =document= -- en olorm, en jals, etc.
+- =mikrobloggeriet.olorm.cli= - OLORM CLI
+  - bruker =mirkobloggeriet.api=
+- =mikrobloggeriet.jals.cli=
+  - bruker =mikrobloggeriet.api
+
+Plan:
+
+1. Skriv =mikrobloggeriet.api=
+2. Prøv å migrere over =olorm.api= til å /bruke/ =mikrobloggeriet.api=.
+   1. må hardkode inn en default API-klient for OLORM for å få det til å funke.
