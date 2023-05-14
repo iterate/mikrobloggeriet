@@ -45,17 +45,19 @@
 
 {:nextjournal.clerk/visibility {:code :hide :result :hide}}
 
-(declare documents)
-(declare client)
+(declare ->client)
+(declare ->html)
 
 {:nextjournal.clerk/visibility {:code :show :result :show}}
 
-(documents (client {:repo-path ".."
-                    :doc-dir "o"
-                    :doc-prefix "olorm-"}))
+(let [client (->client {:repo-path ".."
+                        :doc-dir "o"
+                        :doc-prefix "olorm-"})]
+  (->html client
+          {:slug "olorm-42"}))
 
 ;; ## TODO write the code
 
-(defn documents [client])
-(defn client [opts]
+(defn ->client [opts]
   opts)
+(defn ->html [client doc])
