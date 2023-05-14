@@ -1,4 +1,4 @@
-;; # Mikrobloggeriet
+;; # Mikrobloggeriet API
 ;;
 ;; An initiative for shared intent and  shared sense of quality among Iterate developers.
 ;; View this namespace with [Clerk] for a nice reading experience.
