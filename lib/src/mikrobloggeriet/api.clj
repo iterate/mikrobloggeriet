@@ -53,11 +53,11 @@
 (let [client (->client {:repo-path ".."
                         :doc-dir "o"
                         :doc-prefix "olorm-"})]
-  (->html client
-          {:slug "olorm-42"}))
+  (->html client {:slug "olorm-42"}))
 
 ;; ## TODO write the code
 
 (defn ->client [opts]
   opts)
-(defn ->html [client doc])
+(defn ->html [client doc]
+  "should return html")
