@@ -19,15 +19,14 @@ I ask you to to bear with me for the sake of the URIs :)
 
 ## CLI prerequisites
 
-In order to install `olorm` or `jals`, please:
+In order to install `olorm`, please:
 
 1. Clone this repo
 2. Install [babashka] and [bbin]
-3. Then install `olorm`, `jals` or both.
+3. Then install `olorm`:
 
     ```shell
     bbin install ./olorm-cli
-    bbin install ./jals-cli
     ```
 
 You should then be able to invoke the CLI:
