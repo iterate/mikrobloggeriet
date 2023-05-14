@@ -26,6 +26,7 @@
 ;; A doc has a slug (eg `"olorm-42"`), a number (eg `42`) or both.
 ;; This is a valid doc:
 
+
 {:slug "olorm-42"
  :number 42}
 
@@ -36,3 +37,14 @@
 ;; [next.jdbc]: https://cljdoc.org/d/com.github.seancorfield/next.jdbc/1.3.874/doc/readme
 ;;
 ;; For example:
+
+(declare documents)
+(declare client)
+
+(documents (client {:repo-path ".."
+                    :doc-dir "o"
+                    :doc-prefix "olorm-"}))
+
+(defn documents [client])
+(defn client [opts]
+  opts)
