@@ -15,12 +15,11 @@ Vocabulary:
 | jals            | Jørgen, Adrian, Lars and Sindre's microblog collective |             |
 | jals            | a CLI for microblogging                                |             |
 
-Tragically, the "olorm" term is now ambiguous.
-But [Cool URIs don't change].
-I don't want to break existing links.
-
-The user experience of OLORM and JALS will suffer a bit from this.
-I ask you to to bear with me for the sake of the URIs :)
+Note: the "olorm" term is now ambiguous.
+It used to be the name of the whole, now it's only a /part/.
+But [Cool URIs don't change], and I don't want to break existing links.
+So we keep the repo name for now.
+All old URIs will continue to work.
 
 [Cool URIs don't change]: https://www.w3.org/Provider/Style/URI
 
