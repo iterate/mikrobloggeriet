@@ -52,7 +52,7 @@
 (def ^:private jals-ident :jals)
 
 (defn href
-  "Link to an olorm"
+  "Link to a doc"
   [doc]
   (let [olorm (->jals doc)]
     (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
