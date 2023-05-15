@@ -53,8 +53,8 @@
 
 (defn href
   "Link to an olorm"
-  [olorm]
-  (let [olorm (->jals olorm)]
+  [doc]
+  (let [olorm (->jals doc)]
     (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
     (str "/" olorms-folder "/" (:slug olorm) "/")))
 
