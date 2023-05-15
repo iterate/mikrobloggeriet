@@ -1,4 +1,4 @@
-;; # olorm core library
+;; # jals core library
 ;;
 ;; shared between CLI and server. Runs on both JVM Clojure and Babashka.
 
@@ -14,12 +14,12 @@
 {:slug "jals-1" :number 1 :repo-path "."}
 
 (defn ^:private parse-slug [slug]
-  (when-let [number (second (re-find #"olorm-([0-9]+)" slug))]
+  (when-let [number (second (re-find #"jals-([0-9]+)" slug))]
     (edn/read-string number)))
 
 (comment
   (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
-    (parse-slug "olorm-42")))
+    (parse-slug "jals-42")))
 
 (defn ->jals
   "Try creating a jals doc from \"what we've got\".
@@ -33,20 +33,20 @@
     ;; => {:slug \"jals-3\" :number 3}
   "
   [{:keys [slug number repo-path]}]
-  (let [olorm {}
-        olorm (if repo-path (assoc olorm :repo-path repo-path) olorm)
-        olorm (if number
-                (assoc olorm
+  (let [doc {}
+        doc (if repo-path (assoc doc :repo-path repo-path) doc)
+        doc (if number
+                (assoc doc
                        :number number
                        :slug (str "olorm-" number))
-                olorm)
-        olorm (if (and slug (not number))
+                doc)
+        doc (if (and slug (not number))
                 (when-let [number (parse-slug slug)]
-                  (assoc olorm
+                  (assoc doc
                          :slug slug
                          :number number))
-                olorm)]
-    olorm))
+                doc)]
+    doc))
 
 (def ^:private olorms-folder "j")
 (def ^:private jals-ident :jals)
