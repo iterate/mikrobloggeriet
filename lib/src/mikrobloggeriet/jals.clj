@@ -48,7 +48,7 @@
                 doc)]
     doc))
 
-(def ^:private olorms-folder "j")
+(def ^:private docs-folder "j")
 (def ^:private jals-ident :jals)
 
 (defn href
@@ -56,13 +56,13 @@
   [doc]
   (let [olorm (->jals doc)]
     (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
-    (str "/" olorms-folder "/" (:slug olorm) "/")))
+    (str "/" docs-folder "/" (:slug olorm) "/")))
 
 (defn docs
   "All olorms sorted by olorm number"
   [{:keys [repo-path]}]
   (assert repo-path)
-  (->> (fs/list-dir (fs/file repo-path olorms-folder))
+  (->> (fs/list-dir (fs/file repo-path docs-folder))
        (map (fn [f]
               (->jals {:repo-path repo-path :slug (fs/file-name f)})))
        (filter :number)
@@ -88,7 +88,7 @@
 
 (defn path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
-  (fs/path (:repo-path olorm) olorms-folder (:slug olorm)))
+  (fs/path (:repo-path olorm) docs-folder (:slug olorm)))
 
 (defn index-md-path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
