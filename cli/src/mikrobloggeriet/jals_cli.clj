@@ -103,20 +103,20 @@ Allowed options:
       (println (str/trim "
 Usage:
 
-  $ olorm draw POOL
+  $ jals draw POOL
 
 POOL is a string that can contain the first letters of the OLORM authors.
 Example usage:
 
-  $ olorm draw olr
-  Richard
+  $ jals draw jals
+  adrian
 "
                          ))
       (if (or (:h opts) (:help opts))
         (System/exit 0)
         (System/exit 1)))
     (prn
-     (get (zipmap "olr" '(oddmund lars richard))
+     (get (zipmap "jals" '(jørgen adrian lars sindre))
           (rand-nth pool)))))
 
 (def subcommands
