@@ -9,9 +9,9 @@
    [clojure.string :as str]
    [babashka.process :refer [shell]]))
 
-;; olorm example:
+;; jals example:
 
-{:slug "olorm-1" :number 1 :repo-path "."}
+{:slug "jals-1" :number 1 :repo-path "."}
 
 (defn ^:private parse-slug [slug]
   (when-let [number (second (re-find #"olorm-([0-9]+)" slug))]
