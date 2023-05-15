@@ -72,9 +72,9 @@
   (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
     (docs {:repo-path ".."})))
 
-(defn md-skeleton [olorm]
-  (let [title (or (when (:number olorm) (str "JALS-" (:number olorm)))
-                  (:slug olorm)
+(defn md-skeleton [doc]
+  (let [title (or (when (:number doc) (str "JALS-" (:number doc)))
+                  (:slug doc)
                   "JALS")]
     (str "# " title "\n\n"
          (str/trim "
