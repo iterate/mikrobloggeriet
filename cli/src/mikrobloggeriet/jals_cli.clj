@@ -104,7 +104,7 @@ Usage:
 
   $ jals draw POOL
 
-POOL is a string that can contain the first letters of the OLORM authors.
+POOL is a string that can contain the first letters of the JALS authors.
 Example usage:
 
   $ jals draw jals
