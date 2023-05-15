@@ -82,17 +82,16 @@ Allowed options:
       (let [next-index-md (jals/index-md-path doc)]
         (dispatch `spit next-index-md (jals/md-skeleton doc))
         (dispatch `spit (jals/meta-path doc) (prn-str {:git.user/email (jals/git-user-email {:repo-path repo-path})
-                                                          :doc/created (jals/today)
-                                                          :doc/uuid (jals/uuid)}))
+                                                       :doc/created (jals/today)
+                                                       :doc/uuid (jals/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
         (when-not (:disable-git-magic opts)
           (dispatch `shell {:dir repo-path} "git add .")
-          (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
+          (dispatch `shell {:dir repo-path} "git commit -m" (str "jals-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git push")))
-      (let [jals-announce-nudge (str "Husk å publisere i #jals-announce på Slack. Feks:"
+      (let [jals-announce-nudge (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
                                      "\n\n"
-                                     (str "   JALS-" (:number doc) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/j/"
-                                          (:slug doc) "/"))]
+                                     (str "   JALS-" (:number doc) ": $DIN_TITTEL → https://mikrobloggeriet.no/j/" (:slug doc) "/"))]
         (println jals-announce-nudge)))))
 
 (defn jals-draw [{:keys [opts]}]
