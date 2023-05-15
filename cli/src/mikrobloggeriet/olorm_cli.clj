@@ -80,8 +80,8 @@ Allowed options:
       (let [next-index-md (olorm/index-md-path doc)]
         (dispatch `spit next-index-md (olorm/md-skeleton doc))
         (dispatch `spit (olorm/meta-path doc) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
-                                                          :doc/created (olorm/today)
-                                                          :doc/uuid (olorm/uuid)}))
+                                                        :doc/created (olorm/today)
+                                                        :doc/uuid (olorm/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
         (when-not (:disable-git-magic opts)
           (dispatch `shell {:dir repo-path} "git add .")
