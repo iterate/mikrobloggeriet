@@ -40,6 +40,7 @@
        "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]])))
 
 (def markdown->html
+  "Convert markdown to html with pandoc and an in-memory cache"
   (iki/cache-fn-by iki/markdown->html identity))
 
 (defn olorm->html [olorm]
