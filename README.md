@@ -31,7 +31,7 @@ Da må du først:
 2. Installere [babashka] og [bbin].
    Hvis du bruker macOS, kan du installere disse to med Homebrew.
 
-## Installér mikrobloggeriet-kommandolinjeprogram for å skrive på OLORM (støttet)
+## Installér kommandolinjeprogram for å skrive OLORM-er
 
 Vennligst:
 
@@ -41,6 +41,8 @@ Vennligst:
     bbin install ./cli --as olorm --main-opts '["-m" "mikrobloggeriet.olorm-cli"]'
     ```
 
+2. Bruk subkommandoen `olorm set-repo-path` til å peke til der du har klonet repoet.
+   Kjør `olorm set-repo-path -h` for å se hjelpetekst for subkommadoen.
 
 ## Install OLORM CLI (deprecated, legacy)
 
