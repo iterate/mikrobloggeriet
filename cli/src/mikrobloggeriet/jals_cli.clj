@@ -76,7 +76,7 @@ Allowed options:
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (jals/docs {:repo-path repo-path}) (map :number) sort last)
                                0))
-          olorm (jals/->olorm {:repo-path repo-path :number next-number})
+          olorm (jals/->jals {:repo-path repo-path :number next-number})
           next-olorm-dir (jals/path olorm)]
       (dispatch `fs/create-dirs next-olorm-dir)
       (let [next-index-md (jals/index-md-path olorm)]

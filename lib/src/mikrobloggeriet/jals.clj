@@ -21,7 +21,7 @@
   (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
     (parse-slug "olorm-42")))
 
-(defn ->olorm
+(defn ->jals
   "Try creating an olorm from \"what we've got\".
 
   Examples:
@@ -54,7 +54,7 @@
 (defn href
   "Link to an olorm"
   [olorm]
-  (let [olorm (->olorm olorm)]
+  (let [olorm (->jals olorm)]
     (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
     (str "/" olorms-folder "/" (:slug olorm) "/")))
 
@@ -64,7 +64,7 @@
   (assert repo-path)
   (->> (fs/list-dir (fs/file repo-path olorms-folder))
        (map (fn [f]
-              (->olorm {:repo-path repo-path :slug (fs/file-name f)})))
+              (->jals {:repo-path repo-path :slug (fs/file-name f)})))
        (filter :number)
        (sort-by :number)
        (map #(assoc % :repo-path repo-path))))
