@@ -9,6 +9,8 @@
    [mikrobloggeriet.jals :as jals]
    [babashka.process :refer [shell]]))
 
+;; TODO -- trekk ut logikk og lagre under "mikrobloggeriet".
+;; (senere)
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
 (defn config-file [] (str (config-folder) "/config.edn"))
 
@@ -20,14 +22,14 @@
 
 (declare subcommands)
 
-(defn olorm-help [{:keys [_opts]}]
+(defn jals-help [{:keys [_opts]}]
   (println "Available subcommands:")
   (println)
   (doseq [{:keys [cmds]} subcommands]
     (when (and (seq cmds) (not= cmds ["lol"]))
-      (println (str "  olorm " (str/join " " cmds))))))
+      (println (str "  jals " (str/join " " cmds))))))
 
-(defn olorm-set-repo-path [{:keys [opts]}]
+(defn jals-set-repo-path [{:keys [opts]}]
   (let [repo-path (:repo-path opts)]
     (when-not repo-path
       (println (str/trim "
@@ -43,14 +45,14 @@ your system, so we need to know where to find OLORM pages.
       (fs/create-dirs (config-folder))
       (spit (config-file) (prn-str {:repo-path (str repo-path)})))))
 
-(defn olorm-repo-path [{:keys [_opts]}]
+(defn jals-repo-path [{:keys [_opts]}]
   (if (fs/exists? (config-file))
     (println (repo-path))
     (do
       (println "Error: config file not found")
       (System/exit 1))))
 
-(defn olorm-create [{:keys [opts]}]
+(defn jals-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
     (println (str/trim "
 Usage:
@@ -101,7 +103,7 @@ Allowed options:
     (eval-or-show-work `(prn "trolololo"))
     (eval-or-show-work `(shell "ls" ".."))))
 
-(defn olorm-draw [{:keys [opts]}]
+(defn jals-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
     (when (or (:h opts)
               (:help opts)
@@ -127,13 +129,13 @@ Example usage:
 
 (def subcommands
   [
-   {:cmds ["create"]        :fn olorm-create}
-   {:cmds ["help"]          :fn olorm-help}
-   {:cmds ["repo-path"]     :fn olorm-repo-path}
-   {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
-   {:cmds ["draw"]          :fn olorm-draw          :args->opts [:pool]}
+   {:cmds ["create"]        :fn jals-create}
+   {:cmds ["help"]          :fn jals-help}
+   {:cmds ["repo-path"]     :fn jals-repo-path}
+   {:cmds ["set-repo-path"] :fn jals-set-repo-path :args->opts [:repo-path]}
+   {:cmds ["draw"]          :fn jals-draw          :args->opts [:pool]}
    {:cmds ["lol"]           :fn lol}
-   {:cmds []                :fn olorm-help}])
+   {:cmds []                :fn jals-help}])
 
 (defn -main [& args]
   (cli/dispatch subcommands args))
