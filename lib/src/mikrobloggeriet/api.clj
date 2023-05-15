@@ -4,6 +4,8 @@
 ;; I'm working on vocabulary and design.
 ;; I don't want to abstract before I'm confident about the abstraction.
 ;;
+;; ---
+;;
 ;; An initiative for shared intent and  shared sense of quality among Iterate developers.
 ;; View this namespace with [Clerk] for a nice reading experience.
 ;;
