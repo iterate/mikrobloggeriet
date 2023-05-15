@@ -1,17 +1,19 @@
-# OLORM
+# Mikrobloggeriet
+
+Tidligere kjent som OLORM.
 
 Vocabulary:
 
-| term            | definition                                             |
-|-----------------|--------------------------------------------------------|
-| cohort          | a microblogging collective                             |
-| doc             | a microblog entry                                      |
-| mikrobloggeriet | a collection of microblogs                             |
-| olorm           | a CLI for microblogging                                |
-| olorm           | a collection of microblogs                             |
-| olorm           | Oddmund, Lars and Richard's microblog collective       |
-| jals            | Jørgen, Adrian, Lars and Sindre's microblog collective |
-| jals            | a CLI for microblogging                                |
+| term            | definition                                             | Deprecated? |
+|-----------------|--------------------------------------------------------|-------------|
+| cohort          | a microblogging collective                             |             |
+| doc             | a microblog entry                                      |             |
+| mikrobloggeriet | a collection of microblogs                             |             |
+| olorm           | a CLI for microblogging                                |             |
+| olorm           | a collection of microblogs                             | Deprecated. |
+| olorm           | Oddmund, Lars and Richard's microblog collective       |             |
+| jals            | Jørgen, Adrian, Lars and Sindre's microblog collective |             |
+| jals            | a CLI for microblogging                                |             |
 
 Tragically, the "olorm" term is now ambiguous.
 But [Cool URIs don't change].
@@ -35,13 +37,15 @@ Da må du først:
 
 Vennligst:
 
-1. Installer programmet `olorm`:
+1. Gå til katalogen der du har klonet dette repoet.
+
+2. Installer programmet `olorm`:
 
     ```shell
     bbin install ./cli --as olorm --main-opts '["-m" "mikrobloggeriet.olorm-cli"]'
     ```
 
-2. Bruk subkommandoen `olorm set-repo-path` til å peke til der du har klonet repoet.
+3. Bruk subkommandoen `olorm set-repo-path` til å peke til der du har klonet repoet.
    Kjør `olorm set-repo-path -h` for å se hjelpetekst for subkommadoen.
 
 ## Installér kommandolinjeprogram for å skrive JALS-er [UNDER UTVIKLING]
@@ -51,13 +55,15 @@ Per 2023-05-15 14:05 funker ikke dette!
 
 Vennligst:
 
-1. Installer programmet `jals`:
+1. Gå til katalogen der du har klonet dette repoet.
+
+2. Installer programmet `jals`:
 
     ```shell
     bbin install ./cli --as jals --main-opts '["-m" "mikrobloggeriet.jals-cli"]'
     ```
 
-2. Bruk subkommandoen `jals set-repo-path` til å peke til der du har klonet repoet.
+3. Bruk subkommandoen `jals set-repo-path` til å peke til der du har klonet repoet.
    Kjør `jals set-repo-path -h` for å se hjelpetekst for subkommadoen.
 
 ## Install OLORM CLI (deprecated, legacy)
