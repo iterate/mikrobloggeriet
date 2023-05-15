@@ -53,9 +53,9 @@
 (defn href
   "Link to a doc"
   [doc]
-  (let [olorm (->jals doc)]
-    (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
-    (str "/" docs-folder "/" (:slug olorm) "/")))
+  (let [doc (->jals doc)]
+    (assert (:slug doc) "Need a slug to create an HREF for an olorm!")
+    (str "/" docs-folder "/" (:slug doc) "/")))
 
 (defn docs
   "All olorms sorted by olorm number"
