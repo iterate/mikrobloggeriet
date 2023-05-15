@@ -117,3 +117,6 @@ mangler:
 
 1. =mikrobloggeriet.olorm-cli= peker til den /gamle/ olorm-implementasjonen.
 2. =mikrobloggeriet.jals-cli= lager olormer (all koden er kopiert)
+** interlude
+jeg har lyst til å endre navn fra =lib= til =domainlogic=.
+** step: olorm peker til rett olorm-backend
