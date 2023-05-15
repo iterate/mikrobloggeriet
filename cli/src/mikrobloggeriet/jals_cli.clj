@@ -57,7 +57,7 @@ your system, so we need to know where to find OLORM pages.
     (println (str/trim "
 Usage:
 
-  $ olorm create [OPTION...]
+  $ jals create [OPTION...]
 
 Allowed options:
 
