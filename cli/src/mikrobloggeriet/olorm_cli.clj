@@ -74,23 +74,23 @@ Allowed options:
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
                                0))
-          olorm (olorm/->olorm {:repo-path repo-path :number next-number})
-          next-olorm-dir (olorm/path olorm)]
+          doc (olorm/->olorm {:repo-path repo-path :number next-number})
+          next-olorm-dir (olorm/path doc)]
       (dispatch `fs/create-dirs next-olorm-dir)
-      (let [next-index-md (olorm/index-md-path olorm)]
-        (dispatch `spit next-index-md (olorm/md-skeleton olorm))
-        (dispatch `spit (olorm/meta-path olorm) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
+      (let [next-index-md (olorm/index-md-path doc)]
+        (dispatch `spit next-index-md (olorm/md-skeleton doc))
+        (dispatch `spit (olorm/meta-path doc) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
                                                           :doc/created (olorm/today)
                                                           :doc/uuid (olorm/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
         (when-not (:disable-git-magic opts)
           (dispatch `shell {:dir repo-path} "git add .")
-          (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
+          (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git push")))
       (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
                                       "\n\n"
-                                      (str "   OLORM-" (:number olorm) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
-                                           (:slug olorm) "/"))]
+                                      (str "   OLORM-" (:number doc) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
+                                           (:slug doc) "/"))]
         (println olorm-announce-nudge)))))
 
 (defn lol [{:keys [opts]}]
