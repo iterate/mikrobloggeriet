@@ -82,3 +82,29 @@ Plan:
 1. Skriv =mikrobloggeriet.api=
 2. Prøv å migrere over =olorm.api= til å /bruke/ =mikrobloggeriet.api=.
    1. må hardkode inn en default API-klient for OLORM for å få det til å funke.
+* 2023-05-15
+** status
+tror jeg kom fram til noe jeg liker i går.
+To nye ting:
+
+#+begin_src clojure
+;; a cohort is a group of people who are writing together
+
+:cohort/name "OLORM"                                  ;; user facing name (unique)
+:cohort/ident :olorm                                  ;; identifier (unique)
+:cohort/repo-subdir "o"                               ;; where cohort docs are on disk (unique)
+:cohort/server-dir "o"                                ;; where cohort docs are on the server (unique)
+:cohort/repo-path  "/home/teodorlu/dev/iterate/olorm" ;; where the repo is
+
+;; a doc is a written thing
+:doc/number 42       ;; document number, starts at 1
+:doc/slug "olorm-42" ;; the documents slug is used on the URL. Globally unique
+:doc/cohort :olorm   ;; refers to a cohort ident
+#+end_src
+** goals for today
+Want to:
+
+1. Land new abstraction that enables us to support multiple cohorts in a nice way
+2. and must be prepared for the start of the new cohort tomorrow.
+** step: document proposed data model in the right place
+TODO
