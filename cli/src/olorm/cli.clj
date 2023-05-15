@@ -134,4 +134,14 @@ Example usage:
    {:cmds []                :fn olorm-help}])
 
 (defn -main [& args]
+  (let [deprecation-warning (str/trim "
+WARNING: You are running on the deprecated OLORM CLI. Please follow instructions
+in README.md to install the new CLI.
+
+The new CLI has the same subcommand structure as the old CLI.
+
+")]
+    (binding [*out* *err*]
+      (println deprecation-warning)
+      (println)))
   (cli/dispatch subcommands args))
