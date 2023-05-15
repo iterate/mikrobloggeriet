@@ -16,7 +16,7 @@ Vocabulary:
 | jals            | a CLI for microblogging                                |             |
 
 Note: the "olorm" term is now ambiguous.
-It used to be the name of the whole, now it's only a /part/.
+It used to be the name of the whole, now it's only a _part_.
 But [Cool URIs don't change], and I don't want to break existing links.
 So we keep the repo name for now.
 All old URIs will continue to work.
