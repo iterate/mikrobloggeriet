@@ -44,6 +44,22 @@ Vennligst:
 2. Bruk subkommandoen `olorm set-repo-path` til å peke til der du har klonet repoet.
    Kjør `olorm set-repo-path -h` for å se hjelpetekst for subkommadoen.
 
+## Installér kommandolinjeprogram for å skrive JALS-er [UNDER UTVIKLING]
+
+Per 2023-05-15 14:05 funker ikke dette!
+- Teodor
+
+Vennligst:
+
+1. Installer programmet `jals`:
+
+    ```shell
+    bbin install ./cli --as jals --main-opts '["-m" "mikrobloggeriet.jals-cli"]'
+    ```
+
+2. Bruk subkommandoen `jals set-repo-path` til å peke til der du har klonet repoet.
+   Kjør `jals set-repo-path -h` for å se hjelpetekst for subkommadoen.
+
 ## Install OLORM CLI (deprecated, legacy)
 
 This CLI installation method is deprecated in favor of cohort-specific instructions.
