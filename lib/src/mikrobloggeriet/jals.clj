@@ -48,7 +48,7 @@
                 olorm)]
     olorm))
 
-(def ^:private olorms-folder "o")
+(def ^:private olorms-folder "j")
 
 (defn href
   "Link to an olorm"
