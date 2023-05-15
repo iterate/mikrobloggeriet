@@ -24,8 +24,7 @@
       [:p
        (interpose " · "
                   (for [olorm (olorm/olorms {:repo-path ".."})]
-                    [:span
-                     [:a {:href (olorm/href olorm)} (:slug olorm)]]))]
+                    [:a {:href (olorm/href olorm)} (:slug olorm)]))]
       [:hr]
       [:h2 "Hva er dette, " [:em "egentlig"] "?"]
       [:p [:strong "For Iterate-ansatte:"] " "
