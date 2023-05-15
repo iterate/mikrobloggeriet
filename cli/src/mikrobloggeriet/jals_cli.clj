@@ -6,7 +6,7 @@
    [babashka.fs :as fs]
    [clojure.edn :as edn]
    [clojure.string :as str]
-   [olorm.lib :as olorm]
+   [mikrobloggeriet.jals :as jals]
    [babashka.process :refer [shell]]))
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
@@ -72,16 +72,16 @@ Allowed options:
                      (apply (resolve cmd) args)))]
     (when-not (or (:no-git-magic opts) (:disable-git-magic opts))
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
-    (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
+    (let [next-number (inc (or (->> (jals/olorms {:repo-path repo-path}) (map :number) sort last)
                                0))
-          olorm (olorm/->olorm {:repo-path repo-path :number next-number})
-          next-olorm-dir (olorm/path olorm)]
+          olorm (jals/->olorm {:repo-path repo-path :number next-number})
+          next-olorm-dir (jals/path olorm)]
       (dispatch `fs/create-dirs next-olorm-dir)
-      (let [next-index-md (olorm/index-md-path olorm)]
-        (dispatch `spit next-index-md (olorm/md-skeleton olorm))
-        (dispatch `spit (olorm/meta-path olorm) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
-                                                          :doc/created (olorm/today)
-                                                          :doc/uuid (olorm/uuid)}))
+      (let [next-index-md (jals/index-md-path olorm)]
+        (dispatch `spit next-index-md (jals/md-skeleton olorm))
+        (dispatch `spit (jals/meta-path olorm) (prn-str {:git.user/email (jals/git-user-email {:repo-path repo-path})
+                                                          :doc/created (jals/today)
+                                                          :doc/uuid (jals/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
         (when-not (:disable-git-magic opts)
           (dispatch `shell {:dir repo-path} "git add .")
