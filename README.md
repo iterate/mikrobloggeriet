@@ -48,10 +48,7 @@ Vennligst:
 3. Bruk subkommandoen `olorm set-repo-path` til å peke til der du har klonet repoet.
    Kjør `olorm set-repo-path -h` for å se hjelpetekst for subkommadoen.
 
-## Installér kommandolinjeprogram for å skrive JALS-er [UNDER UTVIKLING]
-
-Per 2023-05-15 14:05 funker ikke dette!
-- Teodor
+## Installér kommandolinjeprogram for å skrive JALS-er
 
 Vennligst:
 
