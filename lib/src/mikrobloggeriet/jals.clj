@@ -54,7 +54,7 @@
   "Link to a doc"
   [doc]
   (let [doc (->jals doc)]
-    (assert (:slug doc) "Need a slug to create an HREF for an olorm!")
+    (assert (:slug doc) "Need a slug to create an HREF for a jals!")
     (str "/" docs-folder "/" (:slug doc) "/")))
 
 (defn docs
