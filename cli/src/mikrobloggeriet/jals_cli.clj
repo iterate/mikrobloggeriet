@@ -76,23 +76,23 @@ Allowed options:
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
     (let [next-number (inc (or (->> (jals/docs {:repo-path repo-path}) (map :number) sort last)
                                0))
-          olorm (jals/->jals {:repo-path repo-path :number next-number})
-          next-olorm-dir (jals/path olorm)]
+          jals (jals/->jals {:repo-path repo-path :number next-number})
+          next-olorm-dir (jals/path jals)]
       (dispatch `fs/create-dirs next-olorm-dir)
-      (let [next-index-md (jals/index-md-path olorm)]
-        (dispatch `spit next-index-md (jals/md-skeleton olorm))
-        (dispatch `spit (jals/meta-path olorm) (prn-str {:git.user/email (jals/git-user-email {:repo-path repo-path})
+      (let [next-index-md (jals/index-md-path jals)]
+        (dispatch `spit next-index-md (jals/md-skeleton jals))
+        (dispatch `spit (jals/meta-path jals) (prn-str {:git.user/email (jals/git-user-email {:repo-path repo-path})
                                                           :doc/created (jals/today)
                                                           :doc/uuid (jals/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
         (when-not (:disable-git-magic opts)
           (dispatch `shell {:dir repo-path} "git add .")
-          (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
+          (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number jals)))
           (dispatch `shell {:dir repo-path} "git push")))
       (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
                                       "\n\n"
-                                      (str "   OLORM-" (:number olorm) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
-                                           (:slug olorm) "/"))]
+                                      (str "   OLORM-" (:number jals) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
+                                           (:slug jals) "/"))]
         (println olorm-announce-nudge)))))
 
 (defn jals-draw [{:keys [opts]}]
