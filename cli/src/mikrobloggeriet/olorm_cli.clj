@@ -6,7 +6,7 @@
    [babashka.fs :as fs]
    [clojure.edn :as edn]
    [clojure.string :as str]
-   [olorm.lib :as olorm]
+   [mikrobloggeriet.olorm :as olorm]
    [babashka.process :refer [shell]]))
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))

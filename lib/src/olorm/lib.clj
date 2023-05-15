@@ -33,6 +33,8 @@
     ;; => {:slug \"olorm-3\" :number 3}
   "
   [{:keys [slug number repo-path]}]
+  (binding [*out* *err*]
+    (println "WARNING: running on legacy OLORM backend. Please reinstall your CLI, see README.md."))
   (let [olorm {}
         olorm (if repo-path (assoc olorm :repo-path repo-path) olorm)
         olorm (if number
