@@ -49,6 +49,7 @@
     olorm))
 
 (def ^:private olorms-folder "j")
+(def ^:private jals-ident :jals)
 
 (defn href
   "Link to an olorm"
