@@ -4,6 +4,7 @@
    [hiccup.page :as page]
    [iki.api :as iki]
    [mikrobloggeriet.olorm :as olorm]
+   [mikrobloggeriet.jals :as jals]
    [clojure.pprint]
    [org.httpkit.server :as httpkit]))
 
@@ -29,7 +30,8 @@
       [:p "JALS er en mikroblogg skrevet av Jørgen, Adrian, Lars og Sindre."]
       [:p
        (interpose " · "
-                  '(todo todo todo))]
+                  (for [doc (jals/docs {:repo-path ".."})]
+                    [:a {:href (jals/href doc)} (:slug doc)]))]
 
       [:hr]
       [:h2 "Hva er dette, " [:em "egentlig"] "?"]
