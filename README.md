@@ -22,7 +22,30 @@ I ask you to to bear with me for the sake of the URIs :)
 
 [Cool URIs don't change]: https://www.w3.org/Provider/Style/URI
 
-## CLI prerequisites
+## Oppsett før installasjon av kommandolinjeprogram
+
+Skal du bruke et kommandolinjeprogram for å skrive på Mikrobloggeriet?
+Da må du først:
+
+1. Klone ned dette repoet
+2. Installere [babashka] og [bbin].
+   Hvis du bruker macOS, kan du installere disse to med Homebrew.
+
+## Installér mikrobloggeriet-kommandolinjeprogram for å skrive på OLORM (støttet)
+
+Vennligst:
+
+1. Installer programmet `olorm`:
+
+    ```shell
+    bbin install ./cli --as olorm --main-opts '["-m" "mikrobloggeriet.olorm-cli"]'
+    ```
+
+
+## Install OLORM CLI (deprecated, legacy)
+
+This CLI installation method is deprecated in favor of cohort-specific instructions.
+See above.
 
 In order to install `olorm`, please:
 
@@ -31,7 +54,7 @@ In order to install `olorm`, please:
 3. Then install `olorm`:
 
     ```shell
-    bbin install ./olorm-cli
+    bbin install ./cli
     ```
 
 You should then be able to invoke the CLI:
