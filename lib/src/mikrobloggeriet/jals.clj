@@ -22,15 +22,15 @@
     (parse-slug "olorm-42")))
 
 (defn ->jals
-  "Try creating an olorm from \"what we've got\".
+  "Try creating a jals doc from \"what we've got\".
 
   Examples:
 
-    (->olorm {:slug \"olorm-2\"})
-    ;; => {:slug \"olorm-2\" :number 2}
+    (->jals {:slug \"jals-2\"})
+    ;; => {:slug \"jals-2\" :number 2}
 
-    (->olorm {:number 3})
-    ;; => {:slug \"olorm-3\" :number 3}
+    (->jals {:number 3})
+    ;; => {:slug \"jals-3\" :number 3}
   "
   [{:keys [slug number repo-path]}]
   (let [olorm {}
