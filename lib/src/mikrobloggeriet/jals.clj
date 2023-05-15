@@ -38,7 +38,7 @@
         doc (if number
                 (assoc doc
                        :number number
-                       :slug (str "olorm-" number))
+                       :slug (str "jals-" number))
                 doc)
         doc (if (and slug (not number))
                 (when-let [number (parse-slug slug)]
