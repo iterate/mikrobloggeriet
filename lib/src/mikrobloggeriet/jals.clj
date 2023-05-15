@@ -57,7 +57,7 @@
     (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
     (str "/" olorms-folder "/" (:slug olorm) "/")))
 
-(defn olorms
+(defn docs
   "All olorms sorted by olorm number"
   [{:keys [repo-path]}]
   (assert repo-path)
@@ -70,7 +70,7 @@
 
 (comment
   (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
-    (olorms {:repo-path ".."})))
+    (docs {:repo-path ".."})))
 
 (defn md-skeleton [olorm]
   (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))

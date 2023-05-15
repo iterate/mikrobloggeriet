@@ -74,7 +74,7 @@ Allowed options:
                      (apply (resolve cmd) args)))]
     (when-not (or (:no-git-magic opts) (:disable-git-magic opts))
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
-    (let [next-number (inc (or (->> (jals/olorms {:repo-path repo-path}) (map :number) sort last)
+    (let [next-number (inc (or (->> (jals/docs {:repo-path repo-path}) (map :number) sort last)
                                0))
           olorm (jals/->olorm {:repo-path repo-path :number next-number})
           next-olorm-dir (jals/path olorm)]
