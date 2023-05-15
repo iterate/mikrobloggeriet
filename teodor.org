@@ -120,3 +120,6 @@ mangler:
 ** interlude
 jeg har lyst til å endre navn fra =lib= til =domainlogic=.
 ** step: olorm peker til rett olorm-backend
+1. [X] =mikrobloggeriet.olorm-cli= peker til den /gamle/ olorm-implementasjonen.
+   1. fikset!
+2. [ ] =mikrobloggeriet.jals-cli= lager olormer (all koden er kopiert)
