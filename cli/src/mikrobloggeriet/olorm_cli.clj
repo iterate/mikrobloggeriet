@@ -87,10 +87,9 @@ Allowed options:
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git push")))
-      (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
+      (let [olorm-announce-nudge (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
                                       "\n\n"
-                                      (str "   OLORM-" (:number doc) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
-                                           (:slug doc) "/"))]
+                                      (str "   OLORM-" (:number doc) ": $DIN_TITTEL → https://mikrobloggeriet.no/o/" (:slug doc) "/"))]
         (println olorm-announce-nudge)))))
 
 (defn lol [{:keys [opts]}]
