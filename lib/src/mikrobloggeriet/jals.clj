@@ -49,7 +49,6 @@
     doc))
 
 (def ^:private docs-folder "j")
-(def ^:private jals-ident :jals)
 
 (defn href
   "Link to a doc"
