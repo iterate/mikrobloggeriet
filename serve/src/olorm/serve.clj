@@ -9,7 +9,7 @@
    [org.httpkit.server :as httpkit]))
 
 (defn index [_req]
-  (let [olorm-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
+  (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-olorm-url "https://github.com/iterate/olorm/"
         tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
@@ -36,7 +36,7 @@
       [:hr]
       [:h2 "Hva er dette, " [:em "egentlig"] "?"]
       [:p [:strong "For Iterate-ansatte:"] " "
-       "Diskuter gjerne mikroblogginnlegg i " [:a {:href tech-forum-url} "#tech-forum"] " eller i tråder på " [:a {:href olorm-announce-url} "#mikrobloggeriet-announce"] ". "
+       "Diskuter gjerne mikroblogginnlegg i " [:a {:href tech-forum-url} "#tech-forum"] " eller i tråder på " [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"] ". "
        "Vi velger å skrive fordi vi " [:em "liker"] " å snakke om fag, og fordi vi bryr oss!"]
 
       [:p [:strong "For andre:"] " "
