@@ -85,9 +85,9 @@
 <!-- 3. Hvorfor / hvorfor ikke? -->
 "))))
 
-(defn path [olorm]
-  (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
-  (fs/path (:repo-path olorm) docs-folder (:slug olorm)))
+(defn path [doc]
+  (assert (and (contains? doc :slug) (contains? doc :repo-path)) "Required keys: :slug and :repo-path")
+  (fs/path (:repo-path doc) docs-folder (:slug doc)))
 
 (defn index-md-path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
