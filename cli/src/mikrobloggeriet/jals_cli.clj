@@ -95,14 +95,6 @@ Allowed options:
                                            (:slug olorm) "/"))]
         (println olorm-announce-nudge)))))
 
-(defn lol [{:keys [opts]}]
-  (let [eval-or-show-work (fn [form]
-                             (if (:dry-run opts)
-                               (prn form)
-                               (eval form)))]
-    (eval-or-show-work `(prn "trolololo"))
-    (eval-or-show-work `(shell "ls" ".."))))
-
 (defn jals-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
     (when (or (:h opts)
@@ -134,7 +126,6 @@ Example usage:
    {:cmds ["repo-path"]     :fn jals-repo-path}
    {:cmds ["set-repo-path"] :fn jals-set-repo-path :args->opts [:repo-path]}
    {:cmds ["draw"]          :fn jals-draw          :args->opts [:pool]}
-   {:cmds ["lol"]           :fn lol}
    {:cmds []                :fn jals-help}])
 
 (defn -main [& args]
