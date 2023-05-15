@@ -17,7 +17,10 @@
     (page/html5
      [:head (hiccup.page/include-css "/vanilla.css")]
      [:body
-      [:h1 "OLORM"]
+      [:h1 "Mikrobloggeriet"]
+      [:p "Et initiativ for mikroblogging."]
+      [:h2 "OLORM"]
+      [:p "OLORM er en mikroblogg. OLROM er skrevet av Oddmund, Lars og Richard."]
       [:p
        (interpose " · "
                   (for [olorm (olorm/olorms {:repo-path ".."})]
