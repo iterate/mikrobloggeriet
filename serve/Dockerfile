@@ -42,6 +42,7 @@ COPY serve/src/        /olorm/serve/src/
 COPY serve/vanilla.css /olorm/serve/vanilla.css
 COPY lib/              /olorm/lib/
 COPY o/                /olorm/o
+COPY j/                /olorm/j
 
 # Init
 WORKDIR /olorm/serve
