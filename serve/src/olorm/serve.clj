@@ -25,6 +25,12 @@
        (interpose " · "
                   (for [olorm (olorm/olorms {:repo-path ".."})]
                     [:a {:href (olorm/href olorm)} (:slug olorm)]))]
+      [:h2 "JALS"]
+      [:p "JALS er en mikroblogg skrevet av Jørgen, Adrian, Lars og Sindre."]
+      [:p
+       (interpose " · "
+                  '(todo todo todo))]
+
       [:hr]
       [:h2 "Hva er dette, " [:em "egentlig"] "?"]
       [:p [:strong "For Iterate-ansatte:"] " "
