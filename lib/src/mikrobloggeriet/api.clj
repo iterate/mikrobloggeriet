@@ -24,6 +24,9 @@
  :document-dir "o"
  :document-prefix "olorm-"}
 
+;; 2023-05-15: I feel like I want to replace "client" with "cohort".
+;; It's actually a domain thing.
+
 ;; ## Mikrobloggeriet document
 ;;
 ;; The purpose of Mikrobloggeriet is to write, read and share documents.
@@ -63,3 +66,23 @@
 (defn ->html [client doc]
   ;; todo actually make html
   )
+
+;; ## New proposed vocabulary
+
+{:nextjournal.clerk/visibility {:result :hide}}
+
+;; a _cohort_ is a group of people who are writing together
+
+{:cohort/name "OLORM"                                  ;; user facing name (unique)
+ :cohort/ident :olorm                                  ;; identifier (unique)
+ :cohort/repo-subdir "o"                               ;; where cohort docs are on disk (unique)
+ :cohort/server-dir "o"                                ;; where cohort docs are on the server (unique)
+ :cohort/repo-path  "/home/teodorlu/dev/iterate/olorm" ;; where the repo is
+ }
+
+;; a _doc_ is a written thing
+
+{:doc/number 42       ;; document number, starts at 1
+ :doc/slug "olorm-42" ;; the documents slug is used on the URL. Globally unique
+ :doc/cohort :olorm   ;; refers to a cohort ident
+ }
