@@ -26,9 +26,8 @@
                   (for [olorm (olorm/olorms {:repo-path ".."})]
                     [:span
                      [:a {:href (olorm/href olorm)} (:slug olorm)]]))]
-
       [:hr]
-
+      [:h2 "Hva er dette, " [:em "egentlig"] "?"]
       [:p [:strong "For Iterate-ansatte:"] " "
        "Diskuter gjerne på OLORM-er i " [:a {:href tech-forum-url} "#tech-forum"] " eller i tråder på " [:a {:href olorm-announce-url} "#olorm-announce"] ". "
        "Vi velger å skrive fordi vi " [:em "liker"] " å snakke om fag, og fordi vi bryr oss!"]
