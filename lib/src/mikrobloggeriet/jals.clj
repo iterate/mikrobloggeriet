@@ -107,10 +107,10 @@
   (.format (java.time.LocalDateTime/now)
            (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd")))
 
-(defn exists? [olorm]
-  (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
-  (and (fs/directory? (path olorm))
-       (fs/exists? (index-md-path olorm))))
+(defn exists? [doc]
+  (assert (and (contains? doc :slug) (contains? doc :repo-path)) "Required keys: :slug and :repo-path")
+  (and (fs/directory? (path doc))
+       (fs/exists? (index-md-path doc))))
 
 ;; ## TODO
 ;;
