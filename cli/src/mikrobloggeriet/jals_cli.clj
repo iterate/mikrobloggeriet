@@ -77,8 +77,8 @@ Allowed options:
     (let [next-number (inc (or (->> (jals/docs {:repo-path repo-path}) (map :number) sort last)
                                0))
           jals (jals/->jals {:repo-path repo-path :number next-number})
-          next-olorm-dir (jals/path jals)]
-      (dispatch `fs/create-dirs next-olorm-dir)
+          next-jals-dir (jals/path jals)]
+      (dispatch `fs/create-dirs next-jals-dir)
       (let [next-index-md (jals/index-md-path jals)]
         (dispatch `spit next-index-md (jals/md-skeleton jals))
         (dispatch `spit (jals/meta-path jals) (prn-str {:git.user/email (jals/git-user-email {:repo-path repo-path})
