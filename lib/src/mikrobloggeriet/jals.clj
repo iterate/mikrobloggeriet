@@ -73,9 +73,9 @@
     (docs {:repo-path ".."})))
 
 (defn md-skeleton [olorm]
-  (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))
+  (let [title (or (when (:number olorm) (str "JALS-" (:number olorm)))
                   (:slug olorm)
-                  "OLORM")]
+                  "JALS")]
     (str "# " title "\n\n"
          (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
