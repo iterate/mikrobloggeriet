@@ -108,3 +108,12 @@ Want to:
 2. and must be prepared for the start of the new cohort tomorrow.
 ** step: document proposed data model in the right place
 TODO
+** status:
+1. dokumentert ny måte å installere på.
+   README er ish OK.
+2. har fått et nytt modulhierarki jeg har tro på.
+
+mangler:
+
+1. =mikrobloggeriet.olorm-cli= peker til den /gamle/ olorm-implementasjonen.
+2. =mikrobloggeriet.jals-cli= lager olormer (all koden er kopiert)
