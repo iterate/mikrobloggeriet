@@ -89,11 +89,11 @@ Allowed options:
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git push")))
-      (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
-                                      "\n\n"
-                                      (str "   OLORM-" (:number doc) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
-                                           (:slug doc) "/"))]
-        (println olorm-announce-nudge)))))
+      (let [jals-announce-nudge (str "Husk å publisere i #jals-announce på Slack. Feks:"
+                                     "\n\n"
+                                     (str "   JALS-" (:number doc) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/j/"
+                                          (:slug doc) "/"))]
+        (println jals-announce-nudge)))))
 
 (defn jals-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
