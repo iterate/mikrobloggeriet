@@ -58,7 +58,7 @@
     (str "/" docs-folder "/" (:slug doc) "/")))
 
 (defn docs
-  "All olorms sorted by olorm number"
+  "All jals docs sorted by number"
   [{:keys [repo-path]}]
   (assert repo-path)
   (->> (fs/list-dir (fs/file repo-path docs-folder))
