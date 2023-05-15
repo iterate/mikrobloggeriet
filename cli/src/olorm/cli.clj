@@ -135,8 +135,9 @@ Example usage:
 
 (defn -main [& args]
   (let [deprecation-warning (str/trim "
-WARNING: You are running on the deprecated OLORM CLI. Please follow instructions
-in README.md to install the new CLI.
+
+WARNING: You are running on the legacy OLORM CLI (deprecated). Please follow
+instructions in README.md to install the new OLORM CLI.
 
 The new CLI has the same subcommand structure as the old CLI.
 
