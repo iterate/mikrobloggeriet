@@ -36,14 +36,14 @@
       [:hr]
       [:h2 "Hva er dette, " [:em "egentlig"] "?"]
       [:p [:strong "For Iterate-ansatte:"] " "
-       "Diskuter gjerne på OLORM-er i " [:a {:href tech-forum-url} "#tech-forum"] " eller i tråder på " [:a {:href olorm-announce-url} "#olorm-announce"] ". "
+       "Diskuter gjerne mikroblogginnlegg i " [:a {:href tech-forum-url} "#tech-forum"] " eller i tråder på " [:a {:href olorm-announce-url} "#mikrobloggeriet-announce"] ". "
        "Vi velger å skrive fordi vi " [:em "liker"] " å snakke om fag, og fordi vi bryr oss!"]
 
       [:p [:strong "For andre:"] " "
-       "OLORM er et initiativ der teknologer fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
+       "Mikrobloggeriet er et initiativ der teknologer fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
        "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
-       "Innhold og kode for OLORM ligger åpent på " [:a {:href github-olorm-url} "github.com/iterate/olorm"] ". "
-       "OLORM kjører på " [:a {:href hops-url} "Headless Operations"] ". "
+       "Innhold og kode for Mikrobloggeriet ligger åpent på " [:a {:href github-olorm-url} "github.com/iterate/olorm"] ". "
+       "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
        "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]])))
 
 (def markdown->html
