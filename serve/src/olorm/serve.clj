@@ -64,11 +64,25 @@
       [:p [:a {:href "/"} ".."]]
       (olorm->html olorm)])))
 
+(defn jals->html [doc]
+  (when (jals/exists? doc)
+    (markdown->html (slurp (jals/index-md-path doc)))))
+
+(defn jals [req]
+  (let [doc {:slug (:slug (:route-params req))
+             :repo-path ".."}]
+    (page/html5
+     [:head (hiccup.page/include-css "/vanilla.css")]
+     [:body
+      [:p [:a {:href "/"} ".."]]
+      (jals->html doc)])))
+
 (defroutes app
   (GET "/" req (index req))
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
-  (GET "/o/:slug/" req (olorm req)))
+  (GET "/o/:slug/" req (olorm req))
+  (GET "/j/:slug/" req (jals req)))
 
 (defonce server (atom nil))
 (def port 7223)
