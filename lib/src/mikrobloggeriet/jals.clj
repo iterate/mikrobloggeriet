@@ -93,9 +93,9 @@
   (assert (and (contains? doc :slug) (contains? doc :repo-path)) "Required keys: :slug and :repo-path")
   (fs/file (path doc) "index.md"))
 
-(defn meta-path [olorm]
-  (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
-  (fs/file (path olorm) "meta.edn"))
+(defn meta-path [doc]
+  (assert (and (contains? doc :slug) (contains? doc :repo-path)) "Required keys: :slug and :repo-path")
+  (fs/file (path doc) "meta.edn"))
 
 (defn git-user-email [{:keys [repo-path]}]
   (str/trim (:out (shell {:out :string :dir repo-path} "git config user.email"))))
