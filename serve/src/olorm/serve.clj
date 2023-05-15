@@ -3,7 +3,7 @@
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [iki.api :as iki]
-   [olorm.lib :as olorm]
+   [mikrobloggeriet.olorm :as olorm]
    [clojure.pprint]
    [org.httpkit.server :as httpkit]))
 
