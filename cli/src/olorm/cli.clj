@@ -81,7 +81,7 @@ Allowed options:
                                                           :created (olorm/today)
                                                           :uuid (olorm/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
-        (when-not (:disable-git-magic opts)
+        (when-not (or (:no-git-magic opts) (:disable-git-magic opts))
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number olorm)))
           (dispatch `shell {:dir repo-path} "git push")))
