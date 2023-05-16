@@ -83,14 +83,13 @@ Allowed options:
                                                         :doc/created (olorm/today)
                                                         :doc/uuid (olorm/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
-        (when-not (:disable-git-magic opts)
+        (when-not disable-git-commands
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git push")))
-      (let [olorm-announce-nudge (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
-                                      "\n\n"
-                                      (str "   OLORM-" (:number doc) ": $DIN_TITTEL → https://mikrobloggeriet.no/o/" (:slug doc) "/"))]
-        (println olorm-announce-nudge)))))
+      (println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                    "\n\n"
+                    (str "   OLORM-" (:number doc) ": $DIN_TITTEL → https://mikrobloggeriet.no/o/" (:slug doc) "/"))))))
 
 (defn lol [{:keys [opts]}]
   (let [eval-or-show-work (fn [form]
