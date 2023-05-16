@@ -59,24 +59,30 @@ Usage:
 
 Allowed options:
 
-  --disable-git-magic  Disable running any Git commands. Useful for testing.
-  --dry-run            Supress side effects and print commands instead
-  --help               Show this helptext.
-  --no-git-magic       Alias for --disable-git-magic
+  --disable-git-commands  Disable all Git commands. Useful for testing.
+  --disable-git-magic     Alias for --disable-git-commands
+  --dry-run               Supress side effects and print commands instead
+  --help                  Show this helptext.
+  --no-git-magic          Alias for --disable-git-commands
 "))
     (System/exit 0))
   (let [repo-path (repo-path)
         dispatch (fn [cmd & args]
                    (if (:dry-run opts)
                      (prn `(~cmd ~@args))
-                     (apply (resolve cmd) args)))]
-    (when-not (or (:no-git-magic opts) (:disable-git-magic opts))
+                     (apply (resolve cmd) args)))
+        disable-git-commands (or (:disable-git-commands opts)
+                                 (:no-git-magic opts)
+                                 (:disable-git-magic opts))]
+    (when-not disable-git-commands
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
-    (let [next-number (inc (or (->> (olorm/olorms {:repo-path repo-path}) (map :number) sort last)
-                               0))
-          doc (olorm/->olorm {:repo-path repo-path :number next-number})
-          next-olorm-dir (olorm/path doc)]
-      (dispatch `fs/create-dirs next-olorm-dir)
+    (let [number (inc (or (->> (olorm/olorms {:repo-path repo-path})
+                               (map :number)
+                               sort
+                               last)
+                          0))
+          doc (olorm/->olorm {:repo-path repo-path :number number})]
+      (dispatch `fs/create-dirs (olorm/path doc))
       (let [next-index-md (olorm/index-md-path doc)]
         (dispatch `spit next-index-md (olorm/md-skeleton doc))
         (dispatch `spit (olorm/meta-path doc) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
