@@ -87,7 +87,7 @@ Allowed options:
           (dispatch `shell {:dir repo-path} "git push")))
       (let [olorm-announce-nudge (str "Husk å publisere i #olorm-announce på Slack. Feks:"
                                       "\n\n"
-                                      (str "   OLORM-" (:number olorm) ": $DIN_TITTEL → https://serve.olorm.app.iterate.no/o/"
+                                      (str "   OLORM-" (:number olorm) ": $DIN_TITTEL → https://mikrobloggeriet.no/o/"
                                            (:slug olorm) "/"))]
         (println olorm-announce-nudge)))))
 
