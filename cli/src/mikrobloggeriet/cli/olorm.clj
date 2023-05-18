@@ -1,5 +1,4 @@
-(ns mikrobloggeriet.cli.olorm
-  (:require [mikrobloggeriet.olorm-cli :as olorm-cli]))
+(ns mikrobloggeriet.cli.olorm)
 
-(defn -main [& args]
-  (apply mikrobloggeriet.olorm-cli/-main args))
+(defn -main [& _args]
+  (println "I wonder if this ns (mikrobloggeriet.cli.olorm) would be better than the current CLI ns (mikrobloggeriet.olorm-cli)"))
