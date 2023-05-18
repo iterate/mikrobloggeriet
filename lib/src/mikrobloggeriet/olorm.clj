@@ -131,7 +131,7 @@
   (validate doc+meta)
   (binding [*print-namespace-maps* false]
     (spit (meta-path doc+meta)
-          (with-out-str (pprint (dissoc doc+meta :slug :number :repo-path))))))
+          (with-out-str (pprint (into (sorted-map) (dissoc doc+meta :slug :number :repo-path)))))))
 
 (defn git-user-email [{:keys [repo-path]}]
   (str/trim (:out (shell {:out :string :dir repo-path} "git config user.email"))))
