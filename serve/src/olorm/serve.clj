@@ -70,17 +70,7 @@
         [:tr
          [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
          [:td (olorm/author-name olorm)]
-         [:td (:doc/created olorm)]
-         ])]]
-    (comment
-      [:p "Ekstra stor tabell med unødvendig info"]
-      [:table
-       [:thead [:td "slug"] [:td "meta"]]
-       [:tbod
-        (for [olorm (map olorm/load-meta (olorm/docs {:repo-path ".."}))]
-          [:tr
-           [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
-           [:td (pr-str olorm)]])]])]))
+         [:td (:doc/created olorm)]])]]]))
 
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
