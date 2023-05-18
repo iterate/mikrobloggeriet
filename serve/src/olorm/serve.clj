@@ -8,6 +8,12 @@
    [clojure.pprint]
    [org.httpkit.server :as httpkit]))
 
+(defn shared-header
+  "Shared header content -- for example CSS imports."
+  []
+  [(hiccup.page/include-css "/vanilla.css")
+   (hiccup.page/include-css "/mikrobloggeriet.css")])
+
 (defn index [_req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-olorm-url "https://github.com/iterate/olorm/"
@@ -16,7 +22,8 @@
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"]
     (page/html5
-     [:head (hiccup.page/include-css "/vanilla.css")]
+     (into [:head]
+           (shared-header))
      [:body
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."
@@ -60,7 +67,7 @@
   (let [olorm {:slug (:slug (:route-params req))
                :repo-path ".."}]
     (page/html5
-     [:head (hiccup.page/include-css "/vanilla.css")]
+     (into [:head] (shared-header))
      [:body
       [:p [:a {:href "/"} ".."]]
       (olorm->html olorm)])))
@@ -73,20 +80,24 @@
   (let [doc {:slug (:slug (:route-params req))
              :repo-path ".."}]
     (page/html5
-     [:head (hiccup.page/include-css "/vanilla.css")]
+     (into [:head] (shared-header))
      [:body
       [:p [:a {:href "/"} ".."]]
       (jals->html doc)])))
+
+(defn random-doc [_req]
+  {:status 307 ;; temporary redirect
+   :headers {"Location" "/o/olorm-4/"}
+   :body ""})
 
 (defroutes app
   (GET "/" req (index req))
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
+  (GET "/mikrobloggeriet.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "mikrobloggeriet.css")})
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
-  (GET "/random-doc" _req {:status 307 ;; temporary redirect
-                           :headers {"Location" "/o/olorm-4/"}
-                           :body ""}))
+  (GET "/random-doc" _req random-doc))
 
 (defonce server (atom nil))
 (def port 7223)
