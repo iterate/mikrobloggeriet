@@ -19,7 +19,8 @@
      [:head (hiccup.page/include-css "/vanilla.css")]
      [:body
       [:h1 "Mikrobloggeriet"]
-      [:p "Et initiativ for mikroblogging."]
+      [:p "Et initiativ for mikroblogging."
+       " Gå til " [:a {:href "/random-doc"} "tilfeldig innlegg"] " (TODO lag handler)."]
       [:h2 "OLORM"]
       [:p "OLORM er en mikroblogg skrevet av Oddmund, Lars og Richard."]
       [:p
