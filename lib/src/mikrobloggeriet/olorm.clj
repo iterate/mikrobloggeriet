@@ -147,10 +147,3 @@
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
   (and (fs/directory? (path olorm))
        (fs/exists? (index-md-path olorm))))
-
-;; ## TODO
-;;
-;; - [ ] Move olorm config in here.
-;;       Why?
-;;       Because we already _know_ the olorm repo path (with config), but it's locked away in the CLI.
-;;       If we had the config here, we could write code that "just works when config is set".
