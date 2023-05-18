@@ -36,7 +36,7 @@
       [:p "OLORM er en mikroblogg skrevet av Oddmund, Lars og Richard."]
       [:p
        (interpose " · "
-                  (for [olorm (olorm/olorms {:repo-path ".."})]
+                  (for [olorm (olorm/docs {:repo-path ".."})]
                     [:a {:href (olorm/href olorm)} (:slug olorm)]))]
       [:h2 "JALS"]
       [:p "JALS er en mikroblogg skrevet av Jørgen, Adrian, Lars og Sindre."]
@@ -69,7 +69,7 @@
     [:table
      [:thead [:td "slug"]]
      [:tbody
-      (for [olorm (olorm/olorms {:repo-path ".."})]
+      (for [olorm (olorm/docs {:repo-path ".."})]
         [:tr [:td
               [:a {:href (olorm/href olorm)} (:slug olorm)]]])]]]))
 
