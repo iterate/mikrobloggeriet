@@ -130,7 +130,15 @@ Example usage:
           (rand-nth pool)))))
 
 (defn olorm-migrate [{:keys [opts]}]
-  (prn 'olorm 'migrate 'TODO))
+  (when (:add-uuids opts)
+    (doseq [o (olorm/docs {:repo-path (repo-path)})]
+      (let [meta (olorm/load-meta o)
+            uuid (or (:doc/uuid meta)
+                     (:uuid meta)
+                     (olorm/uuid))]
+        (olorm/save-meta! (-> meta
+                              (dissoc :uuid)
+                              (assoc :doc/uuid uuid)))))))
 
 (def subcommands
   [
