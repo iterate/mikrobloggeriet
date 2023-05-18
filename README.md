@@ -89,3 +89,5 @@ You should then be able to invoke the CLI:
       olorm repo-path
       olorm set-repo-path
 
+[babashka]: https://babashka.org/
+[bbin]: https://github.com/babashka/bbin
