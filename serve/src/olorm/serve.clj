@@ -26,7 +26,7 @@
            (shared-html-header))
      [:body
       [:p
-       [:a {:href "/random-doc"} "tilfeldig dokument"]]
+       [:a {:href "/random-doc"} "tilfeldig"]]
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."]
       [:h2 "OLORM"]
@@ -61,7 +61,7 @@
          (shared-html-header))
    [:body
     [:p
-     [:a {:href "/random-doc"} "tilfeldig dokument"]]
+     [:a {:href "/random-doc"} "tilfeldig"]]
     [:h1 "Alle OLORM-er"]
     (for [olorm (olorm/olorms {:repo-path ".."})]
       [:div
@@ -85,7 +85,7 @@
      (into [:head] (shared-html-header))
      [:body
       [:p
-       [:a {:href "/random-doc"} "tilfeldig dokument"]
+       [:a {:href "/random-doc"} "tilfeldig"]
        " — "
        [:a {:href "/"} "hjem"]
        " — "
