@@ -26,8 +26,7 @@
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"]
     (page/html5
-     (into [:head]
-           (shared-html-header))
+     (into [:head] (shared-html-header))
      [:body
       [:p
        (feeling-lucky)]
@@ -61,8 +60,7 @@
 
 (defn olorms-index [_req]
   (page/html5
-   (into [:head]
-         (shared-html-header))
+   (into [:head] (shared-html-header))
    [:body
     [:p
      (feeling-lucky)]
