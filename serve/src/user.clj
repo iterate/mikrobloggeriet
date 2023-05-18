@@ -28,8 +28,11 @@
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start! []
-  (let [start-fn (requiring-resolve 'olorm.serve/start!)]
-    (start-fn {})))
+  (let [start-fn (requiring-resolve 'olorm.serve/start!)
+        port (requiring-resolve 'olorm.serve/port)
+        shell (requiring-resolve 'babashka.process/shell)]
+    (start-fn {})
+    (shell (System/getenv "BROWSER") (str "http://localhost:" (deref port)))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
