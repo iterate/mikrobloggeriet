@@ -68,6 +68,8 @@
        (sort-by :number)
        (map #(assoc % :repo-path repo-path))))
 
+(def olorms docs)
+
 (defn random
   "Pick an olorm at random"
   [{:keys [repo-path]}]
