@@ -66,11 +66,13 @@
      (feeling-lucky)]
     [:h1 "Alle OLORM-er"]
     [:table
-     [:thead [:td "slug"]]
+     [:thead [:td "slug"] [:td "created"] [:td "uuid"]]
      [:tbody
-      (for [olorm (olorm/docs {:repo-path ".."})]
-        [:tr [:td
-              [:a {:href (olorm/href olorm)} (:slug olorm)]]])]]]))
+      (for [olorm (map olorm/load-meta (olorm/docs {:repo-path ".."}))]
+        [:tr
+         [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
+         [:td (:doc/created olorm)]
+         [:td [:span {:style {:font-size "0.6em"}} (:doc/uuid olorm)]]])]]]))
 
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
