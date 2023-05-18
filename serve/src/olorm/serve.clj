@@ -100,13 +100,14 @@
         " "
         [:a {:href "/o/"} "o"]
         " — "
-        (let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
-          (when (olorm/exists? prev)
-            [:a {:href (olorm/href prev)} (:slug prev)]))
-        " · "
-        (let [prev (olorm/->olorm {:number (inc number) :repo-path ".."})]
-          (when (olorm/exists? prev)
-            [:a {:href (olorm/href prev)} (:slug prev)]))]
+        [:span (interpose " · " (filter some?
+                                        [(let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
+                                           (when (olorm/exists? prev)
+                                             [:a {:href (olorm/href prev)} (:slug prev)]))
+                                         [:span (:slug olorm)]
+                                         (let [prev (olorm/->olorm {:number (inc number) :repo-path ".."})]
+                                           (when (olorm/exists? prev)
+                                             [:a {:href (olorm/href prev)} (:slug prev)]))]))]]
        (olorm->html olorm)])}))
 
 (defn jals->html [doc]
