@@ -64,30 +64,19 @@ Vennligst:
 3. Bruk subkommandoen `jals set-repo-path` til å peke til der du har klonet repoet.
    Kjør `jals set-repo-path -h` for å se hjelpetekst for subkommadoen.
 
-## Install OLORM CLI (deprecated, legacy)
+## Installing legacy OLORM CLIs (deprecated)
 
-This CLI installation method is deprecated in favor of cohort-specific instructions.
-See above.
+To install the first version of the OLORM CLI (deprecated), please run:
 
-In order to install `olorm`, please:
+```shell
+bbin install ./cli --as olorm-legacy1 --main-opts '["-m" "olorm.cli"]'
+```
 
-1. Clone this repo
-2. Install [babashka] and [bbin]
-3. Then install `olorm`:
+To install the second version of the OLORM CLI (deprecated), please run:
 
-    ```shell
-    bbin install ./cli
-    ```
-
-You should then be able to invoke the CLI:
-
-    $ olorm -h
-    Available subcommands:
-
-      olorm create
-      olorm help
-      olorm repo-path
-      olorm set-repo-path
+```shell
+bbin install ./olorm-cli --as olorm-legacy2 --main-opts '["-m" "olorm.cli"]'
+```
 
 [babashka]: https://babashka.org/
 [bbin]: https://github.com/babashka/bbin
