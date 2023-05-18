@@ -128,7 +128,10 @@
              :repo-path (:repo-path doc)))))
 
 (defn author-name [doc]
-  (get {"richard.tingstad@iterate.no" "Richard"}
+  (get {"richard.tingstad@iterate.no" "Richard"
+        "lars.barlindhaug@iterate.no" "Lars"
+        "oddmunds@iterate.no" "Oddmund"
+        "git@teod.eu" "Teodor"}
        (:git.user/email doc)))
 
 (defn save-meta! [doc+meta]
