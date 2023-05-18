@@ -127,6 +127,10 @@
              :number (:number doc)
              :repo-path (:repo-path doc)))))
 
+(defn author-name [doc]
+  (get {"richard.tingstad@iterate.no" "Richard"}
+       (:git.user/email doc)))
+
 (defn save-meta! [doc+meta]
   (validate doc+meta)
   (binding [*print-namespace-maps* false]
