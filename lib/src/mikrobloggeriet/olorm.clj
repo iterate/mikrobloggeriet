@@ -48,11 +48,16 @@
                 olorm)]
     olorm))
 
+(defn validate
+  "Ensures that `doc` is a valid OLORM document"
+  [doc]
+  (assert (:slug doc) ":slug is required!")
+  (assert (:repo-path doc) ":repo-path is required!")
+  (assert (:number doc) ":number is required!"))
+
 (defn coerce [doc]
   (let [doc (->olorm doc)]
-    (assert (:slug doc) ":slug is required!")
-    (assert (:repo-path doc) ":repo-path is required!")
-    (assert (:number doc) ":number is required!")
+    (validate doc)
     doc))
 
 (def ^:private olorms-folder "o")
