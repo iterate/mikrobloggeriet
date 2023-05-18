@@ -130,7 +130,8 @@ Example usage:
           (rand-nth pool)))))
 
 (defn olorm-migrate [{:keys [opts]}]
-  (when (or (:h opts) (:help opts))
+  (when (or (:h opts) (:help opts)
+            (not (seq opts)))
     (println (str/trim "
 Usage:
 
