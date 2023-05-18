@@ -75,11 +75,11 @@
       [:p
        [:a {:href "/random-doc"} "tilfeldig dokument"]
        " — "
+       [:a {:href "/"} "hjem"]
+       " — "
        (let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
          (when (olorm/exists? prev)
            [:a {:href (olorm/href prev)} (:slug prev)]))
-       " · "
-       [:a {:href "/"} ".."]
        " · "
        (let [prev (olorm/->olorm {:number (inc number) :repo-path ".."})]
          (when (olorm/exists? prev)
