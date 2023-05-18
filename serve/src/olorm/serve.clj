@@ -27,7 +27,7 @@
      [:body
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."
-       " Gå til " [:a {:href "/random-doc"} "tilfeldig innlegg"] "."]
+       " Gå til " [:a {:href "/random-doc"} "tilfeldig dokument"] "."]
       [:h2 "OLORM"]
       [:p "OLORM er en mikroblogg skrevet av Oddmund, Lars og Richard."]
       [:p
