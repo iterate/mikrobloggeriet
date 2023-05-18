@@ -2,4 +2,5 @@
  :deps {babashka/fs {:mvn/version "0.3.17"}
         babashka/process {:mvn/version "0.4.16"}
         org.babashka/cli {:mvn/version "0.6.50"}
+        mikrobloggeriet/cli {:local/root "../cli"}
         olorm/lib {:local/root "../lib"}}}
