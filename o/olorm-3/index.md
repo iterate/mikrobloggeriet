@@ -21,3 +21,5 @@ Kjernen av koden er kommandoen `tr -d` som fjerner alle lovlige whitespace-tegn 
 
 Denne koden (med unntak av `curl`) er en gyldig [POSIX](https://pubs.opengroup.org/onlinepubs/9699919799/) shell-kommando og vil derfor virke på alle CI-systemer etc. i all overskuelig fremtid.
 
+Send gjerne spørsmål eller kommentarer til Richard Tingstad :)
+

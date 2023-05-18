@@ -49,3 +49,5 @@ Men vi kan konkludere: Det er trygt å anta at alle ukjente tegn etter tallet bl
 
 P.S. Du vil kanskje filtrere `docker manifest` på `platform.architecture`.
 
+Send gjerne spørsmål eller kommentarer til Richard Tingstad :)
+
