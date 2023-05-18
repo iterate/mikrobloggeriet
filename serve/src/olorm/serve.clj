@@ -15,7 +15,7 @@
    (hiccup.page/include-css "/mikrobloggeriet.css")])
 
 (defn roulette []
-  [:a {:href "/random-doc"} "rulett"])
+  [:a {:href "/random-doc"} "🎲"])
 
 (defn index [_req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
