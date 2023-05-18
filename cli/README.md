@@ -8,6 +8,7 @@ That's our goal.
     # edit in your #EDITOR
     # :wq - or save and quit in some other way
     # That's it!
+    # Your text is now on its way to the internet.
 
 ## prerequisites
 
