@@ -3,7 +3,7 @@
 (ns olorm.devui
   (:require
    [nextjournal.clerk :as clerk]
-   [olorm.lib :as olorm]
+   [mikrobloggeriet.olorm :as olorm]
    [iki.api :as iki]))
 
 ;; ## Look at things, like http requests
@@ -31,7 +31,7 @@
   (when (olorm/exists? olorm)
     (markdown->html (slurp (olorm/index-md-path olorm) ))))
 
-(def olorms (olorm/olorms {:repo-path ".."}))
+(def olorms (olorm/docs {:repo-path ".."}))
 
 (clerk/html (olorm->html (first olorms)))
 (clerk/html (olorm->html (second olorms)))
