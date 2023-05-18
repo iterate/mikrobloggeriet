@@ -14,6 +14,9 @@
   [(hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")])
 
+(defn roulette []
+  [:a {:href "/random-doc"} "rulett"])
+
 (defn index [_req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-olorm-url "https://github.com/iterate/olorm/"
@@ -26,7 +29,7 @@
            (shared-html-header))
      [:body
       [:p
-       [:a {:href "/random-doc"} "tilfeldig"]]
+       (roulette)]
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."]
       [:h2 "OLORM"]
@@ -61,7 +64,7 @@
          (shared-html-header))
    [:body
     [:p
-     [:a {:href "/random-doc"} "tilfeldig"]]
+     (roulette)]
     [:h1 "Alle OLORM-er"]
     (for [olorm (olorm/olorms {:repo-path ".."})]
       [:div
@@ -85,7 +88,7 @@
      (into [:head] (shared-html-header))
      [:body
       [:p
-       [:a {:href "/random-doc"} "tilfeldig"]
+       (roulette)
        " — "
        [:a {:href "/"} "hjem"]
        " — "
