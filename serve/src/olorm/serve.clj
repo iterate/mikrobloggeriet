@@ -90,7 +90,9 @@
       [:p
        (roulette)
        " — "
-       [:a {:href "/"} "hjem"]
+       [:a {:href "/"} "/"]
+       " — "
+       [:a {:href "/o/"} "/o/"]
        " — "
        (let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
          (when (olorm/exists? prev)
