@@ -69,13 +69,13 @@ Vennligst:
 To install the first version of the OLORM CLI (deprecated), please run:
 
 ```shell
-bbin install ./cli --as olorm-legacy1 --main-opts '["-m" "olorm.cli"]'
+bbin install ./cli --as olorm-legacy-1 --main-opts '["-m" "olorm.cli"]'
 ```
 
 To install the second version of the OLORM CLI (deprecated), please run:
 
 ```shell
-bbin install ./olorm-cli --as olorm-legacy2 --main-opts '["-m" "olorm.cli"]'
+bbin install ./olorm-cli --as olorm-legacy-2 --main-opts '["-m" "olorm.cli"]'
 ```
 
 [babashka]: https://babashka.org/
