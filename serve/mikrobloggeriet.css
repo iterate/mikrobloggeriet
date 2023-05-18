@@ -5,13 +5,14 @@ body {
 .feeling-lucky:hover {
     display: inline-block;
     animation-name: spin;
-    animation-duration: 250ms;
+    animation-duration: 175ms;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
 }
 
 a.feeling-lucky {
     text-decoration: none;
+    font-size: 1.4em;
 }
 
 @keyframes spin {
