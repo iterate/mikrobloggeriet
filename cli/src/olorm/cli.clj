@@ -5,7 +5,10 @@
    [clojure.edn :as edn]
    [clojure.string :as str]
    [olorm.lib :as olorm]
-   [babashka.process :refer [shell]]))
+   [babashka.process :refer [shell]]
+
+   [mikrobloggeriet.olorm-cli]
+   ))
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
 (defn config-file [] (str (config-folder) "/config.edn"))
@@ -136,13 +139,13 @@ Example usage:
 (defn -main [& args]
   (let [deprecation-warning (str/trim "
 
-WARNING: You are running on the legacy OLORM CLI (deprecated). Please follow
-instructions in README.md to install the new OLORM CLI.
-
-The new CLI has the same subcommand structure as the old CLI.
+WARNING: You are running a legacy installation of the OLORM CLI (deprecated).
+Please follow instructions in README.md to install the new OLORM CLI.
 
 ")]
     (binding [*out* *err*]
       (println deprecation-warning)
       (println)))
-  (cli/dispatch subcommands args))
+  #_
+  (cli/dispatch subcommands args)
+  (apply mikrobloggeriet.olorm-cli/-main args))
