@@ -29,3 +29,7 @@ find . -name \*.go -exec \
 
 Det er ikke perfekt, men det er ganske bra.
 
+P.S. To av AWK-linjene kan droppes ved bruk av `$NF` i stedet for `$4`.
+
+Send gjerne spørsmål eller kommentarer til Richard Tingstad :)
+

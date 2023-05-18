@@ -19,3 +19,5 @@ Så hvis du bruker en hel eller halv dag på å gjøre en skikkelig god code rev
 
 Ikke veldig ny kunnskap dette, men en fin påminnelse når man i standup føler man "bare" har gjort "admin"-ting den siste tiden :)
 
+Send gjerne spørsmål eller kommentarer til Richard Tingstad :)
+

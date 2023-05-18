@@ -41,3 +41,5 @@ func main() {
 
 Du har sannsynligvis brukt denne teknikken allerede vba. [http.HandlerFunc](https://github.com/golang/go/blob/go1.20/src/net/http/server.go#L2114-L2123).
 
+Send gjerne spørsmål eller kommentarer til Richard Tingstad :)
+

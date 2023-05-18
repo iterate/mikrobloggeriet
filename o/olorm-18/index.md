@@ -73,5 +73,5 @@ Slice'en sendes som et slags variadic argument, så det er mest praktisk å ha `
 
 Den siste linja i `main()` er bare høfflig opprydding som lukker FIFOene og avventer at alle prosessene er avsluttet.
 
-Send meg gjerne spørsmål eller kommentarer :)
-—Richard
+Send gjerne spørsmål eller kommentarer til Richard Tingstad :)
+

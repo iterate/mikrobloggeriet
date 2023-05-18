@@ -33,7 +33,7 @@ Dette formatet er så enkelt at det ikke er vanskelig å hente ut direkte:
 > Each line holds a single directive, made up of a verb followed by arguments.
 
 ```
-< go.mod tr -s ' \t\r' ' ' | sed -n '/^ *go [1-9]/s/^ *go //p'
+ <go.mod tr -s ' \t\r' ' ' | sed -n '/^ *go [1-9]/s/^ *go //p'
 #└┬────┘ └┬──────────────┘   └──┬──┘└─┬──────────┘└────────┬─┘
 # │       │                     │     │                    │
 # │       │   default ikke print┘     └ for linjer         │
@@ -55,4 +55,6 @@ go mod edit -json | jq -r .Go
 ```
 
 Siden denne kommandoen er laget for akkurat dette formålet tenker jeg den er veldig trygg å basere seg på.
+
+Send gjerne spørsmål eller kommentarer til Richard Tingstad :)
 
