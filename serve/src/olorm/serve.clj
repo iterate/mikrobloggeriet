@@ -11,7 +11,8 @@
 (defn shared-html-header
   "Shared header content -- for example CSS imports."
   []
-  [(hiccup.page/include-css "/vanilla.css")
+  [[:meta {:charset "utf-8"}]
+   (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")])
 
 (defn feeling-lucky []
@@ -87,24 +88,26 @@
                               :repo-path ".."})
         {:keys [number]} olorm]
     (tap> (olorm/->olorm olorm))
-    (page/html5
-     (into [:head] (shared-html-header))
-     [:body
-      [:p
-       (feeling-lucky)
-       " — "
-       [:a {:href "/"} "mikrobloggeriet"]
-       " "
-       [:a {:href "/o/"} "o"]
-       " — "
-       (let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
-         (when (olorm/exists? prev)
-           [:a {:href (olorm/href prev)} (:slug prev)]))
-       " · "
-       (let [prev (olorm/->olorm {:number (inc number) :repo-path ".."})]
-         (when (olorm/exists? prev)
-           [:a {:href (olorm/href prev)} (:slug prev)]))]
-      (olorm->html olorm)])))
+    {:status (if olorm 200 404)
+     :body
+     (page/html5
+      (into [:head] (shared-html-header))
+      [:body
+       [:p
+        (feeling-lucky)
+        " — "
+        [:a {:href "/"} "mikrobloggeriet"]
+        " "
+        [:a {:href "/o/"} "o"]
+        " — "
+        (let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
+          (when (olorm/exists? prev)
+            [:a {:href (olorm/href prev)} (:slug prev)]))
+        " · "
+        (let [prev (olorm/->olorm {:number (inc number) :repo-path ".."})]
+          (when (olorm/exists? prev)
+            [:a {:href (olorm/href prev)} (:slug prev)]))]
+       (olorm->html olorm)])}))
 
 (defn jals->html [doc]
   (when (jals/exists? doc)
@@ -112,12 +115,15 @@
 
 (defn jals [req]
   (let [doc {:slug (:slug (:route-params req))
-             :repo-path ".."}]
-    (page/html5
-     (into [:head] (shared-html-header))
-     [:body
-      [:p [:a {:href "/"} ".."]]
-      (jals->html doc)])))
+             :repo-path ".."}
+        html (jals->html doc)]
+    {:status (if html 200 404)
+     :body
+     (page/html5
+      (into [:head] (shared-html-header))
+      [:body
+       [:p [:a {:href "/"} ".."]]
+       html])}))
 
 (defn random-doc [_req]
   (let [target (or (when-let [random-olorm (olorm/random {:repo-path ".."})]
