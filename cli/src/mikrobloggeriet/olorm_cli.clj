@@ -141,6 +141,7 @@ Allowed options:
 
   --add-uuids             Add missing UUIDs, conform uuid storage format
   --conform-created       Add a :doc/created attribute for every doc with a created timestamp
+  --infer-created         Infer created date from Git history
 "
                          ))
     )
@@ -169,7 +170,13 @@ Allowed options:
   ;; TODO infer unknown authors from git history
 
   ;; TODO infer unknown created dates from git history
-  )
+  (when (:infer-created opts)
+    (doseq [o (olorm/docs {:repo-path (repo-path)})]
+      (let [meta (olorm/load-meta o)
+            created (:doc/created meta)]
+        (when-not created
+          (olorm/save-meta! (-> meta
+                                (assoc :doc/created (olorm/infer-created-date o)))))))))
 
 (def subcommands
   [
