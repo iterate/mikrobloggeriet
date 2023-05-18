@@ -25,6 +25,7 @@
      (into [:head]
            (shared-header))
      [:body
+      [:p "🍺"]
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."
        " Gå til " [:a {:href "/random-doc"} "tilfeldig dokument"] "."]
