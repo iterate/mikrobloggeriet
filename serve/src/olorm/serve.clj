@@ -14,7 +14,7 @@
   [(hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")])
 
-(defn roulette []
+(defn feeling-lucky []
   [:a {:href "/random-doc"} "🎲"])
 
 (defn index [_req]
@@ -29,7 +29,7 @@
            (shared-html-header))
      [:body
       [:p
-       (roulette)]
+       (feeling-lucky)]
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."]
       [:h2 "OLORM"]
@@ -64,7 +64,7 @@
          (shared-html-header))
    [:body
     [:p
-     (roulette)]
+     (feeling-lucky)]
     [:h1 "Alle OLORM-er"]
     [:table
      [:thead [:td "slug"]]
@@ -91,7 +91,7 @@
      (into [:head] (shared-html-header))
      [:body
       [:p
-       (roulette)
+       (feeling-lucky)
        " — "
        [:a {:href "/"} "mikrobloggeriet"]
        " "
