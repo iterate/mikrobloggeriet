@@ -76,7 +76,7 @@ Allowed options:
                                  (:disable-git-magic opts))]
     (when-not disable-git-commands
       (dispatch `shell {:dir repo-path} "git pull --rebase"))
-    (let [number (inc (or (->> (olorm/olorms {:repo-path repo-path})
+    (let [number (inc (or (->> (olorm/docs {:repo-path repo-path})
                                (map :number)
                                sort
                                last)
