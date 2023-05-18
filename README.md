@@ -6,16 +6,16 @@ Tidligere kjent som OLORM.
 
 Vocabulary:
 
-| term            | definition                                             | Deprecated?                          |
-|-----------------|--------------------------------------------------------|--------------------------------------|
-| cohort          | a microblogging collective                             |                                      |
-| doc             | a microblog entry                                      |                                      |
-| mikrobloggeriet | a collection of microblogs                             |                                      |
-| olorm           | a CLI for microblogging                                |                                      |
-| olorm           | a collection of microblogs                             | Deprecated, prefer "mikrobloggeriet" |
-| olorm           | Oddmund, Lars and Richard's microblog collective       |                                      |
-| jals            | Jørgen, Adrian, Lars and Sindre's microblog collective |                                      |
-| jals            | a CLI for microblogging                                |                                      |
+| term            | definition                                             | Deprecated? |
+|-----------------|--------------------------------------------------------|-------------|
+| cohort          | a microblogging collective                             |             |
+| doc             | a microblog entry                                      |             |
+| mikrobloggeriet | a collection of microblogs                             |             |
+| olorm           | a CLI for microblogging                                |             |
+| olorm           | a collection of microblogs                             | Deprecated. |
+| olorm           | Oddmund, Lars and Richard's microblog collective       |             |
+| jals            | Jørgen, Adrian, Lars and Sindre's microblog collective |             |
+| jals            | a CLI for microblogging                                |             |
 
 Note: the "olorm" term is now ambiguous.
 It used to be the name of the whole, now it's only a _part_ of the whole.
