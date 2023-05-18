@@ -142,6 +142,7 @@ Allowed options:
   --add-uuids             Add missing UUIDs, conform uuid storage format
   --conform-created       Add a :doc/created attribute for every doc with a created timestamp
   --infer-created         Infer created date from Git history
+  --infer-email           Infer email from Git history
 "
                          ))
     )
@@ -167,9 +168,24 @@ Allowed options:
                                 (dissoc :created)
                                 (assoc :doc/created created)))))))
 
-  ;; TODO infer unknown authors from git history
+  (when (:infer-email opts)
+    (doseq [o (olorm/docs {:repo-path (repo-path)})]
+      (let [meta (olorm/load-meta o)
+            git-user-email (:git.user/email meta)]
+        (when-not git-user-email
+          (let [candidates
+                (->> (shell {:dir (:repo-path o) :out :string}
+                            "git log --pretty=\"format:%ae\""
+                            (olorm/index-md-path o))
+                     :out
+                     str/split-lines
+                     (remove #{"git@teod.eu" "tingstad@users.noreply.github.com"})
+                     dedupe)]
+            (when (= (count candidates) 1)
+              ;; then it looks good
+              (olorm/save-meta! (-> meta
+                                    (assoc :git.user/email (first candidates))))))))))
 
-  ;; TODO infer unknown created dates from git history
   (when (:infer-created opts)
     (doseq [o (olorm/docs {:repo-path (repo-path)})]
       (let [meta (olorm/load-meta o)

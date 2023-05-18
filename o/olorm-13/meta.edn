@@ -1,2 +1,3 @@
 {:doc/created "2023-05-04",
- :doc/uuid "4cf64644-2ead-45e5-b579-f773ffdd8e54"}
+ :doc/uuid "4cf64644-2ead-45e5-b579-f773ffdd8e54",
+ :git.user/email "richard.tingstad@iterate.no"}
