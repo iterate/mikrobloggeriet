@@ -25,10 +25,10 @@
      (into [:head]
            (shared-header))
      [:body
-      [:p "🍺"]
+      [:p
+       [:a {:href "/random-doc"} "tilfeldig dokument"]]
       [:h1 "Mikrobloggeriet"]
-      [:p "Et initiativ for mikroblogging."
-       " Gå til " [:a {:href "/random-doc"} "tilfeldig dokument"] "."]
+      [:p "Et initiativ for mikroblogging."]
       [:h2 "OLORM"]
       [:p "OLORM er en mikroblogg skrevet av Oddmund, Lars og Richard."]
       [:p
@@ -65,12 +65,25 @@
 
 (defn olorm [req]
   (tap> req)
-  (let [olorm {:slug (:slug (:route-params req))
-               :repo-path ".."}]
+  (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
+                              :repo-path ".."})
+        {:keys [number]} olorm]
+    (tap> (olorm/->olorm olorm))
     (page/html5
      (into [:head] (shared-header))
      [:body
-      [:p [:a {:href "/"} ".."]]
+      [:p
+       [:a {:href "/random-doc"} "tilfeldig dokument"]
+       " — "
+       (let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
+         (when (olorm/exists? prev)
+           [:a {:href (olorm/href prev)} (:slug prev)]))
+       " · "
+       [:a {:href "/"} ".."]
+       " · "
+       (let [prev (olorm/->olorm {:number (inc number) :repo-path ".."})]
+         (when (olorm/exists? prev)
+           [:a {:href (olorm/href prev)} (:slug prev)]))]
       (olorm->html olorm)])))
 
 (defn jals->html [doc]
