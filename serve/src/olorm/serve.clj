@@ -66,9 +66,12 @@
     [:p
      (roulette)]
     [:h1 "Alle OLORM-er"]
-    (for [olorm (olorm/olorms {:repo-path ".."})]
-      [:div
-       [:a {:href (olorm/href olorm)} (:slug olorm)]])]))
+    [:table
+     [:thead [:td "slug"]]
+     [:tbody
+      (for [olorm (olorm/olorms {:repo-path ".."})]
+        [:tr [:td
+              [:a {:href (olorm/href olorm)} (:slug olorm)]]])]]]))
 
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
