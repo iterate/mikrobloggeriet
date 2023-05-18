@@ -59,20 +59,30 @@
        "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]])))
 
 (defn olorms-index [_req]
-  (page/html5
-   (into [:head] (shared-html-header))
-   [:body
-    [:p
-     (feeling-lucky)]
-    [:h1 "Alle OLORM-er"]
-    [:table
-     [:thead [:td "slug"] [:td "created"] [:td "uuid"]]
-     [:tbody
-      (for [olorm (map olorm/load-meta (olorm/docs {:repo-path ".."}))]
-        [:tr
-         [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
-         [:td (:doc/created olorm)]
-         [:td [:span {:style {:font-size "0.6em"}} (:doc/uuid olorm)]]])]]]))
+  (let [mail->author {"richard.tingstad@iterate.no" "Richard"}]
+    (page/html5
+     (into [:head] (shared-html-header))
+     [:body
+      [:p
+       (feeling-lucky)]
+      [:h1 "Alle OLORM-er"]
+      [:table
+       [:thead [:td "slug"] [:td "author"] [:td "created"]]
+       [:tbody
+        (for [olorm (map olorm/load-meta (olorm/docs {:repo-path ".."}))]
+          [:tr
+           [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
+           [:td (mail->author (:git.user/email olorm))]
+           [:td (:doc/created olorm)]
+           ])]]
+      [:p "Ekstra stor tabell med unødvendig info"]
+      [:table
+       [:thead [:td "slug"] [:td "meta"]]
+       [:tbod
+        (for [olorm (map olorm/load-meta (olorm/docs {:repo-path ".."}))]
+          [:tr
+           [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
+           [:td (pr-str olorm)]])]]])))
 
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
