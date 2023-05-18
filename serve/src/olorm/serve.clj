@@ -28,8 +28,7 @@
     (page/html5
      (into [:head] (shared-html-header))
      [:body
-      [:p
-       (feeling-lucky)]
+      [:p (feeling-lucky)]
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."]
       [:h2 "OLORM"]
@@ -63,8 +62,7 @@
     (page/html5
      (into [:head] (shared-html-header))
      [:body
-      [:p
-       (feeling-lucky)]
+      [:p (feeling-lucky)]
       [:h1 "Alle OLORM-er"]
       [:table
        [:thead [:td "slug"] [:td "author"] [:td "created"]]
