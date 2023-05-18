@@ -55,6 +55,18 @@
        "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
        "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]])))
 
+(defn olorms-index [_req]
+  (page/html5
+   (into [:head]
+         (shared-html-header))
+   [:body
+    [:p
+     [:a {:href "/random-doc"} "tilfeldig dokument"]]
+    [:h1 "Alle OLORM-er"]
+    (for [olorm (olorm/olorms {:repo-path ".."})]
+      [:div
+       [:a {:href (olorm/href olorm)} (:slug olorm)]])]))
+
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
   (iki/cache-fn-by iki/markdown->html identity))
@@ -112,6 +124,7 @@
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
   (GET "/mikrobloggeriet.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "mikrobloggeriet.css")})
+  (GET "/o/" req (olorms-index req))
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
   (GET "/random-doc" _req random-doc))
