@@ -83,7 +83,8 @@
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
   (GET "/o/:slug/" req (olorm req))
-  (GET "/j/:slug/" req (jals req)))
+  (GET "/j/:slug/" req (jals req))
+  (GET "/random-doc" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "random page pls"}))
 
 (defonce server (atom nil))
 (def port 7223)
