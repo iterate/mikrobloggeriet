@@ -140,6 +140,19 @@
 (defn git-user-email [{:keys [repo-path]}]
   (str/trim (:out (shell {:out :string :dir repo-path} "git config user.email"))))
 
+(defn infer-created-date [{:keys [repo-path] :as doc}]
+  (-> (shell {:dir repo-path :out :string}
+             "git log --pretty=\"format:%cs\""
+             (index-md-path doc))
+      :out
+      str/split-lines
+      sort
+      first))
+
+(comment
+  (infer-created-date
+   (->olorm {:number 1 :repo-path "/home/teodorlu/dev/iterate/olorm"})))
+
 (defn uuid []
   (str (java.util.UUID/randomUUID)))
 
