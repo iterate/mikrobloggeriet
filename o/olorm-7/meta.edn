@@ -1,2 +1,3 @@
 {:doc/created "2023-04-24",
- :doc/uuid "d0369c67-350d-4d75-862a-99eb7c37d92f"}
+ :doc/uuid "d0369c67-350d-4d75-862a-99eb7c37d92f",
+ :git.user/email "git@teod.eu"}
