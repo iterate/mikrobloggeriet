@@ -130,6 +130,20 @@ Example usage:
           (rand-nth pool)))))
 
 (defn olorm-migrate [{:keys [opts]}]
+  (when (or (:h opts) (:help opts))
+    (println (str/trim "
+Usage:
+
+  $ olorm migrate [OPTION...]
+
+Allowed options:
+
+  --add-uuids             Add missing UUIDs, conform uuid storage format
+  --conform-created       Add a :doc/created attribute for every doc with a created timestamp
+"
+                         ))
+    )
+  ;; Add UUIDs for documents missing UUID
   (when (:add-uuids opts)
     (doseq [o (olorm/docs {:repo-path (repo-path)})]
       (let [meta (olorm/load-meta o)
@@ -138,7 +152,18 @@ Example usage:
                      (olorm/uuid))]
         (olorm/save-meta! (-> meta
                               (dissoc :uuid)
-                              (assoc :doc/uuid uuid)))))))
+                              (assoc :doc/uuid uuid))))))
+
+  ;; Conform the :doc/created date field
+  (when (:conform-created opts)
+    (doseq [o (olorm/docs {:repo-path (repo-path)})]
+      (let [meta (olorm/load-meta o)
+            created (or (:doc/created meta)
+                        (:created meta))]
+        (when created
+          (olorm/save-meta! (-> meta
+                                (dissoc :created)
+                                (assoc :doc/created created))))))))
 
 (def subcommands
   [
