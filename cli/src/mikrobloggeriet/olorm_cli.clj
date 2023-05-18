@@ -129,6 +129,9 @@ Example usage:
      (get (zipmap "olr" '(oddmund lars richard))
           (rand-nth pool)))))
 
+(defn olorm-migrate [{:keys [opts]}]
+  (prn 'olorm 'migrate 'TODO))
+
 (def subcommands
   [
    {:cmds ["create"]        :fn olorm-create}
@@ -137,6 +140,7 @@ Example usage:
    {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
    {:cmds ["draw"]          :fn olorm-draw          :args->opts [:pool]}
    {:cmds ["lol"]           :fn lol}
+   {:cmds ["migrate"]       :fn olorm-migrate}
    {:cmds []                :fn olorm-help}])
 
 (defn -main [& args]
