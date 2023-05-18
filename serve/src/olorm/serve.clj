@@ -27,7 +27,7 @@
      [:body
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."
-       " Gå til " [:a {:href "/random-doc"} "tilfeldig innlegg"] " (TODO lag handler)."]
+       " Gå til " [:a {:href "/random-doc"} "tilfeldig innlegg"] "."]
       [:h2 "OLORM"]
       [:p "OLORM er en mikroblogg skrevet av Oddmund, Lars og Richard."]
       [:p
@@ -86,9 +86,12 @@
       (jals->html doc)])))
 
 (defn random-doc [_req]
-  {:status 307 ;; temporary redirect
-   :headers {"Location" "/o/olorm-4/"}
-   :body ""})
+  (let [target (or (when-let [random-olorm (olorm/random {:repo-path ".."})]
+                     (olorm/href random-olorm))
+                   "/")]
+    {:status 307 ;; temporary redirect
+     :headers {"Location" target}
+     :body ""}))
 
 (defroutes app
   (GET "/" req (index req))

@@ -57,7 +57,7 @@
     (assert (:slug olorm) "Need a slug to create an HREF for an olorm!")
     (str "/" olorms-folder "/" (:slug olorm) "/")))
 
-(defn olorms
+(defn docs
   "All olorms sorted by olorm number"
   [{:keys [repo-path]}]
   (assert repo-path)
@@ -67,6 +67,15 @@
        (filter :number)
        (sort-by :number)
        (map #(assoc % :repo-path repo-path))))
+
+(def olorms
+  "Deprecated in favor of docs, kept for backwards compatibility.."
+  docs)
+
+(defn random
+  "Pick an olorm at random"
+  [{:keys [repo-path]}]
+  (rand-nth (docs {:repo-path repo-path})))
 
 (comment
   (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
