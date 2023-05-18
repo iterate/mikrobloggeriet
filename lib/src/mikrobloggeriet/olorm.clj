@@ -48,6 +48,13 @@
                 olorm)]
     olorm))
 
+(defn coerce [doc]
+  (let [doc (->olorm doc)]
+    (assert (:slug doc) ":slug is required!")
+    (assert (:repo-path doc) ":repo-path is required!")
+    (assert (:number doc) ":number is required!")
+    doc))
+
 (def ^:private olorms-folder "o")
 
 (defn href
@@ -103,6 +110,15 @@
 (defn meta-path [olorm]
   (assert (and (contains? olorm :slug) (contains? olorm :repo-path)) "Required keys: :slug and :repo-path")
   (fs/file (path olorm) "meta.edn"))
+
+(defn load-meta [doc]
+  (let [doc (coerce doc)]
+    (let [meta (if (fs/exists? (meta-path doc))
+                 (edn/read-string (slurp (meta-path doc)))
+                 {})]
+      (assoc meta
+             :slug (:slug doc)
+             :number (:number doc)))))
 
 (defn git-user-email [{:keys [repo-path]}]
   (str/trim (:out (shell {:out :string :dir repo-path} "git config user.email"))))
