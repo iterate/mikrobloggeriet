@@ -8,7 +8,7 @@
    [clojure.pprint]
    [org.httpkit.server :as httpkit]))
 
-(defn shared-header
+(defn shared-html-header
   "Shared header content -- for example CSS imports."
   []
   [(hiccup.page/include-css "/vanilla.css")
@@ -23,7 +23,7 @@
         iterate-url "https://www.iterate.no/"]
     (page/html5
      (into [:head]
-           (shared-header))
+           (shared-html-header))
      [:body
       [:p
        [:a {:href "/random-doc"} "tilfeldig dokument"]]
@@ -70,7 +70,7 @@
         {:keys [number]} olorm]
     (tap> (olorm/->olorm olorm))
     (page/html5
-     (into [:head] (shared-header))
+     (into [:head] (shared-html-header))
      [:body
       [:p
        [:a {:href "/random-doc"} "tilfeldig dokument"]
@@ -94,7 +94,7 @@
   (let [doc {:slug (:slug (:route-params req))
              :repo-path ".."}]
     (page/html5
-     (into [:head] (shared-header))
+     (into [:head] (shared-html-header))
      [:body
       [:p [:a {:href "/"} ".."]]
       (jals->html doc)])))
