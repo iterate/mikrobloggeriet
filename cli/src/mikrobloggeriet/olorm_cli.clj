@@ -163,7 +163,12 @@ Allowed options:
         (when created
           (olorm/save-meta! (-> meta
                                 (dissoc :created)
-                                (assoc :doc/created created))))))))
+                                (assoc :doc/created created)))))))
+
+  ;; TODO infer unknown authors from git history
+
+  ;; TODO infer unknown created dates from git history
+  )
 
 (def subcommands
   [
