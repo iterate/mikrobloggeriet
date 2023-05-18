@@ -68,10 +68,6 @@
        (sort-by :number)
        (map #(assoc % :repo-path repo-path))))
 
-(def olorms
-  "Deprecated in favor of docs, kept for backwards compatibility.."
-  docs)
-
 (defn random
   "Pick an olorm at random"
   [{:keys [repo-path]}]
@@ -79,7 +75,7 @@
 
 (comment
   (when-let [html (requiring-resolve 'nextjournal.clerk/html)]
-    (olorms {:repo-path ".."})))
+    (docs {:repo-path ".."})))
 
 (defn md-skeleton [olorm]
   (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))
