@@ -15,7 +15,7 @@
    (hiccup.page/include-css "/mikrobloggeriet.css")])
 
 (defn feeling-lucky []
-  [:a {:href "/random-doc"} "🎲"])
+  [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
 
 (defn index [_req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
