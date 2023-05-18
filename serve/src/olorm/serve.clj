@@ -84,7 +84,9 @@
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
-  (GET "/random-doc" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "random page pls"}))
+  (GET "/random-doc" _req {:status 307 ;; temporary redirect
+                           :headers {"Location" "/o/olorm-4/"}
+                           :body ""}))
 
 (defonce server (atom nil))
 (def port 7223)
