@@ -32,7 +32,15 @@ Da må du først:
 
 1. Klone ned dette repoet
 2. Installere [babashka] og [bbin].
-   Hvis du bruker macOS, kan du installere disse to med Homebrew.
+3. Legge til `~/.local/bin` på `PATH`
+
+På mac kan du gjøre noe sånt:
+
+``` shell
+brew install borkdude/brew/babashka
+brew install babashka/brew/bbin
+echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.zshrc
+```
 
 ## Installér kommandolinjeprogram for å skrive OLORM-er
 
