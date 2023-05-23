@@ -1,6 +1,6 @@
 # JALS-1
 
-Jeg refaktorerer hvordan vi håndterer trente maskinlæringsmodeller. Vi bruker et verktøy kalt [neptune](neptune.ai) som, etter en trening, lagrer vektene i sin sky. Vektene til en modell representerer det modellen har lært. Når vi skal kjøre _inference_ på ny data (bilder), må vi laste ned disse vektene igjen for å instansiere modellen.
+Jeg refaktorerer hvordan vi håndterer trente maskinlæringsmodeller. Vi bruker et verktøy kalt [neptune](https://neptune.ai/) som, etter en trening, lagrer vektene i sin sky. Vektene til en modell representerer det modellen har lært. Når vi skal kjøre _inference_ på ny data (bilder), må vi laste ned disse vektene igjen for å instansiere modellen.
 
 ### Problembeskrivelse:
 
