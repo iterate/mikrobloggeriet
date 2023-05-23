@@ -1,4 +1,4 @@
-# Frontend og backend - 
+# Frontend og backend
 
 Det vi lager deler vi ofte opp i en frontend og backend og mye er åpenbart om skal plasseres i frontend eller backend, men noen ting er ikke like rett frem.
 
