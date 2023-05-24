@@ -75,7 +75,7 @@ Allowed options:
                                  (:no-git-magic opts)
                                  (:disable-git-magic opts))]
     (when-not disable-git-commands
-      (dispatch `shell {:dir repo-path} "git pull --rebase"))
+      (dispatch `shell {:dir repo-path} "git pull --ff-only"))
     (let [number (inc (or (->> (olorm/docs {:repo-path repo-path})
                                (map :number)
                                sort
@@ -92,6 +92,7 @@ Allowed options:
         (when-not disable-git-commands
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
+          (dispatch `shell {:dir repo-path} "git pull --rebase") ;; pull & rebase if someone is writing another another microblog entry
           (dispatch `shell {:dir repo-path} "git push")))
       (println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
                     "\n\n"

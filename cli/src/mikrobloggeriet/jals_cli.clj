@@ -73,7 +73,7 @@ Allowed options:
                      (prn `(~cmd ~@args))
                      (apply (resolve cmd) args)))]
     (when-not (or (:no-git-magic opts) (:disable-git-magic opts))
-      (dispatch `shell {:dir repo-path} "git pull --rebase"))
+      (dispatch `shell {:dir repo-path} "git pull --ff-only"))
     (let [next-number (inc (or (->> (jals/docs {:repo-path repo-path}) (map :number) sort last)
                                0))
           doc (jals/->jals {:repo-path repo-path :number next-number})
@@ -88,6 +88,7 @@ Allowed options:
         (when-not (:disable-git-magic opts)
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "jals-" (:number doc)))
+          (dispatch `shell {:dir repo-path} "git pull --rebase") ;; pull & rebase if someone is writing another another microblog entry
           (dispatch `shell {:dir repo-path} "git push")))
       (let [jals-announce-nudge (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
                                      "\n\n"
