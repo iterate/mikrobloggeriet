@@ -62,7 +62,7 @@ De første kommandoene her tar noen minutter.
 `sort` bruker lenger tid på store filer, men er veldig robust.
 
 ```
-< hist.csv awk -F "'?,'?" '{
+< sorted.csv awk -F "'?,'?" '{
     if ($2 != prev) {
         if (match(states, "B$") && !match(states, ",A,"))
             print prev
