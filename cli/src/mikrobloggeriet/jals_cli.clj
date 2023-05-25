@@ -69,7 +69,6 @@ Allowed options:
   --no-git-magic          Alias for --disable-git-commands
 "))
     (System/exit 0))
-  (prn opts)
   (let [repo-path (repo-path)
         dispatch (fn [cmd & args]
                    (if (:dry-run opts)
