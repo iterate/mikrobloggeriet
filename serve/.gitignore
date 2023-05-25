@@ -17,3 +17,7 @@ pom.xml.asc
 /.cpcache
 
 /.clerk
+
+/.clj-kondo
+/.lsp
+/.calva
