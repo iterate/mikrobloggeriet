@@ -42,6 +42,7 @@ WHERE t1.state = 'B'
 ```
 
 Denne sier to ting:
+
 1. At `B` er siste status (`t2` med nyere rad finnes ikke; `IS NULL`).
 2. At ingen tidligere rad med status `A` finnes (`t0`).
 
