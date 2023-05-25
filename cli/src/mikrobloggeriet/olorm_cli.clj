@@ -63,6 +63,7 @@ Allowed options:
   --disable-git-magic     Alias for --disable-git-commands
   --dry-run               Supress side effects and print commands instead
   --help                  Show this helptext.
+  --no-git-commands  Disable all Git commands. Useful for testing.
   --no-git-magic          Alias for --disable-git-commands
 "))
     (System/exit 0))
@@ -73,7 +74,9 @@ Allowed options:
                      (apply (resolve cmd) args)))
         disable-git-commands (or (:disable-git-commands opts)
                                  (:no-git-magic opts)
-                                 (:disable-git-magic opts))]
+                                 (:disable-git-magic opts)
+                                 (= false (:git-magic opts))
+                                 (= false (:git-commands opts)))]
     (when-not disable-git-commands
       (dispatch `shell {:dir repo-path} "git pull --ff-only"))
     (let [number (inc (or (->> (olorm/docs {:repo-path repo-path})

@@ -61,18 +61,26 @@ Usage:
 
 Allowed options:
 
-  --disable-git-magic  Disable running any Git commands. Useful for testing.
-  --dry-run            Supress side effects and print commands instead
-  --help               Show this helptext.
-  --no-git-magic       Alias for --disable-git-magic
+  --disable-git-commands  Disable all Git commands. Useful for testing.
+  --disable-git-magic     Alias for --disable-git-commands
+  --dry-run               Supress side effects and print commands instead
+  --help                  Show this helptext.
+  --no-git-commands  Disable all Git commands. Useful for testing.
+  --no-git-magic          Alias for --disable-git-commands
 "))
     (System/exit 0))
+  (prn opts)
   (let [repo-path (repo-path)
         dispatch (fn [cmd & args]
                    (if (:dry-run opts)
                      (prn `(~cmd ~@args))
-                     (apply (resolve cmd) args)))]
-    (when-not (or (:no-git-magic opts) (:disable-git-magic opts))
+                     (apply (resolve cmd) args)))
+        disable-git-commands (or (:disable-git-commands opts)
+                                 (:no-git-magic opts)
+                                 (:disable-git-magic opts)
+                                 (= false (:git-magic opts))
+                                 (= false (:git-commands opts)))]
+    (when-not disable-git-commands
       (dispatch `shell {:dir repo-path} "git pull --ff-only"))
     (let [next-number (inc (or (->> (jals/docs {:repo-path repo-path}) (map :number) sort last)
                                0))
@@ -85,7 +93,7 @@ Allowed options:
                                                        :doc/created (jals/today)
                                                        :doc/uuid (jals/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") next-index-md)
-        (when-not (:disable-git-magic opts)
+        (when-not disable-git-commands
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "jals-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git pull --rebase") ;; pull & rebase if someone is writing another another microblog entry
