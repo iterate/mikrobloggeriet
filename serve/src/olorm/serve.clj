@@ -121,7 +121,9 @@
      (page/html5
       (into [:head] (shared-html-header))
       [:body
-       [:p [:a {:href "/"} ".."]]
+       [:p (feeling-lucky)
+        " — "
+        [:a {:href "/"} "mikrobloggeriet"]]
        html])}))
 
 (defn random-doc [_req]
