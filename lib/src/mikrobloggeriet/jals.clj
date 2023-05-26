@@ -48,6 +48,8 @@
                 doc)]
     doc))
 
+(def ->doc ->jals)
+
 (def ^:private docs-folder "j")
 
 (defn href

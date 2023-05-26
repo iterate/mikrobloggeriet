@@ -127,8 +127,9 @@
     (markdown->html (slurp (jals/index-md-path doc)))))
 
 (defn jals [req]
-  (let [doc {:slug (:slug (:route-params req))
-             :repo-path ".."}
+  (let [doc (jals/->doc {:slug (:slug (:route-params req))
+                         :repo-path ".."})
+        {:keys [number]} doc
         html (jals->html doc)]
     {:status (if html 200 404)
      :body
@@ -137,7 +138,17 @@
       [:body
        [:p (feeling-lucky)
         " — "
-        [:a {:href "/"} "mikrobloggeriet"]]
+        [:a {:href "/"} "mikrobloggeriet"]
+        " — "
+        [:span (interpose " · " (filter some?
+                                        [(let [prev (jals/->doc {:number (dec number) :repo-path ".."})]
+                                           (when (jals/exists? prev)
+                                             [:a {:href (jals/href prev)} (:slug prev)]))
+                                         [:span (:slug doc)]
+                                         (let [prev (jals/->doc {:number (inc number) :repo-path ".."})]
+                                           (when (jals/exists? prev)
+                                             [:a {:href (jals/href prev)} (:slug prev)]))]))]
+        ]
        html])}))
 
 (defn random-doc [_req]
