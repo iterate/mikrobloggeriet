@@ -21,7 +21,7 @@
 (defn index [_req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-olorm-url "https://github.com/iterate/olorm/"
-        tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
+        _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"]
@@ -30,7 +30,7 @@
      [:body
       [:p (feeling-lucky)]
       [:h1 "Mikrobloggeriet"]
-      [:p "Teknologer fra Iterate skriver om ting de bryr seg om."]
+      [:p "Teknologer fra Iterate skriver om teknologi fra hverdagen."]
       [:h2 "OLORM"]
       [:p "OLORM skrives av Oddmund, Lars og Richard."]
       [:p
@@ -45,17 +45,31 @@
                     [:a {:href (jals/href doc)} (:slug doc)]))]
 
       [:hr]
-      [:h2 "Hva er dette, " [:em "egentlig"] "?"]
-      [:p [:strong "For Iterate-ansatte:"] " "
-       "Diskuter gjerne mikroblogginnlegg i " [:a {:href tech-forum-url} "#tech-forum"] " eller i tråder på " [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"] ". "
-       "Vi velger å skrive fordi vi " [:em "liker"] " å snakke om fag, og fordi vi bryr oss!"]
 
-      [:p [:strong "For andre:"] " "
-       "Mikrobloggeriet er et initiativ der teknologer fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
-       "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
-       "Innhold og kode for Mikrobloggeriet ligger åpent på " [:a {:href github-olorm-url} "github.com/iterate/olorm"] ". "
-       "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
-       "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]])))
+      [:section
+       [:h2 "Hva er dette for noe?"]
+       [:p
+        "Mikrobloggeriet er et initiativ der teknologer fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
+        "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
+        "Innhold og kode for Mikrobloggeriet på " [:a {:href github-olorm-url} "github.com/iterate/olorm"] ". "
+        "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
+        "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]]
+
+      [:section
+       [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
+       [:p "Vi oppfordrer alle til å kommentere og diskutere!"
+        " Men vi tror det er lettest å gjøre på Slack."
+        " Delta gjerne i diskusjonen i tråd på "
+        [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"]
+        "!"]]
+
+      [:section
+       [:h2 "Jeg er Iterate-teknolog og vil skrive, hva gjør jeg?"]
+       [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
+        " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
+        " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
+        " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
+      ])))
 
 (defn olorms-index [_req]
   (page/html5
