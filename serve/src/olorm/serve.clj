@@ -32,13 +32,13 @@
       [:h1 "Mikrobloggeriet"]
       [:p "Et initiativ for mikroblogging."]
       [:h2 "OLORM"]
-      [:p "OLORM er en mikroblogg skrevet av Oddmund, Lars og Richard."]
+      [:p "OLORM skrives av Oddmund, Lars og Richard."]
       [:p
        (interpose " · "
                   (for [olorm (olorm/docs {:repo-path ".."})]
                     [:a {:href (olorm/href olorm)} (:slug olorm)]))]
       [:h2 "JALS"]
-      [:p "JALS er en mikroblogg skrevet av Jørgen, Adrian, Lars og Sindre."]
+      [:p "JALS skrives av Jørgen, Adrian, Lars og Sindre."]
       [:p
        (interpose " · "
                   (for [doc (jals/docs {:repo-path ".."})]
