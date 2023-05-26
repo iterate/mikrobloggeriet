@@ -157,6 +157,8 @@
        [:p (feeling-lucky)
         " — "
         [:a {:href "/"} "mikrobloggeriet"]
+        " "
+        [:a {:href "/j/"} "j"]
         " — "
         [:span (interpose " · " (filter some?
                                         [(let [prev (jals/->doc {:number (dec number) :repo-path ".."})]
