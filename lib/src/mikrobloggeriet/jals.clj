@@ -33,7 +33,8 @@
     ;; => {:slug \"jals-3\" :number 3}
   "
   [{:keys [slug number repo-path]}]
-  (let [doc {}
+  (let [doc (sorted-map)
+        doc (assoc doc :cohort :jals)
         doc (if repo-path (assoc doc :repo-path repo-path) doc)
         doc (if number
                 (assoc doc
@@ -81,6 +82,11 @@
        (filter :number)
        (sort-by :number)
        (map #(assoc % :repo-path repo-path))))
+
+(defn random
+  "Pick a JALS at random"
+  [{:keys [repo-path]}]
+  (rand-nth (docs {:repo-path repo-path})))
 
 (comment
   (when-let [html (requiring-resolve 'nextjournal.clerk/html)]

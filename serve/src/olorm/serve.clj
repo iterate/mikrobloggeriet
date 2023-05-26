@@ -175,12 +175,24 @@
        html])}))
 
 (defn random-doc [_req]
-  (let [target (or (when-let [random-olorm (olorm/random {:repo-path ".."})]
-                     (olorm/href random-olorm))
-                   "/")]
+  (let [target (or
+                 (when-let [docs (into [] cat [(olorm/docs {:repo-path ".."})
+                                               (jals/docs {:repo-path ".."})])]
+                   (let [picked (rand-nth docs)]
+                     (cond
+                       (= :olorm (:cohort picked)) (olorm/href picked)
+                       (= :jals (:cohort picked)) (jals/href picked)
+                       :else nil)))
+                 "/")]
     {:status 307 ;; temporary redirect
      :headers {"Location" target}
      :body ""}))
+
+(comment
+  (olorm/random {:repo-path ".."})
+  (jals/random {:repo-path ".."})
+
+  )
 
 (defroutes app
   (GET "/" req (index req))
