@@ -30,7 +30,7 @@
      [:body
       [:p (feeling-lucky)]
       [:h1 "Mikrobloggeriet"]
-      [:p "Et initiativ for mikroblogging."]
+      [:p "Teknologer fra Iterate skriver om ting de bryr seg om."]
       [:h2 "OLORM"]
       [:p "OLORM skrives av Oddmund, Lars og Richard."]
       [:p
