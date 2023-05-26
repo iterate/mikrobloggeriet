@@ -34,7 +34,8 @@
     ;; => {:slug \"olorm-3\" :number 3}
   "
   [{:keys [slug number repo-path]}]
-  (let [olorm {}
+  (let [olorm (sorted-map)
+        olorm (assoc olorm :cohort :olorm)
         olorm (if repo-path (assoc olorm :repo-path repo-path) olorm)
         olorm (if number
                 (assoc olorm
