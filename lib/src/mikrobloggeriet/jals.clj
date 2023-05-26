@@ -50,6 +50,18 @@
 
 (def ->doc ->jals)
 
+(defn validate
+  "Ensures that `doc` is a valid JALS document"
+  [doc]
+  (assert (:slug doc) ":slug is required!")
+  (assert (:repo-path doc) ":repo-path is required!")
+  (assert (:number doc) ":number is required!"))
+
+(defn coerce [doc]
+  (let [doc (->doc doc)]
+    (validate doc)
+    doc))
+
 (def ^:private docs-folder "j")
 
 (defn href
@@ -98,6 +110,20 @@
 (defn meta-path [doc]
   (assert (and (contains? doc :slug) (contains? doc :repo-path)) "Required keys: :slug and :repo-path")
   (fs/file (path doc) "meta.edn"))
+
+(defn load-meta [doc]
+  (let [doc (coerce doc)]
+    (let [meta (if (fs/exists? (meta-path doc))
+                 (edn/read-string (slurp (meta-path doc)))
+                 {})]
+      (assoc meta
+             :slug (:slug doc)
+             :number (:number doc)
+             :repo-path (:repo-path doc)))))
+
+(defn author-name [doc]
+  (get {}
+       (:git.user/email doc)))
 
 (defn git-user-email [{:keys [repo-path]}]
   (str/trim (:out (shell {:out :string :dir repo-path} "git config user.email"))))

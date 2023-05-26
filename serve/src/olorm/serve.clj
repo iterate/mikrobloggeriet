@@ -86,6 +86,21 @@
          [:td (olorm/author-name olorm)]
          [:td (:doc/created olorm)]])]]]))
 
+(defn jals-index [_req]
+  (page/html5
+   (into [:head] (shared-html-header))
+   [:body
+    [:p (feeling-lucky)]
+    [:h1 "Alle JALS-er"]
+    [:table
+     [:thead [:td "slug"] [:td "author"] [:td "created"]]
+     [:tbody
+      (for [jals (map jals/load-meta (jals/docs {:repo-path ".."}))]
+        [:tr
+         [:td [:a {:href (jals/href jals)} (:slug jals)]]
+         [:td (jals/author-name jals)]
+         [:td (:doc/created jals)]])]]]))
+
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
   (iki/cache-fn-by iki/markdown->html identity))
@@ -165,6 +180,7 @@
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
   (GET "/mikrobloggeriet.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "mikrobloggeriet.css")})
   (GET "/o/" req (olorm-index req))
+  (GET "/j/" req (jals-index req))
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
   (GET "/random-doc" _req random-doc))
