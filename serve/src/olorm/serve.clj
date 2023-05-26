@@ -71,7 +71,7 @@
         " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
       ])))
 
-(defn olorms-index [_req]
+(defn olorm-index [_req]
   (page/html5
    (into [:head] (shared-html-header))
    [:body
@@ -164,7 +164,7 @@
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
   (GET "/mikrobloggeriet.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "mikrobloggeriet.css")})
-  (GET "/o/" req (olorms-index req))
+  (GET "/o/" req (olorm-index req))
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
   (GET "/random-doc" _req random-doc))
