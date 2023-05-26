@@ -75,7 +75,10 @@
   (page/html5
    (into [:head] (shared-html-header))
    [:body
-    [:p (feeling-lucky)]
+    [:p
+     (feeling-lucky)
+     " — "
+     [:a {:href "/"} "mikrobloggeriet"]]
     [:h1 "Alle OLORM-er"]
     [:table
      [:thead [:td "slug"] [:td "author"] [:td "created"]]
