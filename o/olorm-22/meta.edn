@@ -1,1 +1,3 @@
-{:git.user/email "lars.barlindhaug@iterate.no", :created "2023-05-25", :uuid "95d40c95-f16d-4303-8a3e-c88ce6971ced"}
+{:doc/created "2023-05-25",
+ :doc/uuid "95d40c95-f16d-4303-8a3e-c88ce6971ced",
+ :git.user/email "lars.barlindhaug@iterate.no"}
