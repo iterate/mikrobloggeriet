@@ -37,6 +37,7 @@
   (let [olorm (sorted-map)
         olorm (assoc olorm :cohort :olorm)
         olorm (if repo-path (assoc olorm :repo-path repo-path) olorm)
+        olorm (if repo-path (assoc olorm :repo-path (fs/absolutize repo-path)) olorm)
         olorm (if number
                 (assoc olorm
                        :number number
