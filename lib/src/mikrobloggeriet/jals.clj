@@ -35,7 +35,7 @@
   [{:keys [slug number repo-path]}]
   (let [doc (sorted-map)
         doc (assoc doc :cohort :jals)
-        doc (if repo-path (assoc doc :repo-path (fs/absolutize repo-path)) doc)
+        doc (if repo-path (assoc doc :repo-path (str (fs/canonicalize repo-path))) doc)
         doc (if number
                 (assoc doc
                        :number number

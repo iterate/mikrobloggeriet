@@ -36,8 +36,7 @@
   [{:keys [slug number repo-path]}]
   (let [olorm (sorted-map)
         olorm (assoc olorm :cohort :olorm)
-        olorm (if repo-path (assoc olorm :repo-path repo-path) olorm)
-        olorm (if repo-path (assoc olorm :repo-path (fs/absolutize repo-path)) olorm)
+        olorm (if repo-path (assoc olorm :repo-path (str (fs/canonicalize repo-path))) olorm)
         olorm (if number
                 (assoc olorm
                        :number number
@@ -155,8 +154,23 @@
       first))
 
 (comment
-  (infer-created-date
-   (->olorm {:number 1 :repo-path "/home/teodorlu/dev/iterate/olorm"})))
+  (fs/canonicalize "..")
+
+  (infer-created-date (->olorm {:number 1 :repo-path "/home/teodorlu/dev/iterate/olorm"}))
+
+  (->olorm {:number 1 :repo-path "/home/teodorlu/dev/iterate/olorm"})
+
+  (fs/absolutize "..")
+  (fs/canonicalize "..")
+
+  (infer-created-date (->olorm {:number 1 :repo-path ".."}))
+  (:out
+   (shell {:out :string} "pwd"))
+  "/Users/teodorlu/dev/iterate/olorm/lib\n"
+
+
+  (infer-created-date (->olorm {:number 1 :repo-path "/Users/teodorlu/dev/iterate/olorm"}))
+  )
 
 (defn uuid []
   (str (java.util.UUID/randomUUID)))
