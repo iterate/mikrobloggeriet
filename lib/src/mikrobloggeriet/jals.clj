@@ -128,8 +128,8 @@
              :repo-path (:repo-path doc)))))
 
 (defn author-name [doc]
-  (get (zipmap '("adrian.tofting@iterate.no" "sindre@iterate.no" "larshbj@gmail.com")
-               ["Adrian" "Sindre" "Lars"])
+  (get (zipmap ["adrian.tofting@iterate.no" "sindre@iterate.no" "larshbj@gmail.com" "aaberg89@gmail.com"]
+               ["Adrian" "Sindre" "Lars" "Jørgen"])
        (:git.user/email doc)))
 
 (defn git-user-email [{:keys [repo-path]}]
