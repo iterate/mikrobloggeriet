@@ -2,7 +2,9 @@
 
 https://mikrobloggeriet.no/
 
-Tidligere kjent som OLORM.
+_A collection of technical microblogs in Norwegian_
+
+Previously known as OLORM.
 
 Vocabulary:
 
