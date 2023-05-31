@@ -2,8 +2,7 @@
 
 https://mikrobloggeriet.no/
 
-_A collection of technical microblogs in Norwegian_
-
+_A collection of technical microblogs in Norwegian._
 Previously known as OLORM.
 
 Vocabulary:
