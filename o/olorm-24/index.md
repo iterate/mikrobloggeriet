@@ -25,7 +25,7 @@ Når du sier *refactoring* er det sansynlig at mottaker sitter igjen med *mindre
 <aside>Som en øvelse kan man prøve å bytte ut ordet _refactor_, _reactoret_, _refactoring_ med _smurfe_, _smurfet_, _smurfing_ og kjenne på om man føler at man mister noe informasjon.</aside>
 
 Det er kjedelig å miste informasjon. Men jeg synes det er et større tap at hver gang du sier _refactoring_ kunne du sagt noe annet som er mer eksplisitt og mer beskrivende.
-Hvor interessant er det egentlig endringen din er en _refactoring_ eller ikke? Kan du ikke heller si **hva** du gjorde?
+Hvor interessant er det egentlig om endringen din er en _refactoring_ eller ikke? Kan du ikke heller si **hva** du gjorde?
 
 - Erstattet en klump _string literals_ med en Enum-type
 - Dro parse-logikken ut i et eget modul
