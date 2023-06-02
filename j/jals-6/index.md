@@ -40,7 +40,7 @@ Skal du lage en editor i browseren, bruk et tredjepartsbibliotek som CodeMirror 
 Det er en grunn til hvorfor vi velger å ikke gjøre det i Unicad, selv om vi på ingen måte er sikre på at vi tok riktig valg (men
 fremdeles heller mot at vi gjorde det riktige valget). Hvorfor vi ikke bruker CodeMirror og ProseMirror i Unicad får være en annen jals.
 
-Har du spørsmål eller kommentarer, ta kontakt med meg på slack (for Iterate-ansatte) eller på [mail](sindre@iterate.no) (for andre).
+Har du spørsmål eller kommentarer, ta kontakt med meg på slack (for Iterate-ansatte) eller på [mail](mailto:sindre@iterate.no) (for andre).
 
 -- Sindre
 
