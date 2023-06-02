@@ -66,4 +66,4 @@ Her i [Mikrobloggeriet] bruker vi Pandoc til å konvertere Markdown til HTML.
 [CommonMark]: https://commonmark.org/
 
 [Pandoc]: https://pandoc.org/
-[Mikrobloggeriet]: [https://mikrobloggeriet.no/]
+[Mikrobloggeriet]: https://mikrobloggeriet.no/
