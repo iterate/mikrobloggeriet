@@ -4,7 +4,7 @@ Markdown støtter å lage lenker.
 Men du kan lage lenker på forskjellige måter!
 Her er tre alternativer.
 
-Metode 1: *Inline-lenker*:
+Metode 1: **Inline-lenker**:
 
 Markdown:
 
@@ -16,7 +16,7 @@ HTML:
 
 > [teodor](https://teod.eu)
 
-Metode 2: *Referanse-lenker med valgt navn*:
+Metode 2: **Referanse-lenker med valgt navn**:
 
 ```markdown
 [teodor][1]
@@ -30,7 +30,7 @@ HTML:
 >
 > [1]: https://teod.eu
 
-Metode 3: *Referanse-lenker med implisitt navn*.
+Metode 3: **Referanse-lenker med implisitt navn**.
 
 Markdown:
 
