@@ -22,7 +22,7 @@ Kanskje de erstatter din oppfattelse med sin egen. Eller kanskje de, kloke av sk
 
 Når du sier *refactoring* er det sansynlig at mottaker sitter igjen med *mindre informasjon* enn du mente å gi.
 
-<aside>Som en øvelse kan man prøve å bytte ut ordet _refactor_, _reactoret_, _refactoring_ med _smurfe_, _smurfet_, _smurfing_ og kjenne på om man føler at man mister noe informasjon.</aside>
+<aside>Som en øvelse kan man prøve å bytte ut ordet _refactor_, _refactoret_, _refactoring_ med _smurfe_, _smurfet_, _smurfing_ og kjenne på om man føler at man mister noe informasjon.</aside>
 
 Det er kjedelig å miste informasjon. Men jeg synes det er et større tap at hver gang du sier _refactoring_ kunne du sagt noe annet som er mer eksplisitt og mer beskrivende.
 Hvor interessant er det egentlig om endringen din er en _refactoring_ eller ikke? Kan du ikke heller si **hva** du gjorde?
