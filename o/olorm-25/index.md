@@ -49,7 +49,7 @@ HTML:
 Av de tre, foretrekker jeg referanse-lenker med implisitt navn.
 
 1. Det er minst kode
-2. Det innfører _færrest antall navn_ i koden.
+2. Det innfører _færrest antall nye navn_ i koden.
    Med andre ord, det minimerer mengden abstraksjon.
 3. Det utfordrer meg til å gi lenken min et godt navn.
 4. Det blir minimalt med visuell støy rundt lenken.
