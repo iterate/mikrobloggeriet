@@ -3,8 +3,8 @@
 Jeg jobber med å lage en editor Unicad for ren tekst (uten formatering). Men vi ønsker å lagre informasjon
 om hva brukeren gjør, ikke kun enderesultatet.
 
-Dvs, istedet for å lagre teksten `hei`, vil vi lagre det brukeren gjorde for å komme dit. Om han skriver `hi`, ser
-han har gjort en feil, visker vekk `i` og skriver `ei` så det blir `hei`, vil vi lagre:
+Dvs, istedet for å lagre teksten `hei`, vil vi lagre det brukeren gjorde for å komme dit. Om brukeren skriver `hi`, ser
+brukeren har gjort en feil, visker vekk `i` og skriver `ei` så det blir `hei`, vil vi lagre:
 
 1. Skrev `h` på posisjon 0
 2. Skrev `i` på posisjon 1
