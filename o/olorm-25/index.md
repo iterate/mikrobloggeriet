@@ -56,7 +56,7 @@ Av de tre, foretrekker jeg referanse-lenker med implisitt navn.
    Gigantiske lenker midt inni et avsnitt, som `[til en fil](https://github.com/iterate/olorm/tree/65be6088ae2b54b4b7e9413acaed8327d220ec84/serve/src/olorm/devui.clj)` gjør at avsnittet blir vanskelig å lese når man leser plaintext.
 
 Såvidt jeg vet støttes alle tre i [Github Flavored Markdown] og i [CommonMark].
-Jeg foretrekker å bruke [Pandoc] til å jobbe med Markdown.
+Jeg foretrekker å bruke [Pandoc] til å jobbe med Markdown, og Pandoc støtter CommonMark.
 Her i [Mikrobloggeriet] bruker vi Pandoc til å konvertere Markdown til HTML.
 
 —Teodor
