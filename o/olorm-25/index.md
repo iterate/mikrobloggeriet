@@ -1,8 +1,7 @@
 # OLORM-25: Markdown-lenker på tre forskjellige måter
 
 Markdown støtter å lage lenker.
-Men du kan lage lenker med forskjellig type notasjon!
-
+Men du kan lage lenker på forskjellige måter!
 Her er tre alternativer.
 
 Metode 1: *Inline-lenker*:
