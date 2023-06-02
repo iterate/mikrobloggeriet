@@ -5,8 +5,8 @@ Da jeg skrev første versjon av `olorm`-kommandolinjeprogrammet, ble jeg superen
 Hvis du vil skrive commit-melding med Vim, kan du kjøre `EDITOR=vim git commit`.
 `EDITOR=emacsclient -nt` gir deg en Emacs-instans i terminalen, og `EDITOR=code -w` gir deg Visual Studio Code.
 
-Adrian skrev til og med et alias så han fikk det som han ville.
-Nå finner jeg det ikke, men jeg tror han gjorde noe sånt:
+Adrian skrev til og med en shell-funksjon så han fikk det som han ville, og kunne skrive `j` i stedet for `EDITOR="open -a blablabal" jals create`.
+Nå finner jeg ikke koden, men jeg mener å huske at han gjorde noe sånt:
 
 ```bash
 # i ~/.zshrc
