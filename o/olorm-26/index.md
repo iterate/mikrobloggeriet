@@ -1,7 +1,7 @@
 # OLORM-26: Unix på godt og vondt
 
 Da jeg skrev første versjon av `olorm`-kommandolinjeprogrammet, ble jeg superengasjert da jeg fant ut at jeg kunne bruke miljøvariabelen `EDITOR`.
-`git` bruker `EDITOR` til å la brukeren styre hvilken program brukeren ønsker å redigere Git-commit-meldinger med.
+`git` bruker `EDITOR` til å la brukeren styre hvilket program brukeren ønsker å redigere Git-commit-meldinger med.
 Hvis du vil skrive commit-melding med Vim, kan du kjøre `EDITOR=vim git commit`.
 `EDITOR=emacsclient -nt` gir deg en Emacs-instans i terminalen, og `EDITOR=code -w` gir deg Visual Studio Code.
 
