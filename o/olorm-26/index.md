@@ -16,6 +16,7 @@ j() {
 ```
 
 Så Adrian kunne få til det han ville helt på egen hånd!
+Det synes jeg er dritkult, vi får i tillegg løftet opp hva Unix/Posix egentlig er.
 
 På den andre siden:
 
