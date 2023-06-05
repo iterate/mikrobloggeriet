@@ -1,6 +1,6 @@
-# Mikrobloggeriet CONTRIB
+# CONTRIB
 
-Her samler vi tips og triks.
+Her samler vi tips og triks som folk har kommet med (contributions).
 
 ## Skriv OLORM i programmet du vil med `EDITOR`
 
