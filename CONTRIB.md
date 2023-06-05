@@ -2,7 +2,7 @@
 
 Her samler vi tips og triks som folk har kommet med (contributions).
 
-## Skriv OLORM i programmet du vil med `EDITOR`
+## Skriv OLORM i programmet du selv ønsker med `EDITOR`
 
 Adrian har brukt `EDITOR` til å velge at dokumenter skal redigeres med [MacDown].
 
