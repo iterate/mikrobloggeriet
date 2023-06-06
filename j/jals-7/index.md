@@ -7,7 +7,7 @@ Jeg jobber nå med refactorering (igjen). Målet er å fjerne kompleksitet og ø
 
 Bildene er veldig store, og passer ikke i minnet ("CPU-" eller GPU-minne), så vi chunker opp bildet i mindre vinduer. Kan sammenlignes med convolution, "bare ett lag ut".
 
-![strided-concolution](https://upload.wikimedia.org/wikipedia/commons/0/04/Convolution_arithmetic_-_Padding_strides.gif)
+![strided convolution](https://upload.wikimedia.org/wikipedia/commons/0/04/Convolution_arithmetic_-_Padding_strides.gif)
 
 Se for dere at proposjonene er 10.000 x 10.000 for satellittbilde (blå rute) og 512 X 512 for hver chunk (vindu vi laster inn i minnet om gangen). Som i gif'en vil vi også la hver chunk overlappe med den forrige med feks. 50 pixler.
 
