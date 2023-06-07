@@ -1,0 +1,10 @@
+# JALS-8
+
+<!-- 1. Hva gjør du akkurat nå? -->
+I det siste har jeg jobbet litt med metodene vi bruker for å lage treningsbilder fra satellittbilder i Vake. Vi støtter nå snart fire ulike satellittkilder som alle kommer med litt forskjellig struktur og kompleksitet. 
+
+Metodene ble opprinnelig skrevet for den ene satellittkilden vi startet med (Sentinel-2). Denne kilden er ganske kompleks siden "ett" bilde består av 13 bånd (RGB + 10 til) som igjen er strukturert i 4 bildefiler etter den romlige oppløsningen båndene har. Resultatet ble metoder som støtter denne strukturen, men som har blitt veldig komplekse og utfordrende å overføre til nye, mindre komplekse kilder som de jeg holder på med nå, uten at de blir enda mer komplekse og uleselige. 
+
+Målet mitt er enklere og ryddigere metoder som støtter alle kildene, og som gjør det enklere å legge til flere kilder i fremtiden. Jeg har begynt å utvikle en lovende løsning basert på arv, men på grunn av den opprinnelige kompleksiteten har dette vært utfordrende og dermed tatt mer tid enn jeg har lyst til å bruke akkurat nå (det er andre mer kritiske ting å gjøre). Det er samtidig digg å fullføre noe man har startet på, kompleksiteten har plaget oss en stund, og det er teknisk/faglig sett en interessant utfordring. På den andre siden har det sneket seg inn en følelse jeg har hatt før, at vi prøver å være smarte og "future-proofe" noe, bare for å innse et halvt år senere at vi ikke visste så mye vi trodde, eller at vi f.eks. finner en pakke som gjør alt mye lettere. Faktisk utforsker Adrian en pakke akkurat nå som kan gjøre mye av det jeg startet på redundant.  
+
+Hva er konklusjonen? Jeg vet ikke, men ofte synes jeg vi bruker for mye tid på "future-proofing" eller optimalisering av metoder basert på hypoteser om fremtidig bruk. Men ofte har det også blitt motbevist, som har gjort at vi raskt og effektivt kan levere på nye muligheter som oppstår.
