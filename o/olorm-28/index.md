@@ -76,7 +76,7 @@ $ openr --editor /Applications/Xcode.app/Contents/MacOS/Xcode
 
 Her bruker vi `fish'` finfine [`argparse`](https://fishshell.com/docs/current/cmds/argparse.html)-kommando til å definere og _parse_ kommandoargumenter. Vi sier at vi har étt argument, `editor` (kortform: `e`) som har et parameter (`=`), og vi skal lese dette inn fra `$argv` (som er en liste over alle ordene man skriver etter `openr`).
 
-Denne `editor`-verdien blir så stappet i de implisitte variablene `$_flag_editor` og `$flag_e`.
+Denne `editor`-verdien blir så stappet i de implisitte variablene `$_flag_editor` og `$_flag_e`.
 
 ```fish
   if set -ql _flag_editor
