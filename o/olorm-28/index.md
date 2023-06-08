@@ -96,7 +96,7 @@ Om `$_flag_editor` _ikke_ er satt setter vi `$editor` til å være hva enn `$EDI
 set file       (git ls-files | shuf -n1)
 ```
 
-Her lister vi ut alle filene git vet om i mappen man står i med `git ls-files`. Så pipes dette inn i `shuf -n1` som gir oss én tilfeldig linje av det som blir pipet inn, altså et tilfeldig filnavn. Vi setter dette i variablen `$file`.
+Her lister vi ut alle filene git vet om i mappen (og undermapper) man står i med `git ls-files`. Så pipes dette inn i `shuf -n1` som gir oss én tilfeldig linje av det som blir pipet inn, altså et tilfeldig filnavn. Vi setter dette i variablen `$file`.
 
 ```fish
 set line_text  (cat -n $file | shuf -n1)
