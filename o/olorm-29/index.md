@@ -60,7 +60,7 @@ Jeg lekte meg med å bygge støtte for `--long-option` og kom opp med:
 ```
 # usage:
 # set -- $(parselong a/all f/file -- "$@")
-# while getopt f:a...
+# while getopts f:a...
 parselong() {
     c=1
     for arg; do
