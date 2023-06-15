@@ -11,7 +11,7 @@ program -tai
 ```
 
 Det er derfor nyttig å bruke hjelpe-kommando eller -bibliotek for å lese argumenter.
- Fish [har](https://fishshell.com/docs/current/cmds/argparse.html) en ganske fin `argparse`,
+ Fish [har](/o/olorm-28/) en ganske [fin](https://fishshell.com/docs/current/cmds/argparse.html) `argparse`,
  som ligner på noe som finnes i mange programmeringsspråk.
  Om Shell ble det sagt:
 
