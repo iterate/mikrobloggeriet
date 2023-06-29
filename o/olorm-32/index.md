@@ -1,4 +1,4 @@
-# OLORM-32: konsulentsalg av teknologer
+# OLORM-32: Konsulentsalg av teknologer
 
 <!-- 1. Hva gjør du akkurat nå? -->
 
