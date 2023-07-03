@@ -51,7 +51,6 @@ your system, so we need to know where to find OLORM pages.
       (System/exit 1))))
 
 (comment
-
   ;; idea
   ;;
   ;; first - prep
@@ -60,32 +59,56 @@ your system, so we need to know where to find OLORM pages.
   ;; (from Slipset when I asked for feedback on https://play.teod.eu/clojure-let/)
 
   (do
-    (defn create-prep
+    (defn create-opts->commands
       "Idea: emit a sequence of commands to be applied"
-      [{:keys [no-git-commands help dry-run]}]
+      [opts]
+      (let [defaults {:git true :help false :dry-run false}
+            opts (merge defaults opts)
+            helptext (str/trim "
+Usage:
+
+  $ olorm create [OPTION...]
+
+Allowed options:
+
+  --disable-git-commands  Disable all Git commands. Useful for testing.
+  --disable-git-magic     Alias for --disable-git-commands
+  --dry-run               Supress side effects and print commands instead
+  --help                  Show this helptext.
+  --no-git-commands  Disable all Git commands. Useful for testing.
+  --no-git-magic          Alias for --disable-git-commands
+")]
+        (cond (:help opts)
+              [{:cmd :println :args helptext}]
+
+              ))
 
       )
 
-    (create-prep {})
 
-    )
-
-  (do
     (defn create-run
       "Idea: execute a list of commands"
-      [commands]
-      (let [handlers {:prn prn}]
-        (doseq [{:keys [command args]} commands]
-          (if-let [h (get handlers command)]
-            (apply h args)
-            (do
-              (println "Error: no handler found for command" command)
-              (System/exit 1))))))
+      ([commands] (create-run commands {}))
+      ([commands overide-handlers]
+       (let [handlers (merge {:prn prn
+                              :println println
+                              :crash (fn [{:keys [command]}]
+                                       (println "Error: no handler found for command" command)
+                                       (System/exit 1))}
+                             overide-handlers)]
+         (doseq [{:keys [command args] :as op} commands]
+           (prn op)
+           (if-let [h (get handlers command)]
+             (apply h args)
+             ((get handlers :crash) op))))))
 
-    (create-run
-     [{:command :prn
-       :args [1 2 3]}])
-    ))
+    (-> {:help true}
+        create-opts->commands
+        (create-run {:crash prn})
+        )
+
+    ,,, #_ "end of do block")
+  ,,, #_ "end of comment block")
 
 (defn olorm-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
