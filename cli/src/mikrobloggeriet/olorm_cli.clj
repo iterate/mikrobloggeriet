@@ -50,6 +50,43 @@ your system, so we need to know where to find OLORM pages.
       (println "Error: config file not found")
       (System/exit 1))))
 
+(comment
+
+  ;; idea
+  ;;
+  ;; first - prep
+  ;; then - apply
+  ;;
+  ;; (from Slipset when I asked for feedback on https://play.teod.eu/clojure-let/)
+
+  (do
+    (defn create-prep
+      "Idea: emit a sequence of commands to be applied"
+      [{:keys [no-git-commands help dry-run]}]
+
+      )
+
+    (create-prep {})
+
+    )
+
+  (do
+    (defn create-run
+      "Idea: execute a list of commands"
+      [commands]
+      (let [handlers {:prn prn}]
+        (doseq [{:keys [command args]} commands]
+          (if-let [h (get handlers command)]
+            (apply h args)
+            (do
+              (println "Error: no handler found for command" command)
+              (System/exit 1))))))
+
+    (create-run
+     [{:command :prn
+       :args [1 2 3]}])
+    ))
+
 (defn olorm-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
     (println (str/trim "
