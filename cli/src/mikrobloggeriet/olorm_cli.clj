@@ -139,8 +139,6 @@ Allowed options:
                    (if (:dry-run opts)
                      (prn `(~cmd ~@args))
                      (apply (resolve cmd) args)))
-        disable-git (= (:git opts) false)
-        disable-editor (= (:editor opts) false)
         git (:git opts true)            ; By default, git commands are executed
         editor (:editor opts true)      ; By default, editor is called
         ]
