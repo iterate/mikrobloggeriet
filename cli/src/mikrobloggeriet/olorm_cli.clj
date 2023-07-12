@@ -99,7 +99,7 @@ your system, so we need to know where to find OLORM pages.
       :spit (apply spit (rest c)))))
 
 (defn execute-dry!
-
+  "Print a sequence of commands."
   [commands]
   (doseq [c commands]
     (prn c)))
