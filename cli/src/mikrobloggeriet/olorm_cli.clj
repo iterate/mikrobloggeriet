@@ -275,9 +275,9 @@ Allowed options:
 (comment
   (map (fn [args]
          [args (cli/dispatch [{:cmds ["create"]
-                          :fn (fn [{:keys [opts]}]
-                                opts)}]
-                        args)])
+                               :fn (fn [{:keys [opts]}]
+                                     opts)}]
+                             args)])
        (list ["create"]
              ["create" "--no-git"]
              ["create" "--no-git" "--no-editor"]))
