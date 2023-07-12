@@ -127,13 +127,15 @@ Allowed options:
     (-> {:dir (or (:dir opts) (repo-path))
          :git (:git opts true)
          :edit (:edit opts true)}
-        create-opts->commands execute-dry!)
+        create-opts->commands
+        execute-dry!)
 
     (:new opts)
     (-> {:dir (or (:dir opts) (repo-path))
          :git (:git opts true)
          :edit (:edit opts true)}
-        create-opts->commands execute!)
+        create-opts->commands
+        execute!)
 
     :else
     (olorm-create-old {:opts opts})))
