@@ -104,8 +104,6 @@ your system, so we need to know where to find OLORM pages.
   (doseq [c commands]
     (prn c)))
 
-(declare olorm-create-old)
-
 (defn olorm-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
     (println (str/trim "
