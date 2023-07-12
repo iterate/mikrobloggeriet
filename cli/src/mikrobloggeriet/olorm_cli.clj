@@ -111,11 +111,11 @@ Usage:
 
 Allowed options:
 
-  --no-git                Disables all git commands.
-  --no-edit               Does not launch $EDITOR to edit files.
-                          Also supresses git commit & git push.
-  --dry-run               Supress side effects and print commands instead
-  --help                  Show this helptext.
+  --no-git   Disables all git commands.
+  --no-edit  Do not launch $EDITOR to edit files.
+             Also supresses git commit & git push.
+  --dry-run  Supress side effects and print commands instead
+  --help     Show this helptext.
 "))
     (System/exit 0))
   (let [command-transform (if (:dry-run opts)
