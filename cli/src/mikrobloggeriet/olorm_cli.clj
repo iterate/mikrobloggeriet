@@ -96,11 +96,11 @@ your system, so we need to know where to find OLORM pages.
   [commands]
   (doseq [[cmd & args] commands]
     (case cmd
-      :println (apply println args)
-      :shell (apply shell args)
       :create-dirs (apply fs/create-dirs args)
-      :spit (apply spit args)
-      :prn (apply prn args))))
+      :println (apply println args)
+      :prn (apply prn args)
+      :shell (apply shell args)
+      :spit (apply spit args))))
 
 (defn olorm-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
