@@ -2,8 +2,11 @@
 
 Her samler vi tips og triks som folk har kommet med (contributions).
 
-- [mikrobloggeriet.zsh](./mikrobloggeriet.zsh) - gjør det raskere å skrive jals-er
-- [olorm.el](./olorm.el) - lag olorm-er fra Emacs
+- [mikrobloggeriet.zsh] - gjør det raskere å skrive jals-er
+- [olorm.el] - lag olorm-er fra Emacs
+
+[mikrobloggeriet.zsh]: ./mikrobloggeriet.zsh
+[olorm.el]: ./olorm.el
 
 ## Skriv mikroblogginnlegg i programmet du selv ønsker med `EDITOR` og zsh
 
