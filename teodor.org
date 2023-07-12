@@ -166,3 +166,4 @@ I dag har jeg flere mapper:
 - =serve/= - serveren
 
 Så det jeg vurderer er å fjerne alle toppnivå-prosjektene, og heller jobbe med én bøtte kildekode.
+Kan eventuelt beholde =serve/= inntill videre, og legge til en avhengighet oppover med ={:local/root ".."}=.
