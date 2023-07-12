@@ -1,7 +1,4 @@
-# For å installere, kopier herfra inn i ~/.zshrc
-#
-# Endre navn som du vil. Her i denne fila unngår jeg korte navn for å få
-# kollisjoner.
+# For å installere, kopier herfra inn i ~/.zshrc.
 
 function j-macdown () {
   # kjør j-macdown for å lage en jals og redigere i MacDown[1].
