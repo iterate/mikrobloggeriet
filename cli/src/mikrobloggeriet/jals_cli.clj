@@ -116,14 +116,14 @@ POOL is a string that can contain the first letters of the JALS authors.
 Example usage:
 
   $ jals draw jals
-  adrian
+  Adrian
 "
                          ))
       (if (or (:h opts) (:help opts))
         (System/exit 0)
         (System/exit 1)))
     (prn
-     (get (zipmap "jals" '(jørgen adrian lars sindre))
+     (get (zipmap "jals" '(Jørgen Adrian Lars Sindre))
           (rand-nth pool)))))
 
 (def subcommands
