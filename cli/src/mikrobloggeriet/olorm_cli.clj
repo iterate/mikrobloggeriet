@@ -50,11 +50,11 @@ your system, so we need to know where to find OLORM pages.
       (println "Error: config file not found")
       (System/exit 1))))
 
-(defn create-opts->commands [{:keys [dir git editor]}]
+(defn create-opts->commands [{:keys [dir git edit]}]
   (assert dir)
   (assert (some? git))
-  (assert (some? editor))
-  (when editor
+  (assert (some? edit))
+  (when edit
     (assert (System/getenv "EDITOR")))
   (let [number (->> (olorm/docs {:repo-path dir})
                     (olorm/next-number))
@@ -68,9 +68,9 @@ your system, so we need to know where to find OLORM pages.
               (prn-str {:git.user/email (olorm/git-user-email {:repo-path dir})
                         :doc/created (olorm/today)
                         :doc/uuid (olorm/uuid)})]]
-            (when editor
+            (when edit
               [[:shell {:dir dir} (System/getenv "EDITOR") (olorm/index-md-path doc)]])
-            (when (and git editor)
+            (when (and git edit)
               [[:shell {:dir dir} "git add ."]
                [:shell {:dir dir} "git commit -m" (str "olorm-" (:number doc))]
                [:shell {:dir dir} "git pull --rebase"]
@@ -89,6 +89,7 @@ your system, so we need to know where to find OLORM pages.
   )
 
 (defn execute!
+  "Execute a sequence of commands."
   [commands]
   (doseq [c commands]
     (case (first c)
@@ -97,7 +98,9 @@ your system, so we need to know where to find OLORM pages.
       :create-dirs (apply fs/create-dirs (rest c))
       :spit (apply spit (rest c)))))
 
-(defn execute-dry! [commands]
+(defn execute-dry!
+
+  [commands]
   (doseq [c commands]
     (prn c)))
 
@@ -113,7 +116,7 @@ Usage:
 Allowed options:
 
   --no-git                Disables all git commands.
-  --no-editor             Does not launch $EDITOR to edit files.
+  --no-edit             Does not launch $EDITOR to edit files.
                           Also supresses git commit & git push.
   --dry-run               Supress side effects and print commands instead
   --help                  Show this helptext.
@@ -122,8 +125,12 @@ Allowed options:
   (cond
     (and (:new opts) (:dry-run opts))
     (let [dir (or (:dir opts) (repo-path))
+          git (get opts :git true)
+          edit (get opts :edit true)
           ]
-      (-> (assoc opts :dir dir)
+      (-> (assoc opts :dir dir
+                 :git git
+                 :edit edit)
           create-opts->commands execute-dry!))
 
     (:new opts)
@@ -140,7 +147,7 @@ Allowed options:
                      (prn `(~cmd ~@args))
                      (apply (resolve cmd) args)))
         git (:git opts true)            ; By default, git commands are executed
-        editor (:editor opts true)      ; By default, editor is called
+        edit (:edit opts true)          ; By default, $EDITOR is launched to edit doc
         ]
     (when git
       (dispatch `shell {:dir repo-path} "git pull --ff-only"))
@@ -156,9 +163,9 @@ Allowed options:
         (dispatch `spit (olorm/meta-path doc) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
                                                         :doc/created (olorm/today)
                                                         :doc/uuid (olorm/uuid)}))
-        (when editor
+        (when edit
           (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") index-md-path))
-        (when (and git editor)
+        (when (and git edit)
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git pull --rebase") ;; pull & rebase if someone is writing another another microblog entry
@@ -286,9 +293,10 @@ Allowed options:
                              args)])
        (list ["create"]
              ["create" "--no-git"]
-             ["create" "--no-git" "--no-editor"]))
+             ["create" "--no-git" "--no-edit"]))
   ;; => ([["create"] {}]
   ;;     [["create" "--no-git"] {:git false}]
-  ;;     [["create" "--no-git" "--no-editor"] {:git false, :editor false}])
+  ;;     [["create" "--no-git" "--no-edit"] {:git false, :edit false}])
+
 
   )
