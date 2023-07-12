@@ -167,3 +167,7 @@ I dag har jeg flere mapper:
 
 Så det jeg vurderer er å fjerne alle toppnivå-prosjektene, og heller jobbe med én bøtte kildekode.
 Kan eventuelt beholde =serve/= inntill videre, og legge til en avhengighet oppover med ={:local/root ".."}=.
+
+I samme slengen vil jeg helst endre strukturen til =mikrobloggeriet=.
+=mikrobloggeriet.serve=, =mikrobloggeriet.cli=, =mikrobloggeriet.documents=.
+Eventuelt =mikrobloggeriet.api= i stedet for =mikrobloggeriet.documents=.
