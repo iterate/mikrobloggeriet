@@ -271,3 +271,18 @@ Allowed options:
 
 (defn -main [& args]
   (cli/dispatch subcommands args))
+
+(comment
+  (map (fn [args]
+         [args (cli/dispatch [{:cmds ["create"]
+                          :fn (fn [{:keys [opts]}]
+                                opts)}]
+                        args)])
+       (list ["create"]
+             ["create" "--no-git"]
+             ["create" "--no-git" "--no-editor"]))
+  ;; => ([["create"] {}]
+  ;;     [["create" "--no-git"] {:git false}]
+  ;;     [["create" "--no-git" "--no-editor"] {:git false, :editor false}])
+
+  )
