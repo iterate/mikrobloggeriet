@@ -2,11 +2,24 @@
 
 Her samler vi tips og triks som folk har kommet med (contributions).
 
-## Skriv OLORM i programmet du selv ønsker med `EDITOR`
+- [./mikrobloggeriet.zshrc] - gjør det raskere å skrive jals-er
+- [./olorm.el] - lag olorm-er fra Emacs
 
-Adrian har brukt `EDITOR` til å velge at dokumenter skal redigeres med [MacDown].
+## Skriv mikroblogginnlegg i programmet du selv ønsker med `EDITOR` og zsh
 
-[MacDown]: https://macdown.uranusjr.com/
+Mikrobloggeriet respekterer [EDITOR].
+Du kan sette EDITOR for å redigere mirkoblogginnlegg med programmet du vil.
+
+[EDITOR]: https://wiki.archlinux.org/title/environment_variables#Default_programs
+
+Du kan sette EDITOR permanent:
+
+```shell
+# i ~.zshrc:
+export EDITOR="code -w"
+```
+
+Eller lage en shell-funksjon som setter EDITOR kun når du kjører funksjonen:
 
 ```shell
 # i ~.zshrc, fra Adrian:
@@ -14,21 +27,3 @@ function j () {
     EDITOR="open -W -a MacDown" jals create
 }
 ```
-
-`open` på mac tar inn noen argumenter.
-
-- `-W` sier at terminalprosessen skal vente til programmet er avsluttet.
-  Det får `olorm`-CLI-et til å vente med `git push` til etter at Adrian har lagret.
-- `-a MacDown` ser at det skal åpnes med appen `MacDown`. 
-
-Tilsvarende grep går å gjøre med andre apper.
-Eller man kan sette `EDITOR` permanent.
-
-```shell
-# i ~.zshrc:
-export EDITOR="code -w"
-```
-
-Et annet program som respekterer `EDITOR` er Git.
-Git prøver å kjøre `EDITOR` til å redigere commit-melding.
-`EDITOR="code -w" olorm create` eller `EDITOR="code -w" git commit`.
