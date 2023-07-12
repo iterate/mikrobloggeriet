@@ -124,18 +124,16 @@ Allowed options:
     (System/exit 0))
   (cond
     (and (:new opts) (:dry-run opts))
-    (let [dir (or (:dir opts) (repo-path))
-          git (get opts :git true)
-          edit (get opts :edit true)
-          ]
-      (-> (assoc opts :dir dir
-                 :git git
-                 :edit edit)
-          create-opts->commands execute-dry!))
+    (-> {:dir (or (:dir opts) (repo-path))
+         :git (:git opts true)
+         :edit (:edit opts true)}
+        create-opts->commands execute-dry!)
 
     (:new opts)
-    (let [dir (or (:dir opts) (repo-path))]
-      (-> (assoc opts :dir dir) create-opts->commands execute!))
+    (-> {:dir (or (:dir opts) (repo-path))
+         :git (:git opts true)
+         :edit (:edit opts true)}
+        create-opts->commands execute!)
 
     :else
     (olorm-create-old {:opts opts})))
