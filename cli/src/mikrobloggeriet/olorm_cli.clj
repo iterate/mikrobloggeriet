@@ -11,12 +11,7 @@
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
 (defn config-file [] (str (config-folder) "/config.edn"))
-
-(defn repo-path []
-  (-> (config-file)
-      slurp
-      edn/read-string
-      :repo-path))
+(defn repo-path [] (-> (config-file) slurp edn/read-string :repo-path))
 
 (declare subcommands)
 
