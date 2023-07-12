@@ -119,12 +119,11 @@ Usage:
 
 Allowed options:
 
-  --disable-git-commands  Disable all Git commands. Useful for testing.
-  --disable-git-magic     Alias for --disable-git-commands
+  --no-git                Disables all git commands.
+  --no-editor             Does not launch $EDITOR to edit files.
+                          Also supresses git commit & git push.
   --dry-run               Supress side effects and print commands instead
   --help                  Show this helptext.
-  --no-git-commands  Disable all Git commands. Useful for testing.
-  --no-git-magic          Alias for --disable-git-commands
 "))
     (System/exit 0))
   (let [repo-path (repo-path)
@@ -132,12 +131,12 @@ Allowed options:
                    (if (:dry-run opts)
                      (prn `(~cmd ~@args))
                      (apply (resolve cmd) args)))
-        disable-git-commands (or (:disable-git-commands opts)
-                                 (:no-git-magic opts)
-                                 (:disable-git-magic opts)
-                                 (= false (:git-magic opts))
-                                 (= false (:git-commands opts)))]
-    (when-not disable-git-commands
+        disable-git (= (:git opts) false)
+        disable-editor (= (:editor opts) false)
+        git (:git opts true)       ; By default, git commands are executed
+        editor (:editor opts true) ; By default, editor is called
+        ]
+    (when git
       (dispatch `shell {:dir repo-path} "git pull --ff-only"))
     (let [number (inc (or (->> (olorm/docs {:repo-path repo-path})
                                (map :number)
@@ -152,7 +151,7 @@ Allowed options:
                                                         :doc/created (olorm/today)
                                                         :doc/uuid (olorm/uuid)}))
         (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") index-md-path)
-        (when-not disable-git-commands
+        (when (and git editor)
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
           (dispatch `shell {:dir repo-path} "git pull --rebase") ;; pull & rebase if someone is writing another another microblog entry
