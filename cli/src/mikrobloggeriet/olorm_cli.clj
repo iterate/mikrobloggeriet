@@ -150,7 +150,8 @@ Allowed options:
         (dispatch `spit (olorm/meta-path doc) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
                                                         :doc/created (olorm/today)
                                                         :doc/uuid (olorm/uuid)}))
-        (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") index-md-path)
+        (when editor
+          (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") index-md-path))
         (when (and git editor)
           (dispatch `shell {:dir repo-path} "git add .")
           (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
