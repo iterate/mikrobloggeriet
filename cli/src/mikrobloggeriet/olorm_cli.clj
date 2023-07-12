@@ -123,56 +123,19 @@ Allowed options:
 "))
     (System/exit 0))
   (cond
-    (and (:new opts) (:dry-run opts))
+    (:dry-run opts)
     (-> {:dir (or (:dir opts) (repo-path))
          :git (:git opts true)
          :edit (:edit opts true)}
         create-opts->commands
         execute-dry!)
 
-    (:new opts)
+    :else
     (-> {:dir (or (:dir opts) (repo-path))
          :git (:git opts true)
          :edit (:edit opts true)}
         create-opts->commands
-        execute!)
-
-    :else
-    (olorm-create-old {:opts opts})))
-
-(defn olorm-create-old [{:keys [opts]}]
-  (let [repo-path (repo-path)
-        dispatch (fn [cmd & args]
-                   (if (:dry-run opts)
-                     (prn `(~cmd ~@args))
-                     (apply (resolve cmd) args)))
-        git (:git opts true)            ; By default, git commands are executed
-        edit (:edit opts true)          ; By default, $EDITOR is launched to edit doc
-        ]
-    (when git
-      (dispatch `shell {:dir repo-path} "git pull --ff-only"))
-    (let [number (inc (or (->> (olorm/docs {:repo-path repo-path})
-                               (map :number)
-                               sort
-                               last)
-                          0))
-          doc (olorm/->olorm {:repo-path repo-path :number number})]
-      (dispatch `fs/create-dirs (olorm/path doc))
-      (let [index-md-path (olorm/index-md-path doc)]
-        (dispatch `spit index-md-path (olorm/md-skeleton doc))
-        (dispatch `spit (olorm/meta-path doc) (prn-str {:git.user/email (olorm/git-user-email {:repo-path repo-path})
-                                                        :doc/created (olorm/today)
-                                                        :doc/uuid (olorm/uuid)}))
-        (when edit
-          (dispatch `shell {:dir repo-path} (System/getenv "EDITOR") index-md-path))
-        (when (and git edit)
-          (dispatch `shell {:dir repo-path} "git add .")
-          (dispatch `shell {:dir repo-path} "git commit -m" (str "olorm-" (:number doc)))
-          (dispatch `shell {:dir repo-path} "git pull --rebase") ;; pull & rebase if someone is writing another another microblog entry
-          (dispatch `shell {:dir repo-path} "git push")))
-      (println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
-                    "\n\n"
-                    (str "   OLORM-" (:number doc) ": $DIN_TITTEL → https://mikrobloggeriet.no/o/" (:slug doc) "/"))))))
+        execute!)))
 
 (defn lol [{:keys [opts]}]
   (let [eval-or-show-work (fn [form]
