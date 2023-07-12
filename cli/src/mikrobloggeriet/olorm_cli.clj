@@ -24,7 +24,7 @@
   (println "Available subcommands:")
   (println)
   (doseq [{:keys [cmds]} subcommands]
-    (when (and (seq cmds) (not= cmds ["lol"]))
+    (when (seq cmds)
       (println (str "  olorm " (str/join " " cmds))))))
 
 (defn olorm-set-repo-path [{:keys [opts]}]
@@ -137,14 +137,6 @@ Allowed options:
         create-opts->commands
         execute!)))
 
-(defn lol [{:keys [opts]}]
-  (let [eval-or-show-work (fn [form]
-                             (if (:dry-run opts)
-                               (prn form)
-                               (eval form)))]
-    (eval-or-show-work `(prn "trolololo"))
-    (eval-or-show-work `(shell "ls" ".."))))
-
 (defn olorm-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
     (when (or (:h opts)
@@ -241,7 +233,6 @@ Allowed options:
    {:cmds ["repo-path"]     :fn olorm-repo-path}
    {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
    {:cmds ["draw"]          :fn olorm-draw          :args->opts [:pool]}
-   {:cmds ["lol"]           :fn lol}
    {:cmds ["migrate"]       :fn olorm-migrate}
    {:cmds []                :fn olorm-help}])
 
