@@ -1,5 +1,6 @@
 {:paths ["src"]
  :deps {babashka/fs {:mvn/version "0.4.18"}
         babashka/process {:mvn/version "0.5.21"}
+        olorm/lib {:local/root "../lib"}
         org.babashka/cli {:mvn/version "0.7.51"}
-        olorm/lib {:local/root "../lib"}}}
+        org.clojure/clojure {:mvn/version "1.11.1"}}}
