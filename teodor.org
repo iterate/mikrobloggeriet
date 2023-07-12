@@ -123,3 +123,15 @@ jeg har lyst til å endre navn fra =lib= til =domainlogic=.
 1. [X] =mikrobloggeriet.olorm-cli= peker til den /gamle/ olorm-implementasjonen.
    1. fikset!
 2. [ ] =mikrobloggeriet.jals-cli= lager olormer (all koden er kopiert)
+* 2023-07-12
+** Hvordan får jeg testet disse greiene?
+Det hadde vært fint med CI.
+
+1. Splitte koden i logikk som kan testes og kjøring av effekter
+2. Skriv tester på logikken
+3. Gå i prod med mindre usikkerhet.
+
+Gjør det lettere å refaktorere, lettere å vite at jeg ikke brekker ting.
+
+Lettere å refaktorere er kanskje hovedfordelen.
+🤔
