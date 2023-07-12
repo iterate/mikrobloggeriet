@@ -88,6 +88,9 @@ your system, so we need to know where to find OLORM pages.
   ;; => #{:println :create-dirs :shell :spit}
   )
 
+(defn command->dry-command [command]
+  [:prn command])
+
 (defn execute!
   "Execute a sequence of commands."
   [commands]
@@ -96,13 +99,8 @@ your system, so we need to know where to find OLORM pages.
       :println (apply println args)
       :shell (apply shell args)
       :create-dirs (apply fs/create-dirs args)
-      :spit (apply spit args))))
-
-(defn execute-dry!
-  "Print a sequence of commands."
-  [commands]
-  (doseq [c commands]
-    (prn c)))
+      :spit (apply spit args)
+      :prn (apply prn args))))
 
 (defn olorm-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
@@ -120,20 +118,15 @@ Allowed options:
   --help                  Show this helptext.
 "))
     (System/exit 0))
-  (cond
-    (:dry-run opts)
-    (-> {:dir (or (:dir opts) (repo-path))
-         :git (:git opts true)
-         :edit (:edit opts true)}
-        create-opts->commands
-        execute-dry!)
-
-    :else
-    (-> {:dir (or (:dir opts) (repo-path))
-         :git (:git opts true)
-         :edit (:edit opts true)}
-        create-opts->commands
-        execute!)))
+  (let [command-transform (if (:dry-run opts)
+                            command->dry-command
+                            identity)]
+    (->> {:dir (or (:dir opts) (repo-path))
+          :git (:git opts true)
+          :edit (:edit opts true)}
+         create-opts->commands
+         (map command-transform)
+         execute!)))
 
 (defn olorm-draw [{:keys [opts]}]
   (let [pool (:pool opts)]
