@@ -82,6 +82,13 @@
        (sort-by :number)
        (map #(assoc % :repo-path repo-path))))
 
+(defn next-number [docs]
+  (inc (or (->> docs
+                (map :number)
+                sort
+                last)
+           0)))
+
 (def olorms docs)
 
 (defn random

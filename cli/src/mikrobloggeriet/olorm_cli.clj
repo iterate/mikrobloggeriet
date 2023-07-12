@@ -50,6 +50,58 @@ your system, so we need to know where to find OLORM pages.
       (println "Error: config file not found")
       (System/exit 1))))
 
+(defn create-opts->commands [{:keys [dir git editor]}]
+  (assert dir)
+  (assert (some? git))
+  (assert (some? editor))
+  (when editor
+    (assert (System/getenv "EDITOR")))
+  (let [number (->> (olorm/docs {:repo-path dir})
+                    (olorm/next-number))
+        doc (olorm/->olorm {:number number :repo-path dir})]
+    (concat (when git
+              [[:shell {:dir dir} "git pull --ff-only"]])
+            [[:create-dirs (str (olorm/path doc))]
+             [:spit (str (olorm/index-md-path doc))
+              (olorm/md-skeleton doc)]
+             [:spit (str (olorm/meta-path doc))
+              (prn-str {:git.user/email (olorm/git-user-email {:repo-path dir})
+                        :doc/created (olorm/today)
+                        :doc/uuid (olorm/uuid)})]]
+            (when editor
+              [[:shell {:dir dir} (System/getenv "EDITOR") (olorm/index-md-path doc)]])
+            (when (and git editor)
+              [[:shell {:dir dir} "git add ."]
+               [:shell {:dir dir} "git commit -m" (str "olorm-" (:number doc))]
+               [:shell {:dir dir} "git pull --rebase"]
+               [:shell {:dir dir} "git push"]
+               [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                              "\n\n"
+                              (str "   OLORM-" (:number doc)
+                                   ": $DIN_TITTEL → https://mikrobloggeriet.no/o/"
+                                   (:slug doc) "/"))]]))))
+
+(comment
+  (->> (create-opts->commands {:dir (repo-path) :git true :editor true})
+       (map first)
+       (into #{}))
+  ;; => #{:println :create-dirs :shell :spit}
+  )
+
+(defn execute!
+  [commands]
+  (doseq [c commands]
+    (case (first c)
+      :println (apply println (rest c))
+      :shell (apply shell (rest c))
+      :create-dirs (apply fs/create-dirs (rest c))
+      :spit (apply spit (rest c)))))
+
+(defn execute-dry! [commands]
+  (doseq [c commands]
+    (prn c)))
+
+(declare olorm-create-old)
 
 (defn olorm-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
@@ -67,6 +119,21 @@ Allowed options:
   --help                  Show this helptext.
 "))
     (System/exit 0))
+  (cond
+    (and (:new opts) (:dry-run opts))
+    (let [dir (or (:dir opts) (repo-path))
+          ]
+      (-> (assoc opts :dir dir)
+          create-opts->commands execute-dry!))
+
+    (:new opts)
+    (let [dir (or (:dir opts) (repo-path))]
+      (-> (assoc opts :dir dir) create-opts->commands execute!))
+
+    :else
+    (olorm-create-old {:opts opts})))
+
+(defn olorm-create-old [{:keys [opts]}]
   (let [repo-path (repo-path)
         dispatch (fn [cmd & args]
                    (if (:dry-run opts)
@@ -74,8 +141,8 @@ Allowed options:
                      (apply (resolve cmd) args)))
         disable-git (= (:git opts) false)
         disable-editor (= (:editor opts) false)
-        git (:git opts true)       ; By default, git commands are executed
-        editor (:editor opts true) ; By default, editor is called
+        git (:git opts true)            ; By default, git commands are executed
+        editor (:editor opts true)      ; By default, editor is called
         ]
     (when git
       (dispatch `shell {:dir repo-path} "git pull --ff-only"))
