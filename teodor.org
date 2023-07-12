@@ -135,3 +135,5 @@ Gjør det lettere å refaktorere, lettere å vite at jeg ikke brekker ting.
 
 Lettere å refaktorere er kanskje hovedfordelen.
 🤔
+*** Eksempel: sjekke hva slags git-kommandoer som har blitt kjørt i forskjellige varianter kommandoer
+=--no-git= og =--no-edit=
