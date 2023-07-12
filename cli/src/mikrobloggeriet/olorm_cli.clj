@@ -4,10 +4,10 @@
   (:require
    [babashka.cli :as cli]
    [babashka.fs :as fs]
+   [babashka.process :refer [shell]]
    [clojure.edn :as edn]
    [clojure.string :as str]
-   [mikrobloggeriet.olorm :as olorm]
-   [babashka.process :refer [shell]]))
+   [mikrobloggeriet.olorm :as olorm]))
 
 (defn config-folder [] (str (fs/xdg-config-home) "/olorm"))
 (defn config-file [] (str (config-folder) "/config.edn"))
