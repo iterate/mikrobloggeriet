@@ -91,12 +91,12 @@ your system, so we need to know where to find OLORM pages.
 (defn execute!
   "Execute a sequence of commands."
   [commands]
-  (doseq [c commands]
-    (case (first c)
-      :println (apply println (rest c))
-      :shell (apply shell (rest c))
-      :create-dirs (apply fs/create-dirs (rest c))
-      :spit (apply spit (rest c)))))
+  (doseq [[cmd & args] commands]
+    (case cmd
+      :println (apply println args)
+      :shell (apply shell args)
+      :create-dirs (apply fs/create-dirs args)
+      :spit (apply spit args))))
 
 (defn execute-dry!
   "Print a sequence of commands."
