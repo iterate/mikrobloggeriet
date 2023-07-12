@@ -137,3 +137,32 @@ Lettere å refaktorere er kanskje hovedfordelen.
 🤔
 *** Eksempel: sjekke hva slags git-kommandoer som har blitt kjørt i forskjellige varianter kommandoer
 =--no-git= og =--no-edit=
+** Nå er koden splittet i logikk og kommandoer! Hva med testing?
+Dette var litt gøy.
+
+Så, hva med testing?
+Nå kan det skrives tester!
+
+Men.
+Jeg lurer på om jeg har splittet opp litt vel mye.
+Trenger egentlig ikke alle disse prosjektene.
+Kan heller ha:
+
+1. En krysskompatibel babashka-jvm-dings
+2. Litt JVM for å kjøre selve serveren.
+
+Og det kan jeg splitte i forskjellige mapper:
+
+- =src/= - krysskompatibelt
+- =src-serve/= - JVM-servergreier
+
+Da får jeg slettet en masse mapper.
+
+I dag har jeg flere mapper:
+
+- =cli/= - CLI-funksjonalitet
+- =lib/= - jvm/bb-ting
+- =olorm-cli/= - ekstra CLI-funksjonalitet som skal slettes
+- =serve/= - serveren
+
+Så det jeg vurderer er å fjerne alle toppnivå-prosjektene, og heller jobbe med én bøtte kildekode.
