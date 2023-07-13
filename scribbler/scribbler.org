@@ -1,0 +1,4 @@
+#+title: Scribbler
+
+Hva om vi hadde et skrivegrensesnitt uten terminal og filer?
+Hva om det ikke var så vanskelig å lage?
