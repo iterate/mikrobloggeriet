@@ -2,6 +2,8 @@
   (:require [mikrobloggeriet.olorm-cli :as olorm-cli]
             [clojure.test :refer [deftest testing is]]))
 
+(def ci? (= "runner" (System/getenv "USER")))
+
 (deftest repo-path-test
   (testing "A repo path is set"
     (is (some? (olorm-cli/repo-path)))))
@@ -21,10 +23,11 @@
       (doseq [c commands]
         (is (printable? c)))))
 
-  (testing "When git is enabled, there is shelling out"
-    (let [commands (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git true :edit false})
-          command-types (into #{} (map first commands))]
-      (is (contains? command-types :shell))))
+  (when-not ci? ; git is not configured on CI
+    (testing "When git is enabled, there is shelling out"
+      (let [commands (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git true :edit false})
+            command-types (into #{} (map first commands))]
+        (is (contains? command-types :shell)))))
 
   (testing "When edit is enabled, there is shelling out"
     (let [commands (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit true})
