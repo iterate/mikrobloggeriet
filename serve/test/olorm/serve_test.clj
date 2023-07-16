@@ -18,7 +18,7 @@
                         (= "/home/runner" (System/getenv "HOME"))
                         (= "runner" (System/getenv "USER")))]
 
-  (when (in-github-action?)
+  (when in-github-action?
     (spit "/home/runner/.config/olorm/config.edn" {:repo-path "/home/runner/work/olorm/olorm"})))
 
 (deftest index-test
