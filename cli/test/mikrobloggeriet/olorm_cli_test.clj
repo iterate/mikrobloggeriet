@@ -2,7 +2,7 @@
   (:require [mikrobloggeriet.olorm-cli :as olorm-cli]
             [clojure.test :refer [deftest testing is]]))
 
-;; Certain shell script tests don't make sense under CI.
+;; Certain shell script tests don't work under CI.
 (def ci? (= "runner" (System/getenv "USER")))
 
 (deftest repo-path-test
