@@ -10,8 +10,11 @@ jobs:
         uses: DeLaGuardo/setup-clojure@9.4
         with:
           cli: latest
-      - name: Install pandoc/core for document conversion
-        uses: docker://pandoc/core
+
+      # Install pandoc binary
+      - uses: actions/checkout@master
+      - uses: nikeee/setup-pandoc@v1
+
       - run: (cd serve && clojure -e "(prn (+ 1 2))")
       - run: ls
       - run: pwd
