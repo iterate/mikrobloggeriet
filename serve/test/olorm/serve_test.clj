@@ -6,7 +6,7 @@
 
 (let
     ;; hack
-    ;; please don't do this at home!!!
+    ;; please don't do this at home!
 
     ;; When we're running as a github action, we need to set the repo path before
     ;; starting
