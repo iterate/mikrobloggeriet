@@ -15,13 +15,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: nikeee/setup-pandoc@v1
 
-      - run: (cd serve && clojure -e "(prn (+ 1 2))")
-      - run: ls
-      - run: pwd
-      - run: (cd serve && pwd && ls)
-      - run: |
-          (cd serve && clojure -X:hello-world)
-      - run: |
-          (cd serve && clojure -M:run-tests)
-      - run: |
-          (cd cli && clojure -M:run-tests)
+      # What env vars do we have?
+      - run: env
+      - run: (cd serve && clojure -M:run-tests)
+      - run: (cd cli && clojure -M:run-tests)

@@ -3,6 +3,10 @@
             [clojure.test :refer [is testing deftest] ]
             [clojure.string :as str]))
 
+;; Workaround for github actions, not ideal.
+;;
+;; - I'd want to guard 
+
 (deftest index-test
   (let [index (serve/index {})]
     (testing "An index was returned"
