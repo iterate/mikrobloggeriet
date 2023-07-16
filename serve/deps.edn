@@ -15,5 +15,5 @@
                                      :git/sha "dfb30dd"}}
                        :main-opts ["-m" "cognitect.test-runner"]
                        :exec-fn cognitect.test-runner.api/test}
-           :helloworld {:exec-fn clojure.core/prn
-                        :exec-args {:message "Hello, world!"}}}}
+           :hello-world {:exec-fn clojure.core/prn
+                         :exec-args {:message "Hello, world!"}}}}
