@@ -4,6 +4,8 @@ jobs:
   Testing:
     runs-on: ubuntu-latest
     steps:
+
+      # Setup Clojure & deps.edn
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Install clojure tools
@@ -17,5 +19,7 @@ jobs:
 
       # What env vars do we have?
       - run: env
+
+      # Run the tests
       - run: (cd serve && clojure -M:run-tests)
       - run: (cd cli && clojure -M:run-tests)
