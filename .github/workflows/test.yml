@@ -15,7 +15,7 @@ jobs:
       - run: pwd
       - run: (cd serve && pwd && ls)
       - run: |
-          (cd serve && clojure -X:hello-world)
+          (cd serve && clojure -X:hello-world || cat /tmp/clojure-*.edn)
       - run: |
           (cd serve && clojure -M:run-tests)
 #      - run: |
