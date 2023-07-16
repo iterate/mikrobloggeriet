@@ -11,6 +11,6 @@ jobs:
         with:
           cli: latest
       - run: |
-          (cd serve && clj -M:run-tests)
+          (cd serve && clojure -M:run-tests)
       - run: |
-          (cd cli && clj -M:run-tests)
+          (cd cli && clojure -M:run-tests)
