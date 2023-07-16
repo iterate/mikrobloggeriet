@@ -21,10 +21,6 @@
   (when (in-github-action?)
     (spit "/home/runner/.config/olorm/config.edn" {:repo-path "/home/runner/work/olorm/olorm"})))
 
-;; Workaround for github actions, not ideal.
-;;
-;; - I'd want to guard 
-
 (deftest index-test
   (let [index (serve/index {})]
     (testing "An index was returned"
