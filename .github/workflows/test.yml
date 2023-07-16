@@ -16,7 +16,7 @@ jobs:
       - run: (cd serve && pwd && ls)
       - run: |
           (cd serve && clojure -X:hello-world)
-#      - run: |
-#          (cd serve && clojure -M:run-tests)
+      - run: |
+          (cd serve && clojure -M:run-tests)
 #      - run: |
 #          (cd cli && clojure -M:run-tests)
