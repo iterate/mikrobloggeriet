@@ -45,7 +45,8 @@ your system, so we need to know where to find OLORM pages.
       (println "Error: config file not found")
       (System/exit 1))))
 
-(defn create-opts->commands [{:keys [dir git edit]}]
+(defn create-opts->commands
+  [{:keys [dir git edit]}]
   (assert dir)
   (assert (some? git))
   (assert (some? edit))
