@@ -13,23 +13,27 @@
   (testing "we can generate commands without errors"
     (is (some? (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit false}))))
 
-  (testing "A seq of commands is returned, the first element of a command is a keyword"
-    (let [commands (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit false})]
-      (doseq [c commands]
-        (is (keyword? (first c))))))
+  (testing "A seq of commands is returned, all commands are prints"
+    (is (every? keyword?
+                (->> (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit false})
+                     (map first)))))
 
   (testing "When we transform to a dry run, only printable commands are returned"
-    (let [printable? (fn [command] (#{:prn :println} (first command)))
-          commands (map olorm-cli/command->dry-command (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit false}))]
-      (doseq [c commands]
-        (is (printable? c)))))
+    (is (every? #{:prn :println}
+                (->> (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path)
+                                                       :git false
+                                                       :edit false})
+                     (map olorm-cli/command->dry-command)
+                     (map first)))))
 
   (testing "When git is enabled, there is shelling out"
-    (let [commands (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git true :edit false})
-          command-types (into #{} (map first commands))]
-      (is (contains? command-types :shell))))
+    (is (contains? (->> (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git true :edit false})
+                        (map first)
+                        (into #{}))
+                   :shell)))
 
   (testing "When edit is enabled, there is shelling out"
-    (let [commands (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit true})
-          command-types (into #{} (map first commands))]
-      (is (contains? command-types :shell)))))
+    (is (contains? (->> (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit true})
+                        (map first)
+                        (into #{}))
+                   :shell))))
