@@ -3,6 +3,24 @@
             [clojure.test :refer [is testing deftest] ]
             [clojure.string :as str]))
 
+
+(let
+    ;; hack
+    ;; please don't do this at home!!!
+
+    ;; When we're running as a github action, we need to set the repo path before
+    ;; starting
+    ;;
+    ;; A better way to solve this, would be to allow passing the repo path into the
+    ;; command invocation. But we're not going to do that right now.
+    [in-github-action? (and
+                        (some? (System/getenv "GITHUB_ACTIONS"))
+                        (= "/home/runner" (System/getenv "HOME"))
+                        (= "runner" (System/getenv "USER")))]
+
+  (when (in-github-action?)
+    (spit "/home/runner/.config/olorm/config.edn" {:repo-path "/home/runner/work/olorm/olorm"})))
+
 ;; Workaround for github actions, not ideal.
 ;;
 ;; - I'd want to guard 
