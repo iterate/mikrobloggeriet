@@ -22,6 +22,6 @@ jobs:
       - run: |
           (cd serve && clojure -X:hello-world)
       - run: |
-          (cd serve && clojure -M:run-tests || cat /tmp/clojure-*.edn)
-#      - run: |
-#          (cd cli && clojure -M:run-tests)
+          (cd serve && clojure -M:run-tests)
+      - run: |
+          (cd cli && clojure -M:run-tests)
