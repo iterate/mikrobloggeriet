@@ -18,7 +18,9 @@ jobs:
       - uses: nikeee/setup-pandoc@v1
 
       # What env vars do we have?
+      - run: pwd
       - run: env
+      - run: git rev-parse --show-toplevel
 
       # Run the tests
       - run: (cd serve && clojure -M:run-tests)
