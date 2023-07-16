@@ -1,0 +1,16 @@
+name: clj run tests
+on: [push, pull_request]
+jobs:
+  Testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@9.4
+        with:
+          bb: latest
+      - run: |
+          (cd serve && clj -M:run-tests)
+      - run: |
+          (cd cli && clj -M:run-tests)
