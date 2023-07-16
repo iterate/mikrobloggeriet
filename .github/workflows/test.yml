@@ -11,6 +11,9 @@ jobs:
         with:
           cli: latest
       - run: (cd serve && clojure -e "(prn (+ 1 2))")
+      - run: ls
+      - run: pwd
+      - run: (cd serve && pwd && ls)
 #     - run: |
 #         (cd serve && clojure -M:run-tests)
 #      - run: |
