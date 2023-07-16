@@ -1,8 +1,10 @@
-{:deps {babashka/fs {:mvn/version "0.4.18"}
+{:paths ["src"]
+ :deps {babashka/fs {:mvn/version "0.4.18"}
         babashka/process {:mvn/version "0.5.21"}
         compojure/compojure {:mvn/version "1.7.0"}
         hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
         http-kit/http-kit {:mvn/version "2.7.0-alpha1"}
         io.github.nextjournal/clerk {:mvn/version "0.13.842"}
         olorm/lib {:local/root "../lib"}
-        org.clojure/clojure {:mvn/version "1.11.1"}}}
+        org.clojure/clojure {:mvn/version "1.11.1"}}
+ :aliases {:dev {:extra-paths ["test"]}}}
