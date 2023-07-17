@@ -33,9 +33,11 @@
         port (requiring-resolve 'olorm.serve/port)
         shell (requiring-resolve 'babashka.process/shell)]
     (start-fn {})
-    (let [browser (System/getenv "BROWSER")]
-      (when-not (str/blank? browser)
-        (shell browser (str "http://localhost:" (deref port)))))))
+    (let [browser (System/getenv "BROWSER")
+          url (str "http://localhost:" (deref port))]
+      (if-not (str/blank? browser)
+        (do (shell browser url) nil)
+        (println "Please open" url "in your web browser.")))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
