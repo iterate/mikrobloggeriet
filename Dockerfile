@@ -29,24 +29,21 @@ FROM clojure
 RUN apt-get update && apt-get install -y tree pandoc && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Cache deps
-RUN mkdir -p /olorm/serve
-COPY serve/deps.edn /olorm/serve/deps.edn
-RUN mkdir -p /olorm/lib
-COPY lib/deps.edn /olorm/lib/deps.edn
+RUN mkdir -p /olorm/
+COPY deps.edn /olorm/deps.edn
 
 WORKDIR /olorm/serve
 RUN clj -e :deps-cached
 
 # Copy files
-COPY serve/src/                /olorm/serve/src/
-COPY serve/vanilla.css         /olorm/serve/vanilla.css
-COPY serve/mikrobloggeriet.css /olorm/serve/mikrobloggeriet.css
-COPY lib/                      /olorm/lib/
-COPY o/                        /olorm/o
-COPY j/                        /olorm/j
+COPY src/                /olorm/src/
+COPY vanilla.css         /olorm/vanilla.css
+COPY mikrobloggeriet.css /olorm/mikrobloggeriet.css
+COPY o/                  /olorm/o
+COPY j/                  /olorm/j
 
 # Init
-WORKDIR /olorm/serve
+WORKDIR /olorm
 CMD clj -X olorm.serve/start!
 
 EXPOSE 7223

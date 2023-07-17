@@ -26,5 +26,4 @@ jobs:
       - run: git config --global user.email "actions@fake.github.com"
 
       # Run the tests
-      - run: (cd serve && clojure -M:run-tests)
-      - run: (cd cli && clojure -M:run-tests)
+      - run: clojure -M:run-tests

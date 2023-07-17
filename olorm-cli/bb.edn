@@ -1,2 +1,0 @@
-{:deps {io.github.teodorlu/shed {:local/root "."}}
- :bbin/bin {olorm {:main-opts ["-m" "olorm.cli/-main"]}}}
