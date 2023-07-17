@@ -1,10 +1,8 @@
 # Mikrobloggeriet
 
-WIP - currently migrating from https://github.com/iterate/olorm
-
 https://mikrobloggeriet.no/
 
-_A collection of technical microblogs in Norwegian._
+_A collection of technical microblogs—written in Norwegian._
 
 Vocabulary:
 
@@ -18,10 +16,8 @@ Vocabulary:
 | olorm           | Oddmund, Lars and Richard's microblog collective       |             |
 | olorm           | a CLI for microblogging                                |             |
 
-## Oppsett før installasjon av kommandolinjeprogram
+## How do I write docs?
 
-TODO
+Please see [CLI quickstart] to get started writing content.
 
-## Installér kommandolinjeprogramet `mblogr`
-
-TODO
+[CLI quickstart]: cli-quickstart.md
