@@ -1,5 +1,1 @@
 default_environment = "prod"
-
-applings = [
-    "serve"
-]
