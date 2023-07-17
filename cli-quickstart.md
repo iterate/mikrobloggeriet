@@ -10,8 +10,8 @@ Mikrobloggeriet.no has some required dependencies:
 
 1. [Babashka]
 2. [Bbin]
-3. `EDITOR` must be set in your shell.
-   Set `export EDITOR=vim` in your `.zshrc` to configure Vim, or choose something else.
+3. Please make sure `EDITOR` is set in your shell.
+   Set `export EDITOR=vim` in your `.zshrc` to use Vim, like the default for `git`.
 
 [Babashka]: https://babashka.org/
 [Bbin]: https://github.com/babashka/bbin
