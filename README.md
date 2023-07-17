@@ -1,5 +1,7 @@
 # Mikrobloggeriet
 
+WIP - currently migrating from https://github.com/iterate/olorm
+
 https://mikrobloggeriet.no/
 
 _A collection of technical microblogs in Norwegian._
