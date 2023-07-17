@@ -22,7 +22,7 @@ Mikrobloggeriet.no has some required dependencies:
    In this folder, please run:
    
     ```shell
-    bbin install ./cli --as olorm --main-opts '["-m" "mikrobloggeriet.olorm-cli"]'
+    bbin install . --as olorm --main-opts '["-m" "mikrobloggeriet.olorm-cli"]'
     ```
 
 2. Then, configure the `mikrobloggeriet` repo path.
@@ -40,7 +40,7 @@ Mikrobloggeriet.no has some required dependencies:
    In this folder, please run:
    
     ```shell
-    bbin install ./cli --as jals --main-opts '["-m" "mikrobloggeriet.jals-cli"]'
+    bbin install . --as jals --main-opts '["-m" "mikrobloggeriet.jals-cli"]'
     ```
 
 2. Then, configure the CLI repo path.
