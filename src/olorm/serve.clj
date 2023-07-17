@@ -18,6 +18,8 @@
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
 
+(defn repo-path [] ".")
+
 (defn index [_req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-olorm-url "https://github.com/iterate/olorm/"
@@ -35,13 +37,13 @@
       [:p "OLORM skrives av Oddmund, Lars og Richard."]
       [:p
        (interpose " · "
-                  (for [olorm (olorm/docs {:repo-path ".."})]
+                  (for [olorm (olorm/docs {:repo-path (repo-path)})]
                     [:a {:href (olorm/href olorm)} (:slug olorm)]))]
       [:h2 "JALS"]
       [:p "JALS skrives av Jørgen, Adrian, Lars og Sindre."]
       [:p
        (interpose " · "
-                  (for [doc (jals/docs {:repo-path ".."})]
+                  (for [doc (jals/docs {:repo-path (repo-path)})]
                     [:a {:href (jals/href doc)} (:slug doc)]))]
 
       [:hr]
@@ -83,7 +85,7 @@
     [:table
      [:thead [:td "slug"] [:td "author"] [:td "created"]]
      [:tbody
-      (for [olorm (map olorm/load-meta (olorm/docs {:repo-path ".."}))]
+      (for [olorm (map olorm/load-meta (olorm/docs {:repo-path (repo-path)}))]
         [:tr
          [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
          [:td (olorm/author-name olorm)]
@@ -101,7 +103,7 @@
     [:table
      [:thead [:td "slug"] [:td "author"] [:td "created"]]
      [:tbody
-      (for [jals (map jals/load-meta (jals/docs {:repo-path ".."}))]
+      (for [jals (map jals/load-meta (jals/docs {:repo-path (repo-path)}))]
         [:tr
          [:td [:a {:href (jals/href jals)} (:slug jals)]]
          [:td (jals/author-name jals)]
@@ -118,7 +120,7 @@
 (defn olorm [req]
   (tap> req)
   (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
-                              :repo-path ".."})
+                              :repo-path (repo-path)})
         {:keys [number]} olorm]
     (tap> (olorm/->olorm olorm))
     {:status (if olorm 200 404)
@@ -134,11 +136,11 @@
         [:a {:href "/o/"} "o"]
         " — "
         [:span (interpose " · " (filter some?
-                                        [(let [prev (olorm/->olorm {:number (dec number) :repo-path ".."})]
+                                        [(let [prev (olorm/->olorm {:number (dec number) :repo-path (repo-path)})]
                                            (when (olorm/exists? prev)
                                              [:a {:href (olorm/href prev)} (:slug prev)]))
                                          [:span (:slug olorm)]
-                                         (let [prev (olorm/->olorm {:number (inc number) :repo-path ".."})]
+                                         (let [prev (olorm/->olorm {:number (inc number) :repo-path (repo-path)})]
                                            (when (olorm/exists? prev)
                                              [:a {:href (olorm/href prev)} (:slug prev)]))]))]]
        (olorm->html olorm)])}))
@@ -149,7 +151,7 @@
 
 (defn jals [req]
   (let [doc (jals/->doc {:slug (:slug (:route-params req))
-                         :repo-path ".."})
+                         :repo-path (repo-path)})
         {:keys [number]} doc
         html (jals->html doc)]
     {:status (if html 200 404)
@@ -164,11 +166,11 @@
         [:a {:href "/j/"} "j"]
         " — "
         [:span (interpose " · " (filter some?
-                                        [(let [prev (jals/->doc {:number (dec number) :repo-path ".."})]
+                                        [(let [prev (jals/->doc {:number (dec number) :repo-path (repo-path)})]
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))
                                          [:span (:slug doc)]
-                                         (let [prev (jals/->doc {:number (inc number) :repo-path ".."})]
+                                         (let [prev (jals/->doc {:number (inc number) :repo-path (repo-path)})]
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]
         ]
@@ -176,8 +178,8 @@
 
 (defn random-doc [_req]
   (let [target (or
-                 (when-let [docs (into [] cat [(olorm/docs {:repo-path ".."})
-                                               (jals/docs {:repo-path ".."})])]
+                 (when-let [docs (into [] cat [(olorm/docs {:repo-path (repo-path)})
+                                               (jals/docs {:repo-path (repo-path)})])]
                    (let [picked (rand-nth docs)]
                      (cond
                        (= :olorm (:cohort picked)) (olorm/href picked)
@@ -189,8 +191,8 @@
      :body ""}))
 
 (comment
-  (olorm/random {:repo-path ".."})
-  (jals/random {:repo-path ".."})
+  (olorm/random {:repo-path (repo-path)})
+  (jals/random {:repo-path (repo-path)})
 
   )
 
