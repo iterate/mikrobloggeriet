@@ -25,7 +25,7 @@ FROM clojure
 # System depenencies
 #
 # 1. Pandoc is required for markdown conversion
-# 2. tree is nice for debuggin
+# 2. tree is nice for debuggin'
 RUN apt-get update && apt-get install -y tree pandoc && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Cache deps
