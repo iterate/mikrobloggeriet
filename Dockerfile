@@ -1,16 +1,8 @@
 FROM clojure
 
-# We mirror olorm repo structure in the Docker filesystem:
-#
-#   | docker path   | content |
-#   |---------------|---------|
-#   | /olorm/serve/ | server  |
-#   | /olorm/o/     | olorms  |
-#   | /olorm/lib    | lib     |
-#
 # To build Dockerfile:
 #
-#   docker build -t temp -f "$(pwd)/Dockerfile" ..
+#   docker build -t temp .
 #
 # To run this Dockerfile locally:
 #
