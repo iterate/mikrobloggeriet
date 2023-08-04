@@ -21,7 +21,7 @@ jobs:
       - run: env
 
       # Setup olorm config
-      - run: mkdir -p "$HOME/.config/olorm/""
+      - run: mkdir -p "$HOME/.config/olorm/"
       - run: echo "{:repo-path \"$GITHUB_WORKSPACE\"}" > /home/runner/.config/olorm/config.edn
 
       # Setup git
