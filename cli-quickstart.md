@@ -6,11 +6,11 @@ Untill later, we can keep on using the existing tools:
 
 ## Required dependencies
 
-Mikrobloggeriet.no has some required dependencies:
+Mikrobloggeriet.no requires some setup:
 
-1. [Babashka]
-2. [Bbin]
-3. Please make sure `EDITOR` is set in your shell.
+1. [Babashka] must be installed.
+2. [Bbin] must be set.
+3. `EDITOR` must be set in your shell.
    Set `export EDITOR=vim` in your `.zshrc` to use Vim, like the default for `git`.
 
 [Babashka]: https://babashka.org/
