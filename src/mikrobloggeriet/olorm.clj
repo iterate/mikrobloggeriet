@@ -10,9 +10,6 @@
    [babashka.process :refer [shell]]
    [clojure.pprint :refer [pprint]]))
 
-TRY TO BREAK MASTER
-SEE WHAT HAPPENS
-
 ;; olorm example:
 
 {:slug "olorm-1" :number 1 :repo-path "."}
