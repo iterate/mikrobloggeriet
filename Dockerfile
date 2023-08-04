@@ -34,8 +34,11 @@ COPY mikrobloggeriet.css /olorm/mikrobloggeriet.css
 COPY o/                  /olorm/o
 COPY j/                  /olorm/j
 
-# Init
+# Run test before deploy
 WORKDIR /olorm
+CMD clj -M:run-tests
+
+# Init
 CMD clj -X olorm.serve/start!
 
 EXPOSE 7223
