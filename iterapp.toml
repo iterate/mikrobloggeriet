@@ -1,1 +1,2 @@
 default_environment = "prod"
+port = 7223
