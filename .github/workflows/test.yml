@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: nikeee/setup-pandoc@v1
 
-      # Read env
+      # Read env (for learning github actions)
       - run: env
 
       # Setup olorm config
