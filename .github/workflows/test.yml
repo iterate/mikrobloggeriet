@@ -17,6 +17,9 @@ jobs:
       - uses: actions/checkout@master
       - uses: nikeee/setup-pandoc@v1
 
+      # Read env
+      - run: env
+
       # Setup olorm config
       - run: mkdir -p /home/runner/.config/olorm/
       - run: echo '{:repo-path "/home/runner/work/olorm/olorm"}' > /home/runner/.config/olorm/config.edn
