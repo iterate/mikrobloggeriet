@@ -20,7 +20,7 @@ Mikrobloggeriet.no requires some setup:
 
 1. First, install the CLI.
    In this folder, please run:
-   
+
     ```shell
     bbin install . --as olorm --main-opts '["-m" "mikrobloggeriet.olorm-cli"]'
     ```
@@ -28,7 +28,7 @@ Mikrobloggeriet.no requires some setup:
 2. Then, configure the `mikrobloggeriet` repo path.
    This lets you use the CLI from any folder on your computer.
    From this folder, run:
-   
+
     ```shell
     olorm set-repo-path .
     ```
@@ -38,7 +38,7 @@ Mikrobloggeriet.no requires some setup:
 
 1. First, install the CLI.
    In this folder, please run:
-   
+
     ```shell
     bbin install . --as jals --main-opts '["-m" "mikrobloggeriet.jals-cli"]'
     ```
@@ -46,7 +46,7 @@ Mikrobloggeriet.no requires some setup:
 2. Then, configure the CLI repo path.
    This lets you use the CLI from any folder on your computer.
    From this folder, run:
-   
+
     ```shell
     jals set-repo-path .
     ```
