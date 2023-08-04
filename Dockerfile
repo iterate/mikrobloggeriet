@@ -29,6 +29,7 @@ RUN clj -e :deps-cached
 
 # Copy files
 COPY src/                /olorm/src/
+COPY test/               /olorm/test/
 COPY vanilla.css         /olorm/vanilla.css
 COPY mikrobloggeriet.css /olorm/mikrobloggeriet.css
 COPY o/                  /olorm/o
