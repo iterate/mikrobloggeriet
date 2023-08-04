@@ -22,7 +22,7 @@
 
 (defn index [_req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
-        github-olorm-url "https://github.com/iterate/olorm/"
+        github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
         hops-url "https://www.headless-operations.no/"
@@ -34,13 +34,13 @@
       [:h1 "Mikrobloggeriet"]
       [:p "Teknologer fra Iterate skriver om teknologi fra hverdagen."]
       [:h2 "OLORM"]
-      [:p "OLORM skrives av Oddmund, Lars og Richard."]
+      [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
       [:p
        (interpose " · "
                   (for [olorm (olorm/docs {:repo-path (repo-path)})]
                     [:a {:href (olorm/href olorm)} (:slug olorm)]))]
       [:h2 "JALS"]
-      [:p "JALS skrives av Jørgen, Adrian, Lars og Sindre."]
+      [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
       [:p
        (interpose " · "
                   (for [doc (jals/docs {:repo-path (repo-path)})]
@@ -53,7 +53,7 @@
        [:p
         "Mikrobloggeriet er et initiativ der teknologer fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
         "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
-        "Innhold og kode for Mikrobloggeriet på " [:a {:href github-olorm-url} "github.com/iterate/olorm"] ". "
+        "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
         "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
         "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]]
 
