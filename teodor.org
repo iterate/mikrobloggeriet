@@ -171,3 +171,6 @@ Kan eventuelt beholde =serve/= inntill videre, og legge til en avhengighet oppov
 I samme slengen vil jeg helst endre strukturen til =mikrobloggeriet=.
 =mikrobloggeriet.serve=, =mikrobloggeriet.cli=, =mikrobloggeriet.documents=.
 Eventuelt =mikrobloggeriet.api= i stedet for =mikrobloggeriet.documents=.
+* 2023-08-04
+** Bort med =src-serve=!
+Den ble ikke brukt, gitt.
