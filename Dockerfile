@@ -21,24 +21,24 @@ FROM clojure
 RUN apt-get update && apt-get install -y tree pandoc && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Cache deps (including test deps)
-RUN mkdir -p /olorm/
-COPY deps.edn /olorm/deps.edn
+RUN mkdir -p /mikrobloggeriet/
+COPY deps.edn /mikrobloggeriet/deps.edn
 
-WORKDIR /olorm
+WORKDIR /mikrobloggeriet
 RUN clj -A:test -e :deps-cached
 
 # Copy files
-COPY src/                /olorm/src/
-COPY test/               /olorm/test/
-COPY vanilla.css         /olorm/vanilla.css
-COPY mikrobloggeriet.css /olorm/mikrobloggeriet.css
-COPY o/                  /olorm/o
-COPY j/                  /olorm/j
+COPY src/                /mikrobloggeriet/src/
+COPY test/               /mikrobloggeriet/test/
+COPY vanilla.css         /mikrobloggeriet/vanilla.css
+COPY mikrobloggeriet.css /mikrobloggeriet/mikrobloggeriet.css
+COPY o/                  /mikrobloggeriet/o
+COPY j/                  /mikrobloggeriet/j
 
 # Setup and run tests before deploy
 ENV MIKROBLOGGIERIET_IN_DOCKER_BUILD=1
 RUN mkdir -p "$HOME/.config/olorm/"
-RUN echo "{:repo-path \"/olorm\"}" > "$HOME/.config/olorm/config.edn"
+RUN echo "{:repo-path \"/mikrobloggeriet\"}" > "$HOME/.config/olorm/config.edn"
 RUN git config --global user.name "HOPS Dockerfile"
 RUN git config --global user.email "hops-dockerfile@ci.mikrobloggeriet.no"
 RUN clj -M:run-tests
