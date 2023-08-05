@@ -20,12 +20,12 @@ FROM clojure
 # 2. tree is nice for debuggin'
 RUN apt-get update && apt-get install -y tree pandoc && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Cache deps
+# Cache deps (including test deps)
 RUN mkdir -p /olorm/
 COPY deps.edn /olorm/deps.edn
 
-WORKDIR /olorm/serve
-RUN clj -e :deps-cached
+WORKDIR /olorm
+RUN clj -A:test -e :deps-cached
 
 # Copy files
 COPY src/                /olorm/src/
@@ -35,9 +35,13 @@ COPY mikrobloggeriet.css /olorm/mikrobloggeriet.css
 COPY o/                  /olorm/o
 COPY j/                  /olorm/j
 
-# Run test before deploy
-WORKDIR /olorm
-CMD clj -M:run-tests
+# Setup and run tests before deploy
+ENV MIKROBLOGGIERIET_IN_DOCKER_BUILD=1
+RUN mkdir -p "$HOME/.config/olorm/"
+RUN echo "{:repo-path \"/olorm\"}" > "$HOME/.config/olorm/config.edn"
+RUN git config --global user.name "HOPS Dockerfile"
+RUN git config --global user.email "hops-dockerfile@ci.mikrobloggeriet.no"
+RUN clj -M:run-tests
 
 # Init
 CMD clj -X olorm.serve/start!

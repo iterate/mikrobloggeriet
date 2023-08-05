@@ -3,7 +3,8 @@
             [clojure.test :refer [deftest testing is]]))
 
 ;; Certain shell script tests don't work under CI.
-(def ci? (= "runner" (System/getenv "USER")))
+(def ci? (or (= "runner" (System/getenv "USER"))
+             (System/getenv "MIKROBLOGGIERIET_IN_DOCKER_BUILD")))
 
 (deftest repo-path-test
   (testing "A repo path is set"

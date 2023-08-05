@@ -26,7 +26,7 @@ jobs:
 
       # Setup git
       - run: git config --global user.name "Github actions"
-      - run: git config --global user.email "actions@fake.github.com"
+      - run: git config --global user.email "github-actions@ci.mikrobloggeriet.no"
 
       # Run the tests
       - run: clojure -M:run-tests
