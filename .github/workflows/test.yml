@@ -30,4 +30,4 @@ jobs:
       - name: Download test deps
         run: clojure -A:test -e :test-deps-downloaded
       - name: Run tests
-      - run: clojure -M:run-tests
+        run: clojure -M:run-tests
