@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: nikeee/setup-pandoc@v1
 
-      # Read env (for learning github actions)
+      - name: Print env (to learn what context github actions provide to us)
       - run: env
 
       # Setup olorm config
@@ -28,7 +28,7 @@ jobs:
       - run: git config --global user.name "Github actions"
       - run: git config --global user.email "github-actions@ci.mikrobloggeriet.no"
 
-      # Download test deps
-      - run: clj -A:test -e :test-deps-downloaded
-      # Run tests
+      - name: Download test deps
+        run: clj -A:test -e :test-deps-downloaded
+      - name: Run tests
       - run: clojure -M:run-tests
