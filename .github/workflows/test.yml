@@ -1,4 +1,4 @@
-name: clj run tests
+name: Run Clojure unit tests
 on: [push, pull_request]
 jobs:
   Testing:
