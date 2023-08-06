@@ -26,9 +26,8 @@ jobs:
       - name: learn bash things
         run: echo 1 && echo 2
 
-      # Setup git
-      - run: git config --global user.name "Github actions"
-      - run: git config --global user.email "github-actions@ci.mikrobloggeriet.no"
+      - name: Setup name and email for OLORM CLI
+        run: git config --global user.name "Github actions" && git config --global user.email "github-actions@ci.mikrobloggeriet.no"
 
       - name: Download test deps
         run: clojure -A:test -e :test-deps-downloaded
