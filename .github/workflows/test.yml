@@ -23,6 +23,9 @@ jobs:
       - run: mkdir -p "$HOME/.config/olorm/"
       - run: echo "{:repo-path \"$GITHUB_WORKSPACE\"}" > /home/runner/.config/olorm/config.edn
 
+      - name: learn bash things
+        run: echo 1 && echo 2
+
       # Setup git
       - run: git config --global user.name "Github actions"
       - run: git config --global user.email "github-actions@ci.mikrobloggeriet.no"
