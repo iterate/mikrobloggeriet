@@ -3,8 +3,6 @@
             [clojure.test :refer [is testing deftest] ]
             [clojure.string :as str]))
 
-BREAK
-
 (deftest index-test
   (let [index (serve/index {})]
     (testing "An index was returned"
