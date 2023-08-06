@@ -5,7 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      # Setup Clojure & deps.edn
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Install clojure tools
@@ -13,12 +12,12 @@ jobs:
         with:
           cli: latest
 
-      # Install pandoc binary
       - uses: actions/checkout@master
-      - uses: nikeee/setup-pandoc@v1
+      - name: Install pandoc binary
+        uses: nikeee/setup-pandoc@v1
 
-      # Read env (for learning github actions)
-      - run: env
+      - name: Read env (for learning github actions)
+        run: env
 
       # Setup olorm config
       - run: mkdir -p "$HOME/.config/olorm/"
