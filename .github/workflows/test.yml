@@ -28,7 +28,7 @@ jobs:
       - run: git config --global user.name "Github actions"
       - run: git config --global user.email "github-actions@ci.mikrobloggeriet.no"
 
-      # Download test deps
-      - run: clojure -A:test -e :test-deps-downloaded
+      - name: Download test deps
+        run: clojure -A:test -e :test-deps-downloaded
       # Run tests
       - run: clojure -M:run-tests
