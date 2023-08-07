@@ -50,3 +50,14 @@
   (let [clerk-serve (requiring-resolve 'nextjournal.clerk/serve!)
         clerk-port 7743]
     (clerk-serve {:browse? true :port clerk-port})))
+
+(defn clerk-start-watch! []
+  (let [clerk-serve (requiring-resolve 'nextjournal.clerk/serve!)
+        clerk-port 7743]
+    (clerk-serve {:browse? true
+                  :port clerk-port
+                  :watch-paths ["src" "test" "draft"]})))
+
+(defn clerk-stop! []
+  (let [clerk-halt (requiring-resolve 'nextjournal.clerk/halt!)]
+    (clerk-halt)))
