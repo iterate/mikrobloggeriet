@@ -1,11 +1,9 @@
-# 
+# Installation
+**Work in progress.**
 
-## Installation
 Developing on Mikrobloggeriet.no requires some setup.
 
-
-
-### Brew
+## Brew
 Mikrobloggeriet is developed in [Clojure]. 
 ```shell
 brew install clojure/tools/clojure
@@ -14,32 +12,17 @@ For more information on installing Clojure, read the official [Clojure installat
 
 
 Clojure is primarily hosted on the Java Virtual Machine (JVM), meaning that a JVM is required to compile and execute Clojure code.
-We recommend 
-
-
+We recommend using [Temurin] as it is free and open source, however other JDK's, such as Oracle Java or OpenJDK will most likely also work.
 
 ```shell
 brew install --cask temurin
 ```
 
-
+Mikrobloggeriet uses [Pandoc] to convert from Markdown-format to HTML when publishing blog posts. 
 ```shell
 brew install pandoc
 ```
 
+To install dependencies related to the CLI, read the [CLI Quickstart](https://github.com/iterate/mikrobloggeriet/blob/master/cli-quickstart.md).
 
-1. [Clojure]
-2. [Temurin]
-3. [Pandoc]
-4. [Babashka]
-
-[Clojure]: https://clojure.org/
-[Temurin]: https://adoptium.net/en-GB/
-[Babashka]: https://babashka.org/
-[Bbin]: https://github.com/babashka/bbin
-[Pandoc]: https://pandoc.org/
-
-
-
-VSCode command
- ```Calva: Start a Project REPL and Connect ```
+TO-DO: Write VSCode Clojure set-up.
