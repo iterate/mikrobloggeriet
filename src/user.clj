@@ -30,14 +30,10 @@
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start! []
   (let [start-fn (requiring-resolve 'olorm.serve/start!)
-        port (requiring-resolve 'olorm.serve/port)
-        shell (requiring-resolve 'babashka.process/shell)]
+        port (requiring-resolve 'olorm.serve/port)]
     (start-fn {})
-    (let [browser (System/getenv "BROWSER")
-          url (str "http://localhost:" (deref port))]
-      (if-not (str/blank? browser)
-        (do (shell browser url) nil)
-        (println "Please open" url "in your web browser.")))))
+    (let [url (str "http://localhost:" (deref port))]
+      (println "Running on" url))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
