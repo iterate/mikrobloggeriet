@@ -36,7 +36,7 @@
     (start-fn {})
     (let [browser (System/getenv "BROWSER")
           url (str "http://localhost:" (deref port))]
-      (cond (str/blank? browser) (do (shell browser url) nil)
+      (cond (not (str/blank? browser)) (do (shell browser url) nil)
             (fs/which "open") (shell "open" url)
             :else (println "Please open" url "in your web browser.")))))
 
