@@ -1,5 +1,6 @@
 (ns user
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [babashka.fs :as fs]))
 
 ;; Convenience functions when you start a REPL. The default user namespace is
 ;; always 'user. I'm putting functions here to make it easy to start the server
@@ -35,9 +36,9 @@
     (start-fn {})
     (let [browser (System/getenv "BROWSER")
           url (str "http://localhost:" (deref port))]
-      (if-not (str/blank? browser)
-        (do (shell browser url) nil)
-        (println "Please open" url "in your web browser.")))))
+      (cond (str/blank? browser) (do (shell browser url) nil)
+            (fs/which "open") (shell "open" url)
+            :else (println "Please open" url "in your web browser.")))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
