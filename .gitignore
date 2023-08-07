@@ -18,3 +18,6 @@ pom.xml.asc
 
 /.clerk
 /.calva
+
+/.clj-kondo
+/.lsp
