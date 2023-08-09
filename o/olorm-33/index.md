@@ -19,7 +19,7 @@ Først, la oss definere hva vi snakker om.
   I Mikrobloggeriet betyr CI "Vi kjører alle enhetstestene på alle commits".
 - **Continuous delivery** (CD) handler om at vi kontinuerlig oppdaterer det kjørende systemet.
   Vi kan sette koden vår i produksjon når vi vil.
-  I Mikrobloggeriet betyr CD "Vi setter setter automatisk alle endringer i produksjon hvis testene er grønne".
+  I Mikrobloggeriet betyr CD "Vi setter automatisk alle endringer i produksjon hvis testene er grønne".
 
 ## Om å kode på mikrobloggeriet
 
@@ -70,10 +70,10 @@ Her er en start:
   name: Run tests
   on: [push, pull_request]
   jobs:
-  Testing:
+    Testing:
       runs-on: ubuntu-latest
       steps:
-      - run: echo success!
+        - run: echo success!
   ```
   
   Hvis du legger til denne i repoet ditt, bør du se en liten grønn prikk ved siden av commit-ene dine.
@@ -83,11 +83,11 @@ Her er en start:
   ```yaml
   name: Run tests
   on: [push, pull_request]
-    jobs:
-      Testing:
-        runs-on: ubuntu-latest
-        steps:
-          - run: FAIL
+  jobs:
+    Testing:
+      runs-on: ubuntu-latest
+      steps:
+        - run: FAIL
   ```
   
   Eksempelet feiler fordi `FAIL` ikke er en systemkommando.
