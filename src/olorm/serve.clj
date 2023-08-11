@@ -2,7 +2,7 @@
   (:require
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
-   [iki.api :as iki]
+   [mikrobloggeriet.pandoc :as iki]
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.jals :as jals]
    [clojure.pprint]

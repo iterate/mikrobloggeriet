@@ -1,9 +1,4 @@
-;; # Vendored IKI API
-;;
-;; We choose to prototype the functionality we need from IKI close to its use
-;; before solidification.
-
-(ns iki.api
+(ns mikrobloggeriet.pandoc
   (:require
    [clojure.string :as str]
    [babashka.process]))
