@@ -46,6 +46,10 @@
                        (filter some?)))
         :else nil))
 
+(defn infer-title [pandoc]
+  (when-let [title-el (-> pandoc :meta :title)]
+    (el->plaintext title-el)))
+
 (defn markdown->html
   "Converts mardown to html by shelling out to Pandoc"
   [markdown]
@@ -84,13 +88,3 @@
                    (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key wrapping" n)
                    (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key"))))
              result)))))))
-
-;; ## Clerk example usage
-
-(when-let [html (requiring-resolve 'nextjournal.clerk/html)]
-  (html
-   (markdown->html (str/trim "
-### Welcome
-
-This is _it_.
-"))))
