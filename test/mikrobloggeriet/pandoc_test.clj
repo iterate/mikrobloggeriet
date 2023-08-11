@@ -1,7 +1,8 @@
 (ns mikrobloggeriet.pandoc-test
-  (:require [clojure.test :refer [deftest is]]
-            [mikrobloggeriet.pandoc :as pandoc]
-            [clojure.string :as str]))
+  (:require
+   [clojure.string :as str]
+   [clojure.test :refer [deftest is]]
+   [mikrobloggeriet.pandoc :as pandoc]))
 
 (deftest markdown->-test
   (is (map? (pandoc/markdown-> "# hei\n\npå deg!")))
