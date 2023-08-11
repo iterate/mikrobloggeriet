@@ -1,13 +1,55 @@
 (ns mikrobloggeriet.pandoc
   (:require
    [clojure.string :as str]
-   [babashka.process]))
+   [babashka.process]
+   [cheshire.core :as json]))
+
+(defn pandoc? [x]
+  (and
+   (contains? x :pandoc-api-version)
+   (contains? x :blocks)
+   (contains? x :meta)))
+
+(defn markdown-> [markdown]
+  (when (string? markdown)
+    (let [process-handle (deref (babashka.process/process {:in markdown :out :string}
+                                                          "pandoc --from markdown+smart --to json" ))]
+      (when (= 0 (:exit process-handle))
+        (json/parse-string (:out process-handle) keyword)))))
+
+(defn ->html [pandoc]
+  (when (pandoc? pandoc)
+    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
+                                                           :out :string}
+                                                          "pandoc --from json --to html" ))]
+      (when (= 0 (:exit process-handle))
+        (:out process-handle)))))
+
+(defn el->plaintext
+  "Convert a pandoc expression to plaintext without shelling out to pandoc"
+  [expr]
+  (cond (= "Str" (:t expr))
+        (:c expr)
+        (= "MetaInlines" (:t expr))
+        (str/join (->> (:c expr)
+                       (map el->plaintext)
+                       (filter some?)))
+        (= "Space" (:t expr))
+        " "
+        (= "Para" (:t expr))
+        (str/join (->> (:c expr)
+                       (map el->plaintext)
+                       (filter some?)))
+        (= "Emph" (:t expr))
+        (str/join (->> (:c expr)
+                       (map el->plaintext)
+                       (filter some?)))
+        :else nil))
 
 (defn markdown->html
   "Converts mardown to html by shelling out to Pandoc"
   [markdown]
-  (when (string? markdown)
-    (slurp (:out (babashka.process/process "pandoc --from markdown+smart --to html" {:in markdown})))))
+  (-> markdown markdown-> ->html))
 
 (defn cache-fn-by
   "A simple in-memory caching mechanism
