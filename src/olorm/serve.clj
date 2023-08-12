@@ -114,7 +114,10 @@
 
 (def markdown->html+info
   (cache/cache-fn-by (fn markdown->html+info [markdown]
-                        (let [pandoc (pandoc/from-markdown markdown)]
+                        (let [pandoc (pandoc/from-markdown markdown)
+                              pandoc (if-let [title (pandoc/infer-title pandoc)]
+                                       (pandoc/set-title pandoc title)
+                                       pandoc)]
                           {:doc-html (pandoc/to-html pandoc)
                            :title (pandoc/title pandoc)}))
                    identity))
