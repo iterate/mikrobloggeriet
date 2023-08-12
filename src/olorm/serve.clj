@@ -115,6 +115,13 @@
   "Convert markdown to html with pandoc and an in-memory cache"
   (iki/cache-fn-by iki/markdown->html identity))
 
+(def markdown->html+info
+  (iki/cache-fn-by (fn markdown->html+info [markdown]
+                     (let [pandoc (iki/markdown-> markdown)]
+                       {:doc-html (iki/->html pandoc)
+                        :title (iki/title pandoc)}))
+                   identity))
+
 (defn olorm->html [olorm]
   (when (olorm/exists? olorm)
     (markdown->html (slurp (olorm/index-md-path olorm)))))
@@ -123,12 +130,16 @@
   (tap> req)
   (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
                               :repo-path (repo-path)})
-        {:keys [number]} olorm]
+        {:keys [number]} olorm
+        {:keys [doc-html title]}
+        (when (olorm/exists? olorm)
+          (markdown->html+info (slurp (olorm/index-md-path olorm))))]
     (tap> (olorm/->olorm olorm))
     {:status (if olorm 200 404)
      :body
      (page/html5
-      (into [:head] (shared-html-header))
+      (into [:head] (concat (shared-html-header)
+                            [[:title title]]))
       [:body
        [:p
         (feeling-lucky)
@@ -145,7 +156,7 @@
                                          (let [prev (olorm/->olorm {:number (inc number) :repo-path (repo-path)})]
                                            (when (olorm/exists? prev)
                                              [:a {:href (olorm/href prev)} (:slug prev)]))]))]]
-       (olorm->html olorm)])}))
+       doc-html])}))
 
 (defn jals->html [doc]
   (when (jals/exists? doc)

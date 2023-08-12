@@ -98,6 +98,15 @@
   [markdown]
   (-> markdown markdown-> ->html))
 
+(defn markdown->html+info [markdown]
+  (let [pandoc (markdown-> markdown)]
+    {:html (->html pandoc)
+     :title (title pandoc)}))
+
+(markdown->html+info "% my title
+
+here goes my text")
+
 (defn cache-fn-by
   "A simple in-memory caching mechanism
 
