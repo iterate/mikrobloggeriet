@@ -6,6 +6,7 @@
 
 (defn pandoc? [x]
   (and
+   (map? x)
    (contains? x :pandoc-api-version)
    (contains? x :blocks)
    (contains? x :meta)))
@@ -13,17 +14,64 @@
 (defn markdown-> [markdown]
   (when (string? markdown)
     (let [process-handle (deref (babashka.process/process {:in markdown :out :string}
-                                                          "pandoc --from markdown+smart --to json" ))]
+                                                          "pandoc --from markdown+smart --to json"))]
       (when (= 0 (:exit process-handle))
         (json/parse-string (:out process-handle) keyword)))))
+
+(defn- run-pandoc [stdin command]
+  (let [process-handle (deref (babashka.process/process {:in stdin :out :string} command))]
+    (when (= 0 (:exit process-handle))
+      (:out process-handle))))
 
 (defn ->html [pandoc]
   (when (pandoc? pandoc)
     (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
                                                            :out :string}
-                                                          "pandoc --from json --to html" ))]
+                                                          "pandoc --from json --to html"))]
       (when (= 0 (:exit process-handle))
         (:out process-handle)))))
+
+(defn ->html-standalone [pandoc]
+  (when (pandoc? pandoc)
+    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
+                                                           :out :string}
+                                                          "pandoc --standalone --from json --to html"))]
+      (when (= 0 (:exit process-handle))
+        (:out process-handle)))))
+
+(defn html-> [pandoc]
+  (when (string? pandoc)
+    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
+                                                           :out :string}
+                                                          "pandoc --from html --to json"))]
+      (when (= 0 (:exit process-handle))
+        (:out process-handle)))))
+
+
+(defn ->markdown [pandoc]
+  (when (pandoc? pandoc)
+    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
+                                                           :out :string}
+                                                          "pandoc --from json --to markdown"))]
+      (when (= 0 (:exit process-handle))
+        (:out process-handle)))))
+
+(defn ->markdown-standalone [pandoc]
+  (when (pandoc? pandoc)
+    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
+                                                           :out :string}
+                                                          "pandoc --standalone --from json --to markdown"))]
+      (when (= 0 (:exit process-handle))
+        (:out process-handle)))))
+
+(defn ->org [pandoc]
+  (when (pandoc? pandoc)
+    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
+                                                           :out :string}
+                                                          "pandoc --from json --to org"))]
+      (when (= 0 (:exit process-handle))
+        (:out process-handle))))
+  )
 
 (defn el->plaintext
   "Convert a pandoc expression to plaintext without shelling out to pandoc"
@@ -45,6 +93,26 @@
                        (map el->plaintext)
                        (filter some?)))
         :else nil))
+
+(defn set-title [pandoc title]
+  (assert (pandoc? pandoc))
+  (assoc-in pandoc [:meta :title] {:t "MetaInlines" :c [{:t "Str" :c title}]}))
+
+(let [doc "% viktig melding
+
+hei heiii
+
+Er dere **klare**??"]
+  (-> doc
+      (markdown->)
+      (->markdown-standalone)))
+
+(spit "example.html"
+      (let [doc "hei duu"]
+        (-> doc
+            (markdown->)
+            (set-title "viktig melding")
+            (->html-standalone))))
 
 (defn title [pandoc]
   (when-let [title-el (-> pandoc :meta :title)]

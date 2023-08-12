@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.pandoc-test
   (:require
    [clojure.string :as str]
-   [clojure.test :refer [deftest is]]
+   [clojure.test :refer [deftest is testing]]
    [mikrobloggeriet.pandoc :as pandoc]))
 
 (deftest markdown->-test
@@ -23,3 +23,33 @@
 About time we got some shit done."]
     (is (= "ABOUT TIME"
            (-> doc pandoc/markdown-> pandoc/title)))))
+
+(deftest standalone-is-required-to-keep-metadata
+  (testing "Without standalone, title is lost"
+      (let [title "The Great Title"]
+        (is (nil? (-> "A great document of great items."
+                      (pandoc/markdown->)
+                      (pandoc/set-title title)
+                      (pandoc/->markdown)
+                      (pandoc/markdown->)
+                      (pandoc/title))))))
+
+  (testing "With standalone, title is kept."
+    (testing "for markdown"
+      (let [title "The Great Title"]
+        (is (= title
+               (-> "A great document of great items."
+                   (pandoc/markdown->)
+                   (pandoc/set-title title)
+                   (pandoc/->markdown-standalone)
+                   (pandoc/markdown->)
+                   (pandoc/title))))))
+    (testing "for html"
+      (let [title "The Great Title"]
+        (is (= title
+               (-> "A great document of great items."
+                   (pandoc/markdown->)
+                   (pandoc/set-title title)
+                   (pandoc/->html-standalone)
+                   (pandoc/html->)
+                   (pandoc/title))))))))
