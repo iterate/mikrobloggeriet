@@ -15,7 +15,18 @@
       (is (= markdown
              (-> markdown
                  pandoc/markdown->
-                 pandoc/->markdown))))))
+                 pandoc/->markdown)))))
+  (testing "but roundtripping only works exactly with a single trailing newline"
+    (let [markdown-no-newline "# hei\n\npå deg!"]
+      (is (not= markdown-no-newline
+                (-> markdown-no-newline
+                    pandoc/markdown->
+                    pandoc/->markdown))))
+    (let [markdown-two-newlines "# hei\n\npå deg!\n\n"]
+      (is (not= markdown-two-newlines
+                (-> markdown-two-newlines
+                    pandoc/markdown->
+                    pandoc/->markdown))))))
 
 (deftest convert-test
   (is (= "<p><em>teodor</em></p>" (-> "_teodor_" pandoc/markdown-> pandoc/->html str/trim))))
@@ -33,13 +44,13 @@ About time we got some shit done."]
 
 (deftest standalone-is-required-to-keep-metadata
   (testing "Without standalone, title is lost"
-      (let [title "The Great Title"]
-        (is (nil? (-> "A great document of great items."
-                      (pandoc/markdown->)
-                      (pandoc/set-title title)
-                      (pandoc/->markdown)
-                      (pandoc/markdown->)
-                      (pandoc/title))))))
+    (let [title "The Great Title"]
+      (is (nil? (-> "A great document of great items."
+                    (pandoc/markdown->)
+                    (pandoc/set-title title)
+                    (pandoc/->markdown)
+                    (pandoc/markdown->)
+                    (pandoc/title))))))
 
   (testing "With standalone, title is kept."
     (testing "for markdown"

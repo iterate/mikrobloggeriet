@@ -4,6 +4,12 @@
    [babashka.process]
    [cheshire.core :as json]))
 
+(defn from-json-str [s]
+  (json/parse-string s keyword))
+
+(defn to-json-str [x]
+  (json/generate-string x))
+
 (defn pandoc? [x]
   (and
    (map? x)
@@ -18,23 +24,15 @@
 
 (defn markdown-> [markdown]
   (when (string? markdown)
-    (json/parse-string (run-pandoc markdown "pandoc --from markdown+smart --to json") keyword)))
+    (from-json-str (run-pandoc markdown "pandoc --from markdown+smart --to json"))))
 
 (defn ->html [pandoc]
   (when (pandoc? pandoc)
-    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
-                                                           :out :string}
-                                                          "pandoc --from json --to html"))]
-      (when (= 0 (:exit process-handle))
-        (:out process-handle)))))
+    (run-pandoc (to-json-str pandoc) "pandoc --from json --to html")))
 
 (defn ->html-standalone [pandoc]
   (when (pandoc? pandoc)
-    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
-                                                           :out :string}
-                                                          "pandoc --standalone --from json --to html"))]
-      (when (= 0 (:exit process-handle))
-        (:out process-handle)))))
+    (run-pandoc (to-json-str pandoc) "pandoc --stanalone --from json --to html")))
 
 (defn html-> [pandoc]
   (when (string? pandoc)
