@@ -18,10 +18,7 @@
 
 (defn markdown-> [markdown]
   (when (string? markdown)
-    (let [process-handle (deref (babashka.process/process {:in markdown :out :string}
-                                                          "pandoc --from markdown+smart --to json"))]
-      (when (= 0 (:exit process-handle))
-        (json/parse-string (:out process-handle) keyword)))))
+    (json/parse-string (run-pandoc markdown "pandoc --from markdown+smart --to json") keyword)))
 
 (defn ->html [pandoc]
   (when (pandoc? pandoc)

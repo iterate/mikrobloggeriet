@@ -5,10 +5,17 @@
    [mikrobloggeriet.pandoc :as pandoc]))
 
 (deftest markdown->-test
-  (let [markdown "# hei\n\npå deg!"]
-    (is (map? (pandoc/markdown-> markdown)))
-    (is (contains? (pandoc/markdown-> markdown)
-                   :pandoc-api-version))))
+  (testing "markdown-> output looks like sane pandoc json"
+    (let [markdown "# hei\n\npå deg!"]
+      (is (map? (pandoc/markdown-> markdown)))
+      (is (contains? (pandoc/markdown-> markdown)
+                     :pandoc-api-version))))
+  (testing "we can roundtrip from and to markdown"
+    (let [markdown "# hei\n\npå deg!\n"]
+      (is (= markdown
+             (-> markdown
+                 pandoc/markdown->
+                 pandoc/->markdown))))))
 
 (deftest convert-test
   (is (= "<p><em>teodor</em></p>" (-> "_teodor_" pandoc/markdown-> pandoc/->html str/trim))))
