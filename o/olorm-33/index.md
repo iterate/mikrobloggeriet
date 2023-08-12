@@ -1,5 +1,3 @@
-% OLORM-33: Et første møte med CICD
-
 # OLORM-33: Et første møte med CICD
 
 > Alle kan Github actions, ikke sant?
