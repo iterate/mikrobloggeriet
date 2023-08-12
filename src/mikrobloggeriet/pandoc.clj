@@ -48,11 +48,7 @@
 
 (defn ->markdown-standalone [pandoc]
   (when (pandoc? pandoc)
-    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
-                                                           :out :string}
-                                                          "pandoc --standalone --from json --to markdown"))]
-      (when (= 0 (:exit process-handle))
-        (:out process-handle)))))
+    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to markdown")))
 
 (defn ->org [pandoc]
   (when (pandoc? pandoc)
