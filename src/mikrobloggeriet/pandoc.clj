@@ -22,9 +22,9 @@
     (when (= 0 (:exit process-handle))
       (:out process-handle))))
 
-(defn markdown-> [markdown]
-  (when (string? markdown)
-    (from-json-str (run-pandoc markdown "pandoc --from markdown+smart --to json"))))
+(defn markdown-> [markdown-str]
+  (when (string? markdown-str)
+    (from-json-str (run-pandoc markdown-str "pandoc --from markdown+smart --to json"))))
 
 (defn ->html [pandoc]
   (when (pandoc? pandoc)
