@@ -223,5 +223,5 @@
 (defn start! [_opts]
   (swap! server (fn [old-server]
                   (stop-server old-server)
-                  (println (str "olorm.serve running: http://localhost:" port))
+                  (println (str "mikroboggeriet.serve running: http://localhost:" port))
                   (httpkit/run-server #'app {:port port}))))

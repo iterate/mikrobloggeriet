@@ -9,11 +9,11 @@
 ;; Example usage:
 ;;
 ;;     $ pwd
-;;     /home/teodorlu/dev/iterate/olorm/serve
+;;     /home/teodorlu/dev/iterate/mikrobloggeriet/serve
 ;;     $ clj
 ;;     Clojure 1.11.1
 ;;     user=> (start!)
-;;     olorm.serve running: http://localhost:7223
+;;     mikrobloggeriet.serve running: http://localhost:7223
 ;;     #object[clojure.lang.AFunction$1 0x125a8ab6 "clojure.lang.AFunction$1@125a8ab6"]
 ;;
 ;; Though starting a REPL from your editor (Calva for VScode, Cursive for
@@ -30,8 +30,8 @@
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start! []
-  (let [start-fn (requiring-resolve 'olorm.serve/start!)
-        port (requiring-resolve 'olorm.serve/port)
+  (let [start-fn (requiring-resolve 'mikrobloggeriet.serve/start!)
+        port (requiring-resolve 'mikrobloggeriet.serve/port)
         shell (requiring-resolve 'babashka.process/shell)]
     (start-fn {})
     (let [browser (System/getenv "BROWSER")
@@ -42,7 +42,7 @@
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
-  (let [stop-fn (requiring-resolve 'olorm.serve/stop!)]
+  (let [stop-fn (requiring-resolve 'mikrobloggeriet.serve/stop!)]
     (stop-fn)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
