@@ -45,7 +45,7 @@
                                                            :out :string}
                                                           "pandoc --from html --to json"))]
       (when (= 0 (:exit process-handle))
-        (:out process-handle)))))
+        (json/parse-string (:out process-handle) keyword)))))
 
 
 (defn ->markdown [pandoc]
