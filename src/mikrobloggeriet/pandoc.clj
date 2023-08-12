@@ -11,17 +11,17 @@
    (contains? x :blocks)
    (contains? x :meta)))
 
+(defn- run-pandoc [stdin command]
+  (let [process-handle (deref (babashka.process/process {:in stdin :out :string} command))]
+    (when (= 0 (:exit process-handle))
+      (:out process-handle))))
+
 (defn markdown-> [markdown]
   (when (string? markdown)
     (let [process-handle (deref (babashka.process/process {:in markdown :out :string}
                                                           "pandoc --from markdown+smart --to json"))]
       (when (= 0 (:exit process-handle))
         (json/parse-string (:out process-handle) keyword)))))
-
-(defn- run-pandoc [stdin command]
-  (let [process-handle (deref (babashka.process/process {:in stdin :out :string} command))]
-    (when (= 0 (:exit process-handle))
-      (:out process-handle))))
 
 (defn ->html [pandoc]
   (when (pandoc? pandoc)
