@@ -46,7 +46,7 @@
                        (filter some?)))
         :else nil))
 
-(defn infer-title [pandoc]
+(defn title [pandoc]
   (when-let [title-el (-> pandoc :meta :title)]
     (el->plaintext title-el)))
 

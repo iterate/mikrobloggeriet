@@ -22,4 +22,4 @@
 
 About time we got some shit done."]
     (is (= "ABOUT TIME"
-           (-> doc pandoc/markdown-> pandoc/infer-title)))))
+           (-> doc pandoc/markdown-> pandoc/title)))))

@@ -10,4 +10,4 @@
       ]
   (-> markdown
       pandoc/markdown->
-      pandoc/infer-title))
+      pandoc/title))
