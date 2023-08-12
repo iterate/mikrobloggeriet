@@ -73,10 +73,22 @@ About time we got some shit done."]
                    (pandoc/title))))))))
 
 (deftest org-test
-  (let [org-text "hei /du/"]
-    (is
-     (= org-text
-        (-> org-text
-            pandoc/org->
-            pandoc/->org
-            str/trim)))))
+  (testing "We can roundtrip text with org-mode"
+    (let [org-text "hei /du/"]
+      (is
+       (= org-text
+          (-> org-text
+              pandoc/org->
+              pandoc/->org
+              str/trim)))))
+
+  (testing "With org-standalone, we can keep title information"
+    (let [title "THE BEST TITLE"]
+      (is
+       (= title
+          (-> "hei _du_"
+              pandoc/markdown->
+              (pandoc/set-title title)
+              (pandoc/->org-standalone)
+              (pandoc/org->)
+              pandoc/title))))))
