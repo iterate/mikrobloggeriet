@@ -32,7 +32,7 @@
 
 (defn ->html-standalone [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --stanalone --from json --to html")))
+    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to html")))
 
 (defn html-> [pandoc]
   (when (string? pandoc)
