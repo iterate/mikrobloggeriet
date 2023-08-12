@@ -34,14 +34,9 @@
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to html")))
 
-(defn html-> [pandoc]
-  (when (string? pandoc)
-    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
-                                                           :out :string}
-                                                          "pandoc --from html --to json"))]
-      (when (= 0 (:exit process-handle))
-        (json/parse-string (:out process-handle) keyword)))))
-
+(defn html-> [html-str]
+  (when (string? html-str)
+    (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
 
 (defn ->markdown [pandoc]
   (when (pandoc? pandoc)
