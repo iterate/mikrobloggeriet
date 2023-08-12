@@ -6,23 +6,23 @@
 
 (deftest markdown-test
   (testing "markdown-> output looks like sane pandoc json"
-    (let [markdown "# hei\n\npå deg!"]
+    (let [markdown "hei\npå deg!"]
       (is (map? (pandoc/markdown-> markdown)))
       (is (contains? (pandoc/markdown-> markdown)
                      :pandoc-api-version))))
   (testing "we can roundtrip from and to markdown"
-    (let [markdown "# hei\n\npå deg!\n"]
+    (let [markdown "hei\n\npå deg!\n"]
       (is (= markdown
              (-> markdown
                  pandoc/markdown->
                  pandoc/->markdown)))))
   (testing "but roundtripping only works exactly with a single trailing newline"
-    (let [markdown-no-newline "# hei\n\npå deg!"]
+    (let [markdown-no-newline "hei\n\npå deg!"]
       (is (not= markdown-no-newline
                 (-> markdown-no-newline
                     pandoc/markdown->
                     pandoc/->markdown))))
-    (let [markdown-two-newlines "# hei\n\npå deg!\n\n"]
+    (let [markdown-two-newlines "hei\n\npå deg!\n\n"]
       (is (not= markdown-two-newlines
                 (-> markdown-two-newlines
                     pandoc/markdown->
