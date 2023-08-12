@@ -5,6 +5,7 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.jals :as jals]
+   [mikrobloggeriet.cache :as cache]
    [clojure.pprint]
    [org.httpkit.server :as httpkit]))
 
@@ -113,10 +114,10 @@
 
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
-  (pandoc/cache-fn-by pandoc/markdown->html identity))
+  (cache/cache-fn-by pandoc/markdown->html identity))
 
 (def markdown->html+info
-  (pandoc/cache-fn-by (fn markdown->html+info [markdown]
+  (cache/cache-fn-by (fn markdown->html+info [markdown]
                         (let [pandoc (pandoc/from-markdown markdown)]
                           {:doc-html (pandoc/to-html pandoc)
                            :title (pandoc/title pandoc)}))
