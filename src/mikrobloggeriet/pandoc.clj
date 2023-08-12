@@ -119,11 +119,6 @@
   [markdown]
   (-> markdown from-markdown to-html))
 
-(defn markdown->html+info [markdown]
-  (let [pandoc (from-markdown markdown)]
-    {:html (to-html pandoc)
-     :title (title pandoc)}))
-
 (defn cache-fn-by
   "A simple in-memory caching mechanism
 
