@@ -124,10 +124,6 @@
     {:html (to-html pandoc)
      :title (title pandoc)}))
 
-(markdown->html+info "% my title
-
-here goes my text")
-
 (defn cache-fn-by
   "A simple in-memory caching mechanism
 
