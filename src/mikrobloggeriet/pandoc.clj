@@ -22,9 +22,17 @@
     (when (= 0 (:exit process-handle))
       (:out process-handle))))
 
+;; READ FROM FORMAT INTO IR
+
 (defn markdown-> [markdown-str]
   (when (string? markdown-str)
     (from-json-str (run-pandoc markdown-str "pandoc --from markdown+smart --to json"))))
+
+(defn html-> [html-str]
+  (when (string? html-str)
+    (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
+
+;; WRITE IR TO FORMAT
 
 (defn ->html [pandoc]
   (when (pandoc? pandoc)
@@ -34,17 +42,9 @@
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to html")))
 
-(defn html-> [html-str]
-  (when (string? html-str)
-    (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
-
 (defn ->markdown [pandoc]
   (when (pandoc? pandoc)
-    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
-                                                           :out :string}
-                                                          "pandoc --from json --to markdown"))]
-      (when (= 0 (:exit process-handle))
-        (:out process-handle)))))
+    (run-pandoc (to-json-str pandoc) "pandoc --from json --to markdown")))
 
 (defn ->markdown-standalone [pandoc]
   (when (pandoc? pandoc)
@@ -60,8 +60,9 @@
                                                            :out :string}
                                                           "pandoc --from json --to org"))]
       (when (= 0 (:exit process-handle))
-        (:out process-handle))))
-  )
+        (:out process-handle)))))
+
+;; HELPERS
 
 (defn el->plaintext
   "Convert a pandoc expression to plaintext without shelling out to pandoc"
