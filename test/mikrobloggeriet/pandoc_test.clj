@@ -35,7 +35,7 @@
   (is (= "hei du"
          (-> "hei _du_" pandoc/markdown-> :blocks first pandoc/el->plaintext))))
 
-(deftest infer-title-test
+(deftest title-test
   (let [doc "% ABOUT TIME
 
 About time we got some shit done."]
