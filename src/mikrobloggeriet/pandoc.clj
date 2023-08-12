@@ -52,11 +52,7 @@
 
 (defn ->org [pandoc]
   (when (pandoc? pandoc)
-    (let [process-handle (deref (babashka.process/process {:in (json/generate-string pandoc)
-                                                           :out :string}
-                                                          "pandoc --from json --to org"))]
-      (when (= 0 (:exit process-handle))
-        (:out process-handle)))))
+    (run-pandoc (to-json-str pandoc) "pandoc --from json --to org")))
 
 ;; HELPERS
 
