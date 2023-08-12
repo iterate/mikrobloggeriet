@@ -1,5 +1,5 @@
 (ns mikrobloggeriet.serve-test
-  (:require [olorm.serve :as serve]
+  (:require [mikrobloggeriet.serve :as serve]
             [clojure.test :refer [is testing deftest] ]
             [clojure.string :as str]))
 
