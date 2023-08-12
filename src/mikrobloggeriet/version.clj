@@ -1,5 +1,7 @@
 (ns mikrobloggeriet.version
-  (:require [clojure.pprint :refer [pprint]]))
+  (:require
+   [clojure.pprint :refer [pprint]]
+   [babashka.process]))
 
 (defn- today []
   (.format (java.time.LocalDateTime/now)
@@ -7,7 +9,11 @@
 
 (defn info
   []
-  {:date (today)})
+  (let [information {:date (today)}
+        information (if-let [git-sha (System/getenv "HOPS_GIT_SHA")]
+                      (assoc information :git/sha git-sha)
+                      information)]
+    information))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn prn-info [_]
