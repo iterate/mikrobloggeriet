@@ -116,8 +116,3 @@
                                (filter h1?)
                                first)]
         (header->plaintext first-h1))))
-
-(defn markdown->html
-  "Converts mardown to html by shelling out to Pandoc"
-  [markdown]
-  (-> markdown from-markdown to-html))

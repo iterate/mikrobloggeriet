@@ -112,10 +112,6 @@
          [:td (jals/author-name jals)]
          [:td (:doc/created jals)]])]]]))
 
-(def markdown->html
-  "Convert markdown to html with pandoc and an in-memory cache"
-  (cache/cache-fn-by pandoc/markdown->html identity))
-
 (def markdown->html+info
   (cache/cache-fn-by (fn markdown->html+info [markdown]
                         (let [pandoc (pandoc/from-markdown markdown)]
@@ -156,15 +152,10 @@
                                              [:a {:href (olorm/href prev)} (:slug prev)]))]))]]
        doc-html])}))
 
-(defn jals->html [doc]
-  (when (jals/exists? doc)
-    (markdown->html (slurp (jals/index-md-path doc)))))
-
 (defn jals [req]
   (let [doc (jals/->doc {:slug (:slug (:route-params req))
                          :repo-path (repo-path)})
         {:keys [number]} doc
-        html2 (jals->html doc)
         {:keys [doc-html title]}
         (when (jals/exists? doc)
           (markdown->html+info (slurp (jals/index-md-path doc))))]
