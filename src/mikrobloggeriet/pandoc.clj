@@ -22,6 +22,7 @@
     (when (= 0 (:exit process-handle))
       (:out process-handle))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; READ FROM FORMAT INTO IR
 
 (defn from-markdown [markdown-str]
@@ -36,6 +37,7 @@
   (when (string? org-str)
     (from-json-str (run-pandoc org-str "pandoc --from org+smart --to json"))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; WRITE IR TO FORMAT
 
 (defn to-html [pandoc]
@@ -62,6 +64,7 @@
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to org")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
 
 (declare el->plaintext)
