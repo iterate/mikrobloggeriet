@@ -92,3 +92,25 @@ About time we got some shit done."]
               (pandoc/->org-standalone)
               (pandoc/org->)
               pandoc/title))))))
+
+(deftest h1-plaintext-test
+  (is (= 1 1)))
+
+(deftest h1-test
+  (let [h1-el {:t "Header",
+               :c
+               [1
+                ["super-duper-document" [] []]
+                [{:t "Str", :c "super"}
+                 {:t "Space"}
+                 {:t "Str", :c "duper"}
+                 {:t "Space"}
+                 {:t "Str", :c "document"}]]}]
+    (is (pandoc/h1? h1-el))
+    (is (= "super duper document"
+           (pandoc/header->plaintext h1-el)))))
+
+(deftest infer-title-test
+  (let [doc (pandoc/markdown-> "# super duper document")]
+    (is (= "super duper document"
+           (pandoc/infer-title doc)))))

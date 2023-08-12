@@ -64,25 +64,27 @@
 
 ;; HELPERS
 
+(declare el->plaintext)
+
+(defn els->plaintext [els]
+  (str/join
+   (->> els
+        (map el->plaintext)
+        (filter some?))))
+
 (defn el->plaintext
   "Convert a pandoc expression to plaintext without shelling out to pandoc"
   [expr]
   (cond (= "Str" (:t expr))
         (:c expr)
         (= "MetaInlines" (:t expr))
-        (str/join (->> (:c expr)
-                       (map el->plaintext)
-                       (filter some?)))
+        (els->plaintext (:c expr))
         (= "Space" (:t expr))
         " "
         (= "Para" (:t expr))
-        (str/join (->> (:c expr)
-                       (map el->plaintext)
-                       (filter some?)))
+        (els->plaintext (:c expr))
         (= "Emph" (:t expr))
-        (str/join (->> (:c expr)
-                       (map el->plaintext)
-                       (filter some?)))
+        (els->plaintext (:c expr))
         :else nil))
 
 (defn set-title [pandoc title]
@@ -92,6 +94,25 @@
 (defn title [pandoc]
   (when-let [title-el (-> pandoc :meta :title)]
     (el->plaintext title-el)))
+
+(defn header? [el ]
+  (= (:t el) "Header"))
+
+(defn h1? [el]
+  (let [header-level (-> el :c first)]
+    (and (header? el)
+         (= header-level 1))))
+
+(defn header->plaintext [el]
+  (when (header? el)
+    (els->plaintext (get-in el [:c 2]))))
+
+(defn infer-title [pandoc]
+  (or (title pandoc)
+      (when-let [first-h1 (->> (:blocks pandoc)
+                               (filter h1?)
+                               first)]
+        (header->plaintext first-h1))))
 
 (defn markdown->html
   "Converts mardown to html by shelling out to Pandoc"
