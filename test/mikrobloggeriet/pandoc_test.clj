@@ -4,7 +4,7 @@
    [clojure.test :refer [deftest is testing]]
    [mikrobloggeriet.pandoc :as pandoc]))
 
-(deftest markdown->-test
+(deftest markdown-test
   (testing "markdown-> output looks like sane pandoc json"
     (let [markdown "# hei\n\npå deg!"]
       (is (map? (pandoc/markdown-> markdown)))
@@ -71,3 +71,12 @@ About time we got some shit done."]
                    (pandoc/->html-standalone)
                    (pandoc/html->)
                    (pandoc/title))))))))
+
+(deftest org-test
+  (let [org-text "hei /du/"]
+    (is
+     (= org-text
+        (-> org-text
+            pandoc/org->
+            pandoc/->org
+            str/trim)))))

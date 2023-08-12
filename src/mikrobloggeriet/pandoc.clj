@@ -32,6 +32,10 @@
   (when (string? html-str)
     (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
 
+(defn org-> [org-str]
+  (when (string? org-str)
+    (from-json-str (run-pandoc org-str "pandoc --from org+smart --to json"))))
+
 ;; WRITE IR TO FORMAT
 
 (defn ->html [pandoc]
@@ -53,6 +57,10 @@
 (defn ->org [pandoc]
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --from json --to org")))
+
+(defn ->org-standalone [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to org")))
 
 ;; HELPERS
 
