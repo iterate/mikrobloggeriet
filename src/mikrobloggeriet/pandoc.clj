@@ -81,22 +81,6 @@
   (assert (pandoc? pandoc))
   (assoc-in pandoc [:meta :title] {:t "MetaInlines" :c [{:t "Str" :c title}]}))
 
-(let [doc "% viktig melding
-
-hei heiii
-
-Er dere **klare**??"]
-  (-> doc
-      (markdown->)
-      (->markdown-standalone)))
-
-(spit "example.html"
-      (let [doc "hei duu"]
-        (-> doc
-            (markdown->)
-            (set-title "viktig melding")
-            (->html-standalone))))
-
 (defn title [pandoc]
   (when-let [title-el (-> pandoc :meta :title)]
     (el->plaintext title-el)))
