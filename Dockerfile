@@ -44,6 +44,6 @@ RUN git config --global user.email "hops-dockerfile@ci.mikrobloggeriet.no"
 RUN clj -M:run-tests
 
 # Init
-CMD clj -X olorm.serve/start!
+CMD clj -X mikrobloggeriet.serve/start!
 
 EXPOSE 7223
