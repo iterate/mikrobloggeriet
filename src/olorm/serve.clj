@@ -168,7 +168,7 @@
         {:keys [doc-html title]}
         (when (jals/exists? doc)
           (markdown->html+info (slurp (jals/index-md-path doc))))]
-    {:status (if html2 200 404)
+    {:status (if doc-html 200 404)
      :body
      (page/html5
       (into [:head] (concat (shared-html-header)
@@ -190,7 +190,7 @@
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]
         ]
-       html2])}))
+       doc-html])}))
 
 (defn random-doc [_req]
   (let [target (or
