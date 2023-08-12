@@ -24,41 +24,41 @@
 
 ;; READ FROM FORMAT INTO IR
 
-(defn markdown-> [markdown-str]
+(defn from-markdown [markdown-str]
   (when (string? markdown-str)
     (from-json-str (run-pandoc markdown-str "pandoc --from markdown+smart --to json"))))
 
-(defn html-> [html-str]
+(defn from-html [html-str]
   (when (string? html-str)
     (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
 
-(defn org-> [org-str]
+(defn from-org [org-str]
   (when (string? org-str)
     (from-json-str (run-pandoc org-str "pandoc --from org+smart --to json"))))
 
 ;; WRITE IR TO FORMAT
 
-(defn ->html [pandoc]
+(defn to-html [pandoc]
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --from json --to html")))
 
-(defn ->html-standalone [pandoc]
+(defn to-html-standalone [pandoc]
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to html")))
 
-(defn ->markdown [pandoc]
+(defn to-markdown [pandoc]
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --from json --to markdown")))
 
-(defn ->markdown-standalone [pandoc]
+(defn to-markdown-standalone [pandoc]
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to markdown")))
 
-(defn ->org [pandoc]
+(defn to-org [pandoc]
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --from json --to org")))
 
-(defn ->org-standalone [pandoc]
+(defn to-org-standalone [pandoc]
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to org")))
 
@@ -117,11 +117,11 @@
 (defn markdown->html
   "Converts mardown to html by shelling out to Pandoc"
   [markdown]
-  (-> markdown markdown-> ->html))
+  (-> markdown from-markdown to-html))
 
 (defn markdown->html+info [markdown]
-  (let [pandoc (markdown-> markdown)]
-    {:html (->html pandoc)
+  (let [pandoc (from-markdown markdown)]
+    {:html (to-html pandoc)
      :title (title pandoc)}))
 
 (markdown->html+info "% my title

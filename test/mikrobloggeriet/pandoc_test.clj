@@ -7,49 +7,49 @@
 (deftest markdown-test
   (testing "markdown-> output looks like sane pandoc json"
     (let [markdown "hei\npå deg!"]
-      (is (map? (pandoc/markdown-> markdown)))
-      (is (contains? (pandoc/markdown-> markdown)
+      (is (map? (pandoc/from-markdown markdown)))
+      (is (contains? (pandoc/from-markdown markdown)
                      :pandoc-api-version))))
   (testing "we can roundtrip from and to markdown"
     (let [markdown "hei\n\npå deg!\n"]
       (is (= markdown
              (-> markdown
-                 pandoc/markdown->
-                 pandoc/->markdown)))))
+                 pandoc/from-markdown
+                 pandoc/to-markdown)))))
   (testing "but roundtripping only works exactly with a single trailing newline"
     (let [markdown-no-newline "hei\n\npå deg!"]
       (is (not= markdown-no-newline
                 (-> markdown-no-newline
-                    pandoc/markdown->
-                    pandoc/->markdown))))
+                    pandoc/from-markdown
+                    pandoc/to-markdown))))
     (let [markdown-two-newlines "hei\n\npå deg!\n\n"]
       (is (not= markdown-two-newlines
                 (-> markdown-two-newlines
-                    pandoc/markdown->
-                    pandoc/->markdown))))))
+                    pandoc/from-markdown
+                    pandoc/to-markdown))))))
 
 (deftest convert-test
-  (is (= "<p><em>teodor</em></p>" (-> "_teodor_" pandoc/markdown-> pandoc/->html str/trim))))
+  (is (= "<p><em>teodor</em></p>" (-> "_teodor_" pandoc/from-markdown pandoc/to-html str/trim))))
 
 (deftest el->plaintext-test
   (is (= "hei du"
-         (-> "hei _du_" pandoc/markdown-> :blocks first pandoc/el->plaintext))))
+         (-> "hei _du_" pandoc/from-markdown :blocks first pandoc/el->plaintext))))
 
 (deftest title-test
   (let [doc "% ABOUT TIME
 
 About time we got some shit done."]
     (is (= "ABOUT TIME"
-           (-> doc pandoc/markdown-> pandoc/title)))))
+           (-> doc pandoc/from-markdown pandoc/title)))))
 
 (deftest standalone-is-required-to-keep-metadata
   (testing "Without standalone, title is lost"
     (let [title "The Great Title"]
       (is (nil? (-> "A great document of great items."
-                    (pandoc/markdown->)
+                    (pandoc/from-markdown)
                     (pandoc/set-title title)
-                    (pandoc/->markdown)
-                    (pandoc/markdown->)
+                    (pandoc/to-markdown)
+                    (pandoc/from-markdown)
                     (pandoc/title))))))
 
   (testing "With standalone, title is kept."
@@ -57,19 +57,19 @@ About time we got some shit done."]
       (let [title "The Great Title"]
         (is (= title
                (-> "A great document of great items."
-                   (pandoc/markdown->)
+                   (pandoc/from-markdown)
                    (pandoc/set-title title)
-                   (pandoc/->markdown-standalone)
-                   (pandoc/markdown->)
+                   (pandoc/to-markdown-standalone)
+                   (pandoc/from-markdown)
                    (pandoc/title))))))
     (testing "for html"
       (let [title "The Great Title"]
         (is (= title
                (-> "A great document of great items."
-                   (pandoc/markdown->)
+                   (pandoc/from-markdown)
                    (pandoc/set-title title)
-                   (pandoc/->html-standalone)
-                   (pandoc/html->)
+                   (pandoc/to-html-standalone)
+                   (pandoc/from-html)
                    (pandoc/title))))))))
 
 (deftest org-test
@@ -78,8 +78,8 @@ About time we got some shit done."]
       (is
        (= org-text
           (-> org-text
-              pandoc/org->
-              pandoc/->org
+              pandoc/from-org
+              pandoc/to-org
               str/trim)))))
 
   (testing "With org-standalone, we can keep title information"
@@ -87,10 +87,10 @@ About time we got some shit done."]
       (is
        (= title
           (-> "hei _du_"
-              pandoc/markdown->
+              pandoc/from-markdown
               (pandoc/set-title title)
-              (pandoc/->org-standalone)
-              (pandoc/org->)
+              (pandoc/to-org-standalone)
+              (pandoc/from-org)
               pandoc/title))))))
 
 (deftest h1-plaintext-test
@@ -111,6 +111,6 @@ About time we got some shit done."]
            (pandoc/header->plaintext h1-el)))))
 
 (deftest infer-title-test
-  (let [doc (pandoc/markdown-> "# super duper document")]
+  (let [doc (pandoc/from-markdown "# super duper document")]
     (is (= "super duper document"
            (pandoc/infer-title doc)))))

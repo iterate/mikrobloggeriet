@@ -9,5 +9,5 @@
 "
       ]
   (-> markdown
-      pandoc/markdown->
+      pandoc/from-markdown
       pandoc/title))
