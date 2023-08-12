@@ -132,7 +132,7 @@
         (when (olorm/exists? olorm)
           (markdown->html+info (slurp (olorm/index-md-path olorm))))]
     (tap> (olorm/->olorm olorm))
-    {:status (if olorm 200 404)
+    {:status (if (and olorm (olorm/exists? olorm)) 200 404)
      :body
      (page/html5
       (into [:head] (concat (shared-html-header)
@@ -163,8 +163,8 @@
   (let [doc (jals/->doc {:slug (:slug (:route-params req))
                          :repo-path (repo-path)})
         {:keys [number]} doc
-        html (jals->html doc)]
-    {:status (if html 200 404)
+        html2 (jals->html doc)]
+    {:status (if html2 200 404)
      :body
      (page/html5
       (into [:head] (shared-html-header))
@@ -184,7 +184,7 @@
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]
         ]
-       html])}))
+       html2])}))
 
 (defn random-doc [_req]
   (let [target (or
