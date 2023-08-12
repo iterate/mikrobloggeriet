@@ -117,9 +117,9 @@
 
 (def markdown->html+info
   (pandoc/cache-fn-by (fn markdown->html+info [markdown]
-                     (let [pandoc (pandoc/from-markdown markdown)]
-                       {:doc-html (pandoc/to-html pandoc)
-                        :title (pandoc/title pandoc)}))
+                        (let [pandoc (pandoc/from-markdown markdown)]
+                          {:doc-html (pandoc/to-html pandoc)
+                           :title (pandoc/title pandoc)}))
                    identity))
 
 (defn olorm [req]
