@@ -2,7 +2,7 @@
   (:require
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
-   [mikrobloggeriet.pandoc :as iki]
+   [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.jals :as jals]
    [clojure.pprint]
@@ -113,13 +113,13 @@
 
 (def markdown->html
   "Convert markdown to html with pandoc and an in-memory cache"
-  (iki/cache-fn-by iki/markdown->html identity))
+  (pandoc/cache-fn-by pandoc/markdown->html identity))
 
 (def markdown->html+info
-  (iki/cache-fn-by (fn markdown->html+info [markdown]
-                     (let [pandoc (iki/markdown-> markdown)]
-                       {:doc-html (iki/->html pandoc)
-                        :title (iki/title pandoc)}))
+  (pandoc/cache-fn-by (fn markdown->html+info [markdown]
+                     (let [pandoc (pandoc/markdown-> markdown)]
+                       {:doc-html (pandoc/->html pandoc)
+                        :title (pandoc/title pandoc)}))
                    identity))
 
 (defn olorm [req]
