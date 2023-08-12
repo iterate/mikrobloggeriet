@@ -1,8 +1,13 @@
+# Mikrobloggeriet
+/version-info.edn
+
+# Mac stuff
 .DS_Store
 .idea
 *.log
 tmp/
 
+# Clojure and java
 /target
 /classes
 /checkouts
@@ -16,8 +21,8 @@ pom.xml.asc
 /.prepl-port
 /.cpcache
 
+# Clojure tools and linters
 /.clerk
 /.calva
-
 /.clj-kondo
 /.lsp

@@ -43,6 +43,9 @@ RUN git config --global user.name "HOPS Dockerfile"
 RUN git config --global user.email "hops-dockerfile@ci.mikrobloggeriet.no"
 RUN clj -M:run-tests
 
+# Save version info
+RUN clj -X mikrobloggeriet.version/prn-info > /version-info.edn
+
 # Init
 CMD clj -X mikrobloggeriet.serve/start!
 
