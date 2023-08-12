@@ -136,7 +136,8 @@
      :body
      (page/html5
       (into [:head] (concat (shared-html-header)
-                            [[:title title]]))
+                            (when title
+                              [[:title title]])))
       [:body
        [:p
         (feeling-lucky)
@@ -163,11 +164,16 @@
   (let [doc (jals/->doc {:slug (:slug (:route-params req))
                          :repo-path (repo-path)})
         {:keys [number]} doc
-        html2 (jals->html doc)]
+        html2 (jals->html doc)
+        {:keys [doc-html title]}
+        (when (jals/exists? doc)
+          (markdown->html+info (slurp (jals/index-md-path doc))))]
     {:status (if html2 200 404)
      :body
      (page/html5
-      (into [:head] (shared-html-header))
+      (into [:head] (concat (shared-html-header)
+                            (when title
+                              [[:title title]])))
       [:body
        [:p (feeling-lucky)
         " — "
