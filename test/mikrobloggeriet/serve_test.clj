@@ -1,5 +1,4 @@
-(ns olorm.serve-test
-  {:deprecated "2023-08-12"}
+(ns mikrobloggeriet.serve-test
   (:require [olorm.serve :as serve]
             [clojure.test :refer [is testing deftest] ]
             [clojure.string :as str]))

@@ -1,5 +1,4 @@
-(ns olorm.serve
-  {:deprecated "2023-08-12"}
+(ns mikrobloggeriet.serve
   (:require
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
