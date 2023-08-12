@@ -4,18 +4,14 @@
    [babashka.process]
    [cheshire.core :as json]))
 
-(defn from-json-str [s]
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LOW LEVEL PANDOC CONVENIENCE HANDLERS
+
+(defn- from-json-str [s]
   (json/parse-string s keyword))
 
-(defn to-json-str [x]
+(defn- to-json-str [x]
   (json/generate-string x))
-
-(defn pandoc? [x]
-  (and
-   (map? x)
-   (contains? x :pandoc-api-version)
-   (contains? x :blocks)
-   (contains? x :meta)))
 
 (defn- run-pandoc [stdin command]
   (let [process-handle (deref (babashka.process/process {:in stdin :out :string} command))]
@@ -23,49 +19,14 @@
       (:out process-handle))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; READ FROM FORMAT INTO IR
+;; PANDOC IR CONVENIENCE FUNCTIONS
 
-(defn from-markdown [markdown-str]
-  (when (string? markdown-str)
-    (from-json-str (run-pandoc markdown-str "pandoc --from markdown+smart --to json"))))
-
-(defn from-html [html-str]
-  (when (string? html-str)
-    (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
-
-(defn from-org [org-str]
-  (when (string? org-str)
-    (from-json-str (run-pandoc org-str "pandoc --from org+smart --to json"))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; WRITE IR TO FORMAT
-
-(defn to-html [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --from json --to html")))
-
-(defn to-html-standalone [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to html")))
-
-(defn to-markdown [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --from json --to markdown")))
-
-(defn to-markdown-standalone [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to markdown")))
-
-(defn to-org [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --from json --to org")))
-
-(defn to-org-standalone [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to org")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; HELPERS
+(defn pandoc? [x]
+  (and
+   (map? x)
+   (contains? x :pandoc-api-version)
+   (contains? x :blocks)
+   (contains? x :meta)))
 
 (declare el->plaintext)
 
@@ -116,3 +77,46 @@
                                (filter h1?)
                                first)]
         (header->plaintext first-h1))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; READ FROM FORMAT INTO IR
+
+(defn from-markdown [markdown-str]
+  (when (string? markdown-str)
+    (from-json-str (run-pandoc markdown-str "pandoc --from markdown+smart --to json"))))
+
+(defn from-html [html-str]
+  (when (string? html-str)
+    (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
+
+(defn from-org [org-str]
+  (when (string? org-str)
+    (from-json-str (run-pandoc org-str "pandoc --from org+smart --to json"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; WRITE IR TO FORMAT
+
+(defn to-html [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --from json --to html")))
+
+(defn to-html-standalone [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to html")))
+
+(defn to-markdown [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --from json --to markdown")))
+
+(defn to-markdown-standalone [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to markdown")))
+
+(defn to-org [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --from json --to org")))
+
+(defn to-org-standalone [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to org")))
+
