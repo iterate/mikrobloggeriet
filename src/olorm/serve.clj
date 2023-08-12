@@ -122,10 +122,6 @@
                         :title (iki/title pandoc)}))
                    identity))
 
-(defn olorm->html [olorm]
-  (when (olorm/exists? olorm)
-    (markdown->html (slurp (olorm/index-md-path olorm)))))
-
 (defn olorm [req]
   (tap> req)
   (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
