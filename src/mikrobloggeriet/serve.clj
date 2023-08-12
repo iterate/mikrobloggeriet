@@ -203,11 +203,11 @@
   )
 
 (defn hops-info [_req]
-  (when-let [git-sha (System/getenv "HOPS_GIT_SHA")]
+  (let [info {:git/sha (System/getenv "HOPS_GIT_SHA")
+              :user (System/getenv "USER")}]
     {:status 200
-     :headers {:content-type "text/plain"}
-     :body (with-out-str
-             (clojure.pprint/pprint {:git/sha git-sha}))}))
+     :headers {"Content-Type" "text/plain"}
+     :body (with-out-str (clojure.pprint/pprint info))}))
 
 (defroutes app
   (GET "/" req (index req))
@@ -219,7 +219,12 @@
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
   (GET "/random-doc" _req random-doc)
-  (GET "/hops-info" _req hops-info))
+  (GET "/hops-info" req (hops-info req)))
+
+(comment
+  (app {:uri "/hops-info", :request-method :get})
+
+  )
 
 (defonce server (atom nil))
 (def port 7223)
