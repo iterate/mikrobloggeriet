@@ -31,6 +31,7 @@ RUN clj -A:test -e :deps-cached
 COPY src/                /mikrobloggeriet/src/
 COPY test/               /mikrobloggeriet/test/
 COPY vanilla.css         /mikrobloggeriet/vanilla.css
+COPY vanilla-colors.css  /mikrobloggeriet/vanilla-colors.css
 COPY mikrobloggeriet.css /mikrobloggeriet/mikrobloggeriet.css
 COPY o/                  /mikrobloggeriet/o
 COPY j/                  /mikrobloggeriet/j

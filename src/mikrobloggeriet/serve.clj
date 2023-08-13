@@ -14,7 +14,9 @@
   []
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
-   (hiccup.page/include-css "/mikrobloggeriet.css")])
+   (hiccup.page/include-css "/mikrobloggeriet.css")
+   (hiccup.page/include-css "/vanilla-colors.css")
+   ])
 
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
@@ -227,6 +229,7 @@
   (GET "/" req (index req))
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
+  (GET "/vanilla-colors.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla-colors.css")})
   (GET "/mikrobloggeriet.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "mikrobloggeriet.css")})
   (GET "/o/" req (olorm-index req))
   (GET "/j/" req (jals-index req))

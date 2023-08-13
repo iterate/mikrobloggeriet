@@ -28,18 +28,6 @@ time, mark, audio, video {
     box-sizing: border-box;
 }
 
-/* Variables */
-:root {
-    --desktop-font-size: 1.2rem/1.55;
-    --mobile-font-size: 1rem/1.45;
-    --text-color: #2d2d2d;
-    --link-color: blue;
-    --link-color-alt: darkblue;
-    --primary-color: lightsteelblue;
-    --secondary-color: aliceblue;
-    --tertiary-color: whitesmoke;
-}
-
 /* Typography */
 body {
     color: var(--text-color);
@@ -162,9 +150,6 @@ sup { font-size: 80%; vertical-align: top; }
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-    body {
-        background: #191919;
-    }
     input:focus, input:active {
         background-color: var(--text-color);
         color: var(--secondary-color);
@@ -178,14 +163,5 @@ sup { font-size: 80%; vertical-align: top; }
     table thead th,
     table tfoot th {
         background-color: var(--primary-color-light);
-    }
-    :root {
-        --text-color: #fff;
-        --link-color: orange;
-        --link-color-alt: yellow;
-        --primary-color: orange;
-        --primary-color-light: dimgrey;
-        --secondary-color: black;
-        --tertiary-color: #2d2d2d;
     }
 }
