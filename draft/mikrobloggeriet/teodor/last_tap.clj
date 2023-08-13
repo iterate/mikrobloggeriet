@@ -1,12 +1,11 @@
 {:nextjournal.clerk/visibility {:code :hide :result :hide}}
 
-(ns mikrobloggeriet.teodor.last-req
+(ns mikrobloggeriet.teodor.last-tap
   (:require
    [nextjournal.clerk :as clerk]))
 
-;; ## Last HTTP request
+;; ## Last tap
 
-^{::clerk/sync true}
 (defonce last-tapped (atom nil))
 
 (comment
@@ -15,22 +14,16 @@
 
   )
 
-(defn http-request? [m]
-  (and (contains? m :headers)
-       (contains? m :request-method)))
-
-(defn sanitize-http-request [req]
-  (dissoc req :async-channel))
-
 (defn store-tapped [val]
-  (when (http-request? val)
-    (reset! last-tapped (sanitize-http-request val))))
+  (reset! last-tapped val)
+  (clerk/recompute!))
 
 (add-tap #'store-tapped)
 
 {::clerk/visibility {:code :show :result :show}}
 
-^{::clerk/budget nil ::clerk/auto-expand-results? true}
+^{::clerk/budget nil
+  ::clerk/auto-expand-results? true}
 @last-tapped
 
 ^

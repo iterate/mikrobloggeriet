@@ -58,6 +58,11 @@
      (clerk-serve opts))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn clerk-tap-inspector! []
+  (let [show (requiring-resolve 'nextjournal.clerk/show!)]
+    (show 'nextjournal.clerk.tap)))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn teodor-start! []
   (start!)
   (clerk-start!))
