@@ -14,10 +14,10 @@
    [clojure.string :as str]))
 
 (defn shared-html-header
-  "Shared header content -- for example CSS imports."
-  [req]
-  (prn (ring.middleware.cookies/cookies-request req))
+  "Shared HTML, including CSS.
 
+  Handles CSS theming system with cookies."
+  [req]
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")
@@ -247,7 +247,8 @@
    :body (io/file file)})
 
 (defn theme [req]
-  (css-response (str "theme/" (:theme (:route-params req)))))
+  (css-response (str "theme/"
+                     (get-in req [:route-params :theme]))))
 
 (defroutes app
   (GET "/" req (index req))
