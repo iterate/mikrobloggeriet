@@ -15,7 +15,7 @@
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")
-   (hiccup.page/include-css "/vanilla-colors.css")
+   (hiccup.page/include-css "/theme/vanilla.css")
    ])
 
 (defn feeling-lucky []
@@ -225,12 +225,17 @@
      :headers {"Content-Type" "text/plain"}
      :body (with-out-str (clojure.pprint/pprint info))}))
 
+(defn css-response [file]
+  {:status 200
+   :headers {"Content-Type" "text/css"}
+   :body (slurp file)})
+
 (defroutes app
   (GET "/" req (index req))
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
-  (GET "/vanilla.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla.css")})
-  (GET "/vanilla-colors.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "vanilla-colors.css")})
-  (GET "/mikrobloggeriet.css" _req {:status 200 :headers {"Content-Type" "text/css"} :body (slurp "mikrobloggeriet.css")})
+  (GET "/vanilla.css" _req (css-response "vanilla.css"))
+  (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
+  (GET "/theme/vanilla.css" _req (css-response "theme/vanilla.css"))
   (GET "/o/" req (olorm-index req))
   (GET "/j/" req (jals-index req))
   (GET "/o/:slug/" req (olorm req))
