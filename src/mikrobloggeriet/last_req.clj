@@ -28,9 +28,9 @@
 
 (add-tap #'store-tapped)
 
-{::clerk/visibility {:code :show :result :show}
- ::clerk/budget nil
- ::clerk/auto-expand-results? true}
+{::clerk/visibility {:code :show :result :show}}
+
+^{::clerk/budget nil ::clerk/auto-expand-results? true}
 @last-tapped
 
 ^
