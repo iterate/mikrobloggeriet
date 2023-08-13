@@ -35,7 +35,7 @@
         theme (or (:theme (:route-params req)) "")]
     {:status 307 ;; temporary redirect
      :headers {"Location" target
-               "Set-Cookie" (str "theme=\"" theme "\"")}
+               "Set-Cookie" (str "theme=" theme "; Path=/")}
      :body ""}))
 
 (defn index [req]
