@@ -1,29 +1,31 @@
-:root {
-  /* Neon CSS */
-  --neon-base03:  #0b3d91;
-  --neon-base02:  #1c4fbd;
-  --neon-base01:  #4b70d1;
-  --neon-base00:  #5c81e5;
-  --neon-base0:   #7b9ff2;
-  --neon-base1:   #8cacf9;
-  --neon-base2:   #cdd8fc;
-  --neon-base3:   #dee6ff;
-  --neon-yellow:  #ffff33;
-  --neon-orange:  #ff9933;
-  --neon-red:     #ff3333;
-  --neon-magenta: #ff33cc;
-  --neon-violet:  #9933ff;
-  --neon-blue:    #3366ff;
-  --neon-cyan:    #33ccff;
-  --neon-green:   #33ff33;
+/* AI generated */
 
-  /* Assign for use in HTML */
-  --desktop-font-size: 1.2rem/1.55;
-  --mobile-font-size: 1rem/1.45;
-  --text-color: var(--neon-base03);
-  --link-color: var(--neon-blue);
-  --link-color-alt: var(--neon-cyan);
-  --primary-color: var(--neon-base0);
-  --secondary-color: var(--neon-base3);
-  --tertiary-color: var(--neon-base2);
+:root {
+    /* Neon CSS */
+    --neon-base03:  #0b3d91;
+    --neon-base02:  #1c4fbd;
+    --neon-base01:  #4b70d1;
+    --neon-base00:  #5c81e5;
+    --neon-base0:   #7b9ff2;
+    --neon-base1:   #8cacf9;
+    --neon-base2:   #cdd8fc;
+    --neon-base3:   #dee6ff;
+    --neon-yellow:  #ffff33;
+    --neon-orange:  #ff9933;
+    --neon-red:     #ff3333;
+    --neon-magenta: #ff33cc;
+    --neon-violet:  #9933ff;
+    --neon-blue:    #3366ff;
+    --neon-cyan:    #33ccff;
+    --neon-green:   #33ff33;
+
+    /* Assign for use in HTML */
+    --desktop-font-size: 1.2rem/1.55;
+    --mobile-font-size: 1rem/1.45;
+    --text-color: var(--neon-base03);
+    --link-color: var(--neon-blue);
+    --link-color-alt: var(--neon-cyan);
+    --primary-color: var(--neon-base0);
+    --secondary-color: var(--neon-base3);
+    --tertiary-color: var(--neon-base2);
 }
