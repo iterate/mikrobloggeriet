@@ -5,7 +5,7 @@
    [cheshire.core :as json]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; LOW LEVEL PANDOC CONVENIENCE HANDLERS
+;; LOW LEVEL PANDOC WRAPPER
 
 (defn- from-json-str [s]
   (json/parse-string s keyword))
@@ -19,7 +19,7 @@
       (:out process-handle))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; PANDOC IR CONVENIENCE FUNCTIONS
+;; PANDOC IR HELPERS
 
 (defn pandoc? [x]
   (and
