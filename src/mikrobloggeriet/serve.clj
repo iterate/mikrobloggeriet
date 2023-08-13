@@ -231,7 +231,6 @@
    :body (io/file file)})
 
 (defn theme [req]
-  (prn (str "/theme/" (:theme (:route-params req))))
   (css-response (str "theme/" (:theme (:route-params req)))))
 
 (defroutes app
