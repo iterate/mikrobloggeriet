@@ -1,6 +1,6 @@
 {:nextjournal.clerk/visibility {:code :hide :result :hide}}
 
-(ns mikrobloggeriet.last-req
+(ns mikrobloggeriet.teodor.last-req
   (:require
    [nextjournal.clerk :as clerk]))
 
