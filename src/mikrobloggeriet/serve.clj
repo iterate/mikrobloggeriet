@@ -35,8 +35,8 @@
                "Set-Cookie" (str "theme=\"" theme "\"")}
      :body ""}))
 
-(defn index [_req]
-  (tap> _req)
+(defn index [req]
+  (tap> req)
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
@@ -46,7 +46,7 @@
     {:status 200
      :body
      (page/html5
-      (into [:head] (shared-html-header))
+      (into [:head] (shared-html-header req))
       [:body
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
@@ -95,9 +95,9 @@
         ]
        ])}))
 
-(defn olorm-index [_req]
+(defn olorm-index [req]
   (page/html5
-   (into [:head] (shared-html-header))
+   (into [:head] (shared-html-header req))
    [:body
     [:p
      (feeling-lucky)
@@ -113,9 +113,9 @@
          [:td (olorm/author-name olorm)]
          [:td (:doc/created olorm)]])]]]))
 
-(defn jals-index [_req]
+(defn jals-index [req]
   (page/html5
-   (into [:head] (shared-html-header))
+   (into [:head] (shared-html-header req))
    [:body
     [:p
      (feeling-lucky)
@@ -150,7 +150,7 @@
     {:status (if (and olorm (olorm/exists? olorm)) 200 404)
      :body
      (page/html5
-      (into [:head] (concat (shared-html-header)
+      (into [:head] (concat (shared-html-header req)
                             (when title
                               [[:title title]])))
       [:body
@@ -181,7 +181,7 @@
     {:status (if doc-html 200 404)
      :body
      (page/html5
-      (into [:head] (concat (shared-html-header)
+      (into [:head] (concat (shared-html-header req)
                             (when title
                               [[:title title]])))
       [:body
