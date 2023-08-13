@@ -9,7 +9,9 @@
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
    [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies]))
+   [ring.middleware.cookies]
+   [babashka.fs :as fs]
+   [clojure.string :as str]))
 
 (defn shared-html-header
   "Shared header content -- for example CSS imports."
@@ -96,6 +98,14 @@
          " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
          " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]
         ]
+       [:hr]
+       [:section
+        (let [themes (->> (fs/list-dir "theme") (map fs/file-name) (map #(str/replace % #".css$" "")))]
+          [:p "Sett tema: "
+           (into [:span]
+                 (interpose " | "
+                            (for [t themes]
+                              [:a {:href (str "/set-theme/" t)} t])))])]
        ])}))
 
 (defn olorm-index [req]
