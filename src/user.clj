@@ -29,16 +29,19 @@
 ;; than compile-time if there are import errors.
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn start! []
-  (let [start-fn (requiring-resolve 'mikrobloggeriet.serve/start!)
-        port (requiring-resolve 'mikrobloggeriet.serve/port)
-        shell (requiring-resolve 'babashka.process/shell)]
-    (start-fn {})
-    (let [browser (System/getenv "BROWSER")
-          url (str "http://localhost:" (deref port))]
-      (cond (not (str/blank? browser)) (do (shell browser url) nil)
-            (fs/which "open") (shell "open" url)
-            :else (println "Please open" url "in your web browser.")))))
+(defn start!
+  ([] (start! {}))
+  ([opts]
+   (let [start-fn (requiring-resolve 'mikrobloggeriet.serve/start!)
+         port (requiring-resolve 'mikrobloggeriet.serve/port)
+         shell (requiring-resolve 'babashka.process/shell)]
+     (start-fn {})
+     (let [browser (System/getenv "BROWSER")
+           url (str "http://localhost:" (deref port))]
+       (when (:browse? opts)
+         (cond (not (str/blank? browser)) (do (shell browser url) nil)
+               (fs/which "open") (shell "open" url)
+               :else (println "Please open" url "in your web browser.")))))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
@@ -46,15 +49,24 @@
     (stop-fn)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn clerk-start! []
-  (let [clerk-serve (requiring-resolve 'nextjournal.clerk/serve!)
-        clerk-port 7743]
-    (clerk-serve {:browse? true :port clerk-port})))
+(defn clerk-start!
+  ([] (clerk-start! {}))
+  ([opts]
+   (let [clerk-serve (requiring-resolve 'nextjournal.clerk/serve!)
+         clerk-port 7743
+         opts (merge {:browse? true :port clerk-port} opts)]
+     (clerk-serve opts))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn teodor-start! []
   (start!)
   (clerk-start!))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn teodor-start-silent! []
+  (let [silent {:browse? false}]
+    (start! silent)
+    (clerk-start! silent)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-start-watch! []
