@@ -4,7 +4,8 @@
             [clojure.string :as str]))
 
 (deftest index-test
-  (let [index (serve/index {})]
+  (let [index-resp (serve/index {})
+        index (:body index-resp)]
     (testing "An index was returned"
       (is (some? index)))
 
