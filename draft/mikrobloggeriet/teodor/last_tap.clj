@@ -6,16 +6,20 @@
 
 ;; ## Last tap
 
-(defonce last-tapped (atom nil))
+(defonce previous-tap (atom nil))
+(defonce latest-tap (atom nil))
 
 (comment
   (tap> (rand))
-  @last-tapped
+  @latest-tap
 
   )
 
+
 (defn store-tapped [val]
-  (reset! last-tapped val)
+  (when @latest-tap
+    (reset! previous-tap @latest-tap))
+  (reset! latest-tap val)
   (clerk/recompute!))
 
 (add-tap #'store-tapped)
@@ -24,7 +28,12 @@
 
 ^{::clerk/budget nil
   ::clerk/auto-expand-results? true}
-@last-tapped
+@latest-tap
+
+^{::clerk/budget nil
+  ::clerk/auto-expand-results? true}
+@previous-tap
+
 
 ^
 {:nextjournal.clerk/visibility {:code :hide}}
