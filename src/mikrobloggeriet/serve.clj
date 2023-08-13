@@ -1,12 +1,13 @@
 (ns mikrobloggeriet.serve
   (:require
+   [clojure.java.io :as io]
+   [clojure.pprint]
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
-   [mikrobloggeriet.pandoc :as pandoc]
-   [mikrobloggeriet.olorm :as olorm]
-   [mikrobloggeriet.jals :as jals]
    [mikrobloggeriet.cache :as cache]
-   [clojure.pprint]
+   [mikrobloggeriet.jals :as jals]
+   [mikrobloggeriet.olorm :as olorm]
+   [mikrobloggeriet.pandoc :as pandoc]
    [org.httpkit.server :as httpkit]))
 
 (defn shared-html-header
@@ -228,7 +229,7 @@
 (defn css-response [file]
   {:status 200
    :headers {"Content-Type" "text/css"}
-   :body (slurp file)})
+   :body (io/file file)})
 
 (defroutes app
   (GET "/" req (index req))
