@@ -9,7 +9,7 @@
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
    [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies]
+   [ring.middleware.cookies :as cookies]
    [babashka.fs :as fs]
    [clojure.string :as str]))
 
@@ -21,7 +21,7 @@
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")
-   (let [theme (get-in (ring.middleware.cookies/cookies-request req)
+   (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
                        "vanilla")]
      (hiccup.page/include-css (str "/theme/" theme ".css")))])
