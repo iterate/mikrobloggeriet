@@ -100,7 +100,10 @@
         ]
        [:hr]
        [:section
-        (let [themes (->> (fs/list-dir "theme") (map fs/file-name) (map #(str/replace % #".css$" "")))]
+        (let [themes (->> (fs/list-dir "theme")
+                          (map fs/file-name)
+                          (map #(str/replace % #".css$" ""))
+                          sort)]
           [:p "Sett tema: "
            (into [:span]
                  (interpose " | "
