@@ -8,15 +8,21 @@
    [mikrobloggeriet.jals :as jals]
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
-   [org.httpkit.server :as httpkit]))
+   [org.httpkit.server :as httpkit]
+   [ring.middleware.cookies]))
 
 (defn shared-html-header
   "Shared header content -- for example CSS imports."
-  [_req]
+  [req]
+  (prn (ring.middleware.cookies/cookies-request req))
+
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")
-   (hiccup.page/include-css "/theme/vanilla.css")])
+   (let [theme (get-in (ring.middleware.cookies/cookies-request req)
+                       [:cookies "theme" :value]
+                       "vanilla")]
+     (hiccup.page/include-css (str "/theme/" theme ".css")))])
 
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])

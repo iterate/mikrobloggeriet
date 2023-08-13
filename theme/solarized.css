@@ -1,0 +1,31 @@
+/*
+ * Based on https://vanillacss.com/vanilla.css
+ */
+
+/* Variables */
+:root {
+    --desktop-font-size: 1.2rem/1.55;
+    --mobile-font-size: 1rem/1.45;
+    --text-color: #2d2d2d;
+    --link-color: blue;
+    --link-color-alt: darkblue;
+    --primary-color: lightsteelblue;
+    --secondary-color: aliceblue;
+    --tertiary-color: whitesmoke;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #191919;
+    }
+    :root {
+        --text-color: #fff;
+        --link-color: orange;
+        --link-color-alt: yellow;
+        --primary-color: orange;
+        --primary-color-light: dimgrey;
+        --secondary-color: black;
+        --tertiary-color: #2d2d2d;
+    }
+}
