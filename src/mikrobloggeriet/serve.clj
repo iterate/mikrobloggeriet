@@ -1,7 +1,9 @@
 (ns mikrobloggeriet.serve
   (:require
+   [babashka.fs :as fs]
    [clojure.java.io :as io]
    [clojure.pprint]
+   [clojure.string :as str]
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
@@ -9,9 +11,7 @@
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
    [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies :as cookies]
-   [babashka.fs :as fs]
-   [clojure.string :as str]))
+   [ring.middleware.cookies :as cookies]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
