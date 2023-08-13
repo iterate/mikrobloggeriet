@@ -12,14 +12,11 @@
 
 (defn shared-html-header
   "Shared header content -- for example CSS imports."
-  ([]
-   (shared-html-header {}))
-  ([_req]
-   [[:meta {:charset "utf-8"}]
-    (hiccup.page/include-css "/vanilla.css")
-    (hiccup.page/include-css "/mikrobloggeriet.css")
-    (hiccup.page/include-css "/theme/vanilla.css")
-    ]))
+  [_req]
+  [[:meta {:charset "utf-8"}]
+   (hiccup.page/include-css "/vanilla.css")
+   (hiccup.page/include-css "/mikrobloggeriet.css")
+   (hiccup.page/include-css "/theme/vanilla.css")])
 
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
