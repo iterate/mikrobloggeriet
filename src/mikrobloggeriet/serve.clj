@@ -162,7 +162,6 @@
         {:keys [doc-html title]}
         (when (olorm/exists? olorm)
           (markdown->html+info (slurp (olorm/index-md-path olorm))))]
-    (tap> (olorm/->olorm olorm))
     {:status (if (and olorm (olorm/exists? olorm)) 200 404)
      :body
      (page/html5
