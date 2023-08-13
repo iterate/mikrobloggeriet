@@ -2,7 +2,8 @@
 
 (ns mikrobloggeriet.teodor.last-tap
   (:require
-   [nextjournal.clerk :as clerk]))
+   [nextjournal.clerk :as clerk]
+   [nextjournal.clerk.viewer]))
 
 ;; ## Last tap
 
@@ -15,7 +16,6 @@
 
   )
 
-
 (defn store-tapped [val]
   (when @latest-tap
     (reset! previous-tap @latest-tap))
@@ -26,15 +26,19 @@
 
 {::clerk/visibility {:code :show :result :show}}
 
-^{::clerk/budget nil
-  ::clerk/auto-expand-results? true}
-@latest-tap
+nextjournal.clerk.viewer/map-viewer
 
-^{::clerk/budget nil
-  ::clerk/auto-expand-results? true}
-@previous-tap
-
+^{::clerk/budget nil ::clerk/auto-expand-results? true}
+(clerk/with-viewer (update nextjournal.clerk.viewer/map-viewer
+                           :page-size (partial * 10))
+  @latest-tap)
 
 ^
 {:nextjournal.clerk/visibility {:code :hide}}
 (clerk/html [:div {:style {:height "50vh"}}])
+
+^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
+(comment
+  ^{::clerk/budget nil ::clerk/auto-expand-results? true}
+  @previous-tap
+  )
