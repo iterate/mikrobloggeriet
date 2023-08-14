@@ -235,3 +235,41 @@ I want theme support.
 Given theme support, I'd like to invite designers to write and publish their own theme.
 
 [Portfolio]: https://github.com/cjohansen/portfolio
+
+
+# 2023-08-14
+
+## Hva nå?
+
+_Teodor_
+
+1. Komme i gang.
+2. Hypotese: RSS for Olav og AI-bilder for Johan?
+   Kanskje først lage et endepunkt for `olorm draw` så vi starter med noe litt lett?
+3. Må organisere oppgaver på et vis.
+   Tror issues og PR-er er et godt verktøy.
+
+
+## Hva har vi av issues per 2023-08-14 13:39?
+
+Fra https://github.com/iterate/mikrobloggeriet/issues
+:
+
+Ingen.
+
+Fra https://github.com/iterate/olorm/issues
+:
+
+- **Problem: ingen sider har <title>** (https://github.com/iterate/olorm/issues/5)
+  Løst av Teodor.
+- **Ønskeliste** (25. apr) (https://github.com/iterate/olorm/issues/3)
+  -  Tittel i html tittel-tag. Hvorfor? Fordi da gir iki vise tittel og forhåndsvisning av innhold i søkeresultater.
+     (løst av Teodor)
+  -  rss. Hvorfor? Fordi da kan Oddmund lese OLORM med newsboat, eller andre RSS-lesere
+  -  olorm draw kan lese historikk selv, så vi slipper POOL-argumentet (olorm draw POOL) 
+- **Liste over opsjoner** (5. aug) (https://github.com/iterate/olorm/issues/6)
+  -  Støtte RSS
+  -  Eksperimentere med stil. (feks forbedre leseopplevelse, sparre med designer, lage støtte for flere temaer)
+  -  legge til metrikker for lesing
+  -  migrere til ett CLI: bytte ut jals og olorm med ett mblog.
+  -  se over google insights-analyse (SEO, tags, ytelse) og se om det er noe vi kan forbedre (https://pagespeed.web.dev/analysis/https-mikrobloggeriet-no/knf5vr3a7p?form_factor=mobile)
