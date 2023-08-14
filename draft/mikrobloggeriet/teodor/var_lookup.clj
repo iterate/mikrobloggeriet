@@ -1,6 +1,6 @@
 (ns mikrobloggeriet.teodor.var-lookup
   (:require
-    [clojure.string :as str]))
+   [clojure.string :as str]))
 
 ;; I want to iterate over my namesapces and look for vars with certain metadata.
 
