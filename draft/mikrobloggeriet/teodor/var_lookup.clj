@@ -2,7 +2,7 @@
   (:require
    [clojure.string :as str]))
 
-;; I want to iterate over my namesapces and look for vars with certain metadata.
+;; I want to iterate over my namespaces and look for vars with certain metadata.
 
 (defn lookup-vars [ns-match? var-match?]
   (->> (all-ns)
