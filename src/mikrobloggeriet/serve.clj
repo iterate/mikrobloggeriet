@@ -255,16 +255,19 @@
 ( defn olorm-draw
   "Should draw from http header pool"
   [req]
- (println) 
-  ( clojure.pprint/pprint req)
-  {:status 200
-   :headers {"Content-Type" "text/html"
-             "Cache-Control" "no-cache"}
-   :body (page/html5
-          [:head
-           [:meta {:charset "utf-8"}]]
-          [:body "hei"
-           [:h1 (str "Jeg er " (get-in req [:params :pool])) ]])}
+;;  (println) 
+  ;; ( clojure.pprint/pprint req)
+ (let [pool (get-in req [:params :pool])
+       first-letter-names (hash-map \o "Oddmund" \l "Lars" \r "Richard")
+       chosen (rand-nth pool)] 
+   {:status 200
+    :headers {"Content-Type" "text/html"
+              "Cache-Control" "no-cache"}
+    :body (page/html5
+           [:head
+            [:meta {:charset "utf-8"}]]
+           [:body "hei"
+            [:h1 (str "Jeg er " (get first-letter-names chosen)) ]])})
   )
 
 (defroutes app
@@ -281,7 +284,6 @@
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
   (GET "/olorm/draw/:pool" req (olorm-draw req))
-
   )
 
 (comment

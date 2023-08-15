@@ -12,6 +12,8 @@
   )
 
 (draw pool)
+
+(draw pool)
 ( def req
   {:remote-addr "0:0:0:0:0:0:0:1",
    :start-time 54521377543833,
