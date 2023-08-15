@@ -20,4 +20,4 @@
       (is (< 500 (count (:body (serve/olorm {:route-params {:slug "olorm-4"}}))))))))
 
 (deftest olav-test
-  (is true))
+  (is false))
