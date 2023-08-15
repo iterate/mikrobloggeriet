@@ -2,7 +2,7 @@
 
 I want to merge `jals` and `olorm` into a single CLI: `mblog`.
 That change requires some work.
-Untill later, we can keep on using the existing tools:
+Until later, we can keep on using the existing tools:
 
 ## Required dependencies
 
