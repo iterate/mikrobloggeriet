@@ -266,7 +266,7 @@
              [:meta {:charset "utf-8"}]]
             [:body 
              [:h1 "Den heldige som skal skrive olorm er 🥁 "
-              (chosen get first-letter-names)]])}))
+              (get first-letter-names chosen)]])}))
 
 (defroutes app
   (GET "/" req (index req))
