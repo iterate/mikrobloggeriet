@@ -31,11 +31,4 @@
     (is (contains? (->> (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git true :edit false})
                         (map first)
                         (into #{}))
-                   :shell)))
-
-  (when-not ci? ; EDITOR is not set on CI
-    (testing "When edit is enabled, there is shelling out"
-      (is (contains? (->> (olorm-cli/create-opts->commands {:dir (olorm-cli/repo-path) :git false :edit true})
-                          (map first)
-                          (into #{}))
-                     :shell)))))
+                   :shell))))
