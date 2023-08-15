@@ -256,7 +256,7 @@
   "Should draw from http header pool"
   [req]
   (let [pool (get-in req [:params :pool])
-        first-letter-names (hash-map \o "Oddmund" \l "Lars" \r "Richard")
+        first-letter-names {\o "Oddmund" \l "Lars" \r "Richard"}
         chosen (rand-nth pool)]
     {:status 200
      :headers {"Content-Type" "text/html"
@@ -264,8 +264,9 @@
      :body (page/html5
             [:head
              [:meta {:charset "utf-8"}]]
-            [:body "hei"
-             [:h1 (str "Jeg er " (get first-letter-names chosen))]])}))
+            [:body 
+             [:h1 "Den heldige som skal skrive olorm er 🥁 "
+              (chosen get first-letter-names)]])}))
 
 (defroutes app
   (GET "/" req (index req))
