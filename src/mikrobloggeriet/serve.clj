@@ -11,7 +11,8 @@
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
    [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies :as cookies]))
+   [ring.middleware.cookies :as cookies]
+   [clojure.pprint :as pprint]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -32,7 +33,7 @@
 (defn repo-path [] ".")
 
 (defn set-theme [req]
-  (tap> req)
+  (tap> req) 
   (let [target "/"
         theme (or (:theme (:route-params req)) "")]
     {:status 307 ;; temporary redirect
@@ -251,6 +252,20 @@
 (defn theme [req]
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
+( defn olorm-draw
+  "Should draw from http header pool"
+  [req]
+ (println) 
+  ( clojure.pprint/pprint req)
+  {:status 200
+   :headers {"Content-Type" "text/html"
+             "Cache-Control" "no-cache"}
+   :body (page/html5
+          [:head
+           [:meta {:charset "utf-8"}]]
+          [:body "hei"
+           [:h1 (str "Jeg er " (get-in req [:params :pool])) ]])}
+  )
 
 (defroutes app
   (GET "/" req (index req))
@@ -262,14 +277,16 @@
   (GET "/j/" req (jals-index req))
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
-  (GET "/random-doc" _req random-doc)
+  (GET "/random-doc" _req random-doc) 
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
+  (GET "/olorm/draw/:pool" req (olorm-draw req))
 
   )
 
 (comment
   (app {:uri "/hops-info", :request-method :get})
+  (app {:uri "/olorm/draw/o", :request-method :get})
 
   )
 
