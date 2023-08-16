@@ -1,5 +1,6 @@
 ;; # Cohort: a missing Mikrobloggeriet abstraction
 
+^{:nextjournal.clerk/visibility {:code :hide}}
 (ns mikrobloggeriet.teodor.cohort)
 
 ;; Currently, adding new cohorts requires adding lots of code.
