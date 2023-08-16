@@ -267,6 +267,12 @@
             [:body 
              [:h1 "Den heldige som skal skrive olorm er 🥁 "
               (get first-letter-names chosen)]])}))
+(defn jals-draw
+  "Should draw from http header pool"
+  [req]
+  {:status 200
+   :header {"Content-Type" "text/html"
+            "Cache-Control" "no-ca"}})
 
 (defroutes app
   (GET "/" req (index req))
@@ -282,7 +288,7 @@
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
   (GET "/olorm/draw/:pool" req (olorm-draw req))
-
+  (GET "/jals/draw/:pool" req (jals-draw req))
   )
 
 (comment
