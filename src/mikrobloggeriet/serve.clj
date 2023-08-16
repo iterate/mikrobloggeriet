@@ -270,9 +270,18 @@
 (defn jals-draw
   "Should draw from http header pool"
   [req]
-  {:status 200
-   :header {"Content-Type" "text/html"
-            "Cache-Control" "no-ca"}})
+  (let [pool (get-in req [:params :pool])
+        first-letter-names {\a "Anders" \s "Sindre" \l "Lars"}
+        chosen (rand-nth pool)]
+   {:status 200
+    :header {"Content-Type" "text/html"
+             "Cache-Control" "no-cache"}
+    :body (page/html5
+           [:head
+            [:meta {:charset "utf-8"}]]
+           [:body
+            [:h1 "Den heldige som skal skrive olorm er 🥁" (get first-letter-names chosen)]])
+    }))
 
 (defroutes app
   (GET "/" req (index req))
