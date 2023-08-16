@@ -5,6 +5,12 @@
 
 ;; I want to iterate over my namespaces and look for vars with certain metadata.
 
+(str/starts-with? *ns* "clojure")
+
+[*ns* (str *ns*) (ns-name *ns*)]
+
+(type (ns-name *ns*))
+
 (defn lookup-vars [namespaces ns-match? var-match?]
   (->> namespaces
        (filter ns-match?)
@@ -41,8 +47,7 @@
 (count (all-ns))
 (count (loaded-libs))
 
-
-(str/starts-with? 'clojure "clojure")
+(str/starts-with? (str 'clojure) "clojure")
 
 (->> (loaded-libs)
      (filter #(str/starts-with? % "java")))
