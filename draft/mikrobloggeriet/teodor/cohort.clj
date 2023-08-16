@@ -1,7 +1,8 @@
 ;; # Cohort: a missing Mikrobloggeriet abstraction
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
-(ns mikrobloggeriet.teodor.cohort)
+(ns mikrobloggeriet.teodor.cohort
+  (:require [mikrobloggeriet.cohort :as cohort]))
 
 ;; Currently, adding new cohorts requires adding lots of code.
 ;; We have several cohort specific namespaces:
@@ -17,3 +18,5 @@
 ;; along with cohort data (what a cohort is about, who is in a cohort).
 ;;
 ;; This document explores the current state of the cohort api.
+
+(cohort/docs)
