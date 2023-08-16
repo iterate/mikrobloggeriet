@@ -1,0 +1,41 @@
+/*
+ * Based on https://vanillacss.com/vanilla.css
+ */
+
+
+ :root {
+    /* Iterate CSS */
+    --iterate-base03:  #ffccff;
+    --iterate-base02:  #34cc66;
+    --iterate-base01:  #ffff33;
+    --iterate-base00:  #ff99cc;
+    --iterate-base0:   #ffccff;
+    --iterate-base1:   #34cc66;
+    --iterate-base2:   #ffff33;
+    --iterate-base3:   #8C7A6E;
+    --iterate-yellow:  #ffff33;
+    --iterate-orange:  #ff9966;
+    --iterate-red:     #ff6666;
+    --iterate-magenta: #ff66ff;
+    --iterate-violet:  #ccccff;
+    --iterate-blue:    #6699ff;
+    --iterate-cyan:    #33ffff;
+    --iterate-green:   #99ff99;
+    --iterate-background: #171717;
+    --iterate-softclay: #3C4E5A;
+    --iterate-teal: #3C6E7A;
+
+
+
+
+    /* Assign for use in HTML */
+    --desktop-font-size: 1.2rem/1.55;
+    --mobile-font-size: 1rem/1.45;
+    --text-color: var(--iterate-base02);
+    --link-color: var(--iterate-base00);
+    --link-color-alt: var(--iterate-base03);
+    --primary-color: var(--iterate-base1);
+    --secondary-color: var(--iterate-teal);
+    --tertiary-color: var(--iterate-softclay);
+    --background-color: var(--iterate-background)
+}

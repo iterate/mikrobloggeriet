@@ -252,7 +252,6 @@
 (defn theme [req]
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
-
 (defn olorm-draw
   "Should draw from http header pool"
   [req]
@@ -263,9 +262,11 @@
      :headers {"Content-Type" "text/html"
                "Cache-Control" "no-cache"}
      :body (page/html5
-            (into [:head] (shared-html-header req)) 
+            [:head
+             [:meta {:charset "utf-8"}]]
             [:body 
-             [:div (get first-letter-names chosen)]])}))
+             [:h1 "Den heldige som skal skrive olorm er 🥁 "
+              (get first-letter-names chosen)]])}))
 
 (defroutes app
   (GET "/" req (index req))
@@ -281,6 +282,7 @@
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
   (GET "/olorm/draw/:pool" req (olorm-draw req))
+
   )
 
 (comment
