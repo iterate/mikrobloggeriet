@@ -60,9 +60,6 @@
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
        [:p "Teknologer fra Iterate deler fra hverdagen."] 
-       (let [theme "solarized-dark"]
-         [:a {:href (str "/set-theme/" theme)} (str "Set theme: " theme)]
-         )
        [:h2 "OLORM"] 
        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
        [:p
