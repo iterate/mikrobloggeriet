@@ -11,8 +11,7 @@
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
    [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies :as cookies]
-   [clojure.pprint :as pprint]))
+   [ring.middleware.cookies :as cookies]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -252,25 +251,10 @@
 (defn theme [req]
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
-(defn olorm-draw
-  "Should draw from http header pool"
-  [req]
-  (let [pool (get-in req [:params :pool])
-        first-letter-names {\o "oddmund" \l "lars" \r "richard"}
-        chosen (rand-nth pool)]
-    {:status 200
-     :headers {"Content-Type" "text/html"
-               "Cache-Control" "no-cache"}
-     :body (page/html5
-            (into [:head] (shared-html-header req))
-            [:body 
-             [:h1 "olorm draw " pool [:br] (get first-letter-names chosen)]])}))
 
-(defn jals-draw
-  "Should draw from http header pool"
-  [req]
+(defn draw
+  [req cohort first-letter-names]
   (let [pool (get-in req [:params :pool])
-        first-letter-names {\a "adrian" \l "lars" \s "sindre"}
         chosen (rand-nth pool)]
     {:status 200
      :header {"Content-Type" "text/html"
@@ -278,7 +262,7 @@
      :body (page/html5
             (into [:head] (shared-html-header req))
             [:body
-             [:h1 "jals draw " pool [:br] (get first-letter-names chosen)]])}))
+             [:h1 (name cohort) " draw " pool [:br] (get first-letter-names chosen)]])}))
 
 (defroutes app
   (GET "/" req (index req))
@@ -293,8 +277,10 @@
   (GET "/random-doc" _req random-doc) 
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
-  (GET "/olorm/draw/:pool" req (olorm-draw req))
-  (GET "/jals/draw/:pool" req (jals-draw req))
+  (GET "/olorm/draw/:pool" req (draw req :olorm
+                                     {\o "oddmund" \l "lars" \r "richard"}))
+  (GET "/jals/draw/:pool" req (draw req :jals
+                                     {\a "adrian" \l "lars" \s "sindre"}))
   )
 
 (comment
