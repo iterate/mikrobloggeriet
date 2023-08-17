@@ -45,6 +45,10 @@
                "Set-Cookie" (str "theme=" theme "; Path=/")}
      :body ""}))
 
+(defn set-flag [req] 
+  {:status 307
+   :headers {"Location" "/"}})
+
 (defn index [req]
   (tap> req)
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -101,16 +105,20 @@
          " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]
         ]
        [:hr]
-       [:section
-        (let [themes (->> (fs/list-dir "theme")
-                          (map fs/file-name)
-                          (map #(str/replace % #".css$" ""))
-                          sort)]
+       (let [themes (->> (fs/list-dir "theme")
+                         (map fs/file-name)
+                         (map #(str/replace % #".css$" ""))
+                         sort)]
+         [:section 
           [:p "Sett tema: "
            (into [:span]
                  (interpose " | "
                             (for [t themes]
-                              [:a {:href (str "/set-theme/" t)} t])))])]
+                              [:a {:href (str "/set-theme/" t)} t])))]
+          [:p "Sett flagg: "
+           [:a {:href "/set-flag/no-flag"} "ingen flagg"]
+           " | "
+           [:a {:href "/set-flag/oj"} "oj"]]])
        ])}))
 
 (defn olorm-index [req]
@@ -279,12 +287,13 @@
   (GET "/random-doc" _req random-doc) 
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
+  (GET "/set-flag/:flag" req (set-flag req))
   (GET "/olorm/draw/:pool" req (draw req :olorm
                                      {\o "oddmund" \l "lars" \r "richard"}))
   (GET "/jals/draw/:pool" req (draw req :jals
-                                     {\a "adrian" \l "lars" \s "sindre"}))
+                                     {\a "adrian" \l "lars" \s "sindre"})) 
   )
-
+-
 (comment
   (app {:uri "/hops-info", :request-method :get})
   (app {:uri "/olorm/draw/o", :request-method :get})
