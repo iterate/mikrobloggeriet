@@ -256,17 +256,16 @@
   "Should draw from http header pool"
   [req]
   (let [pool (get-in req [:params :pool])
-        first-letter-names {\o "Oddmund" \l "Lars" \r "Richard"}
+        first-letter-names {\o "oddmund" \l "lars" \r "richard"}
         chosen (rand-nth pool)]
     {:status 200
      :headers {"Content-Type" "text/html"
                "Cache-Control" "no-cache"}
      :body (page/html5
-            [:head
-             [:meta {:charset "utf-8"}]]
+            (into [:head] (shared-html-header req))
             [:body 
-             [:h1 "Den heldige som skal skrive olorm er 🥁 "
-              (get first-letter-names chosen)]])}))
+             [:h1 "olorm draw " pool [:br] (get first-letter-names chosen)]])}))
+
 (defn jals-draw
   "Should draw from http header pool"
   [req]
