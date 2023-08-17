@@ -45,11 +45,14 @@
                "Set-Cookie" (str "theme=" theme "; Path=/")}
      :body ""}))
 
-(defn set-flag [req] 
+(defn- set-flag [req] 
   {:status 307
    :headers {"Location" "/"
              "Set-Cookie" (str "flag=" (or (:flag (:route-params req)) "")
                                "; Path=/")}})
+
+(defn- flag [req]
+  (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
 
 (defn index [req] 
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -115,11 +118,11 @@
                  (interpose " | "
                             (for [t themes]
                               [:a {:href (str "/set-theme/" t)} t])))]
-          (let [flag-element (fn [flag]
+          (let [flag-element (fn [flag-name]
                                [:span
-                                [:a {:href (str "/set-flag/" flag)} flag]
-                                (when (= flag (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
-                                  "-🚩")])]
+                                (when (= flag-name (flag req))
+                                  "🚩 ")
+                                [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
             [:p "Sett flagg: "
              (flag-element "ingen-flag")
              " | "
