@@ -39,6 +39,14 @@
                "Set-Cookie" (str "theme=" theme "; Path=/")}
      :body ""}))
 
+(defn applesauce [req]
+  (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
+        number (rand-nth [0 1 2 3])]
+    (if (= theme "iterate")
+      {:style (str "color: var(--iterate-base0" number ")")}
+      nil))
+  )
+
 (defn index [req]
   (tap> req)
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -51,11 +59,7 @@
      :body
      (page/html5
       (into [:head] (shared-html-header req))
-      [:body (let [theme (get-in (cookies/cookies-request req) [ :cookies "theme" :value])
-                   number (rand-nth [0 1 2 3])]
-                (if (= theme "iterate")
-                  {:style (str "color: var(--iterate-base0" number ")")  }
-                  nil))
+      [:body (applesauce req)
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
        [:p "Teknologer fra Iterate deler fra hverdagen."] 
