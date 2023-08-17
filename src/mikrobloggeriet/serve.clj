@@ -46,20 +46,24 @@
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
-        hops-url "https://www.headless-operations.no/"
+        hops-url "https://www.headless-o  perations.no/"
         iterate-url "https://www.iterate.no/"]
     {:status 200
      :body
      (page/html5
       (into [:head] (shared-html-header req))
-      [:body
+      [:body (let [theme (get-in (cookies/cookies-request req) [ :cookies "theme" :value])
+                   number (rand-nth [0 1 2 3])]
+                (if (= theme "iterate")
+                  {:style (str "color: var(--iterate-base0" number)  }
+                  nil))
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
-       [:p "Teknologer fra Iterate deler fra hverdagen."]
-       #_
+       [:p "Teknologer fra Iterate deler fra hverdagen."] 
        (let [theme "solarized-dark"]
-         [:a {:href (str "/set-theme/" theme)} (str "Set theme: " theme)])
-       [:h2 "OLORM"]
+         [:a {:href (str "/set-theme/" theme)} (str "Set theme: " theme)]
+         )
+       [:h2 "OLORM"] 
        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
        [:p
         (interpose " · "
