@@ -67,18 +67,24 @@
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
        [:p "Teknologer fra Iterate deler fra hverdagen."]
-       [:h2 "OLORM"]
-       [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
-       [:p
-        (interpose " · "
-                   (for [olorm (olorm/docs {:repo-path (repo-path)})]
-                     [:a {:href (olorm/href olorm)} (:slug olorm)]))]
-       [:h2 "JALS"]
-       [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
-       [:p
-        (interpose " · "
-                   (for [doc (jals/docs {:repo-path (repo-path)})]
-                     [:a {:href (jals/href doc)} (:slug doc)]))]
+       [:section 
+        [:h2 "OLORM"]
+        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
+        [:p
+         (interpose " · "
+                    (for [olorm (olorm/docs {:repo-path (repo-path)})]
+                      [:a {:href (olorm/href olorm)} (:slug olorm)]))]]
+       [:section
+        [:h2 "JALS"]
+        [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
+        [:p
+         (interpose " · "
+                    (for [doc (jals/docs {:repo-path (repo-path)})]
+                      [:a {:href (jals/href doc)} (:slug doc)]))]]
+       (when (= "oj" (flag req))
+         [:section
+          [:h2 "OJ"]
+          [:p "Mikrobloggen OJ skrives av Olav og Johan."]])
 
        [:hr]
 
