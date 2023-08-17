@@ -54,7 +54,7 @@
       [:body (let [theme (get-in (cookies/cookies-request req) [ :cookies "theme" :value])
                    number (rand-nth [0 1 2 3])]
                 (if (= theme "iterate")
-                  {:style (str "color: var(--iterate-base0" number)  }
+                  {:style (str "color: var(--iterate-base0" number ")")  }
                   nil))
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
