@@ -33,3 +33,20 @@
                    (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key wrapping" n)
                    (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key"))))
              result)))))))
+
+(comment 
+  (defn slow+ [a b]
+    (Thread/sleep 200)
+    (+ a b))
+  
+  (slow+ 10 20)
+  ;; slow
+
+  (def fast+ (cache-fn-by slow+ #(str %1 " " %2)))
+  ;; fast after values have been cached.
+  
+  (fast+ 11 2) 
+  (fast+ 1 12) 
+  (fast+ 9 999) 
+  (fast+ 99 99)
+  )
