@@ -47,10 +47,11 @@
 
 (defn set-flag [req] 
   {:status 307
-   :headers {"Location" "/"}})
+   :headers {"Location" "/"
+             "Set-Cookie" (str "flag=" (or (:flag (:route-params req)) "")
+                               "; Path=/")}})
 
-(defn index [req]
-  (tap> req)
+(defn index [req] 
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
@@ -64,8 +65,8 @@
       [:body
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
-       [:p "Teknologer fra Iterate deler fra hverdagen."] 
-       [:h2 "OLORM"] 
+       [:p "Teknologer fra Iterate deler fra hverdagen."]
+       [:h2 "OLORM"]
        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
        [:p
         (interpose " · "
@@ -102,24 +103,27 @@
         [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
          " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
          " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
-         " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]
-        ]
+         " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
        [:hr]
        (let [themes (->> (fs/list-dir "theme")
                          (map fs/file-name)
                          (map #(str/replace % #".css$" ""))
                          sort)]
-         [:section 
+         [:section
           [:p "Sett tema: "
            (into [:span]
                  (interpose " | "
                             (for [t themes]
                               [:a {:href (str "/set-theme/" t)} t])))]
-          [:p "Sett flagg: "
-           [:a {:href "/set-flag/no-flag"} "ingen flagg"]
-           " | "
-           [:a {:href "/set-flag/oj"} "oj"]]])
-       ])}))
+          (let [flag-element (fn [flag]
+                               [:span
+                                [:a {:href (str "/set-flag/" flag)} flag]
+                                (when (= flag (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
+                                  "-🚩")])]
+            [:p "Sett flagg: "
+             (flag-element "ingen-flag")
+             " | "
+             (flag-element "oj")])])])}))
 
 (defn olorm-index [req]
   (page/html5
