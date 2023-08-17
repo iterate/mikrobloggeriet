@@ -14,4 +14,7 @@
       ))
  )
 
-(+ "Hei dette er et tall" (str (rand-nth 5)))
+( def x 4)
+x
+
+(str "hei dette er en string med et tall" x)
