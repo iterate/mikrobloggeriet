@@ -16,6 +16,7 @@
 (defn ^:private applesauce [req]
   (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
         number (rand-nth (range 4))]
+    #_
     (if (= theme "iterate")
       {:style (str "color: var(--iterate-base0" number ")")}
       nil)))
@@ -27,6 +28,11 @@
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")
+   (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
+         number (rand-nth (range 4))]
+     (when (= theme "iterate")
+       [:style {:type "text/css"}
+        (str "body {color: var(--iterate-base0" number ");}")]))
    (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
                        "vanilla")]
