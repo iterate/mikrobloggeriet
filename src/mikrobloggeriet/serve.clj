@@ -19,7 +19,7 @@
   [req]
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
-   (hiccup.page/include-css "/mikrobloggeriet.css") 
+   (hiccup.page/include-css "/mikrobloggeriet.css")
    (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
                        "vanilla")]
@@ -28,8 +28,7 @@
          number (rand-nth (range 4))]
      (when (= theme "iterate")
        [:style {:type "text/css"}
-        (str ":root{ --text-color: var(--iterate-base0" number ")}") 
-        ]))])
+        (str ":root{ --text-color: var(--iterate-base0" number ")}")]))])
 
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
@@ -37,7 +36,6 @@
 (defn repo-path [] ".")
 
 (defn set-theme [req]
-  (tap> req) 
   (let [target "/"
         theme (or (:theme (:route-params req)) "")]
     {:status 307 ;; temporary redirect
@@ -45,7 +43,7 @@
                "Set-Cookie" (str "theme=" theme "; Path=/")}
      :body ""}))
 
-(defn- set-flag [req] 
+(defn- set-flag [req]
   {:status 307
    :headers {"Location" "/"
              "Set-Cookie" (str "flag=" (or (:flag (:route-params req)) "")
@@ -54,7 +52,7 @@
 (defn- flag [req]
   (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
 
-(defn index [req] 
+(defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
@@ -166,13 +164,12 @@
 
 (def markdown->html+info
   (cache/cache-fn-by (fn markdown->html+info [markdown]
-                        (let [pandoc (pandoc/from-markdown markdown)]
-                          {:doc-html (pandoc/to-html pandoc)
-                           :title (pandoc/infer-title pandoc)}))
-                   identity))
+                       (let [pandoc (pandoc/from-markdown markdown)]
+                         {:doc-html (pandoc/to-html pandoc)
+                          :title (pandoc/infer-title pandoc)}))
+                     identity))
 
 (defn olorm [req]
-  (tap> req)
   (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
                               :repo-path (repo-path)})
         {:keys [number]} olorm
@@ -230,29 +227,26 @@
                                          [:span (:slug doc)]
                                          (let [prev (jals/->doc {:number (inc number) :repo-path (repo-path)})]
                                            (when (jals/exists? prev)
-                                             [:a {:href (jals/href prev)} (:slug prev)]))]))]
-        ]
+                                             [:a {:href (jals/href prev)} (:slug prev)]))]))]]
        doc-html])}))
 
 (defn random-doc [_req]
   (let [target (or
-                 (when-let [docs (into [] cat [(olorm/docs {:repo-path (repo-path)})
-                                               (jals/docs {:repo-path (repo-path)})])]
-                   (let [picked (rand-nth docs)]
-                     (cond
-                       (= :olorm (:cohort picked)) (olorm/href picked)
-                       (= :jals (:cohort picked)) (jals/href picked)
-                       :else nil)))
-                 "/")]
+                (when-let [docs (into [] cat [(olorm/docs {:repo-path (repo-path)})
+                                              (jals/docs {:repo-path (repo-path)})])]
+                  (let [picked (rand-nth docs)]
+                    (cond
+                      (= :olorm (:cohort picked)) (olorm/href picked)
+                      (= :jals (:cohort picked)) (jals/href picked)
+                      :else nil)))
+                "/")]
     {:status 307 ;; temporary redirect
      :headers {"Location" target}
      :body ""}))
 
 (comment
   (olorm/random {:repo-path (repo-path)})
-  (jals/random {:repo-path (repo-path)})
-
-  )
+  (jals/random {:repo-path (repo-path)}))
 
 (defn hops-info [_req]
   (let [info {:git/sha (System/getenv "HOPS_GIT_SHA")}]
@@ -269,8 +263,7 @@
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
 
-(defn draw
-  [req cohort first-letter-names]
+(defn draw [req cohort first-letter-names]
   (let [pool (get-in req [:params :pool])
         chosen (rand-nth pool)]
     {:status 200
@@ -291,21 +284,18 @@
   (GET "/j/" req (jals-index req))
   (GET "/o/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
-  (GET "/random-doc" _req random-doc) 
+  (GET "/random-doc" _req random-doc)
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
   (GET "/set-flag/:flag" req (set-flag req))
   (GET "/olorm/draw/:pool" req (draw req :olorm
                                      {\o "oddmund" \l "lars" \r "richard"}))
   (GET "/jals/draw/:pool" req (draw req :jals
-                                     {\a "adrian" \l "lars" \s "sindre"})) 
-  )
+                                    {\a "adrian" \l "lars" \s "sindre"})))
 -
 (comment
   (app {:uri "/hops-info", :request-method :get})
-  (app {:uri "/olorm/draw/o", :request-method :get})
-
-  )
+  (app {:uri "/olorm/draw/o", :request-method :get}))
 
 (defonce server (atom nil))
 (def port 7223)
