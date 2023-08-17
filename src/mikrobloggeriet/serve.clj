@@ -28,7 +28,8 @@
          number (rand-nth (range 4))]
      (when (= theme "iterate")
        [:style {:type "text/css"}
-        (str "body {color: var(--iterate-base0" number ");}")]))])
+        (str ":root{ --text-color: var(--iterate-base0" number ")}") 
+        ]))])
 
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
