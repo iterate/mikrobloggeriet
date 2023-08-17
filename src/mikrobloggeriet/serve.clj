@@ -15,7 +15,6 @@
 
 (defn shared-html-header
   "Shared HTML, including CSS.
-
   Handles CSS theming system with cookies."
   [req]
   [[:meta {:charset "utf-8"}]
