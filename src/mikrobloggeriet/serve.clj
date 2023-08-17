@@ -13,30 +13,22 @@
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
-(defn ^:private applesauce [req]
-  (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
-        number (rand-nth (range 4))]
-    #_
-    (if (= theme "iterate")
-      {:style (str "color: var(--iterate-base0" number ")")}
-      nil)))
-
 (defn shared-html-header
   "Shared HTML, including CSS.
   Handles CSS theming system with cookies."
   [req]
   [[:meta {:charset "utf-8"}]
    (hiccup.page/include-css "/vanilla.css")
-   (hiccup.page/include-css "/mikrobloggeriet.css")
+   (hiccup.page/include-css "/mikrobloggeriet.css") 
+   (let [theme (get-in (cookies/cookies-request req)
+                       [:cookies "theme" :value]
+                       "vanilla")]
+     (hiccup.page/include-css (str "/theme/" theme ".css")))
    (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
          number (rand-nth (range 4))]
      (when (= theme "iterate")
        [:style {:type "text/css"}
-        (str "body {color: var(--iterate-base0" number ");}")]))
-   (let [theme (get-in (cookies/cookies-request req)
-                       [:cookies "theme" :value]
-                       "vanilla")]
-     (hiccup.page/include-css (str "/theme/" theme ".css")))])
+        (str "body {color: var(--iterate-base0" number ");}")]))])
 
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
@@ -64,7 +56,7 @@
      :body
      (page/html5
       (into [:head] (shared-html-header req))
-      [:body (applesauce req)
+      [:body
        [:p (feeling-lucky)]
        [:h1 "Mikrobloggeriet"]
        [:p "Teknologer fra Iterate deler fra hverdagen."] 
