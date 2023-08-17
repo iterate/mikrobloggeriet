@@ -13,9 +13,9 @@
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
-(defn applesauce [req]
+(defn ^:private applesauce [req]
   (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
-        number (rand-nth [0 1 2 3])]
+        number (rand-nth (range 4))]
     (if (= theme "iterate")
       {:style (str "color: var(--iterate-base0" number ")")}
       nil)))
