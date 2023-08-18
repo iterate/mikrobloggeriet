@@ -296,15 +296,15 @@
                                           ;; :justify-content "center"
                                           })}
               [:div {:style (style/inline {:font-family "monospace"
-                                           :font-size "2rem"
+                                           :font-size "1.8rem"
                                            :padding "0.8rem"
                                            :line-height "1.4"
                                            :width "100%"
                                            :border-radius "10px"
                                            :background "black"
                                            :color "#15ff4f"})}
-               [:div "$ olorm draw"]
-               [:div "richard 🎉"]]]])}))
+               [:div (str "$ " (name cohort) " draw " pool)]
+               [:div (str (get first-letter-names chosen) " 🎉")]]]])}))
 
 (defroutes app
   (GET "/" req (index req))
