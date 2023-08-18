@@ -272,7 +272,11 @@
 
 (defn draw [req cohort first-letter-names]
   (let [pool (get-in req [:params :pool])
-        chosen (rand-nth pool)]
+        chosen (rand-nth pool)
+        old-draw-text
+        [:h1 (name cohort) " DRAW " pool [:br] (get first-letter-names chosen)]
+
+        ]
     {:status 200
      :header {"Content-Type" "text/html"
               "Cache-Control" "no-cache"}
@@ -280,10 +284,12 @@
             [:head
              [:meta {:charset "utf-8"}]
              [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-             (hiccup.page/include-css "/reset.css")
-             ]
+             (hiccup.page/include-css "/reset.css")]
             [:body
-             [:h1 (name cohort) " DRAW " pool [:br] (get first-letter-names chosen)]])}))
+             [:div
+              [:div
+               [:div "$ olorm draw"]
+               [:div "richard 🎉"]]]])}))
 
 (defroutes app
   (GET "/" req (index req))
