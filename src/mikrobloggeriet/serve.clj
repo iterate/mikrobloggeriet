@@ -57,7 +57,7 @@
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
-        hops-url "https://www.headless-o  perations.no/"
+        hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"]
     {:status 200
      :body
