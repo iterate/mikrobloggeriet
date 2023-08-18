@@ -289,7 +289,10 @@
              (hiccup.page/include-css "/reset.css")]
             [:body
              [:div {:style (style/inline {:background "white"
-                                          :margin "2rem"})}
+                                          :margin-left "2rem"
+                                          :margin-right "2rem"
+                                          :height "100vh"
+                                          })}
               [:div {:style (style/inline {:font-family "monospace"
                                            :font-size "2rem"
                                            :padding "0.8rem"
