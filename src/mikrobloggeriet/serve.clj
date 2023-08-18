@@ -288,10 +288,12 @@
              [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
              (hiccup.page/include-css "/reset.css")]
             [:body
-             [:div {:style (style/inline {:background "black"})}
+             [:div {:style (style/inline {:background "white"
+                                          :margin "2rem"})}
               [:div {:style (style/inline {:font-family "monospace"
-                                           :background "white"
-                                           :color "green"})}
+                                           :font-size "2rem"
+                                           :background "black"
+                                           :color "#15ff4f"})}
                [:div "$ olorm draw"]
                [:div "richard 🎉"]]]])}))
 
