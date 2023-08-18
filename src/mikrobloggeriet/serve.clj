@@ -277,6 +277,7 @@
         old-draw-text
         [:h1 (name cohort) " DRAW " pool [:br] (get first-letter-names chosen)]
 
+
         ]
     {:status 200
      :header {"Content-Type" "text/html"
@@ -287,8 +288,10 @@
              [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
              (hiccup.page/include-css "/reset.css")]
             [:body
-             [:div
-              [:div {:style (style/inline {:font "monospace"})}
+             [:div {:style (style/inline {:background "black"})}
+              [:div {:style (style/inline {:font-family "monospace"
+                                           :background "white"
+                                           :color "green"})}
                [:div "$ olorm draw"]
                [:div "richard 🎉"]]]])}))
 
