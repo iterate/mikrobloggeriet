@@ -277,15 +277,20 @@
      :header {"Content-Type" "text/html"
               "Cache-Control" "no-cache"}
      :body (page/html5
-            (into [:head] (shared-html-header req))
+            [:head
+             [:meta {:charset "utf-8"}]
+             [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
+             (hiccup.page/include-css "/reset.css")
+             ]
             [:body
-             [:h1 (name cohort) " draw " pool [:br] (get first-letter-names chosen)]])}))
+             [:h1 (name cohort) " DRAW " pool [:br] (get first-letter-names chosen)]])}))
 
 (defroutes app
   (GET "/" req (index req))
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req (css-response "vanilla.css"))
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
+  (GET "/reset.css" _req (css-response "reset.css"))
   (GET "/theme/:theme" req (theme req))
   (GET "/o/" req (olorm-index req))
   (GET "/j/" req (jals-index req))
