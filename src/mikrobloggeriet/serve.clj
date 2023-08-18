@@ -287,14 +287,18 @@
              [:meta {:charset "utf-8"}]
              [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
              (hiccup.page/include-css "/reset.css")]
-            [:body {:style (style/inline {:background "#59F8E8"})}
+            [:body {:style (style/inline {:background "#CF5C36"})}
              [:div {:style (style/inline {:margin-left "2rem"
                                           :margin-right "2rem"
                                           :height "100vh"
+                                          :display "flex"
+                                          :align-items "center"
+                                          ;; :justify-content "center"
                                           })}
               [:div {:style (style/inline {:font-family "monospace"
                                            :font-size "2rem"
                                            :padding "0.8rem"
+                                           :width "100%"
                                            :background "black"
                                            :color "#15ff4f"})}
                [:div "$ olorm draw"]
