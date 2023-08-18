@@ -275,6 +275,7 @@
   (let [pool (get-in req [:params :pool])
         chosen (rand-nth pool)
         beige "#FAAB66"
+        neon-green "#15ff4f"
         ]
     {:status 200
      :header {"Content-Type" "text/html"
@@ -297,9 +298,10 @@
                                            :width "100%"
                                            :border-radius "10px"
                                            :background "black"
-                                           :color "#15ff4f"})}
+                                           :color neon-green})}
                [:div (str "$ " (name cohort) " draw " pool)]
-               [:div (str (get first-letter-names chosen) " 🎉")]]]])}))
+               [:div {:style (style/inline {:font-size "2.4rem"})}
+                (str (get first-letter-names chosen) " 🎉")]]]])}))
 
 (defroutes app
   (GET "/" req (index req))
