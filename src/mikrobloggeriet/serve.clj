@@ -9,6 +9,7 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.jals :as jals]
    [mikrobloggeriet.olorm :as olorm]
+   [mikrobloggeriet.style :as style]
    [mikrobloggeriet.pandoc :as pandoc]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
@@ -287,7 +288,7 @@
              (hiccup.page/include-css "/reset.css")]
             [:body
              [:div
-              [:div
+              [:div {:style (style/inline {:font "monospace"})}
                [:div "$ olorm draw"]
                [:div "richard 🎉"]]]])}))
 
