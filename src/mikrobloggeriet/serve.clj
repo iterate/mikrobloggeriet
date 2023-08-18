@@ -298,6 +298,7 @@
               [:div {:style (style/inline {:font-family "monospace"
                                            :font-size "2rem"
                                            :padding "0.8rem"
+                                           :line-height "1.4"
                                            :width "100%"
                                            :border-radius "10px"
                                            :background "black"
