@@ -274,10 +274,7 @@
 (defn draw [req cohort first-letter-names]
   (let [pool (get-in req [:params :pool])
         chosen (rand-nth pool)
-        old-draw-text
-        [:h1 (name cohort) " DRAW " pool [:br] (get first-letter-names chosen)]
-
-
+        beige "#FAAB66"
         ]
     {:status 200
      :header {"Content-Type" "text/html"
@@ -287,14 +284,12 @@
              [:meta {:charset "utf-8"}]
              [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
              (hiccup.page/include-css "/reset.css")]
-            [:body {:style (style/inline {:background "#FAAB66"})}
+            [:body {:style (style/inline {:background beige})}
              [:div {:style (style/inline {:margin-left "2rem"
                                           :margin-right "2rem"
                                           :height "100vh"
                                           :display "flex"
-                                          :align-items "center"
-                                          ;; :justify-content "center"
-                                          })}
+                                          :align-items "center"})}
               [:div {:style (style/inline {:font-family "monospace"
                                            :font-size "1.8rem"
                                            :padding "0.8rem"
