@@ -18,6 +18,7 @@
   Handles CSS theming system with cookies."
   [req]
   [[:meta {:charset "utf-8"}]
+   [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
    (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")
    (let [theme (get-in (cookies/cookies-request req)
