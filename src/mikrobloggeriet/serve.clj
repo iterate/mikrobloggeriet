@@ -292,6 +292,7 @@
                                           :margin "2rem"})}
               [:div {:style (style/inline {:font-family "monospace"
                                            :font-size "2rem"
+                                           :padding "0.8rem"
                                            :background "black"
                                            :color "#15ff4f"})}
                [:div "$ olorm draw"]
