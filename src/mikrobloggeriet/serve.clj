@@ -287,9 +287,8 @@
              [:meta {:charset "utf-8"}]
              [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
              (hiccup.page/include-css "/reset.css")]
-            [:body
-             [:div {:style (style/inline {:background "white"
-                                          :margin-left "2rem"
+            [:body {:style (style/inline {:background "#59F8E8"})}
+             [:div {:style (style/inline {:margin-left "2rem"
                                           :margin-right "2rem"
                                           :height "100vh"
                                           })}
