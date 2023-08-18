@@ -299,6 +299,7 @@
                                            :font-size "2rem"
                                            :padding "0.8rem"
                                            :width "100%"
+                                           :border-radius "10px"
                                            :background "black"
                                            :color "#15ff4f"})}
                [:div "$ olorm draw"]
