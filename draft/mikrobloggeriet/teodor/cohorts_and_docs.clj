@@ -5,6 +5,8 @@
   (:require
    clojure.repl
    [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.pandoc :as pandoc]
    [nextjournal.clerk :as clerk]))
 
 ;; Heisann!
@@ -42,6 +44,24 @@
 ;;
 ;; Mange av funksjonene følger dette mønsteret:
 
-(clerk/code (with-out-str (clojure.repl/source-fn `cohort/docs)))
+(fn [cohort] ,,,)
+(fn [cohort doc] ,,,)
 
-(clojure.repl/source-fn `cohort/docs)
+;; så vi tar inn en kohort og et dokument. Så gjør vi ting.
+;; Kohortene er tilgjengelige:
+
+[cohort/oj
+ cohort/olorm]
+
+;; så kan vi sende kohorter inn i andre funksjoner etter behov.
+
+(cohort/docs cohort/oj)
+
+(->> (cohort/docs cohort/oj)
+     (map (fn [doc]
+            (->
+             (doc/index-md-path cohort/oj doc)
+             slurp
+             pandoc/from-markdown
+             pandoc/to-html
+             clerk/html))))
