@@ -37,10 +37,10 @@
 (defn docs [cohort]
   (let [id (:cohort/id cohort)
         root (:cohort/root cohort)]
-    (assert id)
-    (assert root)
-    (assert (fs/directory? root))
-    (->> (fs/list-dir (fs/file root))
-         (map (fn [f]
-                {:doc/slug (fs/file-name f)}))
-         (filter (partial doc/exists? cohort)))))
+    (when (and (assert id)
+               (assert root)
+               (assert (fs/directory? root)))
+      (->> (fs/list-dir (fs/file root))
+           (map (fn [f]
+                  {:doc/slug (fs/file-name f)}))
+           (filter (partial doc/exists? cohort))))))
