@@ -51,3 +51,10 @@
          (map (fn [f]
                 {:doc/slug (fs/file-name f)}))
          (filter (partial doc? cohort)))))
+
+(defn href
+  "Create a link to a doc in a cohort"
+  [cohort doc]
+  (assert (:cohort/id cohort))
+  (assert (:doc/slug doc))
+  (str "/" (name (:cohort/id cohort)) "/" (:doc/slug doc)))

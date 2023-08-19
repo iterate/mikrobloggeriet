@@ -15,3 +15,8 @@
                         (map :slug)
                         (into #{}))
                    "jals-4"))))
+
+(deftest href-test
+  (is (= "/olorm/olorm-1"
+         (cohort/href cohort/olorm
+                      {:doc/slug "olorm-1"}))))
