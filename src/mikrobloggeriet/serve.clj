@@ -245,15 +245,23 @@
 
 (defn doc
   [req]
-  (let [cohort-id (:cohort/id req)
-        doc-slug (:doc/slug req)]
-    {:status 200
-     :body
-     (page/html5
-      (into [:head] (shared-html-header req))
-      [:body
-       [:p "cohort id: " cohort-id]
-       [:p "doc slug:" doc-slug]])}))
+  (when (and (:mikrobloggeriet/cohort req)
+             (:mikrobloggeriet.doc/slug req))
+    (let [cohort (:mikrobloggeriet/cohort req)
+          doc {:doc/slug (:mikrobloggeriet.doc/slug req)}
+          {:keys [title doc-html]}
+          (when (doc/exists? cohort doc)
+            (markdown->html+info (slurp (doc/index-md-path cohort doc))))
+          ]
+      {:status 200
+       :body
+       (page/html5
+        (into [:head] (concat (when title [:title title])
+                              (shared-html-header req)))
+        [:body
+         [:p "cohort id: " (:cohort/id cohort)]
+         [:p "doc slug:" (:doc/slug doc)]
+         doc-html])})))
 
 (defn random-doc [_req]
   (let [target (or
@@ -340,7 +348,7 @@
   (GET "/jals/draw/:pool" req (draw req :jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
   (GET "/oj/:slug" req (doc (assoc req
-                                   :cohort/id :oj
+                                   :mikrobloggeriet/cohort cohort/oj
                                    :doc/slug (get-in req [:route-params :slug])))))
 
 (comment
