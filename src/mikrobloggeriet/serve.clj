@@ -85,6 +85,7 @@
          (interpose " · "
                     (for [doc (jals/docs {:repo-path (repo-path)})]
                       [:a {:href (jals/href doc)} (:slug doc)]))]]
+
        (when (= "oj" (flag req))
          [:section
           [:h2 "OJ"]
@@ -92,6 +93,14 @@
           (interpose " · "
                      (for [doc (cohort/docs cohort/oj)]
                        [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)]))])
+
+       (when (= "genai" (flag req))
+         [:section
+          [:h2 "GENAI"]
+          [:p "Mikrobloggen GENAI skrives av ... deg?"]
+          (interpose " · "
+                     (for [doc (cohort/docs cohort/genai)]
+                       [:a {:href (doc/href cohort/genai doc)} (:doc/slug doc)]))])
 
        [:hr]
 
@@ -137,7 +146,10 @@
             [:p "Sett flagg: "
              (flag-element "ingen-flag")
              " | "
-             (flag-element "oj")])])])}))
+             (flag-element "oj")
+             " | "
+             (flag-element "genai")
+             ])])])}))
 
 (defn olorm-index [req]
   (page/html5
@@ -350,7 +362,11 @@
                                     {\a "adrian" \l "lars" \s "sindre"}))
   (GET "/oj/:slug" req (doc (assoc req
                                    :mikrobloggeriet/cohort cohort/oj
-                                   :mikrobloggeriet.doc/slug (get-in req [:route-params :slug])))))
+                                   :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+  (GET "/genai/:slug" req (doc (assoc req
+                                      :mikrobloggeriet/cohort cohort/genai
+                                      :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+  )
 
 (comment
   (app {:uri "/hops-info", :request-method :get})
