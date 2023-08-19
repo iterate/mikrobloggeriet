@@ -245,6 +245,7 @@
 
 (defn doc
   [req]
+  (tap> req)
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
@@ -256,7 +257,7 @@
       {:status 200
        :body
        (page/html5
-        (into [:head] (concat (when title [:title title])
+        (into [:head] (concat (when title [[:title title]])
                               (shared-html-header req)))
         [:body
          [:p "cohort id: " (:cohort/id cohort)]
@@ -349,7 +350,7 @@
                                     {\a "adrian" \l "lars" \s "sindre"}))
   (GET "/oj/:slug" req (doc (assoc req
                                    :mikrobloggeriet/cohort cohort/oj
-                                   :doc/slug (get-in req [:route-params :slug])))))
+                                   :mikrobloggeriet.doc/slug (get-in req [:route-params :slug])))))
 
 (comment
   (app {:uri "/hops-info", :request-method :get})
