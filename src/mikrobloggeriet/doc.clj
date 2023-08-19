@@ -2,6 +2,17 @@
   (:require
    [babashka.fs :as fs]))
 
+;; I wonder if we should change all these function signatures from
+;;
+;;     (fn [cohort doc] ,,,)
+;;
+;; to
+;;
+;;     (fn [doc cohort] ,,,)
+;;
+;; in order to take the object first.
+;; I think this will help make threading easier.
+
 (defn exists? [cohort doc]
   (and (:cohort/root cohort)
        (:doc/slug doc)
