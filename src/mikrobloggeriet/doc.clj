@@ -23,7 +23,6 @@
 
 (defn index-md-path [cohort doc]
   (when (exists? cohort doc)
-    (str "/"
-         (fs/file (:cohort/root cohort)
-                  (:doc/slug doc)
-                  "index.md"))))
+    (fs/file (:cohort/root cohort)
+             (:doc/slug doc)
+             "index.md")))
