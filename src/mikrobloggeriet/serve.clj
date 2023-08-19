@@ -144,7 +144,7 @@
                                   "🚩 ")
                                 [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
             [:p "Sett flagg: "
-             (flag-element "ingen-flag")
+             (flag-element "ingen-flagg")
              " | "
              (flag-element "oj")
              " | "
