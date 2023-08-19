@@ -2,8 +2,7 @@
   (:require
    [clojure.test :refer [deftest is]]
    [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.doc :as doc]
-   [babashka.fs :as fs]))
+   [mikrobloggeriet.doc :as doc]))
 
 (deftest href-test
   (is (= "/olorm/olorm-1"
