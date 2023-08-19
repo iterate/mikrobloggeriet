@@ -5,8 +5,9 @@
 
 (deftest docs-test
   (testing "we find olorm-3"
-    (is (contains? (into #{}
-                         (map :slug (cohort/docs cohort/olorm)))
+    (is (contains? (->> (cohort/docs cohort/olorm)
+                        (map :slug)
+                        (into #{}))
                    "olorm-3")))
   #_#_#_
   (testing "we find jals-4")
