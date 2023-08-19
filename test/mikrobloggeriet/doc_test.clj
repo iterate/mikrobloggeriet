@@ -12,3 +12,7 @@
 (deftest exists?-test
   (is (doc/exists? cohort/olorm
                    {:doc/slug "olorm-1"})))
+
+(deftest index-md-path-test
+  (is (= "/o/olorm-1/index.md"
+         (doc/index-md-path cohort/olorm {:doc/slug "olorm-1"}))))

@@ -2,13 +2,6 @@
   (:require
    [babashka.fs :as fs]))
 
-(defn href
-  "Create a link to a doc in a cohort"
-  [cohort doc]
-  (when (and (:cohort/id cohort)
-             (:doc/slug doc))
-    (str "/" (name (:cohort/id cohort)) "/" (:doc/slug doc))))
-
 (defn exists? [cohort doc]
   (and (:cohort/root cohort)
        (:doc/slug doc)
@@ -20,3 +13,17 @@
        (fs/exists? (fs/file (:cohort/root cohort)
                             (:doc/slug doc)
                             "index.md"))))
+
+(defn href
+  "Create a link to a doc in a cohort"
+  [cohort doc]
+  (when (and (:cohort/id cohort)
+             (:doc/slug doc))
+    (str "/" (name (:cohort/id cohort)) "/" (:doc/slug doc))))
+
+(defn index-md-path [cohort doc]
+  (when (exists? cohort doc)
+    (str "/"
+         (fs/file (:cohort/root cohort)
+                  (:doc/slug doc)
+                  "index.md"))))
