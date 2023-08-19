@@ -243,6 +243,18 @@
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]]
        doc-html])}))
 
+(defn doc
+  [req]
+  (let [cohort-id (:cohort/id req)
+        doc-slug (:doc/slug req)]
+    {:status 200
+     :body
+     (page/html5
+      (into [:head] (shared-html-header req))
+      [:body
+       [:p "cohort id: " cohort-id]
+       [:p "doc slug:" doc-slug]])}))
+
 (defn random-doc [_req]
   (let [target (or
                 (when-let [docs (into [] cat [(olorm/docs {:repo-path (repo-path)})
@@ -326,8 +338,11 @@
   (GET "/olorm/draw/:pool" req (draw req :olorm
                                      {\o "oddmund" \l "lars" \r "richard"}))
   (GET "/jals/draw/:pool" req (draw req :jals
-                                    {\a "adrian" \l "lars" \s "sindre"})))
--
+                                    {\a "adrian" \l "lars" \s "sindre"}))
+  (GET "/oj/:slug" req (doc (assoc req
+                                   :cohort/id :oj
+                                   :doc/slug (get-in req [:route-params :slug])))))
+
 (comment
   (app {:uri "/hops-info", :request-method :get})
   (app {:uri "/olorm/draw/o", :request-method :get}))
