@@ -9,8 +9,9 @@
                         (map :slug)
                         (into #{}))
                    "olorm-3")))
-  #_#_#_
-  (testing "we find jals-4")
-  (contains? )
-  (is (= true
-         (cohort/foo))))
+
+  (testing "we find jals-4"
+    (is (contains? (->> (cohort/docs cohort/jals)
+                        (map :slug)
+                        (into #{}))
+                   "jals-4"))))
