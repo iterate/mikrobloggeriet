@@ -1,6 +1,7 @@
 (ns mikrobloggeriet.cohort
   (:require
-   [babashka.fs :as fs]))
+   [babashka.fs :as fs]
+   [mikrobloggeriet.doc :as doc]))
 
 (def olorm
   (sorted-map
@@ -33,14 +34,6 @@
    :cohort/id :genai
    :cohort/members [{:author/first-name "Julian"}]))
 
-(defn doc? [cohort doc]
-  (and (:doc/slug doc)
-       (fs/directory? (fs/file (:cohort/root cohort)
-                               (:doc/slug doc)))
-       (fs/exists? (fs/file (:cohort/root cohort)
-                            (:doc/slug doc)
-                            "meta.edn"))))
-
 (defn docs [cohort]
   (let [id (:cohort/id cohort)
         root (:cohort/root cohort)]
@@ -50,4 +43,4 @@
     (->> (fs/list-dir (fs/file root))
          (map (fn [f]
                 {:doc/slug (fs/file-name f)}))
-         (filter (partial doc? cohort)))))
+         (filter (partial doc/exists? cohort)))))

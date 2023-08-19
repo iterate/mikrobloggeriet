@@ -8,3 +8,7 @@
   (is (= "/olorm/olorm-1"
          (doc/href cohort/olorm
                    {:doc/slug "olorm-1"}))))
+
+(deftest exists?-test
+  (is (doc/exists? cohort/olorm
+                   {:doc/slug "olorm-1"})))
