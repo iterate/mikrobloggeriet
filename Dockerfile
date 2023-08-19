@@ -33,6 +33,7 @@ COPY test/               /mikrobloggeriet/test/
 COPY vanilla.css         /mikrobloggeriet/vanilla.css
 COPY reset.css           /mikrobloggeriet/reset.css
 COPY theme/              /mikrobloggeriet/theme/
+COPY text/               /mikrobloggeriet/text/
 COPY mikrobloggeriet.css /mikrobloggeriet/mikrobloggeriet.css
 COPY o/                  /mikrobloggeriet/o
 COPY j/                  /mikrobloggeriet/j
