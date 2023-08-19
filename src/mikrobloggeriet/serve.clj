@@ -13,7 +13,8 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.style :as style]
    [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies :as cookies]))
+   [ring.middleware.cookies :as cookies]
+   [mikrobloggeriet.doc :as doc]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -90,7 +91,7 @@
           [:p "Mikrobloggen OJ skrives av Olav og Johan."]
           (interpose " · "
                      (for [doc (cohort/docs cohort/oj)]
-                       [:a {:href "#"} (:doc/slug doc)]))])
+                       [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)]))])
 
        [:hr]
 
