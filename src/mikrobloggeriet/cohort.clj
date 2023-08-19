@@ -1,24 +1,50 @@
 (ns mikrobloggeriet.cohort
   (:require
-   [babashka.fs :as fs]
-   [mikrobloggeriet.jals :as jals]
-   [mikrobloggeriet.olorm :as olorm]))
+   [babashka.fs :as fs]))
 
-(def ^:private cohorts-by-id
-  {:olorm {}
-   :jals {}})
+(def olorm
+  {:cohort/root "o"
+   :cohort/id :olorm
+   :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}
+                    {:author/email "lars.barlindhaug@iterate.no", :author/first-name "Lars"}
+                    {:author/email "oddmunds@iterate.no", :author/first-name "Oddmund"}
+                    {:author/email "richard.tingstad@iterate.no", :author/first-name "Richard"}]})
 
-(defn docs
-  ([]
-   (docs {}))
-  ([opts]
-   (let [repo-path (fs/canonicalize (or (:repo-path opts) "."))
-         cohort (:cohort opts)]
-     (assert (fs/directory? repo-path) ":repo-path must be a directory.")
-     (assert (contains? (into #{nil} (keys cohorts-by-id)) cohort)
-             "Cohort must be a know cohort, or nil")
-     (case cohort
-       :olorm (olorm/docs {:repo-path repo-path})
-       :jals (jals/docs {:repo-path repo-path})
-       (concat (olorm/docs {:repo-path repo-path})
-               (jals/docs {:repo-path repo-path}))))))
+(def jals
+  {:cohort/root "j"
+   :cohort/id :jals
+   :cohort/members [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
+                    {:author/email "adrian.tofting@iterate.no",
+                     :author/first-name "Adrian"}
+                    {:author/email "larshbj@gmail.com", :author/first-name "Lars"}
+                    {:author/email "sindre@iterate.no", :author/first-name "Sindre"}]})
+
+(def oj
+  {:cohort/root "text/oj"
+   :cohort/id :oj
+   :cohort/members [{:author/first-name "Johan"}
+                    {:author/first-name "Olav"}]})
+
+(def genai
+  {:cohort/root "text/genai"
+   :cohort/id :genai
+   :cohort/members [{:author/first-name "Julian"}]})
+
+(defn doc? [cohort doc]
+  (and (:doc/slug doc)
+       (fs/directory? (fs/file (:cohort/root cohort)
+                               (:doc/slug doc)))
+       (fs/exists? (fs/file (:cohort/root cohort)
+                            (:doc/slug doc)
+                            "meta.edn"))))
+
+(defn docs [cohort]
+  (let [id (:cohort/id cohort)
+        root (:cohort/root cohort)]
+    (assert id)
+    (assert root)
+    (assert (fs/directory? root))
+    (->> (fs/list-dir (fs/file root))
+         (map (fn [f]
+                {:doc/slug (fs/file-name f)}))
+         (filter (partial doc? cohort)))))
