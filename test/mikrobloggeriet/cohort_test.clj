@@ -6,12 +6,12 @@
 (deftest docs-test
   (testing "we find olorm-3"
     (is (contains? (->> (cohort/docs cohort/olorm)
-                        (map :slug)
+                        (map :doc/slug)
                         (into #{}))
                    "olorm-3")))
 
   (testing "we find jals-4"
     (is (contains? (->> (cohort/docs cohort/jals)
-                        (map :slug)
+                        (map :doc/slug)
                         (into #{}))
                    "jals-4"))))
