@@ -7,10 +7,11 @@
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
+   [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.jals :as jals]
    [mikrobloggeriet.olorm :as olorm]
-   [mikrobloggeriet.style :as style]
    [mikrobloggeriet.pandoc :as pandoc]
+   [mikrobloggeriet.style :as style]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
@@ -86,7 +87,10 @@
        (when (= "oj" (flag req))
          [:section
           [:h2 "OJ"]
-          [:p "Mikrobloggen OJ skrives av Olav og Johan."]])
+          [:p "Mikrobloggen OJ skrives av Olav og Johan."]
+          (interpose " · "
+                     (for [doc (cohort/docs cohort/oj)]
+                       [:a {:href "#"} (:doc/slug doc)]))])
 
        [:hr]
 
