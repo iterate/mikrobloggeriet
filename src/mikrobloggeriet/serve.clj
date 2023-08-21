@@ -271,11 +271,7 @@
        (page/html5
         (into [:head] (concat (when title [[:title title]])
                               (shared-html-header req)))
-        [:body
-         #_#_
-         [:p "cohort id: " (:cohort/id cohort)]
-         [:p "doc slug:" (:doc/slug doc)]
-         doc-html])})))
+        [:body doc-html])})))
 
 (defn random-doc [_req]
   (let [target (or
