@@ -35,9 +35,9 @@ When both are set, you can run `mblog create` to write a new post.
 
 To configure repo path, user cohort and editor, run:
 
-    mblog config repo-path YOUR_REPO_PATH
-    mblog config cohort YOUR_COHORT
-    mblog config editor YOUR_EDITOR
+    mblog config set repo-path YOUR_REPO_PATH
+    mblog config set cohort YOUR_COHORT
+    mblog config set editor YOUR_EDITOR
 
 ### Example: configure `mblog` for the `genai` cohort and writing with Visual Studio Code
 
