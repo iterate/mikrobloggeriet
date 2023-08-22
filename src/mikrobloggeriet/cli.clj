@@ -19,6 +19,9 @@
           (edn/read-string (slurp (config-file)))
           {})))
 
+(defn- wipe-config []
+  (fs/delete-if-exists (config-file)))
+
 (defn- config-get [property]
   (get (load-config) property))
 
@@ -26,18 +29,28 @@
   (config-get :repo-path))
 
 (defn- config-set [property value]
-  (let [config (load-config)]
-    (when-not (fs/exists? (config-file))
-      (fs/create-dirs (fs/xdg-config-home "mikrobloggeriet")))
-    (spit (config-file)
-          (with-out-str (pprint (assoc config property value))))))
+  (when (= value
+           (try
+             (-> value pr-str edn/read-string)
+             (catch java.lang.RuntimeException _
+               nil)))
+    (let [config (load-config)]
+      (when-not (fs/exists? (config-file))
+        (fs/create-dirs (fs/xdg-config-home "mikrobloggeriet")))
+      (spit (config-file)
+            (with-out-str (pprint (assoc config property value)))))))
 
 (comment
+  (wipe-config)
+
   (fs/exists? (config-file))
   (config-get :cohort)
   (config-set :cohort :olorm)
   (config-set :editor "emacs")
   (config-get :editor)
+  (config-get :repo-path)
+  (config-set :repo-path (fs/canonicalize "."))
+  (config-set :repo-path (str (fs/canonicalize ".")))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
