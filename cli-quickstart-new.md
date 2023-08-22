@@ -8,9 +8,7 @@ This guide gets you started with the new CLI: `mblog`.
 Mikrobloggeriet.no requires some setup:
 
 1. [Babashka] must be installed.
-2. [Bbin] must be set.
-3. `EDITOR` must be set in your shell.
-   Set `export EDITOR=vim` in your `.zshrc` to use Vim, like the default for `git`.
+2. [bbin] must be installed.
 
 [Babashka]: https://babashka.org/
 [Bbin]: https://github.com/babashka/bbin
