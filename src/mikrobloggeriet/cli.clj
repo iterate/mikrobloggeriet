@@ -1,9 +1,13 @@
 (ns mikrobloggeriet.cli
   (:require
    [babashka.cli :as cli]
-   [clojure.pprint :refer [pprint]]
    [babashka.fs :as fs]
-   [clojure.edn :as edn]))
+   [clojure.edn :as edn]
+   [clojure.pprint :refer [pprint]]
+   [clojure.string :as str]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Low-level helpers for managing the config file
 
 (defn- config-file []
   (fs/file (fs/xdg-config-home "mikrobloggeriet") "config.edn"))
@@ -14,13 +18,13 @@
           (edn/read-string (slurp (config-file)))
           {})))
 
-(defn config-get [property]
+(defn- config-get [property]
   (get (load-config) property))
 
 (comment
   (config-get :repo-path))
 
-(defn config-set [property value]
+(defn- config-set [property value]
   (let [config (load-config)]
     (when-not (fs/exists? (config-file))
       (fs/create-dirs (fs/xdg-config-home "mikrobloggeriet")))
@@ -35,25 +39,52 @@
   (config-get :editor)
   )
 
-(defn mblog-set-repo-path [opts+args])
-(defn mblog-repo-path [_opts+args])
-(defn mblog-set-cohort [opts+args])
-(defn mblog-cohort [_opts+args])
-(defn mblog-set-editor [opts+args])
-(defn mblog-editor [_opts+args])
 
-(defn mblog-help [opts]
-  (prn :help))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Subcommand handlers
+
+(defn mblog-set-repo-path [opts+args]
+  (when-let [repo-path (:repo-path (:opts opts+args))]
+    (when (fs/exists? repo-path)
+      (let [canonicalized (str (fs/canonicalize repo-path))]
+        (config-set :repo-path canonicalized)))))
+
+(defn mblog-repo-path [_opts+args]
+  (when-let [repo-path (config-get :repo-path)]
+    (println repo-path)))
+
+(defn mblog-set-cohort [opts+args]
+  (when-let [cohort (:cohort (:opts opts+args))]
+    (config-set :cohort cohort)))
+
+(defn mblog-cohort [_opts+args]
+  (when-let [editor (config-get :cohort)]
+    (println editor)))
+
+(defn mblog-set-editor [opts+args]
+  (when-let [editor (:editor (:opts opts+args))]
+    (config-set :editor editor)))
+
+(defn mblog-editor [_opts+args]
+  (when-let [editor (config-get :editor)]
+    (println editor)))
+
+(declare subcommands)
+
+(defn mblog-help [_opts]
+  (println "Available subcommands:")
+  (println)
+  (doseq [c subcommands]
+    (println (str "  " (str/join " " (:cmds c))))))
 
 (def subcommands
-  [
-   {:cmds ["set-repo-path"] :fn mblog-set-repo-path :args->opts [:path]}
-   {:cmds ["repo-path"] :fn mblog-repo-path}
-   {:cmds ["set-cohort"] :fn mblog-set-cohort :args->opts [:cohort]}
-   {:cmds ["cohort"] :fn mblog-cohort}
-   {:cmds ["set-editor"] :fn mblog-set-editor :args->opts [:editor]}
+  [{:cmds ["cohort"] :fn mblog-cohort}
    {:cmds ["editor"] :fn mblog-editor}
    {:cmds ["help"] :fn mblog-help}
+   {:cmds ["repo-path"] :fn mblog-repo-path}
+   {:cmds ["set-cohort"] :fn mblog-set-cohort :args->opts [:cohort]}
+   {:cmds ["set-editor"] :fn mblog-set-editor :args->opts [:editor]}
+   {:cmds ["set-repo-path"] :fn mblog-set-repo-path :args->opts [:repo-path]}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
