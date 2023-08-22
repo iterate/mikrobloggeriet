@@ -47,7 +47,7 @@ See [Launching from the Command line in the official Mac installation][code-docs
 [code-docs-setup-mac]: https://code.visualstudio.com/docs/setup/mac
 
 Then, set your `mblog` configuration.
-From the folder you cloned `mikrobloggeriet`, please run:
+From the folder you cloned `mikrobloggeriet`, run:
 
     mblog config set repo-path .
     mblog config set cohort genai
