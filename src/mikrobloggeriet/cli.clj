@@ -93,4 +93,8 @@
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
-  (cli/dispatch subcommands args))
+  (cli/dispatch subcommands
+                args
+                {:coerce {:repo-path :string
+                          :editor :string
+                          :cohort :keyword}}))
