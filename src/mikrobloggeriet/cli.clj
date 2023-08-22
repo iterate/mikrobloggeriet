@@ -78,13 +78,16 @@
     (println (str "  " (str/join " " (:cmds c))))))
 
 (def subcommands
-  [{:cmds ["cohort"] :fn mblog-cohort}
-   {:cmds ["editor"] :fn mblog-editor}
-   {:cmds ["help"] :fn mblog-help}
-   {:cmds ["repo-path"] :fn mblog-repo-path}
-   {:cmds ["set-cohort"] :fn mblog-set-cohort :args->opts [:cohort]}
-   {:cmds ["set-editor"] :fn mblog-set-editor :args->opts [:editor]}
-   {:cmds ["set-repo-path"] :fn mblog-set-repo-path :args->opts [:repo-path]}
+  [{:cmds ["help"] :fn mblog-help}
+
+   {:cmds ["config" "cohort"] :fn mblog-cohort}
+   {:cmds ["config" "editor"] :fn mblog-editor}
+   {:cmds ["config" "repo-path"] :fn mblog-repo-path}
+
+   {:cmds ["config" "set" "cohort"] :fn mblog-set-cohort :args->opts [:cohort]}
+   {:cmds ["config" "set" "editor"] :fn mblog-set-editor :args->opts [:editor]}
+   {:cmds ["config" "set" "repo-path"] :fn mblog-set-repo-path :args->opts [:repo-path]}
+
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
