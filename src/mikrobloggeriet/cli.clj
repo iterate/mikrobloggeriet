@@ -33,7 +33,7 @@
            (try
              (-> value pr-str edn/read-string)
              (catch java.lang.RuntimeException _
-               nil)))
+               ::cannot-roundtrip)))
     (let [config (load-config)]
       (when-not (fs/exists? (config-file))
         (fs/create-dirs (fs/xdg-config-home "mikrobloggeriet")))
