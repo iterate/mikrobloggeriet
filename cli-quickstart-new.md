@@ -49,6 +49,6 @@ See [Launching from the Command line in the official Mac installation][code-docs
 Then, set your `mblog` configuration.
 From the folder you cloned `mikrobloggeriet`, please run:
 
-    mblog config repo-path .
-    mblog config cohort genai
-    mblog config editor "code --wait --new-window"
+    mblog config set repo-path .
+    mblog config set cohort genai
+    mblog config set editor "code --wait --new-window"
