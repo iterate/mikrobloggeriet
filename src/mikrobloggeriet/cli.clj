@@ -77,6 +77,9 @@
   (doseq [c subcommands]
     (println (str "  " (str/join " " (:cmds c))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Subcommand table
+
 (def subcommands
   [{:cmds ["help"] :fn mblog-help}
 
