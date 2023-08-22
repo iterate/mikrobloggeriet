@@ -9,13 +9,14 @@ Mikrobloggeriet.no requires some setup:
 
 1. [Babashka] must be installed.
 2. [bbin] must be installed.
+3. You must clone this repository.
 
 [Babashka]: https://babashka.org/
 [Bbin]: https://github.com/babashka/bbin
 
 ## Install `mblog`
 
-To install the CLI, please run the following from this directory:
+To install the CLI with bbin, please run the following **from this directory** (where you cloned the repository):
 
 ```shell
 bbin install . --as mblog --main-opts '["-m" "mikrobloggeriet.cli"]'
