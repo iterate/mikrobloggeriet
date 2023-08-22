@@ -1,4 +1,4 @@
-# CLI quickstart with `mblog` (not `olorm` or `jals`)
+# CLI quickstart for `mblog`
 
 This guide gets you started with the new CLI: `mblog`.
 `mblog` is currently (per 2023-08-22) work in progress.
