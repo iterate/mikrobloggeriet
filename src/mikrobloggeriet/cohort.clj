@@ -34,6 +34,12 @@
    :cohort/id :genai
    :cohort/members [{:author/first-name "Julian"}]))
 
+(def cohorts
+  (->> [olorm jals oj genai]
+       (map (fn [c]
+              [(:cohort/id c) c]))
+       (into (sorted-map))))
+
 (defn docs [cohort]
   (let [id (:cohort/id cohort)
         root (:cohort/root cohort)]

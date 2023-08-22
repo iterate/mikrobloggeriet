@@ -4,7 +4,8 @@
    [babashka.fs :as fs]
    [clojure.edn :as edn]
    [clojure.pprint :refer [pprint]]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [mikrobloggeriet.cohort :as cohort]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Low-level helpers for managing the config file
@@ -40,33 +41,37 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Subcommand handlers
+;; Subcommands
 
-(defn mblog-set-repo-path [opts+args]
-  (when-let [repo-path (:repo-path (:opts opts+args))]
-    (when (fs/exists? repo-path)
-      (let [canonicalized (str (fs/canonicalize repo-path))]
-        (config-set :repo-path canonicalized)))))
+(defn config-set-repo-path [repo-path]
+  (let [repo-path (cli/coerce repo-path :string)]
+    (when-let [canonicalized (fs/canonicalize repo-path)]
+      (when (fs/exists? canonicalized)
+        (config-set :repo-path (str canonicalized))))))
 
-(defn mblog-repo-path [_opts+args]
-  (when-let [repo-path (config-get :repo-path)]
-    (println repo-path)))
+(defn config-set-cohort [cohort]
+  (let [cohort (cli/coerce cohort :keyword)]
+    (when (contains? cohort/cohorts cohort)
+      (config-set :cohort cohort))))
 
-(defn mblog-set-cohort [opts+args]
-  (when-let [cohort (:cohort (:opts opts+args))]
-    (config-set :cohort cohort)))
-
-(defn mblog-cohort [_opts+args]
-  (when-let [editor (config-get :cohort)]
-    (println editor)))
-
-(defn mblog-set-editor [opts+args]
-  (when-let [editor (:editor (:opts opts+args))]
+(defn config-set-editor [editor]
+  (when (and (string? editor)
+             (not (str/blank? editor)))
     (config-set :editor editor)))
 
-(defn mblog-editor [_opts+args]
-  (when-let [editor (config-get :editor)]
-    (println editor)))
+(defn mblog-config [opts+args]
+  (let [property (:property (:opts opts+args))
+        value (:value (:opts opts+args))]
+    (when (#{:repo-path :editor :cohort} property)
+      (if (nil? value)
+        ;; get
+        (when-let [v (config-get property)]
+          (println v))
+        ;; set
+        (case property
+          :repo-path (config-set-repo-path value)
+          :editor (config-set-editor value)
+          :cohort (config-set-cohort value))))))
 
 (declare subcommands)
 
@@ -81,20 +86,12 @@
 
 (def subcommands
   [{:cmds ["help"] :fn mblog-help}
-
-   {:cmds ["config" "cohort"] :fn mblog-cohort}
-   {:cmds ["config" "editor"] :fn mblog-editor}
-   {:cmds ["config" "repo-path"] :fn mblog-repo-path}
-
-   {:cmds ["config" "set" "cohort"] :fn mblog-set-cohort :args->opts [:cohort]}
-   {:cmds ["config" "set" "editor"] :fn mblog-set-editor :args->opts [:editor]}
-   {:cmds ["config" "set" "repo-path"] :fn mblog-set-repo-path :args->opts [:repo-path]}
-
+   {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
   (cli/dispatch subcommands
                 args
-                {:coerce {:repo-path :string
-                          :editor :string
-                          :cohort :keyword}}))
+                {:coerce {:property :keyword
+                          :value :string}
+                 :no-keyword-opts true}))

@@ -35,9 +35,9 @@ When both are set, you can run `mblog create` to write a new post.
 
 To configure repo path, user cohort and editor, run:
 
-    mblog config set repo-path YOUR_REPO_PATH
-    mblog config set cohort YOUR_COHORT
-    mblog config set editor YOUR_EDITOR
+    mblog config repo-path YOUR_REPO_PATH
+    mblog config cohort YOUR_COHORT
+    mblog config editor YOUR_EDITOR
 
 ### Example: configure `mblog` for the `genai` cohort and writing with Visual Studio Code
 
@@ -49,6 +49,6 @@ See [Launching from the Command line in the official Mac installation][code-docs
 Then, set your `mblog` configuration.
 From the folder you cloned `mikrobloggeriet`, run:
 
-    mblog config set repo-path .
-    mblog config set cohort genai
-    mblog config set editor "code --wait --new-window"
+    mblog config repo-path .
+    mblog config cohort genai
+    mblog config editor "code --wait --new-window"
