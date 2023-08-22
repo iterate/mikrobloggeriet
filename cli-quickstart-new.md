@@ -12,7 +12,7 @@ Mikrobloggeriet.no requires some setup:
 3. You must clone this repository.
 
 [Babashka]: https://babashka.org/
-[Bbin]: https://github.com/babashka/bbin
+[bbin]: https://github.com/babashka/bbin
 
 ## Install `mblog`
 
