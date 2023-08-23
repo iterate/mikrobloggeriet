@@ -271,7 +271,7 @@
           doc {:doc/slug (:mikrobloggeriet.doc/slug req)}
           {:keys [title doc-html]}
           (when (doc/exists? cohort doc)
-            (markdown->html+info (slurp (doc/index-md-path cohort doc))))
+            (markdown->html+info (slurp (doc/index-md-path cohort doc)))) 
           ]
       {:status 200
        :body
@@ -283,8 +283,9 @@
           " — "
           [:a {:href "/"} "mikrobloggeriet"]
           " "
-          [:a {:href (str "/" (name (cohort :cohort/id)) "/")} (cohort :cohort/id)]
-          " — " 
+          [:a {:href (str "/" (cohort/slug cohort) "/")}
+           (cohort/slug cohort)]
+          " — "
           [:span (:doc/slug doc)]]
          doc-html])})))
 

@@ -16,6 +16,6 @@
                         (into #{}))
                    "jals-4"))))
 
-(deftest name-test
-  (is (= "oj" (cohort/name cohort/oj)))
-  (is (nil? (cohort/name {}))))
+(deftest slug-test
+  (is (= "oj" (cohort/slug cohort/oj)))
+  (is (nil? (cohort/slug {}))))

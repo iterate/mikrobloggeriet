@@ -52,6 +52,6 @@
            (filter (partial doc/exists? cohort))
            (sort-by doc/number)))))
 
-(defn name [cohort]
+(defn slug [cohort]
   (when-let [id (:cohort/id cohort)]
     (clojure.core/name id)))
