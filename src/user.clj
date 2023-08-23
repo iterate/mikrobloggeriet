@@ -30,9 +30,11 @@
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start!
-  ([] (start! {}))
+  ([]
+   (start! {}))
   ([opts]
-   (let [start-fn (requiring-resolve 'mikrobloggeriet.serve/start!)
+   (let [opts (merge {:browse? true} opts)
+         start-fn (requiring-resolve 'mikrobloggeriet.serve/start!)
          port (requiring-resolve 'mikrobloggeriet.serve/port)
          shell (requiring-resolve 'babashka.process/shell)]
      (start-fn {})
