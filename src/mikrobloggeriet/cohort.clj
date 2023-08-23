@@ -48,4 +48,5 @@
       (->> (fs/list-dir (fs/file root))
            (map (fn [f]
                   {:doc/slug (fs/file-name f)}))
-           (filter (partial doc/exists? cohort))))))
+           (filter (partial doc/exists? cohort))
+           (sort-by :doc/slug)))))
