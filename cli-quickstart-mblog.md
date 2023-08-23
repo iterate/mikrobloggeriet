@@ -16,7 +16,7 @@ Mikrobloggeriet.no requires some setup:
 
 ## Install `mblog`
 
-To install the CLI with bbin, please run the following **from this directory** (where you cloned the repository):
+To install the CLI with bbin, run the following command from inside the directory, meaning where you cloned down the repository:
 
 ```shell
 bbin install . --as mblog --main-opts '["-m" "mikrobloggeriet.cli"]'
