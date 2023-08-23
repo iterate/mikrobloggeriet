@@ -37,13 +37,13 @@ If the installation succeeds, you'll see output like this in your terminal:
 2. User cohort: the default cohort you are writing for.
 3. Editor: how you want to edit your text.
 
-When both are set, you can run `mblog create` to write a new post.
-
 To configure repo path, user cohort and editor, run:
 
     mblog config repo-path YOUR_REPO_PATH
     mblog config cohort YOUR_COHORT
     mblog config editor YOUR_EDITOR
+
+When repo-path, cohort and editor are set, you can run `mblog create` to write a new post.
 
 ### Example: configure `mblog` for the `genai` cohort and writing with Visual Studio Code
 
