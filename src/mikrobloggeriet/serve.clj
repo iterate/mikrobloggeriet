@@ -282,8 +282,8 @@
          [:p (feeling-lucky)
           " — "
           [:a {:href "/"} "mikrobloggeriet"]
-          " — "
-          [:a {:href "/" ():cohort/id cohort "/"} :cohort/id cohort]]
+          " "
+          [:a {:href (str "/" (name (cohort :cohort/id)) "/")} (cohort :cohort/id)]]
          doc-html])})))
 
 (defn random-doc [_req]
