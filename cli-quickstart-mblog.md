@@ -27,7 +27,7 @@ If the installation succeeds, you'll see output like this in your terminal:
 ```
 {:coords
  #:bbin{:url "file:///Users/teodorlu/dev/iterate/mikrobloggeriet"}}
-``
+```
 
 ## Configure `mblog`
 
