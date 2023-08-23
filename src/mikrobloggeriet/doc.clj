@@ -1,6 +1,7 @@
 (ns mikrobloggeriet.doc
   (:require
-   [babashka.fs :as fs]))
+   [babashka.fs :as fs]
+   [clojure.string :as str]))
 
 ;; I wonder if we should change all these function signatures from
 ;;
@@ -37,3 +38,7 @@
     (fs/file (:cohort/root cohort)
              (:doc/slug doc)
              "index.md")))
+
+(defn number [doc]
+  (when-let [slug (:doc/slug doc)]
+    (parse-long (last (str/split slug #"-")))))
