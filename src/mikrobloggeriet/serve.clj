@@ -151,6 +151,13 @@
              (flag-element "genai")
              ])])])}))
 
+(defn cohort-index [req]
+  (page/html5
+   (into [:head] (shared-html-header req))
+   [:body
+    :p
+    (feeling-lucky)]))
+
 (defn olorm-index [req]
   (page/html5
    (into [:head] (shared-html-header req))
@@ -271,7 +278,13 @@
        (page/html5
         (into [:head] (concat (when title [[:title title]])
                               (shared-html-header req)))
-        [:body doc-html])})))
+        [:body
+         [:p (feeling-lucky)
+          " — "
+          [:a {:href "/"} "mikrobloggeriet"]
+          " — "
+          [:a {:href "/" ():cohort/id cohort "/"} :cohort/id cohort]]
+         doc-html])})))
 
 (defn random-doc [_req]
   (let [target (or
