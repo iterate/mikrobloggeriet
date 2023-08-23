@@ -1,4 +1,5 @@
 (ns mikrobloggeriet.cohort
+  (:refer-clojure :exclude [name])
   (:require
    [babashka.fs :as fs]
    [mikrobloggeriet.doc :as doc]))
@@ -49,4 +50,8 @@
            (map (fn [f]
                   {:doc/slug (fs/file-name f)}))
            (filter (partial doc/exists? cohort))
-           (sort-by :doc/slug)))))
+           (sort-by doc/number)))))
+
+(defn name [cohort]
+  (when-let [id (:cohort/id cohort)]
+    (clojure.core/name id)))

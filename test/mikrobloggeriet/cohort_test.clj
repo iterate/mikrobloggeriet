@@ -15,3 +15,7 @@
                         (map :doc/slug)
                         (into #{}))
                    "jals-4"))))
+
+(deftest name-test
+  (is (= "oj" (cohort/name cohort/oj)))
+  (is (nil? (cohort/name {}))))
