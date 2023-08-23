@@ -35,7 +35,7 @@ If the installation succeeds, you'll see output like this in your terminal:
 
 1. Repo path: where you have cloned the `mikrobloggeriet` CLI.
 2. User cohort: the default cohort you are writing for.
-3. Editor: how you want to edit your text.
+3. Editor: which application you want to use to write content.
 
 To configure repo path, user cohort and editor, run:
 
