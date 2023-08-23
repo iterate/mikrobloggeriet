@@ -285,14 +285,6 @@
           " "
           [:a {:href (str "/" (name (cohort :cohort/id)) "/")} (cohort :cohort/id)]
           " — " 
-          #_[:span (interpose " · " (filter some?
-                                          [(let [prev (jals/->doc {:number (dec number) :repo-path (repo-path)})]
-                                             (when (jals/exists? prev)
-                                               [:a {:href (jals/href prev)} (:slug prev)]))
-                                           [:span (:slug doc)]
-                                           (let [prev (jals/->doc {:number (inc number) :repo-path (repo-path)})]
-                                             (when (jals/exists? prev)
-                                               [:a {:href (jals/href prev)} (:slug prev)]))]))]
           [:span (:doc/slug doc)]]
          doc-html])})))
 
