@@ -22,6 +22,13 @@ To install the CLI with bbin, run the following command from inside the director
 bbin install . --as mblog --main-opts '["-m" "mikrobloggeriet.cli"]'
 ```
 
+If the installation succeeds, you'll see output like this in your terminal:
+
+```
+{:coords
+ #:bbin{:url "file:///Users/teodorlu/dev/iterate/mikrobloggeriet"}}
+``
+
 ## Configure `mblog`
 
 `mblog` requires the following configuration for writing:
