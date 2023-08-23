@@ -17,3 +17,7 @@
   (let [md-file (doc/index-md-path cohort/olorm {:doc/slug "olorm-1"})]
     (is (= "o/olorm-1/index.md"
            (str md-file)))))
+
+(deftest number-test
+  (is (= 1 (doc/number {:doc/slug "olorm-1"})))
+  (is (= 42 (doc/number {:doc/slug "jals-42"}))))
