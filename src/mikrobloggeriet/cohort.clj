@@ -23,16 +23,23 @@
                     {:author/email "sindre@iterate.no", :author/first-name "Sindre"}]))
 
 (def oj
-  (sorted-map :cohort/root "text/oj"
-              :cohort/id :oj
-              :cohort/members [{:author/first-name "Johan"}
-                               {:author/first-name "Olav"}]))
+  (sorted-map
+   :cohort/root "text/oj"
+   :cohort/id :oj
+   :cohort/members [{:author/first-name "Johan"}
+                    {:author/first-name "Olav"}]))
 
 (def genai
   (sorted-map
    :cohort/root "text/genai"
    :cohort/id :genai
    :cohort/members [{:author/first-name "Julian"}]))
+
+(def cohorts
+  (->> [olorm jals oj genai]
+       (map (fn [c]
+              [(:cohort/id c) c]))
+       (into (sorted-map))))
 
 (defn docs [cohort]
   (let [id (:cohort/id cohort)
