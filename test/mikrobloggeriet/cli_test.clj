@@ -58,9 +58,15 @@
                     (str/starts-with? shell-command-str editor)))
                 commands))))
 
-  )
-
-
+  (testing "when shelling out, the dir argument is used"
+    (let [dir "/tmp/mikrobloggeriet-test"
+          commands (cli/create-opts->commands {:dir dir :git true :editor nil})
+          shell-commands (filter (fn [[cmd _ _]]
+                                   (= cmd :shell))
+                                 commands)]
+      (every? (fn [[_ opts _]]
+                (= dir (:dir opts)))
+              shell-commands))))
 
 (deftest learn-test
   (testing "some? returns true for all non-nil values"
