@@ -59,4 +59,18 @@
     (is (not nil)))
 
   (testing "false is falsey"
-    (is (not false))))
+    (is (not false)))
+
+  (testing "concat"
+    (is (= [1 2 3 4]
+           (concat [1 2] [3 4])))
+
+    (is (= [1 2 3 4 \5 \6]
+           (concat (when false [1 2 3])
+                   [1 2]
+                   ""
+                   nil
+                   [3 4]
+                   "56")))
+    )
+  )
