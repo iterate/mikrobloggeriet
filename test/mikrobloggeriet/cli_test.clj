@@ -84,6 +84,11 @@
                    ""
                    nil
                    [3 4]
-                   "56")))
-    )
+                   "56"))))
+
+  (testing "tread last"
+    (is (= '(1 3 5)
+           (filter odd? (range 6))
+           (->> (range 6)
+                (filter odd?)))))
   )
