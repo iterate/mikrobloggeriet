@@ -3,9 +3,16 @@
    [babashka.fs :as fs]
    [clojure.string :as str]))
 
-(defn number [doc]
-  (when-let [slug (:doc/slug doc)]
-    (parse-long (last (str/split slug #"-")))))
+;; I wonder if we should change all these function signatures from
+;;
+;;     (fn [cohort doc] ,,,)
+;;
+;; to
+;;
+;;     (fn [doc cohort] ,,,)
+;;
+;; in order to take the object first.
+;; I think this will help make threading easier.
 
 (defn exists? [cohort doc]
   (and (:cohort/root cohort)
@@ -31,3 +38,7 @@
     (fs/file (:cohort/root cohort)
              (:doc/slug doc)
              "index.md")))
+
+(defn number [doc]
+  (when-let [slug (:doc/slug doc)]
+    (parse-long (last (str/split slug #"-")))))
