@@ -211,7 +211,7 @@
         title (:title html+info)
         doc-html (:doc-html html+info)
         ]
-    doc-html
+    olorm
     )
   )
 
@@ -221,9 +221,8 @@
         olorm (olorm/->olorm {:slug slug
                               :repo-path (repo-path)}) 
         number (:number olorm)
-        html+info
-        (when (olorm/exists? olorm)
-          (markdown->html+info (slurp (olorm/index-md-path olorm))))
+        html+info (when (olorm/exists? olorm)
+                    (markdown->html+info (slurp (olorm/index-md-path olorm))))
         title (:title html+info)
         doc-html (:doc-html html+info)
         ]
