@@ -86,6 +86,20 @@
           :editor (config-set-editor value)
           :cohort (config-set-cohort value))))))
 
+(defn create-opts->commands 
+  [{:keys [dir git edit]}]
+  (assert dir)
+  (assert (some? git))
+  (assert (some? edit)) 
+  )
+
+(comment
+  (create-opts->commands {:dir "/somedidr" :git "somegit" :edit "eidit"})
+  )
+
+(defn command->dry-command [command]
+  [:prn command])
+
 (declare subcommands)
 
 (defn mblog-help [_opts]
@@ -94,14 +108,12 @@
   (doseq [c subcommands]
     (println (str "  " (str/join " " (:cmds c))))))
 
-
-
 (defn mblog-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
     (println (str/trim "
                           Usage:
   
-    $ olorm create [OPTION...]
+    $ mblog create [OPTION...]
   
   Allowed options:
   
@@ -111,7 +123,18 @@
     --dry-run  Supress side effects and print commands instead
     --help     Show this helptext.
                         
-                        "))))
+                        "))
+    (System/exit 0))
+  (let [command-transform (if (:dry-run opts)
+                            command->dry-command
+                            identity)]
+    (->> {:dir (or (:dir opts) (config-get :repo-path))
+          :git (:git opts true)
+          :edit (:edit opts true)}
+         create-opts->commands
+         #_(map command-transform)
+         #_execute!))
+  )
 
 
 
