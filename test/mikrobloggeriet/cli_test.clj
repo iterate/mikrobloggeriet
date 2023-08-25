@@ -4,4 +4,6 @@
 
 (deftest name-test
   (testing "no directory"
-    (is (nil? (cli/create-opts->commands "" "")))))
+    (is (nil? (cli/create-opts->commands {:dir ""
+                                          :git ""
+                                          :edit ""})))))
