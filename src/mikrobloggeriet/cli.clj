@@ -136,8 +136,7 @@
   (concat
    ;; git
    (when git
-     [[:shell {:dir dir}
-       "git pull --ff-only"]])
+     [[:shell {:dir dir} "git pull --ff-only"]])
    ;; ikke git
    [[:create-dirs "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35"]
     [:spit
