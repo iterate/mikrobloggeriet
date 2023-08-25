@@ -94,12 +94,34 @@
   (doseq [c subcommands]
     (println (str "  " (str/join " " (:cmds c))))))
 
+
+
+(defn mblog-create [{:keys [opts]}]
+  (when (or (:help opts) (:h opts))
+    (println (str/trim "
+                          Usage:
+  
+    $ olorm create [OPTION...]
+  
+  Allowed options:
+  
+    --no-git   Disables all git commands.
+    --no-edit  Do not launch $EDITOR to edit files.
+               Also supresses git commit & git push.
+    --dry-run  Supress side effects and print commands instead
+    --help     Show this helptext.
+                        
+                        "))))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
 
 (def subcommands
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
+   {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
