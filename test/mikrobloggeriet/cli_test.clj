@@ -36,6 +36,15 @@
     (is (every? keyword?
                 (->> (cli/create-opts->commands {:dir "." :git false :edit false})
                      (map first)))))
+
+  (testing "When we transform to a dry run, only printable commands are returned"
+    (is (every? #{:prn :println}
+                (->> (cli/create-opts->commands {:dir "."
+                                                 :git false
+                                                 :edit false})
+                     (map cli/command->dry-command)
+                     (map first)))))
+
   )
 
 
