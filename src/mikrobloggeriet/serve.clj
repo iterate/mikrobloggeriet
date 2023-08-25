@@ -201,8 +201,18 @@
                           :title (pandoc/infer-title pandoc)}))
                      identity))
 
+(comment
+  (get-in last-req [:route-params :slug])
+  (:slug 
+   (:route-params
+    last-req))
+  
+  )
+
 (defn olorm [req]
-  (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
+  (def last-req req) ;; TODO delete before merging
+  (let [slug (get-in req [:route-params :slug])
+        olorm (olorm/->olorm {:slug slug
                               :repo-path (repo-path)})
         {:keys [number]} olorm
         {:keys [doc-html title]}
