@@ -18,3 +18,6 @@
 
 (defn root [cohort]
   (:cohort/root cohort))
+
+(defn members [cohort]
+  (:cohort/members cohort))
