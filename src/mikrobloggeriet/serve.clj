@@ -202,19 +202,21 @@
                      identity))
 
 (comment
-  (get-in last-req [:route-params :slug])
-  (:slug 
-   (:route-params
-    last-req))
-  
+  (let [slug (get-in last-req [:route-params :slug])
+        olorm (olorm/->olorm {:slug slug
+                              :repo-path (repo-path)})
+        number (:number olorm)
+        ;; {:keys [number]} olorm
+        ]
+    number)
   )
 
 (defn olorm [req]
   (def last-req req) ;; TODO delete before merging
   (let [slug (get-in req [:route-params :slug])
         olorm (olorm/->olorm {:slug slug
-                              :repo-path (repo-path)})
-        {:keys [number]} olorm
+                              :repo-path (repo-path)}) 
+        number (:number olorm) 
         {:keys [doc-html title]}
         (when (olorm/exists? olorm)
           (markdown->html+info (slurp (olorm/index-md-path olorm))))]
