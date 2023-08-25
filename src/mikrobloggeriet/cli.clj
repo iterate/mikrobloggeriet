@@ -122,10 +122,10 @@
   )
 
 (defn create-opts->commands 
-  [{:keys [dir git edit]}]
+  [{:keys [dir git editor]}]
   (assert dir)
   (assert (some? git))
-  (assert (some? edit))
+  (assert (some? editor))
   (concat
    ;; git
    (when git
