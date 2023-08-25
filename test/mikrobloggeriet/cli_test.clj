@@ -2,7 +2,7 @@
   (:require [mikrobloggeriet.cli :as cli]
             [clojure.test :refer [deftest testing is]]))
 
-(deftest name-test
+(deftest create-opts->commands-test
   (testing "no directory"
     (is (nil? (cli/create-opts->commands {:dir ""
                                           :git ""
