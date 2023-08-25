@@ -78,10 +78,13 @@ your system, so we need to know where to find OLORM pages.
                                    (:slug doc) "/"))]]))))
 
 (comment
-  (->> (create-opts->commands {:dir (repo-path) :git true :editor true})
+  (->> (create-opts->commands {:dir (repo-path) :git true :edit true})
        (map first)
        (into #{}))
   ;; => #{:println :create-dirs :shell :spit}
+
+  (create-opts->commands {:dir (repo-path) :git true :edit true})
+
   )
 
 (defn command->dry-command [command]
