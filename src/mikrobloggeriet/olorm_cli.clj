@@ -47,9 +47,9 @@ your system, so we need to know where to find OLORM pages.
 
 (defn create-opts->commands
   [{:keys [dir git edit]}]
-  (assert dir)
-  (assert (some? git))
-  (assert (some? edit))
+  (assert dir "dir must be set to a string")
+  (assert (some? git) "git must be true or false")
+  (assert (some? edit) "edit must be true or false")
   (when edit
     (assert (System/getenv "EDITOR")))
   (let [number (->> (olorm/docs {:repo-path dir})
