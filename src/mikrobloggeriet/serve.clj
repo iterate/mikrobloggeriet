@@ -211,7 +211,7 @@
         title (:title html+info)
         doc-html (:doc-html html+info)
         ]
-    (type slug)
+    number
     )
   )
 
@@ -279,30 +279,49 @@
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]]
        doc-html])}))
-
+;;;Problem friday 15:41:
+;;; doc/exists? and doc/->doc  is not compatible with each other. 
+;;;All functions in doc takes cohort as parameter, 
+;;;but cohort is parameter of doc. Johan belives cohort should be keyword of doc.
 (comment
   last-req
-  (let [req last-req
+  (let [req last-req 
         cohort (:mikrobloggeriet/cohort req) 
         doc {:doc/slug (:mikrobloggeriet.doc/slug req)} 
+        number (doc/number doc)
+        slug (get-in req [:route-params :slug])
         html+info (when (doc/exists? cohort doc)
-                    (markdown->html+info (slurp (doc/index-md-path cohort doc))))
+                    (markdown->html+info (slurp (doc/index-md-path cohort doc)))) 
         title (:title html+info)
         doc-html (:doc-html html+info)
-
         ]
-    html+info
-    )
+    [:p (feeling-lucky)
+     " — " 
+     [:a {:href "/"} "mikrobloggeriet"]
+     " "
+     [:a {:href (str "/" (cohort/slug cohort) "/")}
+      (cohort/slug cohort)]
+     " — "
+     [:span (interpose " · " (filter some? 
+                                     [(let [prev (doc/->doc {:cohort cohort :number (dec number) :repo-path (repo-path) })]
+                                        (when (doc/exists? cohort prev)
+                                          [:a {:href (doc/href cohort prev)} (:slug prev)]))])) 
+      [:span slug]]]
+      (doc/->doc {:cohort cohort :number (dec number)})
+    ) 
   )
+
+
 
 (defn doc
   [req]
-  (def last-req req)
   (tap> req)
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
           doc {:doc/slug (:mikrobloggeriet.doc/slug req)}
+          slug (get-in req [:route-params :slug])
+          number (doc/number doc)
           html+info (when (doc/exists? cohort doc)
                       (markdown->html+info (slurp (doc/index-md-path cohort doc))))
           title (:title html+info)
@@ -320,7 +339,7 @@
           [:a {:href (str "/" (cohort/slug cohort) "/")}
            (cohort/slug cohort)]
           " — "
-          [:span (:doc/slug doc)]]
+          [:span slug]]
          doc-html])})))
 
 (defn random-doc [_req]
