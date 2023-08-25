@@ -87,7 +87,7 @@
           :cohort (config-set-cohort value))))))
 
 (comment
-  (defn create-opts->commands
+  (fn create-opts->commands
     [{:keys [dir git edit]}]
     (assert dir)
     (assert (some? git))
@@ -125,7 +125,31 @@
   [{:keys [dir git edit]}]
   (assert dir)
   (assert (some? git))
-  (assert (some? edit)) 
+  (assert (some? edit))
+  (list
+   [:shell
+    {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
+    "git pull --ff-only"]
+   [:create-dirs "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35"]
+   [:spit
+    "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"
+    "# OLORM-35\n\n<!-- 1. Hva gjør du akkurat nå? -->\n\n<!-- 2. Finner du kvalitet i det? -->\n\n<!-- 3. Hvorfor / hvorfor ikke? -->\n\n<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->"]
+   [:spit
+    "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/meta.edn"
+    "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]
+
+   [:shell {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."} "git add ."]
+   [:shell
+    {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
+    "git commit -m"
+    "olorm-35"]
+   [:shell
+    {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
+    "git pull --rebase"]
+   [:shell {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."} "git push"]
+   [:println
+    "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:\n\n   OLORM-35: $DIN_TITTEL → https://mikrobloggeriet.no/o/olorm-35/"])
+
   )
 
 (comment
