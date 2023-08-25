@@ -87,6 +87,12 @@
           :cohort (config-set-cohort value))))))
 
 (comment
+  (cohort/next-doc cohort doc)
+  ;; (cohort/previous-doc cohort doc)
+  (cohort/latest-doc cohort doc)
+
+  (cohort/new-doc cohort doc)
+
   (fn create-opts->commands
     [{:keys [dir git edit]}]
     (assert dir)
