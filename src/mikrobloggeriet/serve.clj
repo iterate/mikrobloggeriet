@@ -202,13 +202,17 @@
                      identity))
 
 (comment
-  (let [slug (get-in last-req [:route-params :slug])
+  (let [slug "olorm-9"
         olorm (olorm/->olorm {:slug slug
                               :repo-path (repo-path)})
         number (:number olorm)
-        ;; {:keys [number]} olorm
+        html+info  (when (olorm/exists? olorm)
+                     (markdown->html+info (slurp (olorm/index-md-path olorm))))
+        title (:title html+info)
+        doc-html (:doc-html html+info)
         ]
-    number)
+    doc-html
+    )
   )
 
 (defn olorm [req]
@@ -216,10 +220,13 @@
   (let [slug (get-in req [:route-params :slug])
         olorm (olorm/->olorm {:slug slug
                               :repo-path (repo-path)}) 
-        number (:number olorm) 
-        {:keys [doc-html title]}
+        number (:number olorm)
+        html+info
         (when (olorm/exists? olorm)
-          (markdown->html+info (slurp (olorm/index-md-path olorm))))]
+          (markdown->html+info (slurp (olorm/index-md-path olorm))))
+        title (:title html+info)
+        doc-html (:doc-html html+info)
+        ]
     {:status (if (and olorm (olorm/exists? olorm)) 200 404)
      :body
      (page/html5
