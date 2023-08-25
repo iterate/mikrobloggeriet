@@ -86,6 +86,88 @@
           :editor (config-set-editor value)
           :cohort (config-set-cohort value))))))
 
+(comment
+  (cohort/next-doc cohort doc)
+  ;; (cohort/previous-doc cohort doc)
+  (cohort/latest-doc cohort doc)
+
+  (cohort/new-doc cohort doc)
+
+  (fn create-opts->commands
+    [{:keys [dir git edit]}]
+    (assert dir)
+    (assert (some? git))
+    (assert (some? edit))
+    (when edit
+      (assert (System/getenv "EDITOR")))
+    (let [number (->> (olorm/docs {:repo-path dir})
+                      (olorm/next-number))
+          doc (olorm/->olorm {:number number :repo-path dir})]
+      (concat (when git
+                [[:shell {:dir dir} "git pull --ff-only"]])
+              [[:create-dirs (str (olorm/path doc))]
+               [:spit (str (olorm/index-md-path doc))
+                (olorm/md-skeleton doc)]
+               [:spit (str (olorm/meta-path doc))
+                (prn-str {:git.user/email (olorm/git-user-email {:repo-path dir})
+                          :doc/created (olorm/today)
+                          :doc/uuid (olorm/uuid)})]]
+              (when edit
+                [[:shell {:dir dir} (System/getenv "EDITOR") (olorm/index-md-path doc)]])
+              (when (and git edit)
+                [[:shell {:dir dir} "git add ."]
+                 [:shell {:dir dir} "git commit -m" (str "olorm-" (:number doc))]
+                 [:shell {:dir dir} "git pull --rebase"]
+                 [:shell {:dir dir} "git push"]
+                 [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                                "\n\n"
+                                (str "   OLORM-" (:number doc)
+                                     ": $DIN_TITTEL → https://mikrobloggeriet.no/o/"
+                                     (:slug doc) "/"))]]))))
+
+  )
+
+(defn create-opts->commands 
+  [{:keys [dir git editor]}]
+  (assert dir)
+  (assert (some? git))
+  (assert (or (nil? editor)
+              (string? editor)))
+  (concat
+   ;; git
+   (when git
+     [[:shell {:dir dir} "git pull --ff-only"]])
+   ;; ikke git
+   [[:create-dirs "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35"]
+    [:spit
+     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"
+     "# OLORM-35\n\n<!-- 1. Hva gjør du akkurat nå? -->\n\n<!-- 2. Finner du kvalitet i det? -->\n\n<!-- 3. Hvorfor / hvorfor ikke? -->\n\n<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->"]
+    [:spit
+     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/meta.edn"
+     "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
+
+   [[:shell {:dir dir} editor
+     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
+
+   ;; git
+   (when git
+     [[:shell {:dir dir} "git add ."]
+      [:shell {:dir dir} "git commit -m" "olorm-35"]
+      [:shell {:dir dir} "git pull --rebase"]
+      [:shell {:dir dir} "git push"]])
+   ;; ikke git
+   [[:println
+     "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:\n\n   OLORM-35: $DIN_TITTEL → https://mikrobloggeriet.no/o/olorm-35/"]])
+
+  )
+
+(comment
+  (create-opts->commands {:dir "/somedidr" :git "somegit" :edit "eidit"})
+  )
+
+(defn command->dry-command [command]
+  [:prn command])
+
 (declare subcommands)
 
 (defn mblog-help [_opts]
@@ -94,12 +176,43 @@
   (doseq [c subcommands]
     (println (str "  " (str/join " " (:cmds c))))))
 
+(defn mblog-create [{:keys [opts]}]
+  (when (or (:help opts) (:h opts))
+    (println (str/trim "
+                          Usage:
+  
+    $ mblog create [OPTION...]
+  
+  Allowed options:
+  
+    --no-git   Disables all git commands.
+    --no-edit  Do not launch $EDITOR to edit files.
+               Also supresses git commit & git push.
+    --dry-run  Supress side effects and print commands instead
+    --help     Show this helptext.
+                        
+                        "))
+    (System/exit 0))
+  (let [command-transform (if (:dry-run opts)
+                            command->dry-command
+                            identity)]
+    (->> {:dir (or (:dir opts) (config-get :repo-path))
+          :git (:git opts true)
+          :edit (:edit opts true)}
+         create-opts->commands
+         #_(map command-transform)
+         #_execute!))
+  )
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
 
 (def subcommands
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
+   {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
