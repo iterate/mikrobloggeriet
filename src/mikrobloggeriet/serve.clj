@@ -211,7 +211,7 @@
         title (:title html+info)
         doc-html (:doc-html html+info)
         ]
-    olorm
+    (type slug)
     )
   )
 
@@ -244,7 +244,7 @@
                                         [(let [prev (olorm/->olorm {:number (dec number) :repo-path (repo-path)})]
                                            (when (olorm/exists? prev)
                                              [:a {:href (olorm/href prev)} (:slug prev)]))
-                                         [:span (:slug olorm)]
+                                         [:span slug]
                                          (let [prev (olorm/->olorm {:number (inc number) :repo-path (repo-path)})]
                                            (when (olorm/exists? prev)
                                              [:a {:href (olorm/href prev)} (:slug prev)]))]))]]
