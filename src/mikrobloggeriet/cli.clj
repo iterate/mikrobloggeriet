@@ -143,7 +143,7 @@
 
    [[:shell
      {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
-     "emacsclient -c"
+     editor
      "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
 
    ;; git

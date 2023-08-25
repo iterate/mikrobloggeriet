@@ -44,12 +44,19 @@
 
   (testing "When git is enabled, there are git commands"
     (let [commands (cli/create-opts->commands {:dir "." :git true :editor false})]
-      (is (some git-command? commands)))
-    )
+      (is (some git-command? commands))))
 
   (testing "When git is disabled, there are no git commands."
     (let [commands (cli/create-opts->commands {:dir "." :git false :editor false})]
       (is (not (some git-command? commands)))))
+
+  (testing "When git is enabled, there are git commands"
+    (let [editor "vim"
+          commands (cli/create-opts->commands {:dir "." :git true :editor editor})]
+      (is (some (fn [[_cmd _opts shell-command-str]]
+                  (when (string? shell-command-str)
+                    (str/starts-with? shell-command-str editor)))
+                commands))))
 
   )
 
