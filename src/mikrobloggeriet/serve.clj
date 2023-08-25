@@ -280,17 +280,33 @@
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]]
        doc-html])}))
 
+(comment
+  last-req
+  (let [req last-req
+        cohort (:mikrobloggeriet/cohort req) 
+        doc {:doc/slug (:mikrobloggeriet.doc/slug req)} 
+        html+info (when (doc/exists? cohort doc)
+                    (markdown->html+info (slurp (doc/index-md-path cohort doc))))
+        title (:title html+info)
+        doc-html (:doc-html html+info)
+
+        ]
+    html+info
+    )
+  )
+
 (defn doc
   [req]
+  (def last-req req)
   (tap> req)
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
           doc {:doc/slug (:mikrobloggeriet.doc/slug req)}
-          {:keys [title doc-html]}
-          (when (doc/exists? cohort doc)
-            (markdown->html+info (slurp (doc/index-md-path cohort doc)))) 
-          ]
+          html+info (when (doc/exists? cohort doc)
+                      (markdown->html+info (slurp (doc/index-md-path cohort doc))))
+          title (:title html+info)
+          doc-html (:doc-html html+info)]
       {:status 200
        :body
        (page/html5
