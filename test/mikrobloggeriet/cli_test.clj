@@ -90,5 +90,24 @@
     (is (= '(1 3 5)
            (filter odd? (range 6))
            (->> (range 6)
-                (filter odd?)))))
+                (filter odd?))))
+
+    (is (= '(10 30 50)
+
+           (map (partial * 10)
+                (filter odd? (range 6)))
+
+           (->> (range 6)
+                (filter odd? ,,,)
+                (map (partial * 10) ,,,))
+
+           (->> (range 6)
+                (filter odd?)
+                (map (fn [x] (* 10 x))))
+
+           (->> (range 6)
+                (filter odd?)
+                (map #(* 10 %)))))
+    )
   )
+
