@@ -40,6 +40,11 @@
     (is (not (some git-command?
                    [[:shell {:dir "."} "vim file"]]))))
 
+  (testing "When git is enabled, there are git commands"
+    (let [commands (cli/create-opts->commands {:dir "." :git true :edit false})]
+      (is (some git-command? commands)))
+    )
+
   )
 
 
