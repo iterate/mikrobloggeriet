@@ -141,6 +141,11 @@
      "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/meta.edn"
      "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
 
+   [[:shell
+     {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
+     "emacsclient -c"
+     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
+
    ;; git
    (when git
      [[:shell {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."} "git add ."]
