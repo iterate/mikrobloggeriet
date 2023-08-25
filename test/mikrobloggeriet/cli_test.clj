@@ -12,6 +12,10 @@
   (testing "some? returns true for all non-nil values"
     (is (some? 42))
     (is (some? false))
-    (is (not (some? nil)))
-    )
-  )
+    (is (not (some? nil))))
+
+  (testing "nil values are falsey"
+    (is (not nil)))
+
+  (testing "false is falsey"
+    (is (not false))))
