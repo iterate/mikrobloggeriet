@@ -64,9 +64,10 @@
           shell-commands (filter (fn [[cmd _ _]]
                                    (= cmd :shell))
                                  commands)]
-      (every? (fn [[_ opts _]]
-                (= dir (:dir opts)))
-              shell-commands))))
+      (is
+       (every? (fn [[_ opts _]]
+                 (= dir (:dir opts)))
+               shell-commands)))))
 
 (deftest learn-test
   (testing "some? returns true for all non-nil values"
