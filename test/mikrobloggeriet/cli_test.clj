@@ -45,6 +45,11 @@
       (is (some git-command? commands)))
     )
 
+  #_
+  (testing "When git is disabled, there are no git commands."
+    (let [commands (cli/create-opts->commands {:dir "." :git false :edit false})]
+      (is (not (some git-command? commands)))))
+
   )
 
 
