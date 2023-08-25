@@ -128,9 +128,10 @@
   (assert (some? edit))
   (concat
    ;; git
-   [[:shell
-     {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
-     "git pull --ff-only"]]
+   (when git
+     [[:shell
+       {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
+       "git pull --ff-only"]])
    ;; ikke git
    [[:create-dirs "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35"]
     [:spit
@@ -141,15 +142,16 @@
      "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
 
    ;; git
-   [[:shell {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."} "git add ."]
-    [:shell
-     {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
-     "git commit -m"
-     "olorm-35"]
-    [:shell
-     {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
-     "git pull --rebase"]
-    [:shell {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."} "git push"]]
+   (when git
+     [[:shell {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."} "git add ."]
+      [:shell
+       {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
+       "git commit -m"
+       "olorm-35"]
+      [:shell
+       {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."}
+       "git pull --rebase"]
+      [:shell {:dir "/Users/teodorlu/dev/iterate/mikrobloggeriet/."} "git push"]])
    ;; ikke git
    [[:println
      "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:\n\n   OLORM-35: $DIN_TITTEL → https://mikrobloggeriet.no/o/olorm-35/"]])

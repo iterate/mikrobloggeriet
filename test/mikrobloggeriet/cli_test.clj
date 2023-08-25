@@ -4,8 +4,10 @@
             [clojure.string :as str]))
 
 (defn- git-command? [cmd]
-  (let [[_cmd _opts command-str] cmd]
-    (str/starts-with? command-str "git")))
+  (let [[cmd _opts command-str] cmd]
+    (and (= cmd :shell)
+         (string? command-str)
+         (str/starts-with? command-str "git"))))
 
 (deftest create-opts->commands-test
   (testing "we can generate commands without errors"
@@ -45,7 +47,6 @@
       (is (some git-command? commands)))
     )
 
-  #_
   (testing "When git is disabled, there are no git commands."
     (let [commands (cli/create-opts->commands {:dir "." :git false :edit false})]
       (is (not (some git-command? commands)))))
