@@ -86,6 +86,41 @@
           :editor (config-set-editor value)
           :cohort (config-set-cohort value))))))
 
+(comment
+  (defn create-opts->commands
+    [{:keys [dir git edit]}]
+    (assert dir)
+    (assert (some? git))
+    (assert (some? edit))
+    (when edit
+      (assert (System/getenv "EDITOR")))
+    (let [number (->> (olorm/docs {:repo-path dir})
+                      (olorm/next-number))
+          doc (olorm/->olorm {:number number :repo-path dir})]
+      (concat (when git
+                [[:shell {:dir dir} "git pull --ff-only"]])
+              [[:create-dirs (str (olorm/path doc))]
+               [:spit (str (olorm/index-md-path doc))
+                (olorm/md-skeleton doc)]
+               [:spit (str (olorm/meta-path doc))
+                (prn-str {:git.user/email (olorm/git-user-email {:repo-path dir})
+                          :doc/created (olorm/today)
+                          :doc/uuid (olorm/uuid)})]]
+              (when edit
+                [[:shell {:dir dir} (System/getenv "EDITOR") (olorm/index-md-path doc)]])
+              (when (and git edit)
+                [[:shell {:dir dir} "git add ."]
+                 [:shell {:dir dir} "git commit -m" (str "olorm-" (:number doc))]
+                 [:shell {:dir dir} "git pull --rebase"]
+                 [:shell {:dir dir} "git push"]
+                 [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                                "\n\n"
+                                (str "   OLORM-" (:number doc)
+                                     ": $DIN_TITTEL → https://mikrobloggeriet.no/o/"
+                                     (:slug doc) "/"))]]))))
+
+  )
+
 (defn create-opts->commands 
   [{:keys [dir git edit]}]
   (assert dir)
