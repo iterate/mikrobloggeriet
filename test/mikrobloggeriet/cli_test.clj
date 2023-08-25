@@ -11,23 +11,23 @@
 
 (deftest create-opts->commands-test
   (testing "we can generate commands without errors"
-    (is (some? (cli/create-opts->commands {:dir "." :git false :editor false}))))
+    (is (some? (cli/create-opts->commands {:dir "." :git false :editor nil}))))
 
   (testing "A seq of commands is returned, all commands are prints"
     (is (every? keyword?
-                (->> (cli/create-opts->commands {:dir "." :git false :editor false})
+                (->> (cli/create-opts->commands {:dir "." :git false :editor nil})
                      (map first)))))
 
   (testing "When we transform to a dry run, only printable commands are returned"
     (is (every? #{:prn :println}
                 (->> (cli/create-opts->commands {:dir "."
                                                  :git false
-                                                 :editor false})
+                                                 :editor nil})
                      (map cli/command->dry-command)
                      (map first)))))
 
   (testing "When git is enabled, there are generated commands for shelling out"
-    (is (contains? (->> (cli/create-opts->commands {:dir "." :git true :editor false})
+    (is (contains? (->> (cli/create-opts->commands {:dir "." :git true :editor nil})
                         (map first)
                         (into #{}))
                    :shell)))
@@ -43,11 +43,11 @@
                    [[:shell {:dir "."} "vim file"]]))))
 
   (testing "When git is enabled, there are git commands"
-    (let [commands (cli/create-opts->commands {:dir "." :git true :editor false})]
+    (let [commands (cli/create-opts->commands {:dir "." :git true :editor nil})]
       (is (some git-command? commands))))
 
   (testing "When git is disabled, there are no git commands."
-    (let [commands (cli/create-opts->commands {:dir "." :git false :editor false})]
+    (let [commands (cli/create-opts->commands {:dir "." :git false :editor nil})]
       (is (not (some git-command? commands)))))
 
   (testing "When git is enabled, there are git commands"

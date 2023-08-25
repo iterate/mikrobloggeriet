@@ -131,7 +131,8 @@
   [{:keys [dir git editor]}]
   (assert dir)
   (assert (some? git))
-  (assert (some? editor))
+  (assert (or (nil? editor)
+              (string? editor)))
   (concat
    ;; git
    (when git
