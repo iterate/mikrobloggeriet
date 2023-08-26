@@ -158,6 +158,13 @@
     :p
     (feeling-lucky)]))
 
+(def markdown->html+info
+  (cache/cache-fn-by (fn markdown->html+info [markdown]
+                       (let [pandoc (pandoc/from-markdown markdown)]
+                         {:doc-html (pandoc/to-html pandoc)
+                          :title (pandoc/infer-title pandoc)}))
+                     identity))
+
 (defn olorm-index [req]
   (page/html5
    (into [:head] (shared-html-header req))
@@ -168,11 +175,19 @@
      [:a {:href "/"} "mikrobloggeriet"]]
     [:h1 "Alle OLORM-er"]
     [:table
-     [:thead [:td "slug"] [:td "author"] [:td "created"]]
+     [:thead
+      [:td "slug"]
+      [:td "title"]
+      [:td "author"]
+      [:td "created"]]
      [:tbody
-      (for [olorm (map olorm/load-meta (olorm/docs {:repo-path (repo-path)}))]
+      (for [olorm (->> (olorm/docs {:repo-path (repo-path)})
+                       (map olorm/load-meta)
+                       (pmap (fn [olorm]
+                               (assoc olorm :olorm/title (:title (markdown->html+info (slurp (olorm/index-md-path olorm))))))))]
         [:tr
          [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
+         [:td (:olorm/title olorm)]
          [:td (olorm/author-name olorm)]
          [:td (:doc/created olorm)]])]]]))
 
@@ -193,13 +208,6 @@
          [:td [:a {:href (jals/href jals)} (:slug jals)]]
          [:td (jals/author-name jals)]
          [:td (:doc/created jals)]])]]]))
-
-(def markdown->html+info
-  (cache/cache-fn-by (fn markdown->html+info [markdown]
-                       (let [pandoc (pandoc/from-markdown markdown)]
-                         {:doc-html (pandoc/to-html pandoc)
-                          :title (pandoc/infer-title pandoc)}))
-                     identity))
 
 (defn olorm [req]
   (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
