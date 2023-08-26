@@ -56,6 +56,13 @@
 (defn- flag [req]
   (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
 
+(def markdown->html+info
+  (cache/cache-fn-by (fn markdown->html+info [markdown]
+                       (let [pandoc (pandoc/from-markdown markdown)]
+                         {:doc-html (pandoc/to-html pandoc)
+                          :title (pandoc/infer-title pandoc)}))
+                     identity))
+
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
@@ -76,8 +83,13 @@
         [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
         [:p
          (interpose " · "
-                    (for [olorm (olorm/docs {:repo-path (repo-path)})]
-                      [:a {:href (olorm/href olorm)} (:slug olorm)]))]]
+                    (for [olorm (->> (olorm/docs {:repo-path (repo-path)})
+                                     (map olorm/load-meta)
+                                     (pmap (fn [olorm]
+                                             (assoc olorm :olorm/title (:title (markdown->html+info (slurp (olorm/index-md-path olorm))))))))]
+                      [:a {:href (olorm/href olorm)
+                           :title (:olorm/title olorm)}
+                       (:slug olorm)]))]]
        [:section
         [:h2 "JALS"]
         [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
@@ -158,12 +170,7 @@
     :p
     (feeling-lucky)]))
 
-(def markdown->html+info
-  (cache/cache-fn-by (fn markdown->html+info [markdown]
-                       (let [pandoc (pandoc/from-markdown markdown)]
-                         {:doc-html (pandoc/to-html pandoc)
-                          :title (pandoc/infer-title pandoc)}))
-                     identity))
+
 
 (defn olorm-index [req]
   (page/html5
