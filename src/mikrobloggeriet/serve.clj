@@ -176,10 +176,10 @@
     [:h1 "Alle OLORM-er"]
     [:table
      [:thead
-      [:td "slug"]
-      [:td "title"]
-      [:td "author"]
-      [:td "created"]]
+      [:td "olorm"]
+      [:td "tittel"]
+      [:td "forfatter"]
+      [:td "publisert"]]
      [:tbody
       (for [olorm (->> (olorm/docs {:repo-path (repo-path)})
                        (map olorm/load-meta)
