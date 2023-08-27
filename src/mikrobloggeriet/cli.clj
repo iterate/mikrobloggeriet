@@ -5,7 +5,8 @@
    [clojure.edn :as edn]
    [clojure.pprint :refer [pprint]]
    [clojure.string :as str]
-   [mikrobloggeriet.cohort :as cohort]))
+   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.doc :as doc]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Low-level helpers for managing the config file
@@ -174,7 +175,8 @@
   (println "Available subcommands:")
   (println)
   (doseq [c subcommands]
-    (println (str "  " (str/join " " (:cmds c))))))
+    (when-not (::experimental c)
+      (println (str "  " (str/join " " (:cmds c)))))))
 
 (defn mblog-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
@@ -204,20 +206,36 @@
          #_execute!))
   )
 
-
+(defn mblog-links [opts+args]
+  (let [format (or (:format (:opts opts+args))
+                   :markdown)
+        supported-formats #{:markdown}]
+    (assert (supported-formats format) (str "Supported formats: " (str/join ", " supported-formats)))
+    (doseq [doc (cohort/docs)]
+      (let [cohort (get cohort/cohorts (:cohort/id doc))
+            href (doc/href cohort doc)
+            href-absolute (str "https://mikrobloggeriet.no" href)
+            link-title (:doc/slug doc) ;; title could be better --- but would take forever without a cache
+            markdown-link (str "[" link-title "](" href-absolute ")")]
+        (println markdown-link)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
+;;
+;; Set ::experimental true for experimental commands. Experimental commands are
+;; not printed when listing subcommands with `mblog help`.
 
 (def subcommands
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
    {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
+   {:cmds ["links"] :fn mblog-links ::experimental true}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
   (cli/dispatch subcommands
                 args
                 {:coerce {:property :keyword
-                          :value :string}
+                          :value :string
+                          :format :keyword}
                  :no-keyword-opts true}))

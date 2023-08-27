@@ -42,15 +42,31 @@
               [(:cohort/id c) c]))
        (into (sorted-map))))
 
-(defn docs [cohort]
-  (let [id (:cohort/id cohort)
-        root (:cohort/root cohort)]
-    (when (and id root (fs/directory? root))
-      (->> (fs/list-dir (fs/file root))
-           (map (fn [f]
-                  {:doc/slug (fs/file-name f)}))
-           (filter (partial doc/exists? cohort))
-           (sort-by doc/number)))))
+(defn docs
+  ([]
+   (apply concat
+          (for [c (vals cohorts)]
+            (->> (docs c)
+                 (map (fn [doc]
+                        (assoc doc :cohort/id (:cohort/id c))))))))
+  ([cohort]
+   (let [id (:cohort/id cohort)
+         root (:cohort/root cohort)]
+     (when (and id root (fs/directory? root))
+       (->> (fs/list-dir (fs/file root))
+            (map (fn [f]
+                   {:doc/slug (fs/file-name f)}))
+            (filter (partial doc/exists? cohort))
+            (sort-by doc/number))))))
+
+(comment
+  ;; jals documents
+  (docs jals)
+
+  ;; all documents
+  (docs)
+  )
+
 
 (defn slug [cohort]
   (when-let [id (:cohort/id cohort)]
