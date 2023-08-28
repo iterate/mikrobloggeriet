@@ -72,7 +72,7 @@
              (doc/slug doc))
     (str "/" (cohort/slug cohort)
          "/" (doc/slug doc)
-         )))
+         "/")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LIST DOCUMENTS

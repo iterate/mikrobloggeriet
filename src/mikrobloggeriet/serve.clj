@@ -15,7 +15,8 @@
             [mikrobloggeriet.pandoc :as pandoc]
             [mikrobloggeriet.style :as style]
             [org.httpkit.server :as httpkit]
-            [ring.middleware.cookies :as cookies]))
+            [ring.middleware.cookies :as cookies]
+            [mikrobloggeriet.teodor.api2.cohort :as cohort]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -105,7 +106,7 @@
           [:p "Mikrobloggen OJ skrives av Olav og Johan."]
           (interpose " · "
                      (for [doc (cohort/docs cohort/oj)]
-                       [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)]))])
+                       [:a {:href (store/doc-href store/oj doc  )} (:doc/slug doc)]))])
 
        (when (= "genai" (flag req))
          [:section
@@ -113,7 +114,7 @@
           [:p "Mikrobloggen GENAI skrives av ... deg?"]
           (interpose " · "
                      (for [doc (cohort/docs cohort/genai)]
-                       [:a {:href (doc/href cohort/genai doc)} (:doc/slug doc)]))])
+                       [:a {:href (store/doc-href store/genai doc)} (:doc/slug doc)]))])
 
        [:hr]
 
@@ -410,10 +411,10 @@
                                      {\o "oddmund" \l "lars" \r "richard"}))
   (GET "/jals/draw/:pool" req (draw req :jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
-  (GET "/oj/:slug" req (doc (assoc req
+  (GET "/oj/:slug/" req (doc (assoc req
                                    :mikrobloggeriet/cohort cohort/oj
                                    :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
-  (GET "/genai/:slug" req (doc (assoc req
+  (GET "/genai/:slug/" req (doc (assoc req
                                       :mikrobloggeriet/cohort cohort/genai
                                       :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
   )
