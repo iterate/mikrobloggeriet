@@ -286,7 +286,8 @@
         doc (doc/from-slug "oj-2")
         prev (dec ( doc/number doc))] 
     (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev)))
-    ) 
+    )
+  (store/cohort-href store/oj)
   )
 (defn doc
   [req]
@@ -313,12 +314,11 @@
           [:a {:href (str "/" (cohort/slug cohort) "/")}
            (cohort/slug cohort)]
           " — " 
-          [:span (let [cohort store/oj
-                       doc (doc/from-slug "oj-2")
+          [:span (let [
                        previouse-number (dec (doc/number doc))
                        prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
-                     [:a {:href "/"} (doc/slug prev)]))]
+                     [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)]))]
           [:span " · "(:doc/slug doc)]] 
          doc-html])})))
 
