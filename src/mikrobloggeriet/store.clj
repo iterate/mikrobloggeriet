@@ -1,13 +1,9 @@
-(ns mikrobloggeriet.cohort
-  (:refer-clojure :exclude [name])
-  (:require
-   [babashka.fs :as fs]
-   [mikrobloggeriet.doc :as doc]))
+(ns mikrobloggeriet.store)
 
-(def
-  ^:deprecated
-  olorm
-  "Instead: use store/olorm"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; KNOWN COHORTS
+
+(def olorm
   (sorted-map
    :cohort/root "o"
    :cohort/id :olorm
@@ -16,10 +12,7 @@
                     {:author/email "oddmunds@iterate.no", :author/first-name "Oddmund"}
                     {:author/email "richard.tingstad@iterate.no", :author/first-name "Richard"}]))
 
-(def
-  ^:deprecated
-  jals
-  "Instead: use store/jals"
+(def jals
   (sorted-map
    :cohort/root "j"
    :cohort/id :jals
@@ -29,63 +22,21 @@
                     {:author/email "larshbj@gmail.com", :author/first-name "Lars"}
                     {:author/email "sindre@iterate.no", :author/first-name "Sindre"}]))
 
-(def
-  ^:deprecated
-  oj
-  "Use instead: store/oj"
+(def oj
   (sorted-map
    :cohort/root "text/oj"
    :cohort/id :oj
    :cohort/members [{:author/first-name "Johan"}
                     {:author/first-name "Olav"}]))
 
-(def
-  ^:deprecated
-  genai
-  "Use instead: store/genai"
+(def genai
   (sorted-map
    :cohort/root "text/genai"
    :cohort/id :genai
    :cohort/members [{:author/first-name "Julian"}]))
 
-(def
-  ^:deprecated
-  cohorts
-  "Use instead: store/cohorts"
+(def cohorts
   (->> [olorm jals oj genai]
        (map (fn [c]
               [(:cohort/id c) c]))
        (into (sorted-map))))
-
-(defn
-  ^:deprecated
-  docs
-  "Use instead: store/docs"
-  ([]
-   (apply concat
-          (for [c (vals cohorts)]
-            (->> (docs c)
-                 (map (fn [doc]
-                        (assoc doc :cohort/id (:cohort/id c))))))))
-  ([cohort]
-   (let [id (:cohort/id cohort)
-         root (:cohort/root cohort)]
-     (when (and id root (fs/directory? root))
-       (->> (fs/list-dir (fs/file root))
-            (map (fn [f]
-                   {:doc/slug (fs/file-name f)}))
-            (filter (partial doc/exists? cohort))
-            (sort-by doc/number))))))
-
-(comment
-  ;; jals documents
-  (docs jals)
-
-  ;; all documents
-  (docs)
-  )
-
-
-(defn slug [cohort]
-  (when-let [id (:cohort/id cohort)]
-    (clojure.core/name id)))
