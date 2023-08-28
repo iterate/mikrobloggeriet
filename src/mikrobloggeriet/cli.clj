@@ -120,8 +120,24 @@
   (let [cohort (->> store/cohorts
               (filter (fn [c]
                         (= (name (config-get :cohort))
-                           (cohort/slug c)))))]
-    cohort)
+                           (cohort/slug c))))
+                    first)
+        number (inc (or (->> (store/docs cohort)
+                      last
+                      doc/number)
+                 0))
+        doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
+    (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n"
+         (str/trim "
+    <!-- 1. Hva gjør du akkurat nå? -->
+    
+    <!-- 2. Finner du kvalitet i det? -->
+    
+    <!-- 3. Hvorfor / hvorfor ikke? -->
+    
+    <!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->")))
+  
+  
   
   
   #_(defn md-skeleton [olorm]
@@ -178,6 +194,8 @@
 
 (git-user-email ".")
 
+
+
 (defn create-opts->commands 
   [{:keys [dir git editor]}]
   (assert dir)
@@ -185,12 +203,11 @@
   (assert (or (nil? editor)
               (string? editor)))
   
-  (let [cohorts (->> store/cohorts
-                     (map (fn [c]
-                            [(keyword (cohort/slug c))
-                             c]))
-                     (into (sorted-map)))
-        cohort (cohorts (config-get :cohort))
+  (let [cohort (->> store/cohorts
+                    (filter (fn [c]
+                              (= (name (config-get :cohort))
+                                 (cohort/slug c))))
+                    first)
         number (inc (or (->> (store/docs cohort)
                              last
                              doc/number)
@@ -207,13 +224,12 @@
      (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n"
           (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
-            
+
 <!-- 2. Finner du kvalitet i det? -->
-            
+
 <!-- 3. Hvorfor / hvorfor ikke? -->
-            
-<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
-                     "))]
+
+<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->"))]
     [:spit
      (store/doc-meta-path cohort doc)
      "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
