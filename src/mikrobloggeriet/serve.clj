@@ -8,6 +8,7 @@
             [hiccup.page :as page]
             [mikrobloggeriet.cache :as cache] 
             [mikrobloggeriet.store :as store]
+            [mikrobloggeriet.cohort :as cohort]
             [mikrobloggeriet.doc :as doc]
             [mikrobloggeriet.jals :as jals]
             [mikrobloggeriet.olorm :as olorm]
