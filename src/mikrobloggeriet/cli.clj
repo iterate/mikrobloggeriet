@@ -92,24 +92,22 @@
   ;; Changing to the following CLI convention:
   
     ;; mblog config PROPERTY -- reads a property
-    ;; mblog config PROPERTY VALUE -- sets a property to a value
-  
+    ;; mblog config PROPERTY VALUE -- sets a property to a value 
 
-  (def cohorts 
-    (->> store/cohorts
-         (map (fn [c]
-                [(keyword (cohort/slug c))
-                 c]))
-         (into (sorted-map))))
-  
-  (def number (inc (or (->> (store/docs (cohorts (config-get :cohort)))
-                  last
-                  doc/number)
-             0))) 
-  
-  number
+  (let [cohorts (->> store/cohorts
+                     (map (fn [c]
+                            [(keyword (cohort/slug c))
+                             c]))
+                     (into (sorted-map)))
+        cohort (cohorts (config-get :cohort))
+        number (inc (or (->> (store/docs cohort)
+                             last
+                             doc/number)
+                        0))
+        doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
+    doc)
 
-  (fn create-opts->commands
+  #_(fn create-opts->commands
     [{:keys [dir git edit]}]
     (assert dir)
     (assert (some? git))
@@ -151,14 +149,16 @@
               (string? editor)))
   
   (let [cohorts (->> store/cohorts
-                    (map (fn [c]
-                           [(keyword (cohort/slug c))
-                            c]))
-                    (into (sorted-map)))
-        number (inc (or (->> (store/docs (cohorts (config-get :cohort)))
+                     (map (fn [c]
+                            [(keyword (cohort/slug c))
+                             c]))
+                     (into (sorted-map)))
+        cohort (cohorts (config-get :cohort))
+        number (inc (or (->> (store/docs cohort)
                              last
                              doc/number)
-                        0))]) 
+                        0))
+        doc (doc/from-slug (str (cohort/slug cohort) "-" number))]) 
   
   (concat
    ;; git
