@@ -1,0 +1,17 @@
+version: '3.1'
+name: mikrobloggeriet
+
+services:
+  db:
+    container_name: mikrobloggertiet-postgres
+    # For PostgreSQL versions in Google Cloud SQL, see:
+    #
+    #     https://cloud.google.com/sql/docs/postgres/db-versions
+    image: postgres:14.7
+    environment:
+      POSTGRES_PASSWORD: mikrobloggeriet
+      POSTGRES_USER: mikrobloggeriet
+      POSTGRES_DB: mikrobloggeriet
+    ports:
+      - 5432:5432
+    command: ['postgres', '-c', 'log_statement=all']
