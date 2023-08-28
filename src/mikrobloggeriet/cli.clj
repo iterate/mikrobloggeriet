@@ -6,7 +6,8 @@
    [clojure.pprint :refer [pprint]]
    [clojure.string :as str]
    [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.doc :as doc]))
+   [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.store :as store]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Low-level helpers for managing the config file
@@ -88,11 +89,25 @@
           :cohort (config-set-cohort value))))))
 
 (comment
-  (cohort/next-doc cohort doc)
-  ;; (cohort/previous-doc cohort doc)
-  (cohort/latest-doc cohort doc)
+  ;; Changing to the following CLI convention:
+  
+    ;; mblog config PROPERTY -- reads a property
+    ;; mblog config PROPERTY VALUE -- sets a property to a value
+  
 
-  (cohort/new-doc cohort doc)
+  (def cohorts 
+    (->> store/cohorts
+         (map (fn [c]
+                [(keyword (cohort/slug c))
+                 c]))
+         (into (sorted-map))))
+  
+  (def number (inc (or (->> (store/docs (cohorts (config-get :cohort)))
+                  last
+                  doc/number)
+             0))) 
+  
+  number
 
   (fn create-opts->commands
     [{:keys [dir git edit]}]
@@ -134,6 +149,17 @@
   (assert (some? git))
   (assert (or (nil? editor)
               (string? editor)))
+  
+  (let [cohorts (->> store/cohorts
+                    (map (fn [c]
+                           [(keyword (cohort/slug c))
+                            c]))
+                    (into (sorted-map)))
+        number (inc (or (->> (store/docs (cohorts (config-get :cohort)))
+                             last
+                             doc/number)
+                        0))]) 
+  
   (concat
    ;; git
    (when git
