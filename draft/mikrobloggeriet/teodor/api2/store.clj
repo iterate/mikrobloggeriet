@@ -13,7 +13,7 @@
 (def olorm
   (sorted-map
    :cohort/root "o"
-   :cohort/id :olorm
+   :cohort/slug "olorm"
    :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}
                     {:author/email "lars.barlindhaug@iterate.no", :author/first-name "Lars"}
                     {:author/email "oddmunds@iterate.no", :author/first-name "Oddmund"}
@@ -22,7 +22,7 @@
 (def jals
   (sorted-map
    :cohort/root "j"
-   :cohort/id :jals
+   :cohort/slug "jals"
    :cohort/members [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
                     {:author/email "adrian.tofting@iterate.no",
                      :author/first-name "Adrian"}
@@ -32,21 +32,17 @@
 (def oj
   (sorted-map
    :cohort/root "text/oj"
-   :cohort/id :oj
+   :cohort/slug "oj"
    :cohort/members [{:author/first-name "Johan"}
                     {:author/first-name "Olav"}]))
 
 (def genai
   (sorted-map
    :cohort/root "text/genai"
-   :cohort/id :genai
+   :cohort/slug "genai"
    :cohort/members [{:author/first-name "Julian"}]))
 
-(def cohorts
-  (->> [olorm jals oj genai]
-       (map (fn [c]
-              [(:cohort/id c) c]))
-       (into (sorted-map))))
+(def cohorts [olorm jals oj genai])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS

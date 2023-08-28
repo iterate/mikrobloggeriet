@@ -4,6 +4,36 @@
    [babashka.fs :as fs]
    [mikrobloggeriet.doc :as doc]))
 
+(comment
+  ;; example cohort:
+  (sorted-map
+   :cohort/root "text/oj"
+   :cohort/slug "oj"
+   :cohort/members [{:author/first-name "Johan"}
+                    {:author/first-name "Olav"}])
+  )
+
+;; This namespace contains no constructors.
+;; See store.clj for available cohorts.
+
+(defn slug [cohort]
+  (or
+   (:cohort/slug cohort)
+   ;; TODO: delete this branch, present for backwards compatibility
+   (when-let [cohort-id (:cohort/id cohort)]
+     (clojure.core/name cohort-id))))
+
+(defn root [cohort]
+  (:cohort/root cohort))
+
+(defn members [cohort]
+  (:cohort/members cohort))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DEPRECATED
+;;
+;; Cohorts are now found in mikrobloggeriet.store.
+
 (def
   ^:deprecated
   olorm
@@ -76,16 +106,3 @@
                    {:doc/slug (fs/file-name f)}))
             (filter (partial doc/exists? cohort))
             (sort-by doc/number))))))
-
-(comment
-  ;; jals documents
-  (docs jals)
-
-  ;; all documents
-  (docs)
-  )
-
-
-(defn slug [cohort]
-  (when-let [id (:cohort/id cohort)]
-    (clojure.core/name id)))
