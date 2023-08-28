@@ -14,7 +14,24 @@
 ;; in order to take the object first.
 ;; I think this will help make threading easier.
 
-(defn exists? [cohort doc]
+(defn from-slug [slug]
+  {:doc/slug slug})
+
+(defn slug [doc]
+  (:doc/slug doc))
+
+(defn number [doc]
+  (when-let [slug (:doc/slug doc)]
+    (parse-long (last (str/split slug #"-")))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DEPRECATED FUNCTIONS
+;;
+;; Do not use!
+
+(defn
+  ^:deprecated
+  exists? [cohort doc]
   (and (:cohort/root cohort)
        (:doc/slug doc)
        (fs/directory? (fs/file (:cohort/root cohort)
@@ -26,19 +43,19 @@
                             (:doc/slug doc)
                             "index.md"))))
 
-(defn href
+(defn
+ ^:deprecated
+  href
   "Create a link to a doc in a cohort"
   [cohort doc]
   (when (and (:cohort/id cohort)
              (:doc/slug doc))
     (str "/" (name (:cohort/id cohort)) "/" (:doc/slug doc))))
 
-(defn index-md-path [cohort doc]
+(defn
+  ^:deprecated
+  index-md-path [cohort doc]
   (when (exists? cohort doc)
     (fs/file (:cohort/root cohort)
              (:doc/slug doc)
              "index.md")))
-
-(defn number [doc]
-  (when-let [slug (:doc/slug doc)]
-    (parse-long (last (str/split slug #"-")))))

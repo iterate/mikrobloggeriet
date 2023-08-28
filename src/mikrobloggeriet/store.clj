@@ -1,11 +1,8 @@
-(ns mikrobloggeriet.teodor.api2.store
-  "Mikrobloggeriet data store
-
-  List and read known cohorts and known documents."
+(ns mikrobloggeriet.store
   (:require
    [babashka.fs :as fs]
-   [mikrobloggeriet.teodor.api2.cohort :as cohort]
-   [mikrobloggeriet.teodor.api2.doc :as doc]))
+   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.doc :as doc]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS
