@@ -105,7 +105,7 @@
                              doc/number)
                         0))
         doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
-    doc)
+    (store/doc-folder cohort doc)) 
 
   #_(fn create-opts->commands
     [{:keys [dir git edit]}]
@@ -158,14 +158,13 @@
                              last
                              doc/number)
                         0))
-        doc (doc/from-slug (str (cohort/slug cohort) "-" number))]) 
-  
-  (concat
+        doc (doc/from-slug (str (cohort/slug cohort) "-" number))] 
+    (concat
    ;; git
-   (when git
-     [[:shell {:dir dir} "git pull --ff-only"]])
+     (when git
+       [[:shell {:dir dir} "git pull --ff-only"]])
    ;; ikke git
-   [[:create-dirs "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35"]
+   [[:create-dirs (store/doc-folder cohort doc)]
     [:spit
      "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"
      "# OLORM-35\n\n<!-- 1. Hva gjør du akkurat nå? -->\n\n<!-- 2. Finner du kvalitet i det? -->\n\n<!-- 3. Hvorfor / hvorfor ikke? -->\n\n<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->"]
@@ -173,18 +172,18 @@
      "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/meta.edn"
      "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
 
-   [[:shell {:dir dir} editor
-     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
+     [[:shell {:dir dir} editor
+       "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
 
    ;; git
-   (when git
-     [[:shell {:dir dir} "git add ."]
-      [:shell {:dir dir} "git commit -m" "olorm-35"]
-      [:shell {:dir dir} "git pull --rebase"]
-      [:shell {:dir dir} "git push"]])
+     (when git
+       [[:shell {:dir dir} "git add ."]
+        [:shell {:dir dir} "git commit -m" "olorm-35"]
+        [:shell {:dir dir} "git pull --rebase"]
+        [:shell {:dir dir} "git push"]])
    ;; ikke git
-   [[:println
-     "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:\n\n   OLORM-35: $DIN_TITTEL → https://mikrobloggeriet.no/o/olorm-35/"]])
+     [[:println
+       "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:\n\n   OLORM-35: $DIN_TITTEL → https://mikrobloggeriet.no/o/olorm-35/"]]))
 
   )
 

@@ -56,11 +56,14 @@
                             (:doc/slug doc)
                             "index.md"))))
 
+(defn doc-folder [cohort doc]
+  (fs/file (cohort/root cohort)
+           (doc/slug doc))
+  )
+
 (defn doc-md-path [cohort doc]
-  (when (doc-exists? cohort doc)
-    (fs/file (cohort/root cohort)
-             (doc/slug doc)
-             "index.md")))
+  (fs/file (doc-folder cohort doc) 
+           "index.md"))
 
 (defn cohort-href [cohort]
   (when (cohort/slug cohort)
