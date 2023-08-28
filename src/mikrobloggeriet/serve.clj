@@ -1,20 +1,22 @@
 (ns mikrobloggeriet.serve
-  (:require
-   [babashka.fs :as fs]
-   [clojure.java.io :as io]
-   [clojure.pprint]
-   [clojure.string :as str]
-   [compojure.core :refer [defroutes GET]]
-   [hiccup.page :as page]
-   [mikrobloggeriet.cache :as cache]
-   [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.jals :as jals]
-   [mikrobloggeriet.olorm :as olorm]
-   [mikrobloggeriet.pandoc :as pandoc]
-   [mikrobloggeriet.style :as style]
-   [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies :as cookies]
-   [mikrobloggeriet.doc :as doc]))
+  (:require [babashka.fs :as fs]
+            [clojure.java.io :as io]
+            [clojure.pprint]
+            [clojure.pprint :as pprint]
+            [clojure.string :as str]
+            [compojure.core :refer [defroutes GET]]
+            [hiccup.page :as page]
+            [mikrobloggeriet.cache :as cache]
+            [mikrobloggeriet.cohort :as cohort]
+            [mikrobloggeriet.store :as store]
+            [mikrobloggeriet.doc :as doc]
+            [mikrobloggeriet.jals :as jals]
+            [mikrobloggeriet.olorm :as olorm]
+            [mikrobloggeriet.pandoc :as pandoc]
+            [mikrobloggeriet.style :as style]
+            [org.httpkit.server :as httpkit]
+            [ring.middleware.cookies :as cookies]
+            [mikrobloggeriet.teodor.api2.cohort :as cohort]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -276,10 +278,20 @@
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]]
        doc-html])}))
+(comment
+  (cohort/slug store/oj)
 
+  (store/doc-exists? store/oj ( doc/from-slug "oj-2"))
+  (let [cohort store/oj
+        doc (doc/from-slug "oj-2")
+        prev (dec ( doc/number doc))] 
+    (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev)))
+    ) 
+  )
 (defn doc
   [req]
   (tap> req)
+  (pprint/pprint req)
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
@@ -300,8 +312,14 @@
           " "
           [:a {:href (str "/" (cohort/slug cohort) "/")}
            (cohort/slug cohort)]
-          " — "
-          [:span (:doc/slug doc)]]
+          " — " 
+          [:span (let [cohort store/oj
+                       doc (doc/from-slug "oj-2")
+                       previouse-number (dec (doc/number doc))
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                   (when (store/doc-exists? cohort prev)
+                     [:a {:href "/"} (doc/slug prev)]))]
+          [:span " · "(:doc/slug doc)]] 
          doc-html])})))
 
 (defn random-doc [_req]
