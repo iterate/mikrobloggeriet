@@ -105,7 +105,29 @@
                              doc/number)
                         0))
         doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
-    (store/doc-folder cohort doc)) 
+    (str (clojure.string/upper-case (doc/slug doc))))
+  
+  (let [cohort (->> store/cohorts
+              (filter (fn [c]
+                        (= (name (config-get :cohort))
+                           (cohort/slug c)))))]
+    cohort)
+  
+  
+  #_(defn md-skeleton [olorm]
+    (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))
+                    (:slug olorm)
+                    "OLORM")]
+      (str "# " title "\n\n"
+           (str/trim "
+  <!-- 1. Hva gjør du akkurat nå? -->
+  
+  <!-- 2. Finner du kvalitet i det? -->
+  
+  <!-- 3. Hvorfor / hvorfor ikke? -->
+  
+  <!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
+  "))))
 
   #_(fn create-opts->commands
     [{:keys [dir git edit]}]
@@ -166,8 +188,12 @@
    ;; ikke git
    [[:create-dirs (store/doc-folder cohort doc)]
     [:spit
-     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"
-     "# OLORM-35\n\n<!-- 1. Hva gjør du akkurat nå? -->\n\n<!-- 2. Finner du kvalitet i det? -->\n\n<!-- 3. Hvorfor / hvorfor ikke? -->\n\n<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->"]
+     (store/doc-md-path cohort doc)
+     (str "# " (str (clojure.string/upper-case (doc/slug doc)))
+          "\n\n<!-- 1. Hva gjør du akkurat nå? -->
+           \n\n<!-- 2. Finner du kvalitet i det? -->
+           \n\n<!-- 3. Hvorfor / hvorfor ikke? -->
+           \n\n<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->")]
     [:spit
      "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/meta.edn"
      "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
