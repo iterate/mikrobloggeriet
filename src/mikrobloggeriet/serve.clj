@@ -6,8 +6,7 @@
             [clojure.string :as str]
             [compojure.core :refer [defroutes GET]]
             [hiccup.page :as page]
-            [mikrobloggeriet.cache :as cache]
-            [mikrobloggeriet.cohort :as cohort]
+            [mikrobloggeriet.cache :as cache] 
             [mikrobloggeriet.store :as store]
             [mikrobloggeriet.doc :as doc]
             [mikrobloggeriet.jals :as jals]
@@ -15,8 +14,7 @@
             [mikrobloggeriet.pandoc :as pandoc]
             [mikrobloggeriet.style :as style]
             [org.httpkit.server :as httpkit]
-            [ring.middleware.cookies :as cookies]
-            [mikrobloggeriet.teodor.api2.cohort :as cohort]))
+            [ring.middleware.cookies :as cookies]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
