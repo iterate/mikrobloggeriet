@@ -16,7 +16,7 @@
             [mikrobloggeriet.style :as style]
             [org.httpkit.server :as httpkit]
             [ring.middleware.cookies :as cookies]
-            [mikrobloggeriet.teodor.api2.cohort :as cohort]))
+            ))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
