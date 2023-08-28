@@ -2,6 +2,7 @@
   (:require
    [babashka.cli :as cli]
    [babashka.fs :as fs]
+   [babashka.process :refer [shell]]
    [clojure.edn :as edn]
    [clojure.pprint :refer [pprint]]
    [clojure.string :as str]
@@ -105,7 +106,16 @@
                              doc/number)
                         0))
         doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
-    (str (clojure.string/upper-case (doc/slug doc))))
+    (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n"
+         (str/trim "
+    <!-- 1. Hva gjør du akkurat nå? -->
+                
+    <!-- 2. Finner du kvalitet i det? -->
+                
+    <!-- 3. Hvorfor / hvorfor ikke? -->
+                
+    <!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
+                         ")))
   
   (let [cohort (->> store/cohorts
               (filter (fn [c]
@@ -163,6 +173,11 @@
 
   )
 
+(defn git-user-email [dir]
+  (str/trim (:out (shell {:out :string :dir dir} "git config user.email"))))
+
+(git-user-email ".")
+
 (defn create-opts->commands 
   [{:keys [dir git editor]}]
   (assert dir)
@@ -189,13 +204,18 @@
    [[:create-dirs (store/doc-folder cohort doc)]
     [:spit
      (store/doc-md-path cohort doc)
-     (str "# " (str (clojure.string/upper-case (doc/slug doc)))
-          "\n\n<!-- 1. Hva gjør du akkurat nå? -->
-           \n\n<!-- 2. Finner du kvalitet i det? -->
-           \n\n<!-- 3. Hvorfor / hvorfor ikke? -->
-           \n\n<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->")]
+     (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n"
+          (str/trim "
+<!-- 1. Hva gjør du akkurat nå? -->
+            
+<!-- 2. Finner du kvalitet i det? -->
+            
+<!-- 3. Hvorfor / hvorfor ikke? -->
+            
+<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
+                     "))]
     [:spit
-     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/meta.edn"
+     (store/doc-meta-path cohort doc)
      "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
 
      [[:shell {:dir dir} editor

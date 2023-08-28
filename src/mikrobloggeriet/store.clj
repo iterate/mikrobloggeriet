@@ -65,6 +65,10 @@
   (fs/file (doc-folder cohort doc) 
            "index.md"))
 
+(defn doc-meta-path [cohort doc]
+  (fs/file (doc-folder cohort doc)
+           "meta.edn"))
+
 (defn cohort-href [cohort]
   (when (cohort/slug cohort)
     (str "/" (cohort/slug cohort)
