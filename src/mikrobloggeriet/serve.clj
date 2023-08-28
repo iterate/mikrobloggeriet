@@ -318,8 +318,13 @@
                        previouse-number (dec (doc/number doc))
                        prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
-                     [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)]))]
-          [:span " · "(:doc/slug doc)]] 
+                     [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
+          [:span (:doc/slug doc) ]
+          [:span (let [previouse-number (inc (doc/number doc))
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                   (when (store/doc-exists? cohort prev) 
+                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]
+                     ))]] 
          doc-html])})))
 
 (defn random-doc [_req]
