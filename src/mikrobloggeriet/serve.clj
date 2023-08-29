@@ -366,8 +366,7 @@
                                            :background "black"
                                            :color neon-green})}
                [:div (str "$ " (name cohort) " draw " pool)]
-               [:div {:style (style/inline {:font-size "2.4rem"})}
-                (str (get first-letter-names chosen) " 🎉")]]]])}))
+               [:div (str (get first-letter-names chosen) " 🎉")]]]])}))
 
 (defroutes app
   (GET "/" req (index req))
