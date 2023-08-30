@@ -112,8 +112,9 @@
           [:p "Mikrobloggen OJ skrives av Olav og Johan."]
           (interpose " · "
                      (for [doc (cohort/docs cohort/oj)]
-                       [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)]))
-          (rss-feed)]) 
+                       [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)])) 
+          ]
+         ) 
 
        (when (= "genai" (flag req))
          [:section
@@ -411,6 +412,7 @@
   (GET "/genai/:slug" req (doc (assoc req
                                       :mikrobloggeriet/cohort cohort/genai
                                       :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+  (GET "/feed/" req (rss-feed))
   )
 
 (comment
