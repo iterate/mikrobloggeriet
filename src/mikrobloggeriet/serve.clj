@@ -15,7 +15,6 @@
             [mikrobloggeriet.jals :as jals]
             [mikrobloggeriet.olorm :as olorm]
             [mikrobloggeriet.pandoc :as pandoc]
-            [mikrobloggeriet.store :as store]
             [mikrobloggeriet.style :as style]
             [org.httpkit.server :as httpkit]
             [ring.middleware.cookies :as cookies]
