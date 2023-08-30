@@ -190,6 +190,17 @@
                                        ": $DIN_TITTEL → https://mikrobloggeriet.no"
                                        (store/doc-href cohort doc)))]])))))
 
+(defn execute!
+  "Execute a sequence of commands."
+  [commands]
+  (doseq [[cmd & args] commands]
+    (case cmd
+      :create-dirs (apply fs/create-dirs args)
+      :println (apply println args)
+      :prn (apply prn args)
+      :shell (apply shell args)
+      :spit (apply spit args))))
+
 (comment 
   (def sample-opts
     {:dir "."
@@ -235,10 +246,12 @@
                             identity)]
     (->> {:dir (or (:dir opts) (config-get :repo-path))
           :git (:git opts true)
-          :edit (:edit opts true)}
+          :edit (:edit (config-get :editor))
+          :git.user/email "some@example.com"
+          :cohort-id :oj}
          create-opts->commands
-         #_(map command-transform)
-         #_execute!))
+         (map command-transform)
+         execute!))
   )
 
 (defn mblog-links [opts+args]
