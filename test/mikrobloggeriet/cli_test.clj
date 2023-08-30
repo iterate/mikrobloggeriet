@@ -101,10 +101,20 @@
           shell-commands (filter (fn [[cmd _ _]]
                                    (= cmd :shell))
                                  commands)]
-      (is
-       (every? (fn [[_ opts _]]
+      (is (every? (fn [[_ opts _]]
                  (= dir (:dir opts)))
-               shell-commands)))))
+               shell-commands))))
+  
+  (testing "when git and edit is enabled, there are git commands and promt"
+    (is (contains? (->> (cli/create-opts->commands {:dir "."
+                                                    :git true
+                                                    :editor "vim"
+                                                    :cohort-id :olorm
+                                                    :git.user/email "user@example.com"})
+                        (map first)
+                        (into #{}))
+                   :println))) 
+  )
 
 (deftest learn-test
   (testing "some? returns true for all non-nil values"
