@@ -1,20 +1,20 @@
 (ns mikrobloggeriet.serve
-  (:require
-   [babashka.fs :as fs]
-   [clojure.java.io :as io]
-   [clojure.pprint]
-   [clojure.string :as str]
-   [compojure.core :refer [defroutes GET]]
-   [hiccup.page :as page]
-   [mikrobloggeriet.cache :as cache]
-   [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.jals :as jals]
-   [mikrobloggeriet.olorm :as olorm]
-   [mikrobloggeriet.pandoc :as pandoc]
-   [mikrobloggeriet.style :as style]
-   [org.httpkit.server :as httpkit]
-   [ring.middleware.cookies :as cookies]
-   [mikrobloggeriet.doc :as doc]))
+  (:require [babashka.fs :as fs]
+            [clj-rss.core :as rss]
+            [clojure.java.io :as io]
+            [clojure.pprint]
+            [clojure.string :as str]
+            [compojure.core :refer [defroutes GET]]
+            [hiccup.page :as page]
+            [mikrobloggeriet.cache :as cache]
+            [mikrobloggeriet.cohort :as cohort]
+            [mikrobloggeriet.doc :as doc]
+            [mikrobloggeriet.jals :as jals]
+            [mikrobloggeriet.olorm :as olorm]
+            [mikrobloggeriet.pandoc :as pandoc]
+            [mikrobloggeriet.style :as style]
+            [org.httpkit.server :as httpkit]
+            [ring.middleware.cookies :as cookies]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -62,6 +62,14 @@
                          {:doc-html (pandoc/to-html pandoc)
                           :title (pandoc/infer-title pandoc)}))
                      identity))
+(defn rss-feed []
+  (rss/channel-xml {:title "oj-1" :link "https://mikrobloggeriet.no/oj/oj-1" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-2" :link "https://mikrobloggeriet.no/oj/oj-2" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-3" :link "https://mikrobloggeriet.no/oj/oj-3" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "Foo"}
+                   {:title "post" :author "author@foo.bar"}
+                   {:description "bar"}
+                   {:description "baz" "content:encoded" "Full content"}))
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -104,7 +112,8 @@
           [:p "Mikrobloggen OJ skrives av Olav og Johan."]
           (interpose " · "
                      (for [doc (cohort/docs cohort/oj)]
-                       [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)]))])
+                       [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)]))
+          (rss-feed)]) 
 
        (when (= "genai" (flag req))
          [:section
@@ -367,6 +376,15 @@
                                            :color neon-green})}
                [:div (str "$ " (name cohort) " draw " pool)]
                [:div (str (get first-letter-names chosen) " 🎉")]]]])}))
+
+(defn rss-feed []
+  (rss/channel-xml {:title "oj-1" :link "https://mikrobloggeriet.no/oj/oj-1" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-2" :link "https://mikrobloggeriet.no/oj/oj-2" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-3" :link "https://mikrobloggeriet.no/oj/oj-3" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "Foo"}
+                   {:title "post" :author "author@foo.bar"}
+                   {:description "bar"}
+                   {:description "baz" "content:encoded" "Full content"}))
 
 (defroutes app
   (GET "/" req (index req))
