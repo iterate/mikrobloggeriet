@@ -246,9 +246,9 @@
                             identity)]
     (->> {:dir (or (:dir opts) (config-get :repo-path))
           :git (:git opts true)
-          :edit (:edit (config-get :editor))
-          :git.user/email "some@example.com"
-          :cohort-id :oj}
+          :editor (config-get :editor)
+          :git.user/email (git-user-email ".")
+          :cohort-id (config-get :cohort)}
          create-opts->commands
          (map command-transform)
          execute!))
