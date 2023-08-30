@@ -167,10 +167,8 @@
                           0))
           doc (doc/from-slug (str (cohort/slug cohort) "-" number))] 
       (concat
-   ;; git
        (when git
          [[:shell {:dir dir} "git pull --ff-only"]])
-   ;; ikke git
        [[:create-dirs (store/doc-folder cohort doc)]
         [:spit
          (store/doc-md-path cohort doc)
@@ -180,22 +178,18 @@
          (prn-str {:git.user/email git-user-email
                    :doc/created (today)
                    :doc/uuid (uuid)})]]
-       [[:shell {:dir dir} editor (store/doc-md-path cohort doc)
-         #_[[:shell {:dir dir} (System/getenv "EDITOR") (store/doc-md-path cohort doc)]]
-         #_"/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
-
-   ;; git
-       (when git
+       (when editor
+         [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]]) 
+       (when (and git editor)
          [[:shell {:dir dir} "git add ."]
           [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
           [:shell {:dir dir} "git pull --rebase"]
-          [:shell {:dir dir} "git push"]])
-   ;; ikke git
-       [[:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
-                       "\n\n   "
-                       (str (str (clojure.string/upper-case (doc/slug doc)))
-                            ": $DIN_TITTEL → https://mikrobloggeriet.no"
-                            (store/doc-href cohort doc)))]])))
+          [:shell {:dir dir} "git push"] 
+          [[:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                          "\n\n   "
+                          (str (str (clojure.string/upper-case (doc/slug doc)))
+                               ": $DIN_TITTEL → https://mikrobloggeriet.no"
+                               (store/doc-href cohort doc)))]]]))))
   )
 
 (comment 
