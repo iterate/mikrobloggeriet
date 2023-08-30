@@ -1,12 +1,15 @@
 (ns mikrobloggeriet.serve
   (:require [babashka.fs :as fs]
-            [clj-rss.core :as rss]
+
             [clojure.java.io :as io]
             [clojure.pprint]
+            [clojure.pprint :as pprint]
             [clojure.string :as str]
             [compojure.core :refer [defroutes GET]]
             [hiccup.page :as page]
-            [mikrobloggeriet.cache :as cache]
+            [mikrobloggeriet.cache :as cache] 
+            [mikrobloggeriet.store :as store]
+            [clj-rss.core :as rss]
             [mikrobloggeriet.cohort :as cohort]
             [mikrobloggeriet.doc :as doc]
             [mikrobloggeriet.jals :as jals]
@@ -14,7 +17,9 @@
             [mikrobloggeriet.pandoc :as pandoc]
             [mikrobloggeriet.style :as style]
             [org.httpkit.server :as httpkit]
-            [ring.middleware.cookies :as cookies]))
+            [ring.middleware.cookies :as cookies]
+            ))
+
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -112,9 +117,7 @@
           [:p "Mikrobloggen OJ skrives av Olav og Johan."]
           (interpose " · "
                      (for [doc (cohort/docs cohort/oj)]
-                       [:a {:href (doc/href cohort/oj doc)} (:doc/slug doc)])) 
-          ]
-         ) 
+                       [:a {:href (store/doc-href store/oj doc  )} (:doc/slug doc)]))])
 
        (when (= "genai" (flag req))
          [:section
@@ -122,7 +125,7 @@
           [:p "Mikrobloggen GENAI skrives av ... deg?"]
           (interpose " · "
                      (for [doc (cohort/docs cohort/genai)]
-                       [:a {:href (doc/href cohort/genai doc)} (:doc/slug doc)]))])
+                       [:a {:href (store/doc-href store/genai doc)} (:doc/slug doc)]))])
 
        [:hr]
 
@@ -286,10 +289,21 @@
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]]
        doc-html])}))
+(comment
+  (cohort/slug store/oj)
 
+  (store/doc-exists? store/oj ( doc/from-slug "oj-2"))
+  (let [cohort store/oj
+        doc (doc/from-slug "oj-2")
+        prev (dec ( doc/number doc))] 
+    (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev)))
+    )
+  (store/cohort-href store/oj)
+  )
 (defn doc
   [req]
   (tap> req)
+  (pprint/pprint req)
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
@@ -310,8 +324,18 @@
           " "
           [:a {:href (str "/" (cohort/slug cohort) "/")}
            (cohort/slug cohort)]
-          " — "
-          [:span (:doc/slug doc)]]
+          " — " 
+          [:span (let [
+                       previouse-number (dec (doc/number doc))
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                   (when (store/doc-exists? cohort prev)
+                     [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
+          [:span (:doc/slug doc) ]
+          [:span (let [previouse-number (inc (doc/number doc))
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                   (when (store/doc-exists? cohort prev) 
+                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]
+                     ))]] 
          doc-html])})))
 
 (defn random-doc [_req]
@@ -406,10 +430,10 @@
                                      {\o "oddmund" \l "lars" \r "richard"}))
   (GET "/jals/draw/:pool" req (draw req :jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
-  (GET "/oj/:slug" req (doc (assoc req
+  (GET "/oj/:slug/" req (doc (assoc req
                                    :mikrobloggeriet/cohort cohort/oj
                                    :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
-  (GET "/genai/:slug" req (doc (assoc req
+  (GET "/genai/:slug/" req (doc (assoc req
                                       :mikrobloggeriet/cohort cohort/genai
                                       :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
   (GET "/feed/" req (rss-feed))
