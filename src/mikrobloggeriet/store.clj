@@ -39,7 +39,11 @@
    :cohort/slug "genai"
    :cohort/members [{:author/first-name "Julian"}]))
 
-(def cohorts [olorm jals oj genai])
+(def cohorts 
+  ^:depricated
+  [olorm jals oj genai])
+
+(def cohorts-new (sorted-map :olorm olorm :jals jals :oj oj :genai genai))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS

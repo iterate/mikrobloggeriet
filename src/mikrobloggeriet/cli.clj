@@ -94,67 +94,7 @@
   
     ;; mblog config PROPERTY -- reads a property
     ;; mblog config PROPERTY VALUE -- sets a property to a value 
-
-  (let [cohorts (->> store/cohorts
-                     (map (fn [c]
-                            [(keyword (cohort/slug c))
-                             c]))
-                     (into (sorted-map)))
-        cohort (cohorts (config-get :cohort))
-        number (inc (or (->> (store/docs cohort)
-                             last
-                             doc/number)
-                        0))
-        doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
-    (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n"
-         (str/trim "
-    <!-- 1. Hva gjør du akkurat nå? -->
-                
-    <!-- 2. Finner du kvalitet i det? -->
-                
-    <!-- 3. Hvorfor / hvorfor ikke? -->
-                
-    <!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
-                         ")))
   
-  (let [cohort (->> store/cohorts
-              (filter (fn [c]
-                        (= (name (config-get :cohort))
-                           (cohort/slug c))))
-                    first)
-        number (inc (or (->> (store/docs cohort)
-                      last
-                      doc/number)
-                 0))
-        doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
-    (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n"
-         (str/trim "
-    <!-- 1. Hva gjør du akkurat nå? -->
-    
-    <!-- 2. Finner du kvalitet i det? -->
-    
-    <!-- 3. Hvorfor / hvorfor ikke? -->
-    
-    <!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->")))
-  
-  
-  
-  
-  #_(defn md-skeleton [olorm]
-    (let [title (or (when (:number olorm) (str "OLORM-" (:number olorm)))
-                    (:slug olorm)
-                    "OLORM")]
-      (str "# " title "\n\n"
-           (str/trim "
-  <!-- 1. Hva gjør du akkurat nå? -->
-  
-  <!-- 2. Finner du kvalitet i det? -->
-  
-  <!-- 3. Hvorfor / hvorfor ikke? -->
-  
-  <!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
-  "))))
-
   #_(fn create-opts->commands
     [{:keys [dir git edit]}]
     (assert dir)
@@ -210,14 +150,6 @@
 (defn- uuid []
   (str (java.util.UUID/randomUUID)))
 
-(comment
-  (create-opts->commands {:dir "."
-                          :git true
-                          :editor "vim"
-                          :cohort-id :oj
-                          :git.user/email "teodor@iterate.no"})
-  )
-
 (defn create-opts->commands 
   [{:keys [dir git editor cohort-id] :as opts}]
   (let [git-user-email (:git.user/email opts)]
@@ -228,11 +160,7 @@
     (assert git-user-email)
     (assert cohort-id)
     
-    (let [cohort (->> store/cohorts
-                      (filter (fn [c]
-                                (= (name cohort-id)
-                                   (cohort/slug c))))
-                      first)
+    (let [cohort (store/cohorts-new cohort-id)
           number (inc (or (->> (store/docs cohort)
                                last
                                doc/number)
