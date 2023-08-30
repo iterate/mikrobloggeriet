@@ -73,8 +73,10 @@
 
 (defn rss-feed []
   (let [ title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :description "Iterate sin tech blogg"}]
-    ( rss/channel-xml title (docs->rss-map (store/docs store/oj))
-      ))
+    (rss/channel-xml title (docs->rss-map (store/docs store/olorm))
+                     (docs->rss-map (store/docs store/jals))
+                     (docs->rss-map (store/docs store/oj))
+                     (docs->rss-map (store/docs store/genai))))
   
   )
 
