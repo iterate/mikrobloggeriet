@@ -189,68 +189,96 @@
 
   )
 
-(defn git-user-email [dir]
-  (str/trim (:out (shell {:out :string :dir dir} "git config user.email"))))
-
-(git-user-email ".")
-
-
-
-(defn create-opts->commands 
-  [{:keys [dir git editor]}]
-  (assert dir)
-  (assert (some? git))
-  (assert (or (nil? editor)
-              (string? editor)))
-  
-  (let [cohort (->> store/cohorts
-                    (filter (fn [c]
-                              (= (name (config-get :cohort))
-                                 (cohort/slug c))))
-                    first)
-        number (inc (or (->> (store/docs cohort)
-                             last
-                             doc/number)
-                        0))
-        doc (doc/from-slug (str (cohort/slug cohort) "-" number))] 
-    (concat
-   ;; git
-     (when git
-       [[:shell {:dir dir} "git pull --ff-only"]])
-   ;; ikke git
-   [[:create-dirs (store/doc-folder cohort doc)]
-    [:spit
-     (store/doc-md-path cohort doc)
-     (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n"
-          (str/trim "
+(defn md-skeleton [doc] 
+  (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n" 
+       (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
 
 <!-- 2. Finner du kvalitet i det? -->
 
 <!-- 3. Hvorfor / hvorfor ikke? -->
 
-<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->"))]
-    [:spit
-     (store/doc-meta-path cohort doc)
-     "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
+<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->")))
 
-     [[:shell {:dir dir} editor
-       "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
+(defn- git-user-email [dir]
+  (str/trim (:out (shell {:out :string :dir dir} "git config user.email"))))
 
-   ;; git
-     (when git
-       [[:shell {:dir dir} "git add ."]
-        [:shell {:dir dir} "git commit -m" "olorm-35"]
-        [:shell {:dir dir} "git pull --rebase"]
-        [:shell {:dir dir} "git push"]])
-   ;; ikke git
-     [[:println
-       "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:\n\n   OLORM-35: $DIN_TITTEL → https://mikrobloggeriet.no/o/olorm-35/"]]))
+(defn- today []
+  (.format (java.time.LocalDateTime/now)
+           (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd")))
 
-  )
+(defn- uuid []
+  (str (java.util.UUID/randomUUID)))
 
 (comment
-  (create-opts->commands {:dir "/somedidr" :git "somegit" :edit "eidit"})
+  (create-opts->commands {:dir "."
+                          :git true
+                          :editor "vim"
+                          :cohort-id :oj
+                          :git.user/email "teodor@iterate.no"})
+  )
+
+(defn create-opts->commands 
+  [{:keys [dir git editor cohort-id] :as opts}]
+  (let [git-user-email (:git.user/email opts)]
+    (assert dir)
+    (assert (some? git))
+    (assert (or (nil? editor)
+                (string? editor)))
+    (assert git-user-email)
+    (assert cohort-id)
+    
+    (let [cohort (->> store/cohorts
+                      (filter (fn [c]
+                                (= (name cohort-id)
+                                   (cohort/slug c))))
+                      first)
+          number (inc (or (->> (store/docs cohort)
+                               last
+                               doc/number)
+                          0))
+          doc (doc/from-slug (str (cohort/slug cohort) "-" number))] 
+      (concat
+   ;; git
+       (when git
+         [[:shell {:dir dir} "git pull --ff-only"]])
+   ;; ikke git
+       [[:create-dirs (store/doc-folder cohort doc)]
+        [:spit
+         (store/doc-md-path cohort doc)
+         (md-skeleton doc)]
+        [:spit
+         (store/doc-meta-path cohort doc)
+         (prn-str {:git.user/email git-user-email
+                   :doc/created (today)
+                   :doc/uuid (uuid)})]]
+       [[:shell {:dir dir} editor (store/doc-md-path cohort doc)
+         #_[[:shell {:dir dir} (System/getenv "EDITOR") (store/doc-md-path cohort doc)]]
+         #_"/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
+
+   ;; git
+       (when git
+         [[:shell {:dir dir} "git add ."]
+          [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
+          [:shell {:dir dir} "git pull --rebase"]
+          [:shell {:dir dir} "git push"]])
+   ;; ikke git
+       [[:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                       "\n\n   "
+                       (str (str (clojure.string/upper-case (doc/slug doc)))
+                            ": $DIN_TITTEL → https://mikrobloggeriet.no"
+                            (store/doc-href cohort doc)))]])))
+  )
+
+(comment 
+  (def sample-opts
+    {:dir "."
+     :git true
+     :editor "vim"
+     :cohort-id :oj
+     :git.user/email "user@example.com"})
+
+  (create-opts->commands sample-opts) 
   )
 
 (defn command->dry-command [command]
