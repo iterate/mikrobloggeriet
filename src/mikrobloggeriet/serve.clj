@@ -1,5 +1,6 @@
 (ns mikrobloggeriet.serve
   (:require [babashka.fs :as fs]
+
             [clojure.java.io :as io]
             [clojure.pprint]
             [clojure.pprint :as pprint]
@@ -8,6 +9,7 @@
             [hiccup.page :as page]
             [mikrobloggeriet.cache :as cache] 
             [mikrobloggeriet.store :as store]
+            [clj-rss.core :as rss]
             [mikrobloggeriet.cohort :as cohort]
             [mikrobloggeriet.doc :as doc]
             [mikrobloggeriet.jals :as jals]
@@ -17,6 +19,7 @@
             [org.httpkit.server :as httpkit]
             [ring.middleware.cookies :as cookies]
             ))
+
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -64,6 +67,14 @@
                          {:doc-html (pandoc/to-html pandoc)
                           :title (pandoc/infer-title pandoc)}))
                      identity))
+(defn rss-feed []
+  (rss/channel-xml {:title "oj-1" :link "https://mikrobloggeriet.no/oj/oj-1" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-2" :link "https://mikrobloggeriet.no/oj/oj-2" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-3" :link "https://mikrobloggeriet.no/oj/oj-3" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "Foo"}
+                   {:title "post" :author "author@foo.bar"}
+                   {:description "bar"}
+                   {:description "baz" "content:encoded" "Full content"}))
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -389,8 +400,16 @@
                                            :background "black"
                                            :color neon-green})}
                [:div (str "$ " (name cohort) " draw " pool)]
-               [:div {:style (style/inline {:font-size "2.4rem"})}
-                (str (get first-letter-names chosen) " 🎉")]]]])}))
+               [:div (str (get first-letter-names chosen) " 🎉")]]]])}))
+
+(defn rss-feed []
+  (rss/channel-xml {:title "oj-1" :link "https://mikrobloggeriet.no/oj/oj-1" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-2" :link "https://mikrobloggeriet.no/oj/oj-2" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "oj-3" :link "https://mikrobloggeriet.no/oj/oj-3" :description "et blogginnlegg på OJ jeg er ny"}
+                   {:title "Foo"}
+                   {:title "post" :author "author@foo.bar"}
+                   {:description "bar"}
+                   {:description "baz" "content:encoded" "Full content"}))
 
 (defroutes app
   (GET "/" req (index req))
@@ -417,6 +436,7 @@
   (GET "/genai/:slug/" req (doc (assoc req
                                       :mikrobloggeriet/cohort cohort/genai
                                       :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+  (GET "/feed/" req (rss-feed))
   )
 
 (comment
