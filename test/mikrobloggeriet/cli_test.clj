@@ -1,7 +1,8 @@
 (ns mikrobloggeriet.cli-test
   (:require [mikrobloggeriet.cli :as cli]
             [clojure.test :refer [deftest testing is]]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [mikrobloggeriet.cohort :as cohort]))
 
 (defn- git-command? [cmd]
   (let [[cmd _opts command-str] cmd]
@@ -10,24 +11,44 @@
          (str/starts-with? command-str "git"))))
 
 (deftest create-opts->commands-test
-  (testing "we can generate commands without errors"
-    (is (some? (cli/create-opts->commands {:dir "." :git false :editor nil}))))
+  (let [sample-opts {:dir "."
+                     :git true
+                     :editor "vim"
+                     :cohort-id :olorm
+                     :git.user/email "user@example.com"}]
+    
+    (testing "we can generate commands without errors"
+      (is (some? (cli/create-opts->commands {:dir "."
+                                             :git true
+                                             :editor "vim"
+                                             :cohort-id :olorm
+                                             :git.user/email "user@example.com"}))))
 
-  (testing "A seq of commands is returned, all commands are prints"
-    (is (every? keyword?
-                (->> (cli/create-opts->commands {:dir "." :git false :editor nil})
-                     (map first)))))
+    (testing "A seq of commands is returned, all commands are prints"
+      (is (every? keyword?
+                  (->> (cli/create-opts->commands {:dir "."
+                                                   :git true
+                                                   :editor "vim"
+                                                   :cohort-id :olorm
+                                                   :git.user/email "user@example.com"})
+                       (map first))))))
 
   (testing "When we transform to a dry run, only printable commands are returned"
     (is (every? #{:prn :println}
                 (->> (cli/create-opts->commands {:dir "."
-                                                 :git false
-                                                 :editor nil})
+                                                 :git true
+                                                 :editor "vim"
+                                                 :cohort-id :olorm
+                                                 :git.user/email "user@example.com"})
                      (map cli/command->dry-command)
                      (map first)))))
 
   (testing "When git is enabled, there are generated commands for shelling out"
-    (is (contains? (->> (cli/create-opts->commands {:dir "." :git true :editor nil})
+    (is (contains? (->> (cli/create-opts->commands {:dir "."
+                                                    :git true
+                                                    :editor "vim"
+                                                    :cohort-id :olorm
+                                                    :git.user/email "user@example.com"})
                         (map first)
                         (into #{}))
                    :shell)))
@@ -43,16 +64,28 @@
                    [[:shell {:dir "."} "vim file"]]))))
 
   (testing "When git is enabled, there are git commands"
-    (let [commands (cli/create-opts->commands {:dir "." :git true :editor nil})]
+    (let [commands (cli/create-opts->commands {:dir "."
+                                               :git true
+                                               :editor "vim"
+                                               :cohort-id :olorm
+                                               :git.user/email "user@example.com"})]
       (is (some git-command? commands))))
 
   (testing "When git is disabled, there are no git commands."
-    (let [commands (cli/create-opts->commands {:dir "." :git false :editor nil})]
+    (let [commands (cli/create-opts->commands {:dir "."
+                                               :git false
+                                               :editor "vim"
+                                               :cohort-id :olorm
+                                               :git.user/email "user@example.com"})]
       (is (not (some git-command? commands)))))
 
   (testing "When git is enabled, there are git commands"
     (let [editor "vim"
-          commands (cli/create-opts->commands {:dir "." :git true :editor editor})]
+          commands (cli/create-opts->commands {:dir "."
+                                               :git true
+                                               :editor editor
+                                               :cohort-id :olorm
+                                               :git.user/email "user@example.com"})]
       (is (some (fn [[_cmd _opts shell-command-str]]
                   (when (string? shell-command-str)
                     (str/starts-with? shell-command-str editor)))
@@ -60,14 +93,28 @@
 
   (testing "when shelling out, the dir argument is used"
     (let [dir "/tmp/mikrobloggeriet-test"
-          commands (cli/create-opts->commands {:dir dir :git true :editor nil})
+          commands (cli/create-opts->commands {:dir dir
+                                               :git true
+                                               :editor "vim"
+                                               :cohort-id :olorm
+                                               :git.user/email "user@example.com"})
           shell-commands (filter (fn [[cmd _ _]]
                                    (= cmd :shell))
                                  commands)]
-      (is
-       (every? (fn [[_ opts _]]
+      (is (every? (fn [[_ opts _]]
                  (= dir (:dir opts)))
-               shell-commands)))))
+               shell-commands))))
+  
+  (testing "when git and edit is enabled, there are git commands and promt"
+    (is (contains? (->> (cli/create-opts->commands {:dir "."
+                                                    :git true
+                                                    :editor "vim"
+                                                    :cohort-id :olorm
+                                                    :git.user/email "user@example.com"})
+                        (map first)
+                        (into #{}))
+                   :println))) 
+  )
 
 (deftest learn-test
   (testing "some? returns true for all non-nil values"

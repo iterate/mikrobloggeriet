@@ -2,11 +2,13 @@
   (:require
    [babashka.cli :as cli]
    [babashka.fs :as fs]
+   [babashka.process :refer [shell]]
    [clojure.edn :as edn]
    [clojure.pprint :refer [pprint]]
    [clojure.string :as str]
    [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.doc :as doc]))
+   [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.store :as store]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Low-level helpers for managing the config file
@@ -88,13 +90,12 @@
           :cohort (config-set-cohort value))))))
 
 (comment
-  (cohort/next-doc cohort doc)
-  ;; (cohort/previous-doc cohort doc)
-  (cohort/latest-doc cohort doc)
-
-  (cohort/new-doc cohort doc)
-
-  (fn create-opts->commands
+  ;; Changing to the following CLI convention:
+  
+    ;; mblog config PROPERTY -- reads a property
+    ;; mblog config PROPERTY VALUE -- sets a property to a value 
+  
+  #_(fn create-opts->commands
     [{:keys [dir git edit]}]
     (assert dir)
     (assert (some? git))
@@ -128,42 +129,87 @@
 
   )
 
-(defn create-opts->commands 
-  [{:keys [dir git editor]}]
-  (assert dir)
-  (assert (some? git))
-  (assert (or (nil? editor)
-              (string? editor)))
-  (concat
-   ;; git
-   (when git
-     [[:shell {:dir dir} "git pull --ff-only"]])
-   ;; ikke git
-   [[:create-dirs "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35"]
-    [:spit
-     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"
-     "# OLORM-35\n\n<!-- 1. Hva gjør du akkurat nå? -->\n\n<!-- 2. Finner du kvalitet i det? -->\n\n<!-- 3. Hvorfor / hvorfor ikke? -->\n\n<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->"]
-    [:spit
-     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/meta.edn"
-     "{:git.user/email \"git@teod.eu\", :doc/created \"2023-08-25\", :doc/uuid \"7da4962d-7506-4c5f-b430-2910af546add\"}\n"]]
+(defn md-skeleton [doc] 
+  (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n" 
+       (str/trim "
+<!-- 1. Hva gjør du akkurat nå? -->
 
-   [[:shell {:dir dir} editor
-     "/Users/teodorlu/dev/iterate/mikrobloggeriet/o/olorm-35/index.md"]]
+<!-- 2. Finner du kvalitet i det? -->
 
-   ;; git
-   (when git
-     [[:shell {:dir dir} "git add ."]
-      [:shell {:dir dir} "git commit -m" "olorm-35"]
-      [:shell {:dir dir} "git pull --rebase"]
-      [:shell {:dir dir} "git push"]])
-   ;; ikke git
-   [[:println
-     "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:\n\n   OLORM-35: $DIN_TITTEL → https://mikrobloggeriet.no/o/olorm-35/"]])
+<!-- 3. Hvorfor / hvorfor ikke? -->
 
-  )
+<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->")))
 
-(comment
-  (create-opts->commands {:dir "/somedidr" :git "somegit" :edit "eidit"})
+(defn- git-user-email [dir]
+  (str/trim (:out (shell {:out :string :dir dir} "git config user.email"))))
+
+(defn- today []
+  (.format (java.time.LocalDateTime/now)
+           (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd")))
+
+(defn- uuid []
+  (str (java.util.UUID/randomUUID)))
+
+(defn create-opts->commands
+  [{:keys [dir git editor cohort-id] :as opts}]
+  (let [git-user-email (:git.user/email opts)]
+    (assert dir)
+    (assert (some? git))
+    (assert (or (nil? editor)
+                (string? editor)))
+    (assert git-user-email)
+    (assert cohort-id)
+
+    (let [cohort (store/cohorts-new cohort-id)
+          number (inc (or (->> (store/docs cohort)
+                               last
+                               doc/number)
+                          0))
+          doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
+      (concat (when git
+                [[:shell {:dir dir} "git pull --ff-only"]])
+              [[:create-dirs (store/doc-folder cohort doc)]
+               [:spit
+                (store/doc-md-path cohort doc)
+                (md-skeleton doc)]
+               [:spit
+                (store/doc-meta-path cohort doc)
+                (prn-str {:git.user/email git-user-email
+                          :doc/created (today)
+                          :doc/uuid (uuid)})]]
+              (when editor
+                [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
+              (when (and git editor)
+                  [[:shell {:dir dir} "git add ."]
+                   [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
+                   [:shell {:dir dir} "git pull --rebase"]
+                   [:shell {:dir dir} "git push"]
+                   [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                                  "\n\n   " 
+                                  (str (str (clojure.string/upper-case (doc/slug doc)))
+                                       ": $DIN_TITTEL → https://mikrobloggeriet.no"
+                                       (store/doc-href cohort doc)))]])))))
+
+(defn execute!
+  "Execute a sequence of commands."
+  [commands]
+  (doseq [[cmd & args] commands]
+    (case cmd
+      :create-dirs (apply fs/create-dirs args)
+      :println (apply println args)
+      :prn (apply prn args)
+      :shell (apply shell args)
+      :spit (apply spit args))))
+
+(comment 
+  (def sample-opts
+    {:dir "."
+     :git true
+     :editor "vim"
+     :cohort-id :oj
+     :git.user/email "user@example.com"})
+
+  (create-opts->commands sample-opts) 
   )
 
 (defn command->dry-command [command]
@@ -200,10 +246,12 @@
                             identity)]
     (->> {:dir (or (:dir opts) (config-get :repo-path))
           :git (:git opts true)
-          :edit (:edit opts true)}
+          :editor (config-get :editor)
+          :git.user/email (git-user-email ".")
+          :cohort-id (config-get :cohort)}
          create-opts->commands
-         #_(map command-transform)
-         #_execute!))
+         (map command-transform)
+         execute!))
   )
 
 (defn mblog-links [opts+args]
