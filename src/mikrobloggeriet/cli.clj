@@ -166,30 +166,29 @@
                                doc/number)
                           0))
           doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
-      (concat
-       (when git
-         [[:shell {:dir dir} "git pull --ff-only"]])
-       [[:create-dirs (store/doc-folder cohort doc)]
-        [:spit
-         (store/doc-md-path cohort doc)
-         (md-skeleton doc)]
-        [:spit
-         (store/doc-meta-path cohort doc)
-         (prn-str {:git.user/email git-user-email
-                   :doc/created (today)
-                   :doc/uuid (uuid)})]]
-       (when editor
-         [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
-       (when (and git editor)
-         [[:shell {:dir dir} "git add ."]
-          [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
-          [:shell {:dir dir} "git pull --rebase"]
-          [:shell {:dir dir} "git push"]
-          [[:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
-                          "\n\n   "
-                          (str (str (clojure.string/upper-case (doc/slug doc)))
-                               ": $DIN_TITTEL → https://mikrobloggeriet.no"
-                               (store/doc-href cohort doc)))]]])))))
+      (concat (when git
+                [[:shell {:dir dir} "git pull --ff-only"]])
+              [[:create-dirs (store/doc-folder cohort doc)]
+               [:spit
+                (store/doc-md-path cohort doc)
+                (md-skeleton doc)]
+               [:spit
+                (store/doc-meta-path cohort doc)
+                (prn-str {:git.user/email git-user-email
+                          :doc/created (today)
+                          :doc/uuid (uuid)})]]
+              (when editor
+                [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
+              (when (and git editor)
+                [[:shell {:dir dir} "git add ."]
+                 [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
+                 [:shell {:dir dir} "git pull --rebase"]
+                 [:shell {:dir dir} "git push"]
+                 [[:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                                 "\n\n   " 
+                                 (str (str (clojure.string/upper-case (doc/slug doc)))
+                                      ": $DIN_TITTEL → https://mikrobloggeriet.no"
+                                      (store/doc-href cohort doc)))]]])))))
 
 (comment 
   (def sample-opts
