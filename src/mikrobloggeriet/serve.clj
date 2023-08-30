@@ -15,6 +15,7 @@
             [mikrobloggeriet.jals :as jals]
             [mikrobloggeriet.olorm :as olorm]
             [mikrobloggeriet.pandoc :as pandoc]
+            [mikrobloggeriet.store :as store]
             [mikrobloggeriet.style :as style]
             [org.httpkit.server :as httpkit]
             [ring.middleware.cookies :as cookies]
@@ -67,14 +68,16 @@
                          {:doc-html (pandoc/to-html pandoc)
                           :title (pandoc/infer-title pandoc)}))
                      identity))
+(defn docs->rss-map [docs]
+  (let [slugs (map :doc/slug docs)]
+    (map (fn [x] {:title x :link (str "https://mikrobloggeriet.no" (store/doc-href store/oj (doc/from-slug x))):description "et blogginnlegg på OJ jeg er ny"}) slugs)))
+
 (defn rss-feed []
-  (rss/channel-xml {:title "oj-1" :link "https://mikrobloggeriet.no/oj/oj-1" :description "et blogginnlegg på OJ jeg er ny"}
-                   {:title "oj-2" :link "https://mikrobloggeriet.no/oj/oj-2" :description "et blogginnlegg på OJ jeg er ny"}
-                   {:title "oj-3" :link "https://mikrobloggeriet.no/oj/oj-3" :description "et blogginnlegg på OJ jeg er ny"}
-                   {:title "Foo"}
-                   {:title "post" :author "author@foo.bar"}
-                   {:description "bar"}
-                   {:description "baz" "content:encoded" "Full content"}))
+  (let [ title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :description "Iterate sin tech blogg"}]
+    ( rss/channel-xml title (docs->rss-map (store/docs store/oj))
+      ))
+  
+  )
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
