@@ -88,7 +88,7 @@
               :description slug
               "content:encoded" (str
                                  "<![CDATA["
-                                 (slurp (store/doc-md-path cohort doc))
+                                 (slurp (:doc-html (markdown->html+info (store/doc-md-path cohort doc))))
                                  "]]>")}))
          slugs)))
 (defn rss-feed []
