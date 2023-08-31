@@ -99,8 +99,8 @@
      :body (rss/channel-xml title
                             (docs->rss-map (store/docs store/olorm) store/olorm)
                             (docs->rss-map (store/docs store/jals) store/jals)
-                            #_(docs->rss-map (store/docs store/oj) store/oj)
-                            #_(docs->rss-map (store/docs store/genai) store/genai))
+                            (docs->rss-map (store/docs store/oj) store/oj)
+                            (docs->rss-map (store/docs store/genai) store/genai))
      } 
     ) 
   )
