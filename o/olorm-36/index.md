@@ -15,7 +15,7 @@ Her gir jeg en forklaring.
 sed virker sånn at for hver input-linje evalueres kommandoene.
 
 Ved kjøring kalles linjen under behandling for "pattern space".
-Det finnes en tilleggsverdi, kalt "hold space" (i utgangspunktet tom) som man kan lagre til om man vil.
+Det finnes en tilleggsverdi kalt "hold space" (i utgangspunktet tom), som man kan lagre til om man vil.
 
 Option `-n` betyr at `sed` ikke skal printe noe output med mindre vi kaller `p`.
 Uten `-n` printes pattern space etter hver behandlede linje.
