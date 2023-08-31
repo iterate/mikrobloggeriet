@@ -76,8 +76,12 @@
     (config-set :editor editor)))
 
 (defn mblog-config [opts+args]
+  ;; Teodor: tror denne trenger hjelpetekst!
   (let [property (:property (:opts opts+args))
         value (:value (:opts opts+args))]
+    (when (and (not property) (not value))
+      ;; No args
+      (clojure.pprint/pprint (load-config)))
     (when (#{:repo-path :editor :cohort} property)
       (if (nil? value)
         ;; get
