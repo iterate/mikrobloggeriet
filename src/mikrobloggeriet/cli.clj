@@ -79,6 +79,27 @@
   ;; Teodor: tror denne trenger hjelpetekst!
   (let [property (:property (:opts opts+args))
         value (:value (:opts opts+args))]
+    (when (or (:help (:opts opts+args))
+              (:h (:opts opts+args)))
+      (println (str/trim "
+Usage:
+
+    mblog config [PROPERTY [VALUE]]
+
+There are three allowed variants.
+
+    `mblog config`: print your whole config.
+
+    `mblog config PROPERTY`: read PROPERTY from your config
+
+    `mblog config PROPERTY VALUE`: set PROPERTY to VALUE in your config.
+
+Supported values for PROPERTY:
+
+- `cohort`: Your cohort.
+- `editor`: Your editor for writing documents.
+- `repo-path`: The location of the Mikrobloggeriet CLI on your computer. "))
+      (System/exit 0))
     (when (and (not property) (not value))
       ;; No args
       (clojure.pprint/pprint (load-config))
