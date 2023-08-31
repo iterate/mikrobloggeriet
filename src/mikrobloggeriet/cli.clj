@@ -76,7 +76,6 @@
     (config-set :editor editor)))
 
 (defn mblog-config [opts+args]
-  ;; Teodor: tror denne trenger hjelpetekst!
   (let [property (:property (:opts opts+args))
         value (:value (:opts opts+args))]
     (when (or (:help (:opts opts+args))
