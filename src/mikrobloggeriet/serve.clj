@@ -84,7 +84,7 @@
              {:title slug
               :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
               :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
-              :category (str cohort)
+              :category (cohort/slug cohort)
               :description slug
               "content:encoded" (str
                                  "<![CDATA["
