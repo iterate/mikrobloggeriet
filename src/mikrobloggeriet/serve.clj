@@ -1,7 +1,8 @@
 (ns mikrobloggeriet.serve
   (:require [babashka.fs :as fs]
 
-            [clojure.java.io :as io]
+            [clojure.java.io :as io] 
+            [clojure.edn :as edn]
             [clojure.pprint]
             [clojure.pprint :as pprint]
             [clojure.string :as str]
@@ -19,7 +20,6 @@
             [org.httpkit.server :as httpkit]
             [ring.middleware.cookies :as cookies]
             ))
-
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -67,18 +67,42 @@
                          {:doc-html (pandoc/to-html pandoc)
                           :title (pandoc/infer-title pandoc)}))
                      identity))
+
+(defn read-created-date [file-path]
+  (let [content (slurp (io/file file-path))
+        data (edn/read-string content)]
+    (:doc/created data)))
+
+(defn ->java-time-instant [date]
+  (.toInstant
+   (.parse (java.text.SimpleDateFormat. "yyyy-MM-dd") (str date))))
+
 (defn docs->rss-map [docs cohort]
   (let [slugs (map :doc/slug docs)]
-    (map (fn [x] {:title x :link (str "https://mikrobloggeriet.no" (store/doc-href cohort (doc/from-slug x))):description "et blogginnlegg på OJ jeg er ny"}) slugs)))
-
-(defn rss-feed []
-  (let [ title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :description "Iterate sin tech blogg"}]
-    (rss/channel-xml title 
-                     #_(docs->rss-map (store/docs store/olorm) store/olorm) 
-                     (docs->rss-map (store/docs store/jals) store/jals)
-                     (docs->rss-map (store/docs store/oj) store/oj)
-                     (docs->rss-map (store/docs store/genai) store/genai)))
+    (map (fn [x]  {:title x 
+                   :link (str "https://mikrobloggeriet.no" (store/doc-href cohort (doc/from-slug x))) 
+                   :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort (doc/from-slug x)))) 
+                   :description (str "et nytt blogginnlegg på " (cohort/slug cohort)  " er nå tilgjengelig. " ) 
+                   :category (str cohort)}) slugs)))
   
+(comment
+  (type (.toInstant
+     (.parse (java.text.SimpleDateFormat. "yyyy-MM-dd") "2023-09-22")))
+  (read-created-date (store/doc-meta-path store/olorm (doc/from-slug "olorm-3")))
+  (->java-time-instant "2023-09-22")
+ (->java-time-instant (read-created-date (store/doc-meta-path store/olorm (doc/from-slug "olorm-1"))))
+)
+(defn rss-feed []
+  (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no"  :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
+    {:status 200
+     :headers {"Content-type" "application/rss+xml"}
+     :body (rss/channel-xml title
+                            (docs->rss-map (store/docs store/olorm) store/olorm)
+                            (docs->rss-map (store/docs store/jals) store/jals)
+                            #_(docs->rss-map (store/docs store/oj) store/oj)
+                            #_(docs->rss-map (store/docs store/genai) store/genai))
+     } 
+    ) 
   )
 
 (defn index [req]
