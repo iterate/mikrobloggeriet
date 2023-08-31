@@ -335,20 +335,22 @@
                                            (when (jals/exists? prev)
                                              [:a {:href (jals/href prev)} (:slug prev)]))]))]]
        doc-html])}))
+
 (comment
   (cohort/slug store/oj)
 
   (store/doc-exists? store/oj ( doc/from-slug "oj-2"))
+
   (let [cohort store/oj
         doc (doc/from-slug "oj-2")
         prev (dec ( doc/number doc))] 
-    (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev)))
-    )
+    (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
+
   (store/cohort-href store/oj)
   )
+
 (defn doc
   [req]
-  (tap> req)
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
