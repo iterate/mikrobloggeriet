@@ -2,7 +2,7 @@
 
 En mye brukt kommando for å reversere linjene i en fil er følgende:
 
-``
+```
 printf 'R\nE\nV\n' | sed -n '1!G;h;$p'
 V
 E
