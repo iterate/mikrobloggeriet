@@ -69,7 +69,7 @@
                      identity))
 
 (defn read-created-date [file-path]
-  (let [content (slurp (io/file file-path))
+  (let [content (slurp file-path)
         data (edn/read-string content)]
     (:doc/created data)))
 
@@ -81,10 +81,9 @@
   (let [slugs (map :doc/slug docs)]
     (map (fn [x]  {:title x 
                    :link (str "https://mikrobloggeriet.no" (store/doc-href cohort (doc/from-slug x))) 
-                   :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort (doc/from-slug x)))) 
-                   :description (str "et nytt blogginnlegg på " (cohort/slug cohort)  " er nå tilgjengelig. " ) 
-                   :category (str cohort)}) slugs)))
-
+                   :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort (doc/from-slug x))))  
+                   :category (str cohort)}) 
+         slugs)))
 (defn rss-feed []
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no"  :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
     {:status 200
