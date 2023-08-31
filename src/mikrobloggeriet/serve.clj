@@ -84,14 +84,7 @@
                    :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort (doc/from-slug x)))) 
                    :description (str "et nytt blogginnlegg på " (cohort/slug cohort)  " er nå tilgjengelig. " ) 
                    :category (str cohort)}) slugs)))
-  
-(comment
-  (type (.toInstant
-     (.parse (java.text.SimpleDateFormat. "yyyy-MM-dd") "2023-09-22")))
-  (read-created-date (store/doc-meta-path store/olorm (doc/from-slug "olorm-3")))
-  (->java-time-instant "2023-09-22")
- (->java-time-instant (read-created-date (store/doc-meta-path store/olorm (doc/from-slug "olorm-1"))))
-)
+
 (defn rss-feed []
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no"  :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
     {:status 200
