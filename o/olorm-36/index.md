@@ -39,12 +39,12 @@ linje kommando pattern space hold space kommentar
 R     1!G      R                        kjører ikke
 R     h        R             R
 R     $p       R             R          kjører ikke
-E     1!G      E\nR          R
-E     h        E\nR          E\nR
-E     $p       E\nR          E\nR       kjører ikke
-V     1!G      V\nE\nR       E\nR
-V     h        V\nE\nR       V\nE\nR
-V     $p       V\nE\nR       V\nE\nR    print
+E     1!G      E\\nR         R
+E     h        E\\nR         E\\nR
+E     $p       E\\nR         E\\nR      kjører ikke
+V     1!G      V\\nE\\nR     E\\nR
+V     h        V\\nE\\nR     V\\nE\\nR
+V     $p       V\\nE\\nR     V\\nE\\nR  print
 
 Så hver linje blir i praksis prepend'et de forrige, litt som en stack.
 
