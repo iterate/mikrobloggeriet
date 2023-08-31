@@ -89,46 +89,6 @@
           :editor (config-set-editor value)
           :cohort (config-set-cohort value))))))
 
-(comment
-  ;; Changing to the following CLI convention:
-  
-    ;; mblog config PROPERTY -- reads a property
-    ;; mblog config PROPERTY VALUE -- sets a property to a value 
-  
-  #_(fn create-opts->commands
-    [{:keys [dir git edit]}]
-    (assert dir)
-    (assert (some? git))
-    (assert (some? edit))
-    (when edit
-      (assert (System/getenv "EDITOR")))
-    (let [number (->> (olorm/docs {:repo-path dir})
-                      (olorm/next-number))
-          doc (olorm/->olorm {:number number :repo-path dir})]
-      (concat (when git
-                [[:shell {:dir dir} "git pull --ff-only"]])
-              [[:create-dirs (str (olorm/path doc))]
-               [:spit (str (olorm/index-md-path doc))
-                (olorm/md-skeleton doc)]
-               [:spit (str (olorm/meta-path doc))
-                (prn-str {:git.user/email (olorm/git-user-email {:repo-path dir})
-                          :doc/created (olorm/today)
-                          :doc/uuid (olorm/uuid)})]]
-              (when edit
-                [[:shell {:dir dir} (System/getenv "EDITOR") (olorm/index-md-path doc)]])
-              (when (and git edit)
-                [[:shell {:dir dir} "git add ."]
-                 [:shell {:dir dir} "git commit -m" (str "olorm-" (:number doc))]
-                 [:shell {:dir dir} "git pull --rebase"]
-                 [:shell {:dir dir} "git push"]
-                 [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
-                                "\n\n"
-                                (str "   OLORM-" (:number doc)
-                                     ": $DIN_TITTEL → https://mikrobloggeriet.no/o/"
-                                     (:slug doc) "/"))]]))))
-
-  )
-
 (defn md-skeleton [doc] 
   (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n" 
        (str/trim "
@@ -151,8 +111,31 @@
   (str (java.util.UUID/randomUUID)))
 
 (defn create-opts->commands
-  [{:keys [dir git editor cohort-id] :as opts}]
-  (let [git-user-email (:git.user/email opts)]
+  "Creates commands to shelling out for creating new mblog post.
+    Takes in a map of `opts`. Supported options in `opts`:
+  
+    | key           | description |
+    | --------------|-------------|
+    | `dir`         | The directory where shelling out happens.
+    | `git`         | Boolean specifying whether to create shelling out to git commands or not.
+    | `editor`      | Specify editor to open when shell out.
+    | `cohort-id`   | Keyword for the specifying cohort.
+    | `number` (Optional)   | Number for blog post. Added to try making the function more pure.
+  
+    Example:
+    ```clojure
+    (def sample-opts
+     {:dir \".\"
+      :git true
+      :editor \"vim\"
+      :cohort-id :olorm
+      :git.user/email \"user@example.com\"})
+
+    (create-opts->commands sample-opts) 
+    ```" 
+  [opts]
+  (let [{:keys [dir git editor cohort-id number]} opts
+        git-user-email (:git.user/email opts)]
     (assert dir)
     (assert (some? git))
     (assert (or (nil? editor)
@@ -160,11 +143,8 @@
     (assert git-user-email)
     (assert cohort-id)
 
-    (let [cohort (store/cohorts-new cohort-id)
-          number (inc (or (->> (store/docs cohort)
-                               last
-                               doc/number)
-                          0))
+    (let [cohort (store/cohorts cohort-id)
+          number (or number (store/cohort-doc-last-number cohort))
           doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
       (concat (when git
                 [[:shell {:dir dir} "git pull --ff-only"]])
@@ -180,15 +160,15 @@
               (when editor
                 [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
               (when (and git editor)
-                  [[:shell {:dir dir} "git add ."]
-                   [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
-                   [:shell {:dir dir} "git pull --rebase"]
-                   [:shell {:dir dir} "git push"]
-                   [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
-                                  "\n\n   " 
-                                  (str (str (clojure.string/upper-case (doc/slug doc)))
-                                       ": $DIN_TITTEL → https://mikrobloggeriet.no"
-                                       (store/doc-href cohort doc)))]])))))
+                [[:shell {:dir dir} "git add ."]
+                 [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
+                 [:shell {:dir dir} "git pull --rebase"]
+                 [:shell {:dir dir} "git push"]
+                 [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
+                                "\n\n   " 
+                                (str (str (clojure.string/upper-case (doc/slug doc)))
+                                     ": $DIN_TITTEL → https://mikrobloggeriet.no"
+                                     (store/doc-href cohort doc)))]])))))
 
 (defn execute!
   "Execute a sequence of commands."
@@ -254,7 +234,11 @@
          execute!))
   )
 
-(defn mblog-links [opts+args]
+(defn mblog-links
+  "Changing to the following CLI convention:
+   mblog config PROPERTY -- reads a property
+   mblog config PROPERTY VALUE -- sets a property to a value "
+  [opts+args]
   (let [format (or (:format (:opts opts+args))
                    :markdown)
         supported-formats #{:markdown}]

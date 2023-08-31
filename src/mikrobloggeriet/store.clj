@@ -39,11 +39,7 @@
    :cohort/slug "genai"
    :cohort/members [{:author/first-name "Julian"}]))
 
-(def cohorts 
-  ^:depricated
-  [olorm jals oj genai])
-
-(def cohorts-new (sorted-map :olorm olorm :jals jals :oj oj :genai genai))
+(def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
@@ -72,6 +68,13 @@
 (defn doc-meta-path [cohort doc]
   (fs/file (doc-folder cohort doc)
            "meta.edn"))
+
+(declare docs)
+(defn cohort-doc-last-number [cohort]
+  (inc (or (->> (docs cohort)
+                last
+                doc/number)
+           0)))
 
 (defn cohort-href [cohort]
   (when (cohort/slug cohort)
