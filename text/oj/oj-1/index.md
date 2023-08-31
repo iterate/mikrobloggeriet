@@ -1,7 +1,8 @@
 # OJ JEG ER NY
 Det tok sin tid, men endelig kan jeg publisere det første innlegget på min (og Johans) egne mikroblogg: OJ. De siste ukene har vi jobbet med å lage funksjonalitet for å faktisk kunne gjøre nettopp dette, så dette innlegget blir litt om erfaringer fra denne jobben, og en test på at det vi har laget faktisk funker.
 
-__Prosessen gikk i grove trekk slik:__
+### Prosessen gikk i grove trekk slik:
+
 1. Jeg har lyst til å lage _en_ feature
 2. Innse at kodebase ikke støtter dette særlig bra
 3. Finne ut hva jeg må lage og hva jeg må endre
