@@ -1,25 +1,23 @@
 (ns mikrobloggeriet.serve
-  (:require [babashka.fs :as fs]
-
-            [clojure.java.io :as io] 
-            [clojure.edn :as edn]
-            [clojure.pprint]
-            [clojure.pprint :as pprint]
-            [clojure.string :as str]
-            [compojure.core :refer [defroutes GET]]
-            [hiccup.page :as page]
-            [mikrobloggeriet.cache :as cache] 
-            [mikrobloggeriet.store :as store]
-            [clj-rss.core :as rss]
-            [mikrobloggeriet.cohort :as cohort]
-            [mikrobloggeriet.doc :as doc]
-            [mikrobloggeriet.jals :as jals]
-            [mikrobloggeriet.olorm :as olorm]
-            [mikrobloggeriet.pandoc :as pandoc]
-            [mikrobloggeriet.style :as style]
-            [org.httpkit.server :as httpkit]
-            [ring.middleware.cookies :as cookies]
-            ))
+  (:require
+   [babashka.fs :as fs]
+   [clojure.java.io :as io]
+   [clojure.edn :as edn]
+   [clojure.pprint]
+   [clojure.string :as str]
+   [compojure.core :refer [defroutes GET]]
+   [hiccup.page :as page]
+   [mikrobloggeriet.cache :as cache]
+   [mikrobloggeriet.store :as store]
+   [clj-rss.core :as rss]
+   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.jals :as jals]
+   [mikrobloggeriet.olorm :as olorm]
+   [mikrobloggeriet.pandoc :as pandoc]
+   [mikrobloggeriet.style :as style]
+   [org.httpkit.server :as httpkit]
+   [ring.middleware.cookies :as cookies]))
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -360,7 +358,6 @@
 (defn doc
   [req]
   (tap> req)
-  (pprint/pprint req)
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
