@@ -79,10 +79,17 @@
 
 (defn docs->rss-map [docs cohort]
   (let [slugs (map :doc/slug docs)]
-    (map (fn [x]  {:title x 
-                   :link (str "https://mikrobloggeriet.no" (store/doc-href cohort (doc/from-slug x))) 
-                   :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort (doc/from-slug x))))  
-                   :category (str cohort)}) 
+    (map (fn [slug]
+           (let [doc (doc/from-slug slug)]
+             {:title slug
+              :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
+              :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
+              :category (str cohort)
+              :description slug
+              "content:encoded" (str
+                                 "<![CDATA["
+                                 (slurp (store/doc-md-path cohort doc))
+                                 "]]>")}))
          slugs)))
 (defn rss-feed []
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no"  :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
