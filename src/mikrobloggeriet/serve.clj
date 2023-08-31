@@ -67,16 +67,17 @@
                          {:doc-html (pandoc/to-html pandoc)
                           :title (pandoc/infer-title pandoc)}))
                      identity))
-(defn docs->rss-map [docs]
+(defn docs->rss-map [docs cohort]
   (let [slugs (map :doc/slug docs)]
-    (map (fn [x] {:title x :link (str "https://mikrobloggeriet.no" (store/doc-href store/oj (doc/from-slug x))):description "et blogginnlegg på OJ jeg er ny"}) slugs)))
+    (map (fn [x] {:title x :link (str "https://mikrobloggeriet.no" (store/doc-href cohort (doc/from-slug x))):description "et blogginnlegg på OJ jeg er ny"}) slugs)))
 
 (defn rss-feed []
   (let [ title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :description "Iterate sin tech blogg"}]
-    (rss/channel-xml title (docs->rss-map (store/docs store/olorm))
-                     (docs->rss-map (store/docs store/jals))
-                     (docs->rss-map (store/docs store/oj))
-                     (docs->rss-map (store/docs store/genai))))
+    (rss/channel-xml title 
+                     #_(docs->rss-map (store/docs store/olorm) store/olorm) 
+                     (docs->rss-map (store/docs store/jals) store/jals)
+                     (docs->rss-map (store/docs store/oj) store/oj)
+                     (docs->rss-map (store/docs store/genai) store/genai)))
   
   )
 
@@ -416,7 +417,9 @@
   (GET "/o/" req (olorm-index req))
   (GET "/j/" req (jals-index req))
   (GET "/o/:slug/" req (olorm req))
+  (GET "/olorm/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
+  (GET "/jals/:slug/" req (jals req))
   (GET "/random-doc" _req random-doc)
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
