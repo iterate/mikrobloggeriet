@@ -81,7 +81,8 @@
         value (:value (:opts opts+args))]
     (when (and (not property) (not value))
       ;; No args
-      (clojure.pprint/pprint (load-config)))
+      (clojure.pprint/pprint (load-config))
+      (System/exit 0))
     (when (#{:repo-path :editor :cohort} property)
       (if (nil? value)
         ;; get
