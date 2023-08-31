@@ -2,7 +2,8 @@
   (:require
    [babashka.fs :as fs]
    [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.doc :as doc]))
+   [mikrobloggeriet.doc :as doc]
+   [clojure.edn :as edn]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS
@@ -30,8 +31,8 @@
   (sorted-map
    :cohort/root "text/oj"
    :cohort/slug "oj"
-   :cohort/members [{:author/first-name "Johan"}
-                    {:author/first-name "Olav"}]))
+   :cohort/members [{:author/email "jomarn@me.com" :author/first-name "Johan"}
+                    {:author/email "olav.moseng@iterate.no" :author/first-name "Olav"}]))
 
 (def genai
   (sorted-map
@@ -69,6 +70,10 @@
   (fs/file (doc-folder cohort doc)
            "meta.edn"))
 
+(defn load-meta [cohort doc]
+  (let [meta (edn/read-string (slurp (doc-meta-path cohort doc)))]
+    (merge doc meta)))
+
 (defn cohort-href [cohort]
   (when (cohort/slug cohort)
     (str "/" (cohort/slug cohort)
@@ -80,6 +85,20 @@
     (str "/" (cohort/slug cohort)
          "/" (doc/slug doc)
          "/")))
+
+(defn author-first-name [cohort doc]
+  (let [email->first-name (->> (cohort/members cohort)
+                               (map (juxt :author/email :author/first-name))
+                               (into {}))]
+    (email->first-name (:git.user/email (load-meta cohort doc)))))
+
+(comment
+  (author-first-name oj (first (docs oj)))
+
+  (->> (cohort/members oj)
+       (map (juxt :author/email :author/first-name))
+       (into {}))
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LIST DOCUMENTS

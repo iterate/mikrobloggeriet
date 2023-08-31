@@ -91,6 +91,7 @@
                                  (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
                                  "]]>")}))
          slugs)))
+
 (defn rss-feed []
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no"  :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
     {:status 200
@@ -103,6 +104,35 @@
      } 
     ) 
   )
+
+(defn cohort-doc-table [req cohort]
+  (page/html5
+   (into [:head] (shared-html-header req))
+   [:body
+    [:p
+     (feeling-lucky)
+     " — "
+     [:a {:href "/"} "mikrobloggeriet"]]
+    [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
+    [:table
+     [:thead
+      [:td (cohort/slug cohort)]
+      [:td "tittel"]
+      [:td "forfatter"]
+      [:td "publisert"]]
+     [:tbody
+      (for [doc (->> (store/docs cohort)
+                     (map (fn [doc]
+                            (store/load-meta cohort doc)))
+                     (pmap (fn [doc]
+                             (assoc doc :doc/title (:title (markdown->html+info (slurp (store/doc-md-path cohort doc)))))))
+                     )]
+        [:tr
+         [:td [:a {:href (store/doc-href cohort doc)} (doc/slug doc)]]
+         [:td (:doc/title doc)]
+         [:td (store/author-first-name cohort doc)]
+         [:td (:doc/created doc)]]
+        )]]]))
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -438,6 +468,8 @@
   (GET "/theme/:theme" req (theme req))
   (GET "/o/" req (olorm-index req))
   (GET "/j/" req (jals-index req))
+  (GET "/oj/" req (cohort-doc-table req store/oj))
+  (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/o/:slug/" req (olorm req))
   (GET "/olorm/:slug/" req (olorm req))
   (GET "/j/:slug/" req (jals req))
@@ -451,11 +483,11 @@
   (GET "/jals/draw/:pool" req (draw req :jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
   (GET "/oj/:slug/" req (doc (assoc req
-                                   :mikrobloggeriet/cohort cohort/oj
-                                   :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+                                    :mikrobloggeriet/cohort cohort/oj
+                                    :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
   (GET "/genai/:slug/" req (doc (assoc req
-                                      :mikrobloggeriet/cohort cohort/genai
-                                      :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+                                       :mikrobloggeriet/cohort cohort/genai
+                                       :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
   (GET "/feed/" req (rss-feed))
   )
 
