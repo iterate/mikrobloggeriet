@@ -231,15 +231,6 @@
              (flag-element "genai")
              ])])])}))
 
-(defn cohort-index [req]
-  (page/html5
-   (into [:head] (shared-html-header req))
-   [:body
-    :p
-    (feeling-lucky)]))
-
-
-
 (defn olorm-index [req]
   (page/html5
    (into [:head] (shared-html-header req))
