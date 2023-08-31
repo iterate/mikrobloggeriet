@@ -139,13 +139,12 @@
                     (for [doc (jals/docs {:repo-path (repo-path)})]
                       [:a {:href (jals/href doc)} (:slug doc)]))]]
 
-       (when (= "oj" (flag req))
-         [:section
-          [:h2 "OJ"]
-          [:p "Mikrobloggen OJ skrives av Olav og Johan."]
-          (interpose " · "
-                     (for [doc (cohort/docs cohort/oj)]
-                       [:a {:href (store/doc-href store/oj doc  )} (:doc/slug doc)]))])
+       [:section
+        [:h2 "OJ"]
+        [:p "Mikrobloggen OJ skrives av Olav og Johan."]
+        (interpose " · "
+                   (for [doc (cohort/docs cohort/oj)]
+                     [:a {:href (store/doc-href store/oj doc  )} (:doc/slug doc)]))]
 
        (when (= "genai" (flag req))
          [:section
