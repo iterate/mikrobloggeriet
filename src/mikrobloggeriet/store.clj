@@ -69,13 +69,6 @@
   (fs/file (doc-folder cohort doc)
            "meta.edn"))
 
-(declare docs)
-(defn cohort-doc-last-number [cohort]
-  (inc (or (->> (docs cohort)
-                last
-                doc/number)
-           0)))
-
 (defn cohort-href [cohort]
   (when (cohort/slug cohort)
     (str "/" (cohort/slug cohort)
@@ -98,3 +91,12 @@
            (map (comp doc/from-slug fs/file-name))
            (filter (partial doc-exists? cohort))
            (sort-by doc/number)))))
+
+(defn next-doc
+  "Creates a new doc for a cohort"
+  [cohort]
+  (let [number (inc (or (->> (docs cohort)
+                             last
+                             doc/number)
+                        0))]
+    (doc/from-slug (str (cohort/slug cohort) "-" number))))

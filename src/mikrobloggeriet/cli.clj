@@ -120,7 +120,6 @@
     | `git`         | Boolean specifying whether to create shelling out to git commands or not.
     | `editor`      | Specify editor to open when shell out.
     | `cohort-id`   | Keyword for the specifying cohort.
-    | `number` (Optional)   | Number for blog post. Added to try making the function more pure.
   
     Example:
     ```clojure
@@ -134,7 +133,7 @@
     (create-opts->commands sample-opts) 
     ```" 
   [opts]
-  (let [{:keys [dir git editor cohort-id number]} opts
+  (let [{:keys [dir git editor cohort-id]} opts
         git-user-email (:git.user/email opts)]
     (assert dir)
     (assert (some? git))
@@ -143,9 +142,8 @@
     (assert git-user-email)
     (assert cohort-id)
 
-    (let [cohort (store/cohorts cohort-id)
-          number (or number (store/cohort-doc-last-number cohort))
-          doc (doc/from-slug (str (cohort/slug cohort) "-" number))]
+    (let [cohort (store/cohorts cohort-id) 
+          doc (store/next-doc cohort)]
       (concat (when git
                 [[:shell {:dir dir} "git pull --ff-only"]])
               [[:create-dirs (store/doc-folder cohort doc)]
