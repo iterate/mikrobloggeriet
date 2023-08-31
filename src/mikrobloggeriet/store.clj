@@ -39,11 +39,7 @@
    :cohort/slug "genai"
    :cohort/members [{:author/first-name "Julian"}]))
 
-(def cohorts 
-  ^:depricated
-  [olorm jals oj genai])
-
-(def cohorts-new (sorted-map :olorm olorm :jals jals :oj oj :genai genai))
+(def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
@@ -95,3 +91,12 @@
            (map (comp doc/from-slug fs/file-name))
            (filter (partial doc-exists? cohort))
            (sort-by doc/number)))))
+
+(defn next-doc
+  "Creates a new doc for a cohort"
+  [cohort]
+  (let [number (inc (or (->> (docs cohort)
+                             last
+                             doc/number)
+                        0))]
+    (doc/from-slug (str (cohort/slug cohort) "-" number))))
