@@ -92,7 +92,7 @@ Her er en start:
   
   Eksempelet feiler fordi `FAIL` ikke er en systemkommando.
   I stedet for `run: FAIL` kunne man kjørt `run: go test`, `run: npm test` eller `run: clojure -A:run-tests`.
-  Da skal `go test` returnere kode 0 hvis alt er OK, og noe annet enn 0 hvis testene feiler.
+  Da skal `go test` gi returkode 0 hvis alt er OK, og noe annet enn 0 hvis testene feiler.
 
 ## Er testing og CICD verdt innsatsen?
 
