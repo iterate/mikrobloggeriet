@@ -29,6 +29,12 @@
 (defn members [cohort]
   (:cohort/members cohort))
 
+(defn repo-path [cohort]
+  (:cohort/repo-path cohort "."))
+
+(defn set-repo-path [cohort repo-path]
+  (assoc cohort :cohort/repo-path repo-path))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DEPRECATED
 ;;

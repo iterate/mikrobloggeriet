@@ -104,8 +104,10 @@
 ;; LIST DOCUMENTS
 
 (defn docs [cohort]
-  (let [root (cohort/root cohort)]
-    (when (and root (fs/directory? root))
+  []
+  (let [root (fs/file (cohort/repo-path cohort)
+                      (cohort/root cohort))]
+    (when (fs/directory? root)
       (->> (fs/list-dir (fs/file root))
            (map (comp doc/from-slug fs/file-name))
            (filter (partial doc-exists? cohort))
