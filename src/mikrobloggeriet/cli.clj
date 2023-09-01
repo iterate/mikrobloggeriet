@@ -166,8 +166,9 @@ Supported values for PROPERTY:
                 (string? editor)))
     (assert git-user-email)
     (assert cohort-id)
-
-    (let [cohort (store/cohorts cohort-id) 
+    
+    (let [cohort (-> (store/cohorts cohort-id)
+                     (cohort/set-repo-path dir))
           doc (store/next-doc cohort)]
       (concat (when git
                 [[:shell {:dir dir} "git pull --ff-only"]])
@@ -188,7 +189,7 @@ Supported values for PROPERTY:
                  [:shell {:dir dir} "git pull --rebase"]
                  [:shell {:dir dir} "git push"]
                  [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
-                                "\n\n   " 
+                                "\n\n   "
                                 (str (str (clojure.string/upper-case (doc/slug doc)))
                                      ": $DIN_TITTEL → https://mikrobloggeriet.no"
                                      (store/doc-href cohort doc)))]])))))
