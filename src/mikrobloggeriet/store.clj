@@ -45,30 +45,25 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
 
-(defn doc-exists? [cohort doc]
-  (and (cohort/root cohort)
-       (doc/slug doc)
-       (fs/directory? (fs/file (cohort/root cohort)
-                               (doc/slug doc)))
-       (fs/exists? (fs/file (cohort/root cohort)
-                            (doc/slug doc)
-                            "meta.edn"))
-       (fs/exists? (fs/file (cohort/root cohort)
-                            (:doc/slug doc)
-                            "index.md"))))
-
 (defn doc-folder [cohort doc]
-  (fs/file (cohort/root cohort)
-           (doc/slug doc))
-  )
+  (fs/file (cohort/repo-path cohort)
+           (cohort/root cohort)
+           (doc/slug doc)))
+
 
 (defn doc-md-path [cohort doc]
-  (fs/file (doc-folder cohort doc) 
+  (fs/file (doc-folder cohort doc)
            "index.md"))
 
 (defn doc-meta-path [cohort doc]
   (fs/file (doc-folder cohort doc)
            "meta.edn"))
+
+(defn doc-exists? [cohort doc]
+  (and (cohort/root cohort)
+       (doc/slug doc)
+       (fs/exists? (doc-md-path cohort doc))
+       (fs/exists? (doc-meta-path cohort doc))))
 
 (defn load-meta [cohort doc]
   (let [meta (edn/read-string (slurp (doc-meta-path cohort doc)))]
@@ -104,8 +99,9 @@
 ;; LIST DOCUMENTS
 
 (defn docs [cohort]
-  (let [root (cohort/root cohort)]
-    (when (and root (fs/directory? root))
+  (let [root (fs/file (cohort/repo-path cohort)
+                      (cohort/root cohort))]
+    (when (fs/directory? root)
       (->> (fs/list-dir (fs/file root))
            (map (comp doc/from-slug fs/file-name))
            (filter (partial doc-exists? cohort))

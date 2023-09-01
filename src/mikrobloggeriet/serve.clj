@@ -171,7 +171,7 @@
         [:h2 "OJ"]
         [:p "Mikrobloggen OJ skrives av Olav og Johan."]
         (interpose " · "
-                   (for [doc (cohort/docs cohort/oj)]
+                   (for [doc (store/docs store/oj)]
                      [:a {:href (store/doc-href store/oj doc  )} (:doc/slug doc)]))]
 
        (when (= "genai" (flag req))
