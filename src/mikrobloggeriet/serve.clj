@@ -12,6 +12,7 @@
    [clj-rss.core :as rss]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.jals :as jals]
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
@@ -154,6 +155,7 @@
          (interpose " · "
                     (for [olorm (->> (olorm/docs {:repo-path (repo-path)})
                                      (map olorm/load-meta)
+                                     (remove doc-meta/draft?)
                                      (pmap (fn [olorm]
                                              (assoc olorm :olorm/title (:title (markdown->html+info (slurp (olorm/index-md-path olorm))))))))]
                       [:a {:href (olorm/href olorm)
@@ -171,8 +173,10 @@
         [:h2 "OJ"]
         [:p "Mikrobloggen OJ skrives av Olav og Johan."]
         (interpose " · "
-                   (for [doc (store/docs store/oj)]
-                     [:a {:href (store/doc-href store/oj doc  )} (:doc/slug doc)]))]
+                   (for [doc (->> (store/docs store/oj)
+                                  (map (fn [doc] (store/load-meta store/oj doc)))
+                                  (remove doc-meta/draft?))]
+                     [:a {:href (store/doc-href store/oj doc)} (:doc/slug doc)]))]
 
        (when (= "genai" (flag req))
          [:section

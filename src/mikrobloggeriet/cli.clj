@@ -176,11 +176,11 @@ Supported values for PROPERTY:
                [:spit
                 (store/doc-md-path cohort doc)
                 (md-skeleton doc)]
-               [:spit
-                (store/doc-meta-path cohort doc)
-                (prn-str {:git.user/email git-user-email
-                          :doc/created (today)
-                          :doc/uuid (uuid)})]]
+               (let [doc-meta (cond-> {:git.user/email git-user-email
+                                       :doc/created (today)
+                                       :doc/uuid (uuid)}
+                                (:draft opts) (assoc :doc/state :draft))]
+                 [:spit (store/doc-meta-path cohort doc) (with-out-str (pprint doc-meta))])]
               (when editor
                 [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
               (when (and git editor)
@@ -240,8 +240,9 @@ Supported values for PROPERTY:
     --no-git   Disables all git commands.
     --no-edit  Do not launch $EDITOR to edit files.
                Also supresses git commit & git push.
-    --dry-run  Supress side effects and print commands instead
+    --dry-run  Supress side effects and print commands instead.
     --help     Show this helptext.
+    --draft    Don't show this document live for now.
                         
                         "))
     (System/exit 0))
@@ -252,7 +253,8 @@ Supported values for PROPERTY:
           :git (:git opts true)
           :editor (config-get :editor)
           :git.user/email (git-user-email ".")
-          :cohort-id (config-get :cohort)}
+          :cohort-id (config-get :cohort)
+          :draft (or (:draft opts) false)}
          create-opts->commands
          (map command-transform)
          execute!))
