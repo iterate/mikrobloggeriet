@@ -242,7 +242,7 @@ Supported values for PROPERTY:
                Also supresses git commit & git push.
     --dry-run  Supress side effects and print commands instead.
     --help     Show this helptext.
-    --draft    EXPERIMENTAL!
+    --draft    EXPERIMENTAL! (may not work, stop working and/or change behavior)
                         "))
     (System/exit 0))
   (let [command-transform (if (:dry-run opts)
