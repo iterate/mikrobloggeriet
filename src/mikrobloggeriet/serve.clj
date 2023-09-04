@@ -482,6 +482,7 @@
   (GET "/genai/:slug/" req (doc (assoc req
                                        :mikrobloggeriet/cohort cohort/genai
                                        :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+  (GET "/feed" req (rss-feed))
   (GET "/feed/" req (rss-feed))
   )
 
