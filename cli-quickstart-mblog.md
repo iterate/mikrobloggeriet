@@ -8,11 +8,26 @@ This guide gets you started with the new CLI: `mblog`.
 Mikrobloggeriet.no requires some setup:
 
 1. [Babashka] must be installed.
-2. [bbin] must be installed.
-3. You must clone this repository.
+2. [bbin] must be installed and added to your path $HOME/.babashka/bbin/bin .
+3. [JVM] must be installed
+4. You must clone this repository.
 
 [Babashka]: https://babashka.org/
 [bbin]: https://github.com/babashka/bbin
+
+## Install and setup `JVM`
+
+One example to install a JVM is through the command
+
+```shell
+brew install openjdk
+```
+
+After installing openjdk you also need to run the command:
+
+```shell
+sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+```
 
 ## Install `mblog`
 
