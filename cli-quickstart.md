@@ -8,9 +8,21 @@ Until later, we can keep on using the existing tools:
 
 Mikrobloggeriet.no requires some setup:
 
-1. [Babashka] must be installed.
-2. [Bbin] must be set.
-3. `EDITOR` must be set in your shell.
+1. A JDK must be available.
+   For Mac, you can install OpenJDK like this:
+
+   ```
+   brew install openjdk
+   ```
+
+   Other JDKs should also work fine, and all known JDK versions are supported.
+   We recommend installing the latest long term support JDK release .
+
+2. [Babashka] must be installed.
+
+3. [Bbin] must be installed
+
+4. `EDITOR` must be set in your shell.
    Set `export EDITOR=vim` in your `.zshrc` to use Vim, like the default for `git`.
 
 [Babashka]: https://babashka.org/
