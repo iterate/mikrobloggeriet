@@ -14,8 +14,6 @@ Mikrobloggeriet.no requires some setup:
 
 [Babashka]: https://babashka.org/
 [bbin]: https://github.com/babashka/bbin
-## Install and setup Java for Linux
-Follow the operating systems instructions.
 
 ## Install and setup `JAVA` for Mac
 
