@@ -8,25 +8,37 @@ Until later, we can keep on using the existing tools:
 
 Mikrobloggeriet.no requires some setup:
 
-1. A JDK must be available.
-   For Mac, you can install OpenJDK like this:
-
-   ```
-   brew install openjdk
-   ```
-
-   Other JDKs should also work fine, and all known JDK versions are supported.
-   We recommend installing the latest long term support JDK release .
-
+1. Java must be installed (see below)
 2. [Babashka] must be installed.
-
 3. [Bbin] must be installed
-
 4. `EDITOR` must be set in your shell.
    Set `export EDITOR=vim` in your `.zshrc` to use Vim, like the default for `git`.
 
 [Babashka]: https://babashka.org/
 [Bbin]: https://github.com/babashka/bbin
+
+## Install and setup Java
+
+### Installing Java on Linux
+
+Please install your Java Development Kit (JDK) of choice with your package manager.
+
+### Installing Java on Mac
+
+You can install Java however you like.
+
+Here's one example on how to do it:
+
+```shell
+brew install openjdk
+```
+
+You can install multiple Java versions at the same time on Mac.
+To choose the java version you just installed, run:
+
+```shell
+sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+```
 
 ## Install `olorm`
 
@@ -46,7 +58,6 @@ Mikrobloggeriet.no requires some setup:
     ```
 
 ## Install `jals`
-
 
 1. First, install the CLI.
    In this folder, please run:

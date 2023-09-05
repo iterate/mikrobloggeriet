@@ -7,27 +7,35 @@ This guide gets you started with the new CLI: `mblog`.
 
 Mikrobloggeriet.no requires some setup:
 
-1. [Babashka] must be installed.
-2. [bbin] must be installed and added to your path $HOME/.babashka/bbin/bin .
-3. [JVM] must be installed
+1. Java must be installed
+2. [Babashka] must be installed.
+3. [bbin] must be installed and added to your path $HOME/.babashka/bbin/bin .
 4. You must clone this repository.
 
 [Babashka]: https://babashka.org/
 [bbin]: https://github.com/babashka/bbin
 
-## Install and setup `JAVA` for Mac
+## Install and setup Java
 
-One example to install a JVM is through the command
+### Installing Java on Linux
+
+Please install your Java Development Kit (JDK) of choice with your package manager.
+
+### Installing Java on Mac
+
+You can install Java however you like.
+
+Here's one example on how to do it:
 
 ```shell
 brew install openjdk
 ```
 
-After installing openjdk you also need to run the command:
+You can install multiple Java versions at the same time on Mac.
+To choose the java version you just installed, run:
 
 ```shell
 sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
-```
 
 ## Install `mblog`
 
