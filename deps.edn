@@ -13,7 +13,8 @@
   }
  :aliases
  {:dev
-  {:extra-paths ["test" "draft"]}
+  {:extra-paths ["test" "draft"]
+   :extra-deps {com.datomic/peer {:mvn/version  "1.0.6735"}}}
   :run-tests
   {:extra-paths ["test"]
    :extra-deps {io.github.cognitect-labs/test-runner
