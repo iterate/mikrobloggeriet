@@ -35,7 +35,7 @@ Selv om disse er likestilt "horisontalt" på tavla, tenker jeg at bugfiksen er m
 
 Men så må man selvfølgelig passe på at man også bruker nok tid på de mer langsiktige oppgavene.
 
-Relatert mikroblogg av undertegnede: [Fart i utvikling?](https://mikrobloggeriet.no/o/olorm-15/).
+Relatert mikroblogg av undertegnede: [Fart i utvikling?](https://mikrobloggeriet.no/o/olorm-15/)
 
 Hva tenker du, har du noen andre tommelfingerregler du liker?
 Er du uenig i mine tanker? Det er lov, jeg er det ofte selv!
