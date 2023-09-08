@@ -1,7 +1,8 @@
 (ns mikrobloggeriet.cohort-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [mikrobloggeriet.cohort :as cohort]))
+   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.store :as store]))
 
 (deftest docs-test
   (testing "we find olorm-3"
@@ -19,3 +20,8 @@
 (deftest slug-test
   (is (= "oj" (cohort/slug cohort/oj)))
   (is (nil? (cohort/slug {}))))
+
+(deftest name-test
+  (is (= "OLORM"
+         (cohort/name store/olorm)))
+  )

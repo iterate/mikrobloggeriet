@@ -2,7 +2,8 @@
   (:refer-clojure :exclude [name])
   (:require
    [babashka.fs :as fs]
-   [mikrobloggeriet.doc :as doc]))
+   [mikrobloggeriet.doc :as doc]
+   [clojure.string :as str]))
 
 (comment
   ;; example cohort:
@@ -34,6 +35,9 @@
 
 (defn set-repo-path [cohort repo-path]
   (assoc cohort :cohort/repo-path repo-path))
+
+(defn name [cohort]
+  (some-> (slug cohort) str/upper-case))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DEPRECATED
