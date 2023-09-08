@@ -163,9 +163,12 @@
         [:h2 "JALS"]
         [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
         [:p
-         (interpose " · "
-                    (for [doc (jals/docs {:repo-path (repo-path)})]
-                      [:a {:href (jals/href doc)} (:slug doc)]))]]
+         (let [cohort store/jals]
+           (interpose " · "
+                      (for [doc (->> (store/docs cohort)
+                                     (map (fn [doc] (store/load-meta cohort doc)))
+                                     (remove doc-meta/draft?))]
+                        [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))]]
 
        [:section
         [:h2 "OJ"]
