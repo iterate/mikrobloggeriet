@@ -232,50 +232,6 @@
              (flag-element "genai")
              ])])])}))
 
-(defn olorm-index [req]
-  (page/html5
-   (into [:head] (shared-html-header req))
-   [:body
-    [:p
-     (feeling-lucky)
-     " — "
-     [:a {:href "/"} "mikrobloggeriet"]]
-    [:h1 "Alle OLORM-er"]
-    [:table
-     [:thead
-      [:td "olorm"]
-      [:td "tittel"]
-      [:td "forfatter"]
-      [:td "publisert"]]
-     [:tbody
-      (for [olorm (->> (olorm/docs {:repo-path (repo-path)})
-                       (map olorm/load-meta)
-                       (pmap (fn [olorm]
-                               (assoc olorm :olorm/title (:title (markdown->html+info (slurp (olorm/index-md-path olorm))))))))]
-        [:tr
-         [:td [:a {:href (olorm/href olorm)} (:slug olorm)]]
-         [:td (:olorm/title olorm)]
-         [:td (olorm/author-name olorm)]
-         [:td (:doc/created olorm)]])]]]))
-
-(defn jals-index [req]
-  (page/html5
-   (into [:head] (shared-html-header req))
-   [:body
-    [:p
-     (feeling-lucky)
-     " — "
-     [:a {:href "/"} "mikrobloggeriet"]]
-    [:h1 "Alle JALS-er"]
-    [:table
-     [:thead [:td "slug"] [:td "author"] [:td "created"]]
-     [:tbody
-      (for [jals (map jals/load-meta (jals/docs {:repo-path (repo-path)}))]
-        [:tr
-         [:td [:a {:href (jals/href jals)} (:slug jals)]]
-         [:td (jals/author-name jals)]
-         [:td (:doc/created jals)]])]]]))
-
 (defn olorm [req]
   (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
                               :repo-path (repo-path)})
@@ -457,8 +413,8 @@
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
   (GET "/theme/:theme" req (theme req))
-  (GET "/o/" req (olorm-index req))
-  (GET "/j/" req (jals-index req))
+  (GET "/o/" req (cohort-doc-table req store/olorm))
+  (GET "/j/" req (cohort-doc-table req store/jals))
   (GET "/oj/" req (cohort-doc-table req store/oj))
   (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/o/:slug/" req (olorm req))
