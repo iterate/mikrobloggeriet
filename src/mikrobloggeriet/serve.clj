@@ -243,36 +243,6 @@
              (flag-element "genai")
              ])])])}))
 
-(defn jals [req]
-  (let [doc (jals/->doc {:slug (:slug (:route-params req))
-                         :repo-path (repo-path)})
-        {:keys [number]} doc
-        {:keys [doc-html title]}
-        (when (jals/exists? doc)
-          (markdown->html+info (slurp (jals/index-md-path doc))))]
-    {:status (if doc-html 200 404)
-     :body
-     (page/html5
-      (into [:head] (concat (shared-html-header req)
-                            (when title
-                              [[:title title]])))
-      [:body
-       [:p (feeling-lucky)
-        " — "
-        [:a {:href "/"} "mikrobloggeriet"]
-        " "
-        [:a {:href "/j/"} "j"]
-        " — "
-        [:span (interpose " · " (filter some?
-                                        [(let [prev (jals/->doc {:number (dec number) :repo-path (repo-path)})]
-                                           (when (jals/exists? prev)
-                                             [:a {:href (jals/href prev)} (:slug prev)]))
-                                         [:span (:slug doc)]
-                                         (let [prev (jals/->doc {:number (inc number) :repo-path (repo-path)})]
-                                           (when (jals/exists? prev)
-                                             [:a {:href (jals/href prev)} (:slug prev)]))]))]]
-       doc-html])}))
-
 (comment
   (cohort/slug store/oj)
 
