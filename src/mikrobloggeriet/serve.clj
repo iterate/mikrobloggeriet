@@ -13,6 +13,8 @@
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
+   [mikrobloggeriet.jals :as jals]
+   [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.style :as style]
