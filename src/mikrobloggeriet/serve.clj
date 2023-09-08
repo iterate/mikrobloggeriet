@@ -323,9 +323,8 @@
     (let [cohort (:mikrobloggeriet/cohort req)
           doc (doc/from-slug (:mikrobloggeriet.doc/slug req))
           {:keys [title doc-html]}
-          (when (doc/exists? cohort doc)
-            (markdown->html+info (slurp (doc/index-md-path cohort doc)))) 
-          ]
+          (when (store/doc-exists? cohort doc)
+            (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
       {:status 200
        :body
        (page/html5
