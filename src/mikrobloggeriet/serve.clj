@@ -321,7 +321,7 @@
   (when (and (:mikrobloggeriet/cohort req)
              (:mikrobloggeriet.doc/slug req))
     (let [cohort (:mikrobloggeriet/cohort req)
-          doc {:doc/slug (:mikrobloggeriet.doc/slug req)}
+          doc (doc/from-slug (:mikrobloggeriet.doc/slug req))
           {:keys [title doc-html]}
           (when (doc/exists? cohort doc)
             (markdown->html+info (slurp (doc/index-md-path cohort doc)))) 
