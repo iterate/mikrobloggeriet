@@ -319,7 +319,7 @@
 
 (defn doc
   [req cohort]
-  (when (:mikrobloggeriet.doc/slug req)
+  (when (:slug (:route-params req))
     (let [doc (doc/from-slug (:slug (:route-params req)))
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
