@@ -143,6 +143,7 @@
         iterate-url "https://www.iterate.no/"]
     {:status 200
      :body
+
      (page/html5
       (into [:head] (shared-html-header req))
       [:body
@@ -432,13 +433,14 @@
   ;; STUFF
   (GET "/random-doc" _req random-doc)
   (GET "/hops-info" req (hops-info req))
-  (GET "/feed/" req (rss-feed))
+  (GET "/feed/" _req (rss-feed))
 
   ;; OLORM
   ;; /o/* URLS are deprecated in favor of /olorm/* URLs
   (GET "/o/" _req (http/permanent-redirect {:target "/olorm/"}))
   (GET "/olorm/" req (cohort-doc-table req store/olorm))
-  (GET "/o/:slug/" req (olorm req))
+
+  (GET "/o/:slug/" req (http/permanent-redirect {:target (str "/olorm/" (:slug (:route-params req)) "/")}))
   (GET "/olorm/:slug/" req (olorm req))
   (GET "/olorm/draw/:pool" req (draw req :olorm
                                      {\o "oddmund" \l "lars" \r "richard"}))
@@ -447,7 +449,7 @@
   ;; /j/* URLS are deprecated in favor of /jals/* URLs
   (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
   (GET "/jals/" req (cohort-doc-table req store/jals))
-  (GET "/j/:slug/" req (jals req))
+  (GET "/j/:slug/" req (http/permanent-redirect {:target (str "/jals/" (:slug (:route-params req)) "/")}))
   (GET "/jals/:slug/" req (jals req))
   (GET "/jals/draw/:pool" req (draw req :jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
