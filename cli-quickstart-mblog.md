@@ -1,7 +1,8 @@
 # CLI quickstart for `mblog`
 
 This guide gets you started with the new CLI: `mblog`.
-`mblog` is currently (per 2023-08-22) work in progress.
+`mblog` is currently (per 2023-09-08) working for Olav and Teodor.
+The old CLIs (`olorm` and `jals`) are still supported.
 
 ## Required dependencies
 
