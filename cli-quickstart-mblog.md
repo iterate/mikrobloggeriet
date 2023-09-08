@@ -36,6 +36,7 @@ To choose the java version you just installed, run:
 
 ```shell
 sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+```
 
 ## Install `mblog`
 
