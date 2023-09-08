@@ -423,16 +423,24 @@
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
   (GET "/theme/:theme" req (theme req))
+
+  ;; /o/* URLS are deprecated in favor of /olorm/* URLs
   (GET "/o/" _req (http/permanent-redirect {:target "/olorm/"}))
   (GET "/olorm/" req (cohort-doc-table req store/olorm))
-  (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
-  (GET "/jals/" req (cohort-doc-table req store/jals))
-  (GET "/oj/" req (cohort-doc-table req store/oj))
-  (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/o/:slug/" req (olorm req))
   (GET "/olorm/:slug/" req (olorm req))
+  ;; /j/* URLS are deprecated in favor of /jals/* URLs
+  (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
+  (GET "/jals/" req (cohort-doc-table req store/jals))
   (GET "/j/:slug/" req (jals req))
   (GET "/jals/:slug/" req (jals req))
+
+  (GET "/oj/" req (cohort-doc-table req store/oj))
+  (GET "/oj/:slug/" req (doc (assoc req
+                                    :mikrobloggeriet/cohort store/oj
+                                    :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+
+  (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/random-doc" _req random-doc)
   (GET "/hops-info" req (hops-info req))
   (GET "/set-theme/:theme" req (set-theme req))
