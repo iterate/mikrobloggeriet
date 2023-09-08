@@ -173,19 +173,25 @@
        [:section
         [:h2 "OJ"]
         [:p "Mikrobloggen OJ skrives av Olav og Johan."]
-        (interpose " · "
-                   (for [doc (->> (store/docs store/oj)
-                                  (map (fn [doc] (store/load-meta store/oj doc)))
-                                  (remove doc-meta/draft?))]
-                     [:a {:href (store/doc-href store/oj doc)} (:doc/slug doc)]))]
+        (let [cohort store/oj]
+          (interpose " · "
+                     (for [doc (->> (store/docs cohort)
+                                    (map (fn [doc] (store/load-meta cohort doc)))
+                                    (remove doc-meta/draft?))]
+                       [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]))
+          )]
 
        (when (= "genai" (flag req))
          [:section
           [:h2 "GENAI"]
           [:p "Mikrobloggen GENAI skrives av ... deg?"]
-          (interpose " · "
-                     (for [doc (cohort/docs cohort/genai)]
-                       [:a {:href (store/doc-href store/genai doc)} (:doc/slug doc)]))])
+          (let [cohort store/genai]
+            (interpose " · "
+                       (for [doc (->> (store/docs cohort)
+                                      (map (fn [doc] (store/load-meta cohort doc)))
+                                      (remove doc-meta/draft?))]
+                         [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]))
+            )])
 
        [:hr]
 
