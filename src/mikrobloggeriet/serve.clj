@@ -417,41 +417,53 @@
 
 (defroutes app
   (GET "/" req (index req))
+
+  ;; STATIC FILES
   (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
   (GET "/vanilla.css" _req (css-response "vanilla.css"))
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
+
+  ;; THEMES AND FEATURE FLAGGING
+  (GET "/set-theme/:theme" req (set-theme req))
+  (GET "/set-flag/:flag" req (set-flag req))
   (GET "/theme/:theme" req (theme req))
 
+  ;; STUFF
+  (GET "/random-doc" _req random-doc)
+  (GET "/hops-info" req (hops-info req))
+  (GET "/feed/" req (rss-feed))
+
+  ;; OLORM
   ;; /o/* URLS are deprecated in favor of /olorm/* URLs
   (GET "/o/" _req (http/permanent-redirect {:target "/olorm/"}))
   (GET "/olorm/" req (cohort-doc-table req store/olorm))
   (GET "/o/:slug/" req (olorm req))
   (GET "/olorm/:slug/" req (olorm req))
+  (GET "/olorm/draw/:pool" req (draw req :olorm
+                                     {\o "oddmund" \l "lars" \r "richard"}))
+
+  ;; JALS
   ;; /j/* URLS are deprecated in favor of /jals/* URLs
   (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
   (GET "/jals/" req (cohort-doc-table req store/jals))
   (GET "/j/:slug/" req (jals req))
   (GET "/jals/:slug/" req (jals req))
+  (GET "/jals/draw/:pool" req (draw req :jals
+                                    {\a "adrian" \l "lars" \s "sindre"}))
 
+  ;; OJ
   (GET "/oj/" req (cohort-doc-table req store/oj))
   (GET "/oj/:slug/" req (doc (assoc req
                                     :mikrobloggeriet/cohort store/oj
                                     :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
 
+  ;; GENAI
   (GET "/genai/" req (cohort-doc-table req store/genai))
-  (GET "/random-doc" _req random-doc)
-  (GET "/hops-info" req (hops-info req))
-  (GET "/set-theme/:theme" req (set-theme req))
-  (GET "/set-flag/:flag" req (set-flag req))
-  (GET "/olorm/draw/:pool" req (draw req :olorm
-                                     {\o "oddmund" \l "lars" \r "richard"}))
-  (GET "/jals/draw/:pool" req (draw req :jals
-                                    {\a "adrian" \l "lars" \s "sindre"}))
   (GET "/genai/:slug/" req (doc (assoc req
                                        :mikrobloggeriet/cohort store/genai
                                        :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
-  (GET "/feed/" req (rss-feed))
+
   )
 
 (comment
