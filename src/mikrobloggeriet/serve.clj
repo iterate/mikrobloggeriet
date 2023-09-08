@@ -243,37 +243,6 @@
              (flag-element "genai")
              ])])])}))
 
-(defn olorm [req]
-  (let [olorm (olorm/->olorm {:slug (:slug (:route-params req))
-                              :repo-path (repo-path)})
-        {:keys [number]} olorm
-        {:keys [doc-html title]}
-        (when (olorm/exists? olorm)
-          (markdown->html+info (slurp (olorm/index-md-path olorm))))]
-    {:status (if (and olorm (olorm/exists? olorm)) 200 404)
-     :body
-     (page/html5
-      (into [:head] (concat (shared-html-header req)
-                            (when title
-                              [[:title title]])))
-      [:body
-       [:p
-        (feeling-lucky)
-        " — "
-        [:a {:href "/"} "mikrobloggeriet"]
-        " "
-        [:a {:href "/o/"} "o"]
-        " — "
-        [:span (interpose " · " (filter some?
-                                        [(let [prev (olorm/->olorm {:number (dec number) :repo-path (repo-path)})]
-                                           (when (olorm/exists? prev)
-                                             [:a {:href (olorm/href prev)} (:slug prev)]))
-                                         [:span (:slug olorm)]
-                                         (let [prev (olorm/->olorm {:number (inc number) :repo-path (repo-path)})]
-                                           (when (olorm/exists? prev)
-                                             [:a {:href (olorm/href prev)} (:slug prev)]))]))]]
-       doc-html])}))
-
 (defn jals [req]
   (let [doc (jals/->doc {:slug (:slug (:route-params req))
                          :repo-path (repo-path)})
