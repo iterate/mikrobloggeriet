@@ -431,9 +431,9 @@
   (GET "/theme/:theme" req (theme req))
 
   ;; STUFF
-  (GET "/random-doc" _req random-doc)
-  (GET "/hops-info" req (hops-info req))
   (GET "/feed/" _req (rss-feed))
+  (GET "/hops-info" req (hops-info req))
+  (GET "/random-doc" _req random-doc)
 
   ;; OLORM
   ;; /o/* URLS are deprecated in favor of /olorm/* URLs
