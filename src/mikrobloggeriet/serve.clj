@@ -488,15 +488,11 @@
 
   ;; OJ
   (GET "/oj/" req (cohort-doc-table req store/oj))
-  (GET "/oj/:slug/" req (doc (assoc req
-                                    :mikrobloggeriet/cohort store/oj
-                                    :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+  (GET "/oj/:slug/" req (doc req store/oj))
 
   ;; GENAI
   (GET "/genai/" req (cohort-doc-table req store/genai))
-  (GET "/genai/:slug/" req (doc (assoc req
-                                       :mikrobloggeriet/cohort store/genai
-                                       :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
+  (GET "/genai/:slug/" req (doc req store/genai))
 
   )
 
