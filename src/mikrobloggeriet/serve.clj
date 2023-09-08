@@ -439,7 +439,7 @@
   (GET "/olorm/" req (cohort-doc-table req store/olorm))
 
   (GET "/o/:slug/" req (http/permanent-redirect {:target (str "/olorm/" (:slug (:route-params req)) "/")}))
-  (GET "/olorm/:slug/" req (olorm req))
+  (GET "/olorm/:slug/" req (doc req store/olorm))
   (GET "/olorm/draw/:pool" req (draw req store/olorm
                                      {\o "oddmund" \l "lars" \r "richard"}))
 
@@ -448,7 +448,7 @@
   (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
   (GET "/jals/" req (cohort-doc-table req store/jals))
   (GET "/j/:slug/" req (http/permanent-redirect {:target (str "/jals/" (:slug (:route-params req)) "/")}))
-  (GET "/jals/:slug/" req (jals req))
+  (GET "/jals/:slug/" req (doc req store/jals))
   (GET "/jals/draw/:pool" req (draw req store/jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
 
@@ -463,6 +463,7 @@
   )
 
 (comment
+  (app {:uri "/olorm/olorm-1/", :request-method :get})
   (app {:uri "/hops-info", :request-method :get})
   (app {:uri "/olorm/draw/o", :request-method :get}))
 
