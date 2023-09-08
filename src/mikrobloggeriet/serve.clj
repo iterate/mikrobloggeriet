@@ -291,13 +291,8 @@
 
 (defn random-doc [_req]
   (let [target (or
-                (when-let [docs (into [] cat [(olorm/docs {:repo-path (repo-path)})
-                                              (jals/docs {:repo-path (repo-path)})])]
-                  (let [picked (rand-nth docs)]
-                    (cond
-                      (= :olorm (:cohort picked)) (olorm/href picked)
-                      (= :jals (:cohort picked)) (jals/href picked)
-                      :else nil)))
+                (when-let [[cohort doc] (store/random-cohort+doc)]
+                  (store/doc-href cohort doc))
                 "/")]
     {:status 307 ;; temporary redirect
      :headers {"Location" target}

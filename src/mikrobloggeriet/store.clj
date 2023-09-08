@@ -115,3 +115,13 @@
                              doc/number)
                         0))]
     (doc/from-slug (str (cohort/slug cohort) "-" number))))
+
+(defn random-cohort+doc
+  "Returns a random tuple of (cohort, doc) from all known cohorts"
+  []
+  (->> [olorm jals oj]
+       (mapcat (fn [cohort]
+                 (for [d (docs cohort)]
+                   [cohort d])))
+       (into [])
+       rand-nth))
