@@ -445,7 +445,7 @@
                                            :border-radius "10px"
                                            :background "black"
                                            :color neon-green})}
-               [:div (str "$ " (name cohort) " draw " pool)]
+               [:div (str "$ " (cohort/name cohort) " draw " pool)]
                [:div (str (get first-letter-names chosen) " 🎉")]]]])}))
 
 (defroutes app
@@ -474,7 +474,7 @@
 
   (GET "/o/:slug/" req (http/permanent-redirect {:target (str "/olorm/" (:slug (:route-params req)) "/")}))
   (GET "/olorm/:slug/" req (olorm req))
-  (GET "/olorm/draw/:pool" req (draw req :olorm
+  (GET "/olorm/draw/:pool" req (draw req store/olorm
                                      {\o "oddmund" \l "lars" \r "richard"}))
 
   ;; JALS
@@ -483,7 +483,7 @@
   (GET "/jals/" req (cohort-doc-table req store/jals))
   (GET "/j/:slug/" req (http/permanent-redirect {:target (str "/jals/" (:slug (:route-params req)) "/")}))
   (GET "/jals/:slug/" req (jals req))
-  (GET "/jals/draw/:pool" req (draw req :jals
+  (GET "/jals/draw/:pool" req (draw req store/jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
 
   ;; OJ
