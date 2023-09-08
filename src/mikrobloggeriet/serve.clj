@@ -1,21 +1,22 @@
 (ns mikrobloggeriet.serve
   (:require
    [babashka.fs :as fs]
-   [clojure.java.io :as io]
+   [clj-rss.core :as rss]
    [clojure.edn :as edn]
+   [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
-   [mikrobloggeriet.store :as store]
-   [clj-rss.core :as rss]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
+   [mikrobloggeriet.http :as http]
    [mikrobloggeriet.jals :as jals]
    [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
+   [mikrobloggeriet.store :as store]
    [mikrobloggeriet.style :as style]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
@@ -413,8 +414,10 @@
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
   (GET "/theme/:theme" req (theme req))
-  (GET "/o/" req (cohort-doc-table req store/olorm))
-  (GET "/j/" req (cohort-doc-table req store/jals))
+  (GET "/o/" _req (http/permanent-redirect {:target "/olorm/"}))
+  (GET "/olorm/" req (cohort-doc-table req store/olorm))
+  (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
+  (GET "/jals/" req (cohort-doc-table req store/jals))
   (GET "/oj/" req (cohort-doc-table req store/oj))
   (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/o/:slug/" req (olorm req))
