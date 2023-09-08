@@ -449,9 +449,6 @@
                                      {\o "oddmund" \l "lars" \r "richard"}))
   (GET "/jals/draw/:pool" req (draw req :jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
-  (GET "/oj/:slug/" req (doc (assoc req
-                                    :mikrobloggeriet/cohort store/oj
-                                    :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
   (GET "/genai/:slug/" req (doc (assoc req
                                        :mikrobloggeriet/cohort store/genai
                                        :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
