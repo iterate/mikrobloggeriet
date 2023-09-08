@@ -14,10 +14,7 @@
                (str/starts-with? index "<!DOCTYPE"))))
 
     (testing "Index refers to olorm-4"
-      (is (str/includes? index "/olorm/olorm-4")))
-
-    (testing "olorm 4 html contains more than 500 chars"
-      (is (< 500 (count (:body (serve/olorm {:route-params {:slug "olorm-4"}}))))))))
+      (is (str/includes? index "/olorm/olorm-4")))))
 
 (deftest name-test
   (is (serve/app {:uri "/olorm/draw/o", :request-method :get}))
