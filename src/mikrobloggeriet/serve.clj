@@ -152,15 +152,12 @@
         [:h2 "OLORM"]
         [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
         [:p
-         (interpose " · "
-                    (for [olorm (->> (olorm/docs {:repo-path (repo-path)})
-                                     (map olorm/load-meta)
-                                     (remove doc-meta/draft?)
-                                     (pmap (fn [olorm]
-                                             (assoc olorm :olorm/title (:title (markdown->html+info (slurp (olorm/index-md-path olorm))))))))]
-                      [:a {:href (olorm/href olorm)
-                           :title (:olorm/title olorm)}
-                       (:slug olorm)]))]]
+         (let [cohort store/olorm]
+           (interpose " · "
+                      (for [doc (->> (store/docs cohort)
+                                     (map (fn [doc] (store/load-meta cohort doc)))
+                                     (remove doc-meta/draft?))]
+                        [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))]]
        [:section
         [:h2 "JALS"]
         [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
