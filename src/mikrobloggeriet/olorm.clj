@@ -3,6 +3,7 @@
 ;; shared between CLI and server. Runs on both JVM Clojure and Babashka.
 
 (ns mikrobloggeriet.olorm
+  {:deprecated true}
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
