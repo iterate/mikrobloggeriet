@@ -430,10 +430,10 @@
   (GET "/jals/draw/:pool" req (draw req :jals
                                     {\a "adrian" \l "lars" \s "sindre"}))
   (GET "/oj/:slug/" req (doc (assoc req
-                                    :mikrobloggeriet/cohort cohort/oj
+                                    :mikrobloggeriet/cohort store/oj
                                     :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
   (GET "/genai/:slug/" req (doc (assoc req
-                                       :mikrobloggeriet/cohort cohort/genai
+                                       :mikrobloggeriet/cohort store/genai
                                        :mikrobloggeriet.doc/slug (get-in req [:route-params :slug]))))
   (GET "/feed/" req (rss-feed))
   )
