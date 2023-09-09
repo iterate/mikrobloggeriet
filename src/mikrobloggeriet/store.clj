@@ -111,6 +111,20 @@
            (filter (partial doc-exists? cohort))
            (sort-by doc/number)))))
 
+(defn ^:private ^:experimental
+  docs+meta [cohort]
+  (for [d (docs cohort)]
+    (load-meta cohort d)))
+
+(comment
+  ;; lurer på om det er bedre å få med metadata med en gang
+  ;; vi har jo kohort når vi laster dokumenter, kan nesten like gjerne legge på metadata
+  ;;
+  ;; eller vi kan ha to funksjoner, funker det óg. Så kan man bruke den man vil.
+  (docs+meta olorm)
+
+  )
+
 (defn next-doc
   "Creates a new doc for a cohort"
   [cohort]
