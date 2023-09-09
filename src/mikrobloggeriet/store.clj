@@ -3,7 +3,11 @@
    [babashka.fs :as fs]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [clojure.edn :as edn]))
+   [clojure.edn :as edn]
+   [datomic.api :as d]))
+
+::d/keep                                ; ensure Clojure-LSP doesn't delete the datomic.api import
+                                        ; required for the comment block on the bottom
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS
@@ -125,6 +129,57 @@
                    [cohort d])))
        (into [])
        rand-nth))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; EXPERIMENT: add database
+;;
+;; Stability: experimental. Not ready for use. Use the functions above instead.
+
+(comment
+  (def db-uri "datomic:mem://testdb")
+
+  (d/create-database db-uri)
+
+  (def conn (d/connect db-uri))
+
+  @(d/transact conn [;; AUTHORS
+                     {:db/ident :author/email
+                      :db/valueType :db.type/string
+                      :db/cardinality :db.cardinality/one
+                      :db/unique :db.unique/identity}
+
+                     {:db/ident :author/first-name
+                      :db/valueType :db.type/string
+                      :db/cardinality :db.cardinality/one}
+
+                     ;; COHORTS
+                     {:db/ident :cohort/slug
+                      :db/valueType :db.type/string
+                      :db/cardinality :db.cardinality/one
+                      :db/doc "A unique identifier for a cohort, as used in URL segments"}
+
+                     {:db/ident :cohort/members
+                      :db/valueType :db.type/ref
+                      :db/cardinality :db.cardinality/many}
+
+                     {:db/ident :cohort/root
+                      :db/valueType :db.type/string
+                      :db/cardinality :db.cardinality/one}])
+
+  @(d/transact conn [(sorted-map
+                      :cohort/root "o"
+                      :cohort/slug "olorm"
+                      :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}
+                                       {:author/email "lars.barlindhaug@iterate.no", :author/first-name "Lars"}
+                                       {:author/email "oddmunds@iterate.no", :author/first-name "Oddmund"}
+                                       {:author/email "richard.tingstad@iterate.no", :author/first-name "Richard"}])])
+
+  (:author/first-name
+   (d/entity (d/db conn) [:author/email "git@teod.eu"]))
+  ;; => "Teodor"
+
+  )
+
 
 ;; observation:
 ;;
