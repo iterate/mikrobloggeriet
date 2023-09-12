@@ -250,7 +250,8 @@ Supported values for PROPERTY:
                             identity)]
     (->> {:dir (or (:dir opts) (config-get :repo-path))
           :git (:git opts true)
-          :editor (config-get :editor)
+          :editor (when (not= false (:edit opts))
+                    (config-get :editor))
           :git.user/email (git-user-email ".")
           :cohort-id (config-get :cohort)
           :draft (or (:draft opts) false)}
