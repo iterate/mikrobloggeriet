@@ -2,16 +2,6 @@
 
 Betyr det å stole på folk å slippe kontrollen?
 
-<!-- 1. Hva gjør du akkurat nå? -->
-
-<!-- 2. Finner du kvalitet i det? -->
-
-<!-- 3. Hvorfor / hvorfor ikke? -->
-
-<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
-
-Betyr det å stole på folk å slippe kontrollen?
-
 Det er lite givende å hjelpe til når en person tviholder på all kontroll, og vil ta alle beslutningene.
 Når en person skal bestemme alt, er det lite plass til mitt bidrag.
 
