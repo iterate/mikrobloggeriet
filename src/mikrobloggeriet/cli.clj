@@ -261,9 +261,6 @@ Supported values for PROPERTY:
   )
 
 (defn mblog-links
-  "Changing to the following CLI convention:
-   mblog config PROPERTY -- reads a property
-   mblog config PROPERTY VALUE -- sets a property to a value "
   [opts+args]
   (let [format (or (:format (:opts opts+args))
                    :markdown)
