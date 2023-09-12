@@ -21,6 +21,8 @@ Og etterpå verifiserer du om det som skjedde var det du ønsket at skulle skje.
 Er du fornøyd eller misfornøyd?
 I begge tilfeller bør du kanskje snakke med personen som gjorde jobben.
 
+---Teodor
+
 -----
 
 Frasen "trust, but verify" ble mye brukt av Reagan under avtalene for nedrustning av atomvåpen sent på 80-tallet.
