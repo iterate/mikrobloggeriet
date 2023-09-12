@@ -231,19 +231,19 @@ Supported values for PROPERTY:
 (defn mblog-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
     (println (str/trim "
-                          Usage:
-  
-    $ mblog create [OPTION...]
-  
-  Allowed options:
-  
-    --no-git   Disables all git commands.
-    --no-edit  Do not launch $EDITOR to edit files.
-               Also supresses git commit & git push.
-    --dry-run  Supress side effects and print commands instead.
-    --help     Show this helptext.
-    --draft    EXPERIMENTAL! (may not work, stop working and/or change behavior)
-                        "))
+Usage:
+
+  $ mblog create [OPTION...]
+
+Allowed options:
+
+  --no-git   Disables all git commands.
+  --no-edit  Do not launch $EDITOR to edit files.
+             Also supresses git commit & git push.
+  --dry-run  Supress side effects and print commands instead.
+  --help     Show this helptext.
+  --draft    EXPERIMENTAL! (may not work, stop working and/or change behavior)
+"))
     (System/exit 0))
   (let [command-transform (if (:dry-run opts)
                             command->dry-command
