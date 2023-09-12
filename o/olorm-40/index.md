@@ -25,7 +25,7 @@ I begge tilfeller bør du kanskje snakke med personen som gjorde jobben.
 
 -----
 
-Frasen "trust, but verify" ble mye brukt av Reagan under avtalene for nedrustning av atomvåpen sent på 80-tallet.
+Frasen "trust, but verify" ble mye brukt av Reagan under avtalene for nedrustning av atomvåpen på 80-tallet.
 Frasen har sin egen side både [på Wikipedia] og [på Wiktionary].
 Jeg har også skrevet om [grad av kontroll i lederskap] i kontekst av et Elm-kurs jeg lagde og holdt for Kodeklubben Oslo i 2017.
 
