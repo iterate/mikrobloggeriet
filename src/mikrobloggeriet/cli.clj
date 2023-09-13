@@ -248,7 +248,7 @@ Allowed options:
   (let [command-transform (if (:dry-run opts)
                             command->dry-command
                             identity)]
-    (->> {:dir (or (:dir opts) (config-get :repo-path))
+    (->> {:dir (config-get :repo-path)
           :git (:git opts true)
           :editor (when (not= false (:edit opts))
                     (config-get :editor))
