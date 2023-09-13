@@ -247,14 +247,16 @@ Allowed options:
     (System/exit 0))
   (let [command-transform (if (:dry-run opts)
                             command->dry-command
-                            identity)]
-    (->> {:dir (config-get :repo-path)
-          :git (:git opts true)
-          :editor (when (not= false (:edit opts))
-                    (config-get :editor))
-          :git.user/email (git-user-email ".")
-          :cohort-id (config-get :cohort)
-          :draft (or (:draft opts) false)}
+                            identity)
+        create-opts {:dir (config-get :repo-path)
+                     :git (:git opts true)
+                     :editor (when (not= false (:edit opts))
+                               (config-get :editor))
+                     :git.user/email (git-user-email ".")
+                     :cohort-id (config-get :cohort)
+                     :draft (or (:draft opts) false)}
+        ]
+    (->> create-opts
          create-opts->commands
          (map command-transform)
          execute!))
