@@ -248,11 +248,12 @@ Allowed options:
   (let [command-transform (if (:dry-run opts)
                             command->dry-command
                             identity)
-        create-opts {:dir (config-get :repo-path)
+        dir (config-get :repo-path)
+        create-opts {:dir dir
                      :git (:git opts true)
                      :editor (when (not= false (:edit opts))
                                (config-get :editor))
-                     :git.user/email (git-user-email ".")
+                     :git.user/email (git-user-email dir)
                      :cohort-id (config-get :cohort)
                      :draft (or (:draft opts) false)}
         ]
