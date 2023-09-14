@@ -40,8 +40,6 @@
 (defn feeling-lucky []
   [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
 
-(defn repo-path [] ".")
-
 (defn set-theme [req]
   (let [target "/"
         theme (or (:theme (:route-params req)) "")]
