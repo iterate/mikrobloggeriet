@@ -117,7 +117,11 @@
     (doc/from-slug (str (cohort/slug cohort) "-" number))))
 
 (defn random-cohort+doc
-  "Returns a random tuple of (cohort, doc) from all known cohorts"
+  "Returns a random tuple of (cohort, doc) from all known cohorts
+
+  All documents have the same probability to be drawn. So cohorts with many
+  published documents will be drawn more frequently than cohorts with fewer
+  published documents."
   []
   (->> [olorm jals oj]
        (mapcat (fn [cohort]
