@@ -274,7 +274,7 @@ Allowed options:
         supported-formats #{:markdown}]
     (assert (supported-formats format) (str "Supported formats: " (str/join ", " supported-formats)))
     (doseq [doc (cohort/docs)]
-      (let [cohort (get cohort/cohorts (:cohort/id doc))
+      (let [cohort (get store/cohorts (:cohort/id doc))
             href (doc/href cohort doc)
             href-absolute (str "https://mikrobloggeriet.no" href)
             link-title (:doc/slug doc) ;; title could be better --- but would take forever without a cache
