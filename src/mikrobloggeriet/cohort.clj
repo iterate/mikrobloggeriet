@@ -68,14 +68,3 @@
                      :author/first-name "Adrian"}
                     {:author/email "larshbj@gmail.com", :author/first-name "Lars"}
                     {:author/email "sindre@iterate.no", :author/first-name "Sindre"}]))
-
-(def
-  ^:deprecated
-  oj
-  "Use instead: store/oj"
-  (sorted-map
-   :cohort/root "text/oj"
-   :cohort/id :oj
-   :cohort/members [{:author/first-name "Johan"}
-                    {:author/first-name "Olav"}]))
-
