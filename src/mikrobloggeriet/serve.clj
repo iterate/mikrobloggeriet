@@ -13,8 +13,6 @@
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
-   [mikrobloggeriet.jals :as jals]
-   [mikrobloggeriet.olorm :as olorm]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.style :as style]
@@ -297,10 +295,6 @@
     {:status 307 ;; temporary redirect
      :headers {"Location" target}
      :body ""}))
-
-(comment
-  (olorm/random {:repo-path (repo-path)})
-  (jals/random {:repo-path (repo-path)}))
 
 (defn hops-info [_req]
   (let [info {:git/sha (System/getenv "HOPS_GIT_SHA")}]
