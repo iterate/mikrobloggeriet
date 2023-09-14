@@ -13,13 +13,6 @@
   (is (= "/olorm/olorm-1/"
          (store/doc-href store/olorm (doc/from-slug "olorm-1")))))
 
-
-
-(store/doc-md-path store/olorm (doc/from-slug "olorm-1"))
-
-(store/doc-md-path (cohort/set-repo-path store/olorm "/TESTROOT")
-                   (doc/from-slug "olorm-1"))
-
 (deftest doc-md-path-test
   (let [cohort (cohort/set-repo-path store/olorm "/TESTFOLDER")]
     (is (= (str "/TESTFOLDER/"
