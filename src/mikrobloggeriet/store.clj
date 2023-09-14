@@ -129,11 +129,3 @@
                    [cohort d])))
        (into [])
        rand-nth))
-
-;; observation:
-;;
-;; The operations /list all docs for a cohort/ or /list all docs/ are hard to do
-;; correctly without introducing something more database-like.
-;;
-;; Right now, cohorts know about themselves and docs know about themselves. They
-;; need the context of the store to list /other things/.
