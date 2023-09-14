@@ -87,12 +87,3 @@
    :cohort/root "text/genai"
    :cohort/id :genai
    :cohort/members [{:author/first-name "Julian"}]))
-
-(def
-  ^:deprecated
-  cohorts
-  "Use instead: store/cohorts"
-  (->> [olorm jals oj genai]
-       (map (fn [c]
-              [(:cohort/id c) c]))
-       (into (sorted-map))))
