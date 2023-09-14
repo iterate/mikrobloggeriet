@@ -67,8 +67,21 @@
 
 (defn config-set-cohort [cohort]
   (let [cohort (cli/coerce cohort :keyword)]
-    (when (contains? cohort/cohorts cohort)
-      (config-set :cohort cohort))))
+    (if (contains? cohort/cohorts cohort)
+      (config-set :cohort cohort)
+      (do
+        (println (str "Error: cohort " cohort " not found."))
+        (println (str "Valid cohorts are: " ))
+        (println)
+        (doseq [cohort-id (keys store/cohorts)]
+          (println (str "    " cohort-id)))
+        (System/exit 1)))))
+
+(comment
+  cohort/cohorts
+  store/cohorts
+
+  )
 
 (defn config-set-editor [editor]
   (when (and (string? editor)
