@@ -1,6 +1,6 @@
 (ns mikrobloggeriet.cohort-test
   (:require
-   [clojure.test :refer [deftest is testing]]
+   [clojure.test :refer [deftest is]]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.store :as store]))
 
