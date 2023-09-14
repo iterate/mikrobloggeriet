@@ -79,11 +79,3 @@
    :cohort/members [{:author/first-name "Johan"}
                     {:author/first-name "Olav"}]))
 
-(def
-  ^:deprecated
-  genai
-  "Use instead: store/genai"
-  (sorted-map
-   :cohort/root "text/genai"
-   :cohort/id :genai
-   :cohort/members [{:author/first-name "Julian"}]))
