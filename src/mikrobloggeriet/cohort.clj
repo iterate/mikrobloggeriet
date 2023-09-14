@@ -38,33 +38,3 @@
 
 (defn name [cohort]
   (some-> (slug cohort) str/upper-case))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; DEPRECATED
-;;
-;; Cohorts are now found in mikrobloggeriet.store.
-
-(def
-  ^:deprecated
-  olorm
-  "Instead: use store/olorm"
-  (sorted-map
-   :cohort/root "o"
-   :cohort/id :olorm
-   :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}
-                    {:author/email "lars.barlindhaug@iterate.no", :author/first-name "Lars"}
-                    {:author/email "oddmunds@iterate.no", :author/first-name "Oddmund"}
-                    {:author/email "richard.tingstad@iterate.no", :author/first-name "Richard"}]))
-
-(def
-  ^:deprecated
-  jals
-  "Instead: use store/jals"
-  (sorted-map
-   :cohort/root "j"
-   :cohort/id :jals
-   :cohort/members [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
-                    {:author/email "adrian.tofting@iterate.no",
-                     :author/first-name "Adrian"}
-                    {:author/email "larshbj@gmail.com", :author/first-name "Lars"}
-                    {:author/email "sindre@iterate.no", :author/first-name "Sindre"}]))
