@@ -45,6 +45,18 @@
                (fs/which "open") (shell "open" url)
                :else (println "Please open" url "in your web browser.")))))))
 
+(defn require-application-code!
+  "loads most/all of the Mikrobloggeriet code into memory
+
+  Nice to use if you want to do some kind of dynamic analysis, like finding
+  deprecated vars. Then you need to have the application code loaded. That
+  doesn't happen with a clean REPL."
+  []
+  (require 'mikrobloggeriet.serve)
+  (require 'mikrobloggeriet.cli)
+  (require 'mikrobloggeriet.olorm-cli)
+  (require 'mikrobloggeriet.jals-cli))
+
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
   (let [stop-fn (requiring-resolve 'mikrobloggeriet.serve/stop!)]
