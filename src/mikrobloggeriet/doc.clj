@@ -52,10 +52,3 @@
              (:doc/slug doc))
     (str "/" (name (:cohort/id cohort)) "/" (:doc/slug doc))))
 
-(defn
-  ^:deprecated
-  index-md-path [cohort doc]
-  (when (exists? cohort doc)
-    (fs/file (:cohort/root cohort)
-             (:doc/slug doc)
-             "index.md")))
