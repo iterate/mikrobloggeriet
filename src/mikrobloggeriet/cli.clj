@@ -267,20 +267,6 @@ Allowed options:
          execute!))
   )
 
-(defn mblog-links
-  [opts+args]
-  (let [format (or (:format (:opts opts+args))
-                   :markdown)
-        supported-formats #{:markdown}]
-    (assert (supported-formats format) (str "Supported formats: " (str/join ", " supported-formats)))
-    (doseq [doc (cohort/docs)]
-      (let [cohort (get store/cohorts (:cohort/id doc))
-            href (doc/href cohort doc)
-            href-absolute (str "https://mikrobloggeriet.no" href)
-            link-title (:doc/slug doc) ;; title could be better --- but would take forever without a cache
-            markdown-link (str "[" link-title "](" href-absolute ")")]
-        (println markdown-link)))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
 ;;
@@ -291,7 +277,6 @@ Allowed options:
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
    {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
-   {:cmds ["links"] :fn mblog-links ::experimental true}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
