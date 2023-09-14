@@ -322,6 +322,7 @@
         chosen (rand-nth pool)
         beige "#FAAB66"
         neon-green "#15ff4f"
+        old-command-name (str/lower-case (cohort/name cohort))
         ]
     {:status 200
      :header {"Content-Type" "text/html"
@@ -337,16 +338,31 @@
                                           :height "100vh"
                                           :display "flex"
                                           :align-items "center"})}
-              [:div {:style (style/inline {:font-family "monospace"
-                                           :font-size "1.8rem"
-                                           :padding "0.8rem"
-                                           :line-height "1.4"
-                                           :width "100%"
-                                           :border-radius "10px"
-                                           :background "black"
-                                           :color neon-green})}
-               [:div (str "$ " (cohort/name cohort) " draw " pool)]
-               [:div (str (get first-letter-names chosen) " 🎉")]]]])}))
+              [:div {:style (style/inline {:width "100%"})}
+               [:div {:style (style/inline {:font-family "monospace"
+                                            :font-size "1.8rem"
+                                            :padding "0.8rem"
+                                            :line-height "1.4"
+                                            :width "100%"
+                                            :border-radius "10px"
+                                            :background "black"
+                                            :color neon-green})}
+                [:div (str "$ " old-command-name " draw " pool)]
+                [:div (str (get first-letter-names chosen) " 🎉")]]
+
+               [:div {:style (style/inline {:margin-top "2rem"
+                                            :font-family "monospace"
+                                            :font-size "1.8rem"
+                                            :padding "0.8rem"
+                                            :line-height "1.4"
+                                            :width "100%"
+                                            :border-radius "10px"
+                                            :background "black"
+                                            :color neon-green})}
+                [:div (str "# For å skrive ny " (cohort/name cohort) ", kjør:")]
+                [:div (str "$ " old-command-name " create")]
+                [:div (str "# Eller bruk nytt CLI:")]
+                [:div "$ mblog create"]]]]])}))
 
 (defroutes app
   (GET "/" req (index req))
