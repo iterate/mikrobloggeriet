@@ -5,10 +5,9 @@
    [mikrobloggeriet.store :as store]))
 
 (deftest slug-test
-  (is (= "oj" (cohort/slug cohort/oj)))
+  (is (= "oj" (cohort/slug store/oj)))
   (is (nil? (cohort/slug {}))))
 
 (deftest name-test
   (is (= "OLORM"
-         (cohort/name store/olorm)))
-  )
+         (cohort/name store/olorm))))
