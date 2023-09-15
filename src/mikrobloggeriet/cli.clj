@@ -277,7 +277,6 @@ Allowed options:
       (println "    $ " editor "yourfile.txt")
       (println)
       (println "If that command crashes," editor "can't be used as an editor.")
-      (println)
       (println "To learn how to configure your editor, run `mblog config -h`.")
       (System/exit 1)))
   (let [command-transform (if (:dry-run opts)
