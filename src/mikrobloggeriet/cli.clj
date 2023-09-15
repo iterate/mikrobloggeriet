@@ -2,7 +2,7 @@
   (:require
    [babashka.cli :as cli]
    [babashka.fs :as fs]
-   [babashka.process :refer [shell]]
+   [babashka.process :as process :refer [shell]]
    [clojure.edn :as edn]
    [clojure.pprint :refer [pprint]]
    [clojure.string :as str]
@@ -235,6 +235,22 @@ Supported values for PROPERTY:
     (when-not (::experimental c)
       (println (str "  " (str/join " " (:cmds c)))))))
 
+(defn ^:private configured-properties? [config-keys]
+  (every? config-get config-keys))
+
+(defn ^:private config-error-message [config-keys]
+  (str/join "\n"
+            (->> config-keys
+                 (filter (fn [property]
+                           (not (some? (config-get property)))))
+                 (map (fn [property]
+                        (str "Property missing: " property ". To learn how to add it, run `mblog config -h`."))))))
+
+(comment
+  (configured-properties? '(:cohort))
+  (config-error-message '(:cohort :editor :repo-path))
+  )
+
 (defn mblog-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
     (println (str/trim "
@@ -252,16 +268,36 @@ Allowed options:
   --draft    EXPERIMENTAL! (may not work, stop working and/or change behavior)
 "))
     (System/exit 0))
+  (when-not (configured-properties? #{:editor :cohort :repo-path})
+    (println (config-error-message #{:editor :cohort :repo-path}))
+    (System/exit 1))
+  (let [editor (config-get :editor)]
+    (when-not (fs/which (first (process/tokenize editor)))
+      (println "Error: editor not found.")
+      (println)
+      (println (str "    " editor))
+      (println)
+      (println "was not found on your system. You must be able to use your configured editor to
+edit files from a terminal. For example:")
+      (println)
+      (println (str "    $ " editor " yourfile.txt"))
+      (println)
+      (println "If that command crashes," editor "can't be used as an editor.")
+      (println "To learn how to configure your editor, run `mblog config -h`.")
+      (System/exit 1)))
   (let [command-transform (if (:dry-run opts)
                             command->dry-command
-                            identity)]
-    (->> {:dir (config-get :repo-path)
-          :git (:git opts true)
-          :editor (when (not= false (:edit opts))
-                    (config-get :editor))
-          :git.user/email (git-user-email ".")
-          :cohort-id (config-get :cohort)
-          :draft (or (:draft opts) false)}
+                            identity)
+        dir (config-get :repo-path)
+        create-opts {:dir dir
+                     :git (:git opts true)
+                     :editor (when (not= false (:edit opts))
+                               (config-get :editor))
+                     :git.user/email (git-user-email dir)
+                     :cohort-id (config-get :cohort)
+                     :draft (or (:draft opts) false)}
+        ]
+    (->> create-opts
          create-opts->commands
          (map command-transform)
          execute!))
