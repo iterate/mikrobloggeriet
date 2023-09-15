@@ -268,7 +268,7 @@ Allowed options:
     (when-not (fs/which (first (process/tokenize editor)))
       (println "Error: editor not found.")
       (println)
-      (println "    " editor)
+      (println (str "    " editor))
       (println)
       (println "was not found on your system. You must be able to use your configured editor to
 edit files from a terminal. For example:")
