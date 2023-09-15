@@ -1,8 +1,10 @@
 # CLI quickstart
 
-I want to merge `jals` and `olorm` into a single CLI: `mblog`.
-That change requires some work.
-Until later, we can keep on using the existing tools:
+**Status**:
+Per 2023-09-15, `olorm` and `jals` are deprecated in favor of `mblog`.
+New users are recommended to read the [New CLI Quickstart](cli-quickstart-mblog.md) to get started.
+
+`olorm` and `jals` are deprecated, but still supported.
 
 ## Required dependencies
 
