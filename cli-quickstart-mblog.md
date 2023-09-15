@@ -5,9 +5,9 @@ Per `2023-09-15`:
 
 1. `mblog` is the recommended CLI for writing documents,
 2. `olorm` and `jals` are deprecated, but still supported.
-   To install `olorm` or `jals`, please read the [`olorm` and `jals` CLI Quickstart]
+   To install `olorm` or `jals`, please read the [old `olorm` and `jals` CLI Quickstart].
 
-[`olorm` and `jals` CLI Quickstart]: cli-quickstart.md
+[old `olorm` and `jals` CLI Quickstart]: cli-quickstart.md
 
 ## Required dependencies
 
