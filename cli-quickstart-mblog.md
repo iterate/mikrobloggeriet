@@ -71,7 +71,7 @@ If the installation succeeds, you'll see output like this in your terminal:
 
 `mblog` requires the following configuration for writing:
 
-1. Repo path: where you have cloned the `mikrobloggeriet` CLI.
+1. Repo path: where you have cloned the `mikrobloggeriet` repository.
 2. User cohort: the default cohort you are writing for.
 3. Editor: which application you want to use to write content.
 
