@@ -20,4 +20,8 @@ Vocabulary:
 
 Please see [CLI quickstart] to get started writing content.
 
-[CLI quickstart]: cli-quickstart.md
+[CLI quickstart]: cli-quickstart-mblog.md
+
+Note: we previously used cohort-specific CLI applications.
+These are replaced by `mblog`, a CLI that can be used to write documents for any cohort.
+We recommend users of the previous CLI to migrate to `mblog`.
