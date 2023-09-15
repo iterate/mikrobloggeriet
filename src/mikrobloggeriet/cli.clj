@@ -273,7 +273,7 @@ Allowed options:
       (println "was not found on your system. You must be able to use your configured editor to
 edit files from a terminal. For example:")
       (println)
-      (println (str "    $ " editor "yourfile.txt"))
+      (println (str "    $ " editor " yourfile.txt"))
       (println)
       (println "If that command crashes," editor "can't be used as an editor.")
       (println "To learn how to configure your editor, run `mblog config -h`.")
