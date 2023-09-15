@@ -274,7 +274,7 @@ Allowed options:
       (println "You must be able to use your configured editor to edit files from a terminal.")
       (println "For example:")
       (println)
-      (println "    $ " editor "yourfile.txt")
+      (println (str "    $ " editor "yourfile.txt"))
       (println)
       (println "If that command crashes," editor "can't be used as an editor.")
       (println "To learn how to configure your editor, run `mblog config -h`.")
