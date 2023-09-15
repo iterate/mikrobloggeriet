@@ -9,8 +9,16 @@ The old CLIs (`olorm` and `jals`) are still supported.
 Mikrobloggeriet.no requires some setup:
 
 1. Java must be installed
+
 2. [Babashka] must be installed.
-3. [bbin] must be installed and added to your path $HOME/.babashka/bbin/bin .
+
+3. [bbin] must be installed and added to your PATH.
+   Normally, adding this line to your `~/.zshrc` or `~/.bashrc` should do the trick:
+
+   ```
+   export PATH="$PATH:$HOME/.babashka/bbin/bin"
+   ```
+
 4. You must clone this repository.
 
 [Babashka]: https://babashka.org/
