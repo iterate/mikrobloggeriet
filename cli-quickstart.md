@@ -1,4 +1,4 @@
-# CLI quickstart
+# old `olorm` and `jals` CLI quickstart
 
 **Status**:
 Per 2023-09-15, `olorm` and `jals` are deprecated in favor of `mblog`.
