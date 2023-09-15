@@ -270,9 +270,8 @@ Allowed options:
       (println)
       (println "    " editor)
       (println)
-      (println "was not found on your system.")
-      (println "You must be able to use your configured editor to edit files from a terminal.")
-      (println "For example:")
+      (println "was not found on your system. You must be able to use your configured editor to
+edit files from a terminal. For example:")
       (println)
       (println (str "    $ " editor "yourfile.txt"))
       (println)
