@@ -1,8 +1,10 @@
 # CLI quickstart for `mblog`
 
 This guide gets you started with the new CLI: `mblog`.
-`mblog` is currently (per 2023-09-08) working for Johan, Olav and Teodor.
-The old CLIs (`olorm` and `jals`) are still supported.
+Per `2023-09-15`:
+
+1. `mblog` is the recommended CLI for writing documents,
+2. `olorm` and `jals` are deprecated, but still supported.
 
 ## Required dependencies
 
