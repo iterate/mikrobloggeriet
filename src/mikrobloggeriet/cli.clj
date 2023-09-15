@@ -2,7 +2,7 @@
   (:require
    [babashka.cli :as cli]
    [babashka.fs :as fs]
-   [babashka.process :refer [shell]]
+   [babashka.process :as process :refer [shell]]
    [clojure.edn :as edn]
    [clojure.pprint :refer [pprint]]
    [clojure.string :as str]
@@ -264,6 +264,15 @@ Allowed options:
   (when-not (configured-properties? #{:editor :cohort :repo-path})
     (println (config-error-message #{:editor :cohort :repo-path}))
     (System/exit 1))
+  (let [editor (config-get :editor)]
+    (when-not (fs/which (first (process/tokenize editor)))
+      (println "Error: editor not found.")
+      (println)
+      (println "    " editor)
+      (println)
+      (println "was not found on your system.")
+      (println "To learn how to configure your editor, run `mblog config -h`.")
+      (System/exit 1)))
   (let [command-transform (if (:dry-run opts)
                             command->dry-command
                             identity)
