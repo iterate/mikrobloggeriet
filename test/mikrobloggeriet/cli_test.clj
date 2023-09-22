@@ -1,8 +1,7 @@
 (ns mikrobloggeriet.cli-test
   (:require [mikrobloggeriet.cli :as cli]
             [clojure.test :refer [deftest testing is]]
-            [clojure.string :as str]
-            [mikrobloggeriet.cohort :as cohort]))
+            [clojure.string :as str]))
 
 (defn- git-command? [cmd]
   (let [[cmd _opts command-str] cmd]
