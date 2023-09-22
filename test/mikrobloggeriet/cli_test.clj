@@ -11,27 +11,21 @@
          (str/starts-with? command-str "git"))))
 
 (deftest create-opts->commands-test
-  (let [sample-opts {:dir "."
-                     :git true
-                     :editor "vim"
-                     :cohort-id :olorm
-                     :git.user/email "user@example.com"}]
-    
-    (testing "we can generate commands without errors"
-      (is (some? (cli/create-opts->commands {:dir "."
-                                             :git true
-                                             :editor "vim"
-                                             :cohort-id :olorm
-                                             :git.user/email "user@example.com"}))))
+  (testing "we can generate commands without errors"
+    (is (some? (cli/create-opts->commands {:dir "."
+                                           :git true
+                                           :editor "vim"
+                                           :cohort-id :olorm
+                                           :git.user/email "user@example.com"}))))
 
-    (testing "A seq of commands is returned, all commands are prints"
-      (is (every? keyword?
-                  (->> (cli/create-opts->commands {:dir "."
-                                                   :git true
-                                                   :editor "vim"
-                                                   :cohort-id :olorm
-                                                   :git.user/email "user@example.com"})
-                       (map first))))))
+  (testing "A seq of commands is returned, all commands are prints"
+    (is (every? keyword?
+                (->> (cli/create-opts->commands {:dir "."
+                                                 :git true
+                                                 :editor "vim"
+                                                 :cohort-id :olorm
+                                                 :git.user/email "user@example.com"})
+                     (map first)))))
 
   (testing "When we transform to a dry run, only printable commands are returned"
     (is (every? #{:prn :println}
