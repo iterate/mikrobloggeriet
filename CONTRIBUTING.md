@@ -1,4 +1,5 @@
-# Installation
+# Contributing to Mikrobloggeriet
+
 Developing on Mikrobloggeriet requires some dependencies to be installed.
 
 ## Brew
@@ -25,8 +26,8 @@ brew install pandoc
 ## CLI
 To install dependencies related to the CLI, read the [CLI Quickstart].
 
-
 ## Development environment
+
 ### VSCode
 To connect VSCode to the Clojure REPL, we recommend installing the VSCode extension [Calva].
 
@@ -40,3 +41,35 @@ This will make Calva start a REPL. In the REPL, evaluate the function `(start!)`
 [Temurin]: https://adoptium.net/en-GB/
 [CLI quickstart]: cli-quickstart.md
 [Calva]: https://calva.io
+
+## Development FAQ
+
+**Q: How do I run the tests?**
+
+To run all the tests with Kaocha (our test runner), runner
+
+    bin/kaocha
+
+in a terminal.
+
+The tests can also be run from a REPL.
+In Calva, see the docs for the [Calva Test Runner].
+Or use the REPL:
+
+    clj
+    user> (run-all-tests)
+
+[Calva Test Runner]: https://calva.io/test-runner/
+
+**Q: How do I start the HTTP server locally?**
+
+First, start a REPL from within your editor (using a REPL from a terminal is discouraged, but works).
+
+Then, run `start!` from your REPL:
+
+```clojure
+user> (start!)
+```
+
+To stop the HTTP server from within your REPL, use `stop!`.
+To restart the HTTP server, run `start!` again.

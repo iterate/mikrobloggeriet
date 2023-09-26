@@ -1,6 +1,7 @@
 (ns user
-  (:require [clojure.string :as str]
-            [babashka.fs :as fs]))
+  (:require
+   [clojure.string :as str]
+   [babashka.fs :as fs]))
 
 ;; Convenience functions when you start a REPL. The default user namespace is
 ;; always 'user. I'm putting functions here to make it easy to start the server
@@ -99,3 +100,7 @@
 (defn clerk-stop! []
   (let [clerk-halt (requiring-resolve 'nextjournal.clerk/halt!)]
     (clerk-halt)))
+
+(defn run-all-tests []
+  (let [run-all-tests* (requiring-resolve 'clojure.test/run-all-tests)]
+    (run-all-tests*)))
