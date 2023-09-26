@@ -75,5 +75,10 @@ Then, run `start!` from your REPL:
 user> (start!)
 ```
 
-To stop the HTTP server from within your REPL, use `stop!`.
-To restart the HTTP server, run `start!` again.
+To stop the HTTP server from within your REPL, run `(stop!)`.
+To restart the HTTP server, run `(start!)` again.
+
+**Q: Where do `start!`, `stop!` and `run-all-tests` come from?**
+
+They are defined in `user.clj`.
+Have a look!
