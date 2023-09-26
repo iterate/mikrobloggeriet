@@ -56,8 +56,10 @@ The tests can also be run from a REPL.
 In Calva, see the docs for the [Calva Test Runner].
 Or use the REPL:
 
-    clj
-    user> (run-all-tests)
+
+```clojure
+user> (run-all-tests)
+```
 
 [Calva Test Runner]: https://calva.io/test-runner/
 
