@@ -46,6 +46,7 @@
                (fs/which "open") (shell "open" url)
                :else (println "Please open" url "in your web browser.")))))))
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn require-application-code!
   "loads most/all of the Mikrobloggeriet code into memory
 
