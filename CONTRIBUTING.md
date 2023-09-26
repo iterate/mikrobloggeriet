@@ -80,5 +80,5 @@ To restart the HTTP server, run `(start!)` again.
 
 **Q: Where do `start!`, `stop!` and `run-all-tests` come from?**
 
-They are defined in `user.clj`.
+They are defined in `src/user.clj`.
 Have a look!
