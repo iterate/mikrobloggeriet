@@ -67,7 +67,7 @@ user> (run-all-tests)
 
 **Q: How do I start the HTTP server locally?**
 
-First, start a REPL from within your editor (using a REPL from a terminal is discouraged, but works).
+First, start a REPL from within your editor (using a REPL from a terminal is discouraged).
 
 Then, run `start!` from your REPL:
 
