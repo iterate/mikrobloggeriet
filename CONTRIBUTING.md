@@ -29,10 +29,9 @@ To install dependencies related to the CLI, read the [CLI Quickstart].
 ## Development environment
 
 ### VSCode
-To connect VSCode to the Clojure REPL, we recommend installing the VSCode extension [Calva].
+To connect VSCode to the Clojure REPL, we recommend using the VSCode extension [Calva].
 
 1. In the Command Palette, search for **Calva: Start a Project REPL and Connect**
-
 2. For *Project Type*, select **deps.edn**
 3. For alias, select **:dev**
 
