@@ -100,7 +100,3 @@
 (defn clerk-stop! []
   (let [clerk-halt (requiring-resolve 'nextjournal.clerk/halt!)]
     (clerk-halt)))
-
-(defn run-all-tests []
-  (let [run-all-tests* (requiring-resolve 'clojure.test/run-all-tests)]
-    (run-all-tests*)))

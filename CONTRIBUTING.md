@@ -55,12 +55,6 @@ Having `bin/kaocha --watch --fail-fast` in a terminal next to your editor gives 
 
 The tests can also be run from a REPL.
 In Calva, see the docs for the [Calva Test Runner].
-Or use the REPL:
-
-
-```clojure
-user> (run-all-tests)
-```
 
 [Calva Test Runner]: https://calva.io/test-runner/
 
