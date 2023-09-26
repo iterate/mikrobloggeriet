@@ -82,6 +82,7 @@
               :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
               :category (cohort/slug cohort)
               :description slug
+              :guid slug
               "content:encoded" (str
                                  "<![CDATA["
                                  (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
