@@ -46,11 +46,13 @@ This will make Calva start a REPL. In the REPL, evaluate the function `(start!)`
 
 **Q: How do I run the tests?**
 
-To run all the tests with Kaocha (our test runner), runner
+To run all the tests with Kaocha (our test runner), run
 
     bin/kaocha
 
 in a terminal.
+`bin/kaocha --help` gives you all the test runner options.
+Having `bin/kaocha --watch --fail-fast` in a terminal next to your editor gives quite fast test feedback.
 
 The tests can also be run from a REPL.
 In Calva, see the docs for the [Calva Test Runner].
