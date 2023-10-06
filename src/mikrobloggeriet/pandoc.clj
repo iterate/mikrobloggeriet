@@ -32,7 +32,11 @@
 
 (declare el->plaintext)
 
-(defn els->plaintext [els]
+(defn- els->plaintext
+  "Convert a sequence of pandoc expressions to plaintext without shelling out to pandoc
+
+  els->plaintext is an implementation detail. Please use `el->plaintext` instead."
+  [els]
   (str/join
    (->> els
         (map el->plaintext)
