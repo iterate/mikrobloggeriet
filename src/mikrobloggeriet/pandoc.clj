@@ -21,7 +21,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PANDOC IR HELPERS
 
-(defn pandoc? [x]
+(defn pandoc?
+  "This value looks like a pandoc document represented as Clojure data"
+  [x]
   (and
    (map? x)
    (contains? x :pandoc-api-version)
