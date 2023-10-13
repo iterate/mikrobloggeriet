@@ -3,13 +3,25 @@
 "Match X og print Y=f(X)" er noe man ofte ønsker å gjøre.
 Eksempel:
 
-1. Finn alle "`vers: [0-9]+`"
-2. Print tallet
+```
+echo 'Her er noe eksempeldata med
+en linje med referanse til ref_123_bg og
+en til ref_436_md osv.' > fil
+```
+
+Si at vi vil:
+
+1. Finn alle "`ref_<ID>_<SUFFIX>`"
+2. Print `<SUFFIX>:<ID>`
 
 En enlinjes sed-kommando for dette er:
 
 ```
-sed -Ee 's/^vers: ([0-9]+).*/\1/;t' -e d
+#            Søkeuttrykk              Erstatning
+#          ┌─┴─────────────────────┐ ┌┴──┐
+sed -Ee 's/.*ref_([0-9]+)_([a-z]+).*/\2:\1/;t' -e d <fil
+bg:123
+md:436
 ```
 
 Det jeg liker med denne er at vi bare trenger ett regulært uttrykk i skriptet.
