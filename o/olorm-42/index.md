@@ -42,14 +42,14 @@ Skrevet ut ser skriptet slik ut:
 
 ```
 sed -E '
-    s/^vers: ([0-9]+).*/\1/    # erstatt "vers: [0-9]+" med tallet
+    s/.*ref_([0-9]+)_([a-z]+).*/\2:\1/    # erstatt *ref_X_Y* med Y:X
     t    # hvis erstatting skjedde, hopp til <label> (tom = slutten)
     d    # slett linje (hvis ikke hoppet over av forrige funksjon)
 '        # de linjene som ikke slettes vil som default printes
 ```
 
 Da jeg lærte denne komboen av `-e` og `t` (og `b`, betingelsesløs forgrening)
-syntes jeg den var akkurat så sær at jeg måtte legge det i mitt hjerte,
+syntes jeg den var akkurat så sær at jeg måtte legge den i mitt hjerte,
 og dele den med dere i dag.
 
 Hva synes du?
