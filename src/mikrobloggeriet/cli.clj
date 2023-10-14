@@ -272,9 +272,9 @@ Allowed options:
         opts (merge default-opts opts)
         opts (let [edit? (:edit opts true) ;; by default, we shell out to the user's editor to write.
                    git? (cond
-                          (= (:git opts) true) true ;; if --git, then use git regardless.
-                          (not edit?) false         ;; if unset and we're not editing, don't shell out to git
-                          :else (:git opts true)    ;; otherwise, take the CLI arg, and default to true
+                          (= (:git opts) true) true ;; if explicitly set in a CLI option, do what the user says.
+                          (not edit?) false         ;; otherwise, if the user has disabled editing, also disable Git.
+                          :else (:git opts true)    ;; otherwise, take the CLI arg, and default to true.
                           )]
                (assoc opts
                       :edit edit?
