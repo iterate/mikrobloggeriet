@@ -274,7 +274,7 @@ Allowed options:
                    git? (cond
                           (= (:git opts) true) true ;; if --git, then use git regardless.
                           (not edit?) false         ;; if unset and we're not editing, don't shell out to git
-                          :else (:git opts true)    ;; otherwise, take the CLI arg, and set to true if not set.
+                          :else (:git opts true)    ;; otherwise, take the CLI arg, and default to true
                           )]
                (assoc opts
                       :edit edit?
