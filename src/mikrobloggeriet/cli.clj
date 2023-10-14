@@ -268,7 +268,9 @@ Allowed options:
   --draft    EXPERIMENTAL! (may not work, stop working and/or change behavior)
 "))
     (System/exit 0))
-  (let [edit? (or (:edit opts) true)
+  (let [default-opts {:edit true}
+        opts (merge default-opts opts)
+        edit? (:edit opts) ;;
         required-properties (if edit?
                               #{:editor :cohort :repo-path}
                               #{:cohort :repo-path})]
