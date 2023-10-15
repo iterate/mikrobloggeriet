@@ -1,0 +1,11 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ []
+
+ :builds
+ {:frontend
+  {:target :browser
+   :modules {:main {:init-fn mikrobloggeriet.scenes/init}}}}}
