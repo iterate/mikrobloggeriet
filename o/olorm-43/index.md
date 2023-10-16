@@ -3,7 +3,7 @@
 Avatar får terningkast 6!
 Det er en dritkul film!
 
-Men _til hvem_?
+Men kul film _for hvem_, _til hva_?
 Filmkritikere fyller på med tekst som beskriver hva de likte, hva de ikke likte, og hva slags stemning man fikk av å se filmen.
 
 Men hvordan sammenlikner du _Mona Lisa_ med _The Emperor's Old Clothes_, turing-forelesningen til Tony Hoare?
