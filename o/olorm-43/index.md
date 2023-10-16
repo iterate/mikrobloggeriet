@@ -1,18 +1,22 @@
 # OLORM-43: Fire akser for å vurdere kvalitet—presisjon, generalitet, innovativitet og levendehet
 
-## Hvordan bør vi klassifisere tekst?
+Avatar får terningkast 6!
+Det er en dritkul film!
 
-Vi kan velge å ha håndfaste metrikker som terningkast.
-Eller vi kan si at vurderinger er subjetive, så det er bedre å ha en tekst som handler om teksten, og heller beskrive vår opplevelse.
-Se feks Wikipedia-sidene on [fenomenologi] eller [intersubjektivitet] hvis du vil ha et teoretisk fundament for dette.
+Men _til hvem_?
+Filmkritikere fyller på med tekst som beskriver hva de likte, hva de ikke likte, og hva slags stemning man fikk av å se filmen.
+
+Men hvordan sammenlikner du _Mona Lisa_ med _The Emperor's Old Clothes_, turing-forelesningen til Tony Hoare?
+Gir du begge 6/6 og sier deg ferdig?
+Eller setter du deg ned og skriver tekst for å dele din egen opplevelse av _Mona Lisa_ og _The Emperor's Old Clothes_?
+
+Når filosofer snakker om hvordan vi beskrver ting, bruker de ofte [fenomenologi] eller [intersubjektivitet] for å unngå fella om "alt er subjektivt, derfor kan vi ikke si noe som helst".
+Men fenomenologiske og intersubjektive betraktninger er ofte lange, og vanskelige å lese.
+
+Jeg foreslår i stedet at vi velger oss fire akser med verdier mellom 0 og 1.
 
 [fenomenologi]: https://en.wikipedia.org/wiki/Phenomenology_(philosophy)
 [intersubjektivitet]: https://en.wikipedia.org/wiki/Intersubjectivity
-
-Med kun tekst blir det vanskelig å sortere innhold.
-Jeg ønsker å framheve ting jeg synes er _bra_.
-Jeg synes ikke kun terningkast er godt nok.
-I stedet foreslår jeg fire akser med verdier mellom 0 og 1.
 
 ## Presisjon, generalitet, innovativitet og levendehet: fire akser for å klassifisere tekst
 
