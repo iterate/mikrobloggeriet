@@ -92,3 +92,4 @@ Dette er jeg meganysgjerrig på.
 Jeg tror aksene mine speiler personligeheten min ganske tydelig.
 Hvordan passer de for deg?
 Ville du lagt til andre akser?
+Svar i tråd!
