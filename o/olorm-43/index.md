@@ -84,7 +84,6 @@ Det hender jeg plukker opp kapitler og leser kapitlene på nytt bare for å få 
 
 [Sean Percival]: https://seanpercival.com/
 
-
 # Hvordan vurderer du tekst?
 
 Når du har sett en film, lest en bok eller vært på slam-poesi, hvordan framstår det for deg at du har vært på noe bra?
