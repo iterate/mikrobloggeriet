@@ -84,7 +84,20 @@ Det hender jeg plukker opp kapitler og leser kapitlene på nytt bare for å få 
 
 [Sean Percival]: https://seanpercival.com/
 
-# Hvordan vurderer du tekst?
+## Husk å tagge vurderinger med dato.
+
+Jeg skrev vurderingene over om _The War of Art_ på 2023-10-15 (søndag 15. oktober 2023).
+Kanskje jeg endrer på hva jeg mener!
+At du endrer på hvordan du vurderer en tekst sier noe om hvordan du endrer deg.
+Spennende greier.
+For å ta høyde for dette i et databaseskjema, er det fint å legge ved en datotagg.
+Når er denne vurderingen gjort?
+Og av hvem?
+
+Vi gjør subjektive vurderinger på _et punkt i tid_.
+Så kan vi heller mene andre ting senere hvis vi har endret oss siden sist.
+
+## Hvordan vurderer du tekst?
 
 Når du har sett en film, lest en bok eller vært på slam-poesi, hvordan framstår det for deg at du har vært på noe bra?
 Hva er det du setter pris på?
