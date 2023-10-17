@@ -86,10 +86,10 @@ Det hender jeg plukker opp kapitler og leser kapitlene på nytt bare for å få 
 
 ## Husk å tagge vurderinger med dato.
 
-Jeg skrev vurderingene over om _The War of Art_ på 2023-10-15 (søndag 15. oktober 2023).
+Jeg skrev vurderte _The War of Art_ på 2023-10-15 (søndag 15. oktober 2023).
 Kanskje jeg endrer på hva jeg mener!
 At du endrer på hvordan du vurderer en tekst sier noe om hvordan du endrer deg.
-Spennende greier.
+Spennende greier!
 For å ta høyde for dette i et databaseskjema, er det fint å legge ved en datotagg.
 Når er denne vurderingen gjort?
 Og av hvem?
