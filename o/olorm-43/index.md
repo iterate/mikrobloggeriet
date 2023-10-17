@@ -77,7 +77,7 @@ Ideene i boka var nye for meg da jeg leste boka (på anbefaling fra [Sean Perciv
 Du skal skape, ellers kan du gi opp at det skjer nye, uvendede ting.
 
 **Levendehet: 0.99**.
-/The War of Art/ er en fryd å lese, og en reise i god historiefortelling.
+_The War of Art_ er en fryd å lese, og en reise i god historiefortelling.
 Jeg blir mer gira av å ha lest et kapittel.
 Det hender jeg plukker opp kapitler og leser kapitlene på nytt bare for å få med meg stemingen kapittelet setter meg i.
 0.99 er den høyeste scoren på levendehet jeg har gitt noen tekst noen sinne.
