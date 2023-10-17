@@ -33,7 +33,7 @@ Jeg foreslår i stedet at vi velger oss fire akser med verdier mellom 0 og 1.
   Hvordan vi lager mikrochipper som bruker layout i 3D til å gi lokalitet for å lage raskere CPU-er er smalere.
 - **Innovativitet**.
   Er det som presenteres allmenkjent, eller kommer vi faktisk med ny kunnskap her?
-  En tekstbok om matematikk til bruk på videregående skoler skal ikke presentere et innovativt pensum: vi ønsker i stedet å gi en god gjennomgang av kjent materie.
+  En tekstbok om matematikk til bruk på videregående skoler skal ikke presentere et innovativt pensum: vi en solid gjennomgang av kjent materie.
   En person som forsker på tallteori _må_ kunne uttale seg om noe nytt.
   Ellers er det ikke forskning!
 - **Levendehet**.
