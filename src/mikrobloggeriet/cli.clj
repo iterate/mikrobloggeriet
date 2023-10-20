@@ -268,40 +268,54 @@ Allowed options:
   --draft    EXPERIMENTAL! (may not work, stop working and/or change behavior)
 "))
     (System/exit 0))
-  (when-not (configured-properties? #{:editor :cohort :repo-path})
-    (println (config-error-message #{:editor :cohort :repo-path}))
-    (System/exit 1))
-  (let [editor (config-get :editor)]
-    (when-not (fs/which (first (process/tokenize editor)))
-      (println "Error: editor not found.")
-      (println)
-      (println (str "    " editor))
-      (println)
-      (println "was not found on your system. You must be able to use your configured editor to
+  (let [default-opts {:edit true}
+        opts (merge default-opts opts)
+        opts (let [edit? (:edit opts true) ;; by default, we shell out to the user's editor to write.
+                   git? (cond
+                          (= (:git opts) true) true ;; if explicitly set in a CLI option, do what the user says.
+                          (not edit?) false         ;; otherwise, if the user has disabled editing, also disable Git.
+                          :else (:git opts true)    ;; otherwise, take the CLI arg, and default to true.
+                          )]
+               (assoc opts
+                      :edit edit?
+                      :git git?))
+        required-properties (if (:edit opts)
+                              #{:editor :cohort :repo-path}
+                              #{:cohort :repo-path})]
+    (when-not (configured-properties? required-properties)
+      (println (config-error-message required-properties))
+      (System/exit 1))
+    (when (:edit opts)
+      (let [editor (config-get :editor)]
+        (when-not (fs/which (first (process/tokenize editor)))
+          (println "Error: editor not found.")
+          (println)
+          (println (str "    " editor))
+          (println)
+          (println "was not found on your system. You must be able to use your configured editor to
 edit files from a terminal. For example:")
-      (println)
-      (println (str "    $ " editor " yourfile.txt"))
-      (println)
-      (println "If that command crashes," editor "can't be used as an editor.")
-      (println "To learn how to configure your editor, run `mblog config -h`.")
-      (System/exit 1)))
-  (let [command-transform (if (:dry-run opts)
-                            command->dry-command
-                            identity)
-        dir (config-get :repo-path)
-        create-opts {:dir dir
-                     :git (:git opts true)
-                     :editor (when (not= false (:edit opts))
-                               (config-get :editor))
-                     :git.user/email (git-user-email dir)
-                     :cohort-id (config-get :cohort)
-                     :draft (or (:draft opts) false)}
-        ]
-    (->> create-opts
-         create-opts->commands
-         (map command-transform)
-         execute!))
-  )
+          (println)
+          (println (str "    $ " editor " yourfile.txt"))
+          (println)
+          (println "If that command crashes," editor "can't be used as an editor.")
+          (println "To learn how to configure your editor, run `mblog config -h`.")
+          (System/exit 1))))
+    (let [command-transform (if (:dry-run opts)
+                              command->dry-command
+                              identity)
+          dir (config-get :repo-path)
+          create-opts {:dir dir
+                       :git (:git opts true)
+                       :editor (when (not= false (:edit opts))
+                                 (config-get :editor))
+                       :git.user/email (git-user-email dir)
+                       :cohort-id (config-get :cohort)
+                       :draft (or (:draft opts) false)}
+          ]
+      (->> create-opts
+           create-opts->commands
+           (map command-transform)
+           execute!))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
