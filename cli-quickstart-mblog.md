@@ -18,11 +18,19 @@ Mikrobloggeriet.no requires some setup:
 2. [Babashka] must be installed.
 
 3. [bbin] must be installed and added to your PATH.
-   Normally, adding this line to your `~/.zshrc` or `~/.bashrc` should do the trick:
+   Running `bbin` in a terminal should show something like this:
 
-   ```
-   export PATH="$PATH:$HOME/.babashka/bbin/bin"
-   ```
+    ```shell
+    $ bbin
+    Usage: bbin <command>
+
+    bbin install    Install a script
+    bbin uninstall  Remove a script
+    bbin ls         List installed scripts
+    bbin bin        Display bbin bin folder
+    bbin version    Display bbin version
+    bbin help       Display bbin help
+    ```
 
 4. You must clone this repository.
 
