@@ -6,15 +6,16 @@ _A collection of technical microblogs—written in Norwegian._
 
 Vocabulary:
 
-| term            | definition                                             |
-|-----------------|--------------------------------------------------------|
-| cohort          | a microblogging collective                             |
-| doc             | a microblog entry                                      |
-| jals            | Jørgen, Adrian, Lars and Sindre's microblog collective |
-| jals            | a CLI for microblogging                                |
-| mikrobloggeriet | a collection of microblogs                             |
-| olorm           | Oddmund, Lars and Richard's microblog collective       |
-| olorm           | a CLI for microblogging                                |
+| term            | definition                                             | Deprecated?           |
+|-----------------|--------------------------------------------------------|-----------------------|
+| cohort          | a microblogging collective                             |                       |
+| doc             | a microblog entry                                      |                       |
+| jals            | Jørgen, Adrian, Lars and Sindre's microblog collective |                       |
+| jals            | a CLI for microblogging                                | deprecated, use mblog |
+| mikrobloggeriet | a collection of microblogs                             |                       |
+| olorm           | Oddmund, Lars and Richard's microblog collective       |                       |
+| olorm           | a CLI for microblogging                                | deprecated, use mblog |
+| mblog           | a CLI for microblogging                                |                       |
 
 ## How do I write docs?
 
