@@ -13,9 +13,12 @@ Per `2023-09-15`:
 
 Mikrobloggeriet.no requires some setup:
 
-1. Java must be installed
+1. Java must be installed.
+   If you use homebrew to install Java on a mac, you may have to run an additional command to select the active java version.
+   You have a working java installation if you can run `java --help` and `javac --help` in a terminal.
 
 2. [Babashka] must be installed.
+   You have a working Babashka installation if you can run `bb --help` in a terminal.
 
 3. [bbin] must be installed and added to your PATH.
    Running `bbin` in a terminal should show something like this:
