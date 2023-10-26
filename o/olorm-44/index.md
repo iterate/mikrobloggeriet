@@ -31,7 +31,7 @@ Jeg har tro på en comeback.
 
 Færre, enklere verktøy for en enklere utviklerhverdag.
 
-Lær mer om htmx på [htmlx.org].
+Lær mer om htmx på [htmx.org].
 
 [htmx.org]: https://htmx.org/
 
