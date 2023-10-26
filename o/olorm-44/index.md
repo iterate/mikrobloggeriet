@@ -11,7 +11,7 @@ Dette gjør at du kan levere interaktive nettsider i alle programmeringsspråk s
 Du slipper i tillegg å håndtere tilstand på klienten: med HTMX har du kun tilstand på serveren.
 
 Da visker vi bort skillet mellom server og klient.
-Du lager en webapplikasjon, og kan bruke én teknologi for å lage hele webapplikasjonen din.
+Du lager en webapplikasjon, og kan bruke én teknologi for å lage alt.
 
 Denne fordelen får du også hvis du allerede bruker Javascript, språket som _kan_ kjøre direkte i nettleseren: i stedet for å skrive en server og en klient, skriver du kun én webapplikasjon.
 Én applikasjon er lettere å vedlikeholde enn to.
