@@ -3,7 +3,7 @@
 Jeg er for tiden urimelig opptatt av HTMX.
 Hvorfor?
 
-1. Hypertekst er en enkel mental modell som lener seg på at nettlesere skal gjøre jobben.
+1. Hypertekst er en enkel mental modell som lener seg på at nettlesere tilbyr interaktivitet dersom du lager hyperdokumenter.
 2. Med HTMX kan du skrive ren statisk HTML så lenge det holder, og innføre litt og litt dynamikk der det trengs.
 
 Dette gjør at du kan levere interaktive nettsider i alle programmeringsspråk som egner seg til å skrive en HTTP-server.
