@@ -18,7 +18,7 @@ FROM clojure
 #
 # 1. Pandoc is required for markdown conversion
 # 2. tree is nice for debuggin'
-RUN apt-get update && apt-get install -y tree pandoc && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y tree pandoc dumb-init && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Cache deps (including test deps)
 RUN mkdir -p /mikrobloggeriet/
@@ -46,7 +46,14 @@ RUN git config --global user.name "HOPS Dockerfile"
 RUN git config --global user.email "hops-dockerfile@ci.mikrobloggeriet.no"
 RUN clj -M:run-tests
 
-# Init
-CMD clj -X mikrobloggeriet.serve/start!
+# We use dumb-init to handle sigterm/sigint (C-c) gracefully. This causes way
+# faster Kubernetes deploys, as we stop instantly rather after a force kill
+# after 30 seconds of grace.
+#
+# More information:
+#
+#     https://github.com/Yelp/dumb-init
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["clj", "-X", "mikrobloggeriet.serve/start!"]
 
 EXPOSE 7223
