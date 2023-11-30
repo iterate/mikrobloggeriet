@@ -18,8 +18,8 @@ Tidligere har jeg kommentert ut og inn tjenester av `docker-compose.yml`.
 Det har jeg aldri helt likt.
 Det er alltid en sjanse for å comitte sånne endringer og ødelegge for andre.
 
-Kudos til [@duvholt] som skrev Docker Compose-filen som gjorde alt dette mulig.
+Kudos til [Christian Duvholt] som skrev Docker Compose-filen som gjorde alt dette mulig.
 
 ---Teodor, 2023-11-24
 
-[@duvholt]: https://github.com/duvholt
+[Christian Duvholt]: https://github.com/duvholt
