@@ -235,8 +235,6 @@
             [:p "Sett flagg: "
              (flag-element "ingen-flagg")
              " | "
-             (flag-element "oj")
-             " | "
              (flag-element "genai")
              ])])])}))
 
