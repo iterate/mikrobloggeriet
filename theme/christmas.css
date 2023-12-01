@@ -20,7 +20,7 @@
         background: #0f0f23;
     }
     :root {
-        --text-color: #cccccc;
+        --text-color: #fff;
         --link-color: #009900; /* Green */
         --link-color-alt: #99ff99; /* Light green */
         --primary-color: #ffff66; /* Light Yellow */
