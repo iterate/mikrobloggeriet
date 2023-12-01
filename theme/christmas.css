@@ -7,11 +7,11 @@
     --desktop-font-size: 1.2rem/1.55;
     --mobile-font-size: 1rem/1.45;
     --text-color: #2d2d2d;
-    --link-color: #dc0428; /* Red */
+    --link-color: #ff0000; /* Red */
     --link-color-alt: #009900; /* Forest Green */
     --primary-color: #8B0000; /* Dark Red */
-    --secondary-color: #009900; /* Forest Green */
-    --tertiary-color: gold;
+    --secondary-color: #99ff99; /* Forest Green */
+    --tertiary-color:  #ff7878;
 }
 
 /* Dark mode support */
@@ -22,10 +22,10 @@
     :root {
         --text-color: #cccccc;
         --link-color: #009900; /* Green */
-        --link-color-alt: #99ff99; /* Gold */
-        --primary-color: #FFA07A; /* Light Salmon */
+        --link-color-alt: #99ff99; /* Light green */
+        --primary-color: #ffff66; /* Light Yellow */
         --primary-color-light: #10101a;
-        --secondary-color: #32CD32; /* Lime Green */
+        --secondary-color: #10101a; /* Lime Green */
         --tertiary-color: #10101a;
     }
 }

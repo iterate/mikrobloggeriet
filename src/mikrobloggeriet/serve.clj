@@ -29,7 +29,7 @@
    (hiccup.page/include-css "/mikrobloggeriet.css")
    (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
-                       "vanilla")]
+                       "christmas")]
      (hiccup.page/include-css (str "/theme/" theme ".css")))
    (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
          number (rand-nth (range 4))]
@@ -148,10 +148,10 @@
        [:h1 "Mikrobloggeriet"]
        [:p "Teknologer fra Iterate deler fra hverdagen."]
        [:section
-        [:h2 "Advent of Mikrobloggeriet"]
-        [:p "AOM skrives av Iterate-ansatte gjennom adventstida 2023."]
+        [:h2 "Mikrobloggeriets Julekalender 2023"]
+        [:p "Mikrobloggen JUL skrives av Iterate-ansatte gjennom adventstida 2023."]
         [:p
-         (let [cohort store/aom]
+         (let [cohort store/jul]
            (interpose " · "
                       (for [doc (->> (store/docs cohort)
                                      (map (fn [doc] (store/load-meta cohort doc)))
@@ -413,11 +413,11 @@
   (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/genai/:slug/" req (doc req store/genai))
 
-  ;; AOM 
-  (GET "/aom/" req (cohort-doc-table req store/aom))
-  (GET "/aom/:slug/" req (doc req store/aom)) 
-  (GET "/aom/draw/:pool" req (draw req store/aom
-                                    {\o "olav" \j "johan" \t "teodor" \h "håvard" \m "magnus"}))
+  ;; JUL 
+  (GET "/jul/" req (cohort-doc-table req store/jul))
+  (GET "/jul/:slug/" req (doc req store/jul)) 
+  (GET "/jul/draw/:pool" req (draw req store/jul
+                                    {\o "olav" \j "johan" \t "teodor" \h "håvard" \m "magnus" \l "lars"}))
   )
 
 (comment
