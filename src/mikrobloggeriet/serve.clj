@@ -146,7 +146,7 @@
       [:body 
        [:p (feeling-lucky (if (= "god-jul" (flag req)) "🎄" "🎲"))]
        [:h1 "Mikrobloggeriet"]
-       [:p "Teknologer fra Iterate deler fra hverdagen."]
+       [:p "Folk fra Iterate deler fra hverdagen."]
        [:section
         [:h2 "Mikrobloggeriets Julekalender 2023"]
         [:p "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023."]
@@ -206,7 +206,7 @@
        [:section
         [:h2 "Hva er dette for noe?"]
         [:p
-         "Mikrobloggeriet er et initiativ der teknologer fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
+         "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
          "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
          "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
          "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
@@ -221,7 +221,7 @@
          "!"]]
 
        [:section
-        [:h2 "Jeg er Iterate-teknolog og vil skrive, hva gjør jeg?"]
+        [:h2 "Jeg jobber i Iterate og vil skrive, hva gjør jeg?"]
         [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
          " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
          " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
