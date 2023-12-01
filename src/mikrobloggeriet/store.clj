@@ -40,10 +40,10 @@
    :cohort/slug "genai"
    :cohort/members [{:author/first-name "Julian"}]))
 
-(def jul
+(def luke
   (sorted-map
-   :cohort/root "text/jul/2023"
-   :cohort/slug "jul"
+   :cohort/root "text/luke/2023"
+   :cohort/slug "luke"
    :cohort/members [{:author/email "42978548+olavm@users.noreply.github.com" :author/first-name "Olav"}
                     {:author/email "jomarn@me.com" :author/first-name "Johan"}
                     {:author/email "git@teod.eu", :author/first-name "Teodor"}
@@ -53,7 +53,7 @@
                     {:author/first-name "Håvard"}
                     {:author/first-name "Thusan"}]))
 
-(def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :jul jul))
+(def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS

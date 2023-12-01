@@ -149,9 +149,9 @@
        [:p "Teknologer fra Iterate deler fra hverdagen."]
        [:section
         [:h2 "Mikrobloggeriets Julekalender 2023"]
-        [:p "Mikrobloggen JUL skrives av Iterate-ansatte gjennom adventstida 2023."]
+        [:p "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023."]
         [:p
-         (let [cohort store/jul]
+         (let [cohort store/luke]
            (interpose " · "
                       (for [doc (->> (store/docs cohort)
                                      (map (fn [doc] (store/load-meta cohort doc)))
@@ -413,10 +413,10 @@
   (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/genai/:slug/" req (doc req store/genai))
 
-  ;; JUL 
-  (GET "/jul/" req (cohort-doc-table req store/jul))
-  (GET "/jul/:slug/" req (doc req store/jul)) 
-  (GET "/jul/draw/:pool" req (draw req store/jul
+  ;; LUKE 
+  (GET "/luke/" req (cohort-doc-table req store/luke))
+  (GET "/luke/:slug/" req (doc req store/luke)) 
+  (GET "/luke/draw/:pool" req (draw req store/luke
                                     {\o "olav" \j "johan" \t "teodor" \h "håvard" \m "magnus" \l "lars"}))
   )
 
