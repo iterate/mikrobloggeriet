@@ -29,7 +29,7 @@
    (hiccup.page/include-css "/mikrobloggeriet.css")
    (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
-                       "vanilla")]
+                       "christmas")]
      (hiccup.page/include-css (str "/theme/" theme ".css")))
    (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
          number (rand-nth (range 4))]
@@ -37,8 +37,8 @@
        [:style {:type "text/css"}
         (str ":root{ --text-color: var(--iterate-base0" number ")}")]))])
 
-(defn feeling-lucky []
-  [:a {:href "/random-doc" :class :feeling-lucky} "🎲"])
+(defn feeling-lucky [content]
+  [:a {:href "/random-doc" :class :feeling-lucky} content])
 
 (defn set-theme [req]
   (let [target "/"
@@ -107,7 +107,7 @@
    (into [:head] (shared-html-header req))
    [:body
     [:p
-     (feeling-lucky)
+     (feeling-lucky (if (= "god-jul" (flag req)) "🎄" "🎲"))
      " — "
      [:a {:href "/"} "mikrobloggeriet"]]
     [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
@@ -143,11 +143,21 @@
 
      (page/html5
       (into [:head] (shared-html-header req))
-      [:body
-       [:p (feeling-lucky)]
+      [:body 
+       [:p (feeling-lucky (if (= "god-jul" (flag req)) "🎄" "🎲"))]
        [:h1 "Mikrobloggeriet"]
        [:p "Teknologer fra Iterate deler fra hverdagen."]
-       [:section 
+       [:section
+        [:h2 "Mikrobloggeriets Julekalender 2023"]
+        [:p "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023."]
+        [:p
+         (let [cohort store/luke]
+           (interpose " · "
+                      (for [doc (->> (store/docs cohort)
+                                     (map (fn [doc] (store/load-meta cohort doc)))
+                                     (remove doc-meta/draft?))]
+                        [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))]]
+       [:section
         [:h2 "OLORM"]
         [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
         [:p
@@ -235,7 +245,9 @@
             [:p "Sett flagg: "
              (flag-element "ingen-flagg")
              " | "
-             (flag-element "genai")
+             (flag-element "genai") 
+             " | "
+             (flag-element "god-jul")
              ])])])}))
 
 (comment
@@ -264,7 +276,7 @@
         (into [:head] (concat (when title [[:title title]])
                               (shared-html-header req)))
         [:body
-         [:p (feeling-lucky)
+         [:p (feeling-lucky (if (= "god-jul" (flag req)) "🎄" "🎲"))
           " — "
           [:a {:href "/"} "mikrobloggeriet"]
           " "
@@ -339,7 +351,7 @@
                                             :background "black"
                                             :color neon-green})}
                 [:div (str "$ " old-command-name " draw " pool)]
-                [:div (str (get first-letter-names chosen) " 🎉")]]
+                [:div (str (get first-letter-names chosen) " 🎁")]]
 
                [:div {:style (style/inline {:margin-top "2rem"
                                             :font-family "monospace"
@@ -401,6 +413,11 @@
   (GET "/genai/" req (cohort-doc-table req store/genai))
   (GET "/genai/:slug/" req (doc req store/genai))
 
+  ;; LUKE 
+  (GET "/luke/" req (cohort-doc-table req store/luke))
+  (GET "/luke/:slug/" req (doc req store/luke)) 
+  (GET "/luke/draw/:pool" req (draw req store/luke
+                                    {\o "olav" \j "johan" \t "teodor" \h "håvard" \m "magnus" \l "lars"}))
   )
 
 (comment
