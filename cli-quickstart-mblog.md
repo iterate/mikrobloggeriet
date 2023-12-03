@@ -92,8 +92,6 @@ To configure repo path, user cohort and editor, run:
     mblog config cohort YOUR_COHORT
     mblog config editor YOUR_EDITOR
 
-When repo-path, cohort and editor are set, you can run `mblog create` to write a new post.
-
 ### Example: configure `mblog` for the `genai` cohort and writing with Visual Studio Code
 
 First, make sure you have the `code` command line tool installed for editing files with Visual Studio Code from the command line.
@@ -107,3 +105,16 @@ From the folder you cloned `mikrobloggeriet`, run:
     mblog config repo-path .
     mblog config cohort genai
     mblog config editor "code --wait --new-window"
+
+## Create and publish a `mblog`
+When repo path, cohort and editor are set, you can run `mblog create` to write a new post.
+
+`mblog create` creates the neccessary files, opens your editor, where you can write your blog post. 
+Blog posts on mikrobryggeriet are written in __markdown__. After you save and close your editor, `mblog create` automatically pushes your blog post to Github and live on [mikrobloggeriet.no].
+
+Finally, you will see a prompt in you terminal to post you blog post in the #mikrobloggeriet-announce Slack channel to promote discussion.
+
+If you want to do the __git__ operations yourself, you can use the command `mblog create --no-git` to create the files and open the editor. If you do this, make sure you are up to date with the lastest changes in the [Github repository].
+
+[mikrobloggeriet.no]: https://mikrobloggeriet.no
+[Github repository]: https://github.com/iterate/mikrobloggeriet/
