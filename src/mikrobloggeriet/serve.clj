@@ -107,7 +107,7 @@
    (into [:head] (shared-html-header req))
    [:body
     [:p
-     (feeling-lucky (if (= "god-jul" (flag req)) "🎄" "🎲"))
+     (feeling-lucky "🎄")
      " — "
      [:a {:href "/"} "mikrobloggeriet"]]
     [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
@@ -144,7 +144,7 @@
      (page/html5
       (into [:head] (shared-html-header req))
       [:body 
-       [:p (feeling-lucky (if (= "god-jul" (flag req)) "🎄" "🎲"))]
+       [:p (feeling-lucky "🎄")]
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
        [:section
@@ -276,7 +276,7 @@
         (into [:head] (concat (when title [[:title title]])
                               (shared-html-header req)))
         [:body
-         [:p (feeling-lucky (if (= "god-jul" (flag req)) "🎄" "🎲"))
+         [:p (feeling-lucky "🎄")
           " — "
           [:a {:href "/"} "mikrobloggeriet"]
           " "
@@ -417,7 +417,7 @@
   (GET "/luke/" req (cohort-doc-table req store/luke))
   (GET "/luke/:slug/" req (doc req store/luke)) 
   (GET "/luke/draw/:pool" req (draw req store/luke
-                                    {\o "olav" \j "johan" \t "teodor" \h "håvard" \m "magnus" \l "lars"}))
+                                    {\o "olav" \j "johan" \t "teodor" \m "magnus" \l "lars"}))
   )
 
 (comment
