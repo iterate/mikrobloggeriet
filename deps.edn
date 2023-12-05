@@ -3,13 +3,13 @@
  {babashka/fs {:mvn/version "0.4.19"}
   babashka/process {:mvn/version "0.5.21"}
   cheshire/cheshire {:mvn/version "5.12.0"}
+  clj-rss/clj-rss {:mvn/version "0.4.0"}
   compojure/compojure {:mvn/version "1.7.0"}
   hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
   http-kit/http-kit {:mvn/version "2.7.0"}
   io.github.nextjournal/clerk {:mvn/version "0.15.957"}
   org.babashka/cli {:mvn/version "0.7.53"}
   org.clojure/clojure {:mvn/version "1.11.1"}
-  clj-rss/clj-rss {:mvn/version "0.4.0"}
   }
  :aliases
  {:dev
