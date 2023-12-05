@@ -106,7 +106,7 @@ From the folder you cloned `mikrobloggeriet`, run:
     mblog config cohort genai
     mblog config editor "code --wait --new-window"
 
-## Create and publish a `mblog`
+## Create and publish a doc
 When repo path, cohort and editor are set, you can run `mblog create` to write a new post.
 
 `mblog create` creates the neccessary files, opens your editor, where you can write your blog post. 
