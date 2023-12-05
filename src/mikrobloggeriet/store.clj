@@ -130,9 +130,7 @@
        (mapcat (fn [cohort]
                  (for [d (docs cohort)]
                    [cohort d])))
-       (map (fn [[cohort doc]]
-              [cohort (load-meta cohort doc)]))
-       (remove (fn [[_cohort doc]] (doc-meta/draft? doc)))))
+       (remove (fn [[cohort doc]] (doc-meta/draft? (load-meta cohort doc))))))
 
 (defn random-cohort+doc
   "Returns a random tuple of (cohort, doc) from all known cohorts
