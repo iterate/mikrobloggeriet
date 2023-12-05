@@ -144,7 +144,6 @@
 (comment
   (all-cohort+docs)
 
-  (count
-   (all-cohort+docs))
+  (count (all-cohort+docs))
 
   )
