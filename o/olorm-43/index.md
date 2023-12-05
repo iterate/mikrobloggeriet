@@ -61,7 +61,7 @@ I dag vil jeg vurdere den etter presisjon, generalitet, innovativitet og levende
 [The War of Art]: https://en.wikipedia.org/wiki/The_War_of_Art_(book)
 
 **Presisjon: 0.7**.
-Pressfield skriver sambla godt, men språket hans blomster av allegorier.
+Pressfield skriver sabla godt, men språket hans blomster av allegorier.
 Dette er litteratur, ikke forskning.
 I blant er det uklart ha han mener.
 Men den åpningen gir det mulighet til å reflektere.
