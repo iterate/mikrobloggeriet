@@ -1,9 +1,10 @@
 (ns mikrobloggeriet.store
   (:require
    [babashka.fs :as fs]
+   [clojure.edn :as edn]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [clojure.edn :as edn]))
+   [mikrobloggeriet.doc-meta :as doc-meta]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS
@@ -124,6 +125,15 @@
                         0))]
     (doc/from-slug (str (cohort/slug cohort) "-" number))))
 
+(defn all-cohort+docs []
+  (->> (vals cohorts)
+       (mapcat (fn [cohort]
+                 (for [d (docs cohort)]
+                   [cohort d])))
+       (map (fn [[cohort doc]]
+              [cohort (load-meta cohort doc)]))
+       (remove (fn [[_cohort doc]] (doc-meta/draft? doc)))))
+
 (defn random-cohort+doc
   "Returns a random tuple of (cohort, doc) from all known cohorts
 
@@ -131,9 +141,12 @@
   published documents will be drawn more frequently than cohorts with fewer
   published documents."
   []
-  (->> (vals cohorts)
-       (mapcat (fn [cohort]
-                 (for [d (docs cohort)]
-                   [cohort d])))
-       (into [])
-       rand-nth))
+  (rand-nth (into [] (all-cohort+docs))))
+
+(comment
+  (all-cohort+docs)
+
+  (count
+   (all-cohort+docs))
+
+  )
