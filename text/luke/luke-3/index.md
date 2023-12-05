@@ -1,7 +1,7 @@
 # LUKE-3 - Risikoanalyse i flere land
 
 Noe av det beste jeg vet er å se på problemer fra forskjellige vinklinger. Den gaven håper jeg å kunne gi videre til dere i min juleluke.
-Jeg skal fortelle om to vinklinger risikoanalyse kan ha. Grovt forenklet som den Franske 🇫🇷 og den tyske 🇩🇪.
+Jeg skal fortelle om to vinklinger risikoanalyse kan ha. Grovt forenklet som den franske 🇫🇷 og den tyske 🇩🇪.
 
 Risikoanalyse viktig på en måte som avslører verdiene våre, angår samfunnet, og som mange derfor har en mening om.
 Hva er risikoen ved vaksinering, å legge en motorvei gjennom byen eller å utsette byggingen av et nytt sykehus?
@@ -16,7 +16,7 @@ Det oversetter til noe som: "Som helhet, skal systemet være minst like bra". S�
 
 ## MEM 🇩🇪
 
-I tyskland er det vanlig å bruke "Minimum Endogenous Mortality". Tyskerne ser på systemets bidrag til dødelighet, gjennom noe de kaller "Teknologiske dødsfall". Kortfattet er dette dødsfall som skyldes systemet ditt, eller effekter av systemet ditt. Maskinulykker, ting du bare gjør på det stedet (sportsulykker også), defineres med bokstaven R og måles i dødsfall per person per år.
+I Tyskland er det vanlig å bruke "Minimum Endogenous Mortality". Tyskerne ser på systemets bidrag til dødelighet, gjennom noe de kaller "Teknologiske dødsfall". Kortfattet er dette dødsfall som skyldes systemet ditt, eller effekter av systemet ditt. Maskinulykker, ting du bare gjør på det stedet (sportsulykker også), defineres med bokstaven R og måles i dødsfall per person per år.
 
 Vi lager oss en baseline Rm for den gruppen mennesker som har lavest dødelighet. Dette tallet er lavest for de av oss mellom 5 og 15 år.
 Så setter vi oss regelen at systemene våre ikke får lov til å øke dødeligheten til denne gruppen betraktelig. Det er rett og slett regelen for MEM. Nå mangler vi bare noen tall, så si at vi har:
