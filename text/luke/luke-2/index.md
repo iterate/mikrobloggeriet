@@ -1,9 +1,11 @@
 # LUKE-2 - Headache
 
-"I shouldn't be responsible for what I say
-Someone else should be responsible for what I say
-There will always be baskets and benches
-The cow is for land and the horse is for water"
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3omdHDf6LTJVnHDUKS9kN7?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+> I shouldn't be responsible for what I say
+> Someone else should be responsible for what I say
+> There will always be baskets and benches
+> The cow is for land and the horse is for water
 
 Dette er et utdrag fra mitt favoritt-album fra 2023. Et overraskende tilskudd på lista, delvis fordi albumet bare dukket opp, men mest fordi det tilhører sjangeren "spoken word". Eller poesi eller monolog, over beats. Ok, så er det ikke så langt unna hiphop, og jeg er fan av produsenten, Vegyn, fra før, men likevel, dette er noe helt nytt for meg. En varm, elegant og britisk mannlig stemme fører meg gjennom en konstant strøm av store og små tanker, og forskrudde anekdoter og refleksjoner. Det henger ofte ikke på greip, men samtidig så har nettopp ordene truffet meg, som musikk-ord sjeldent gjør (jeg er opptatt av alt annet enn tekst når jeg hører på musikk), og ved et par anledninger har jeg til og med grått en skvett. Så det har vært en opplevelse av at, poesi kanskje er noe for meg?
 
