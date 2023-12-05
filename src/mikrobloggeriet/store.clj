@@ -45,7 +45,8 @@
    :cohort/root "text/luke"
    :cohort/slug "luke"
    :cohort/members [{:author/email "jomarn@me.com" :author/first-name "Johan"} 
-                    {:author/email "haavard@vaage.com" :author/first-name "Håvard"}]))
+                    {:author/email "haavard@vaage.com" :author/first-name "Håvard"}
+                    {:author/email "julian.hallen.eriksen@iterate.no" :author/first-name "Julian"}]))
 
 (def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke))
 
