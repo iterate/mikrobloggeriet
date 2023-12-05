@@ -131,7 +131,7 @@
   published documents will be drawn more frequently than cohorts with fewer
   published documents."
   []
-  (->> [olorm jals oj]
+  (->> (vals cohorts)
        (mapcat (fn [cohort]
                  (for [d (docs cohort)]
                    [cohort d])))
