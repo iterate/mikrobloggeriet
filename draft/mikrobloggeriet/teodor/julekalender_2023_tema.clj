@@ -11,3 +11,8 @@
 ;;      Hvis du ikke har en hypotese, er steg 1 å lage en hypotese!
 ;;      Sette seg ned foran PC-en og begynne å skrive funker ikke, i hvertfall ikke for meg.
 ;;    Du må designe et eksperiment.
+;;
+;; 3. Observability.
+;;    Ofte brukt i distribuerte systemer.
+;;    Like relevant lokalt!
+;;    Mer enn logging.
