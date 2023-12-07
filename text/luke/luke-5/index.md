@@ -2,6 +2,7 @@
 Jeg lærer meg Haskell, og har valgt å gjøre det offentlig i kanalen [\#thusan-lærer-haskell](https://garasjen.slack.com/archives/C05UVVAFWKB/p1695993916317479).
 
 Hvorfor?
+
 - Jeg har et ekstremt behov for anerkjennelse.
 - ...
 - ...
@@ -13,6 +14,7 @@ Det kan være vanskelig å lære seg nye ting. Bøker og ressurser på internett
 Obvs (forkortelse for obviously, obvs), så fins det mange måter å finne disse på lol (forkortelse for "jeg har aldri vært kul"). Jeg valgte å lage kanal og annonsere at jeg skulle poste om læringsprosessen. Fordi, jeg har et ekstremt behov for anerkjennelse.
 
 Det har (inntil videre) hatt følgende effekter:
+
 - Asynk diskusjoner om noe jeg har tatt opp i posten min. F.eks. [denne](https://garasjen.slack.com/archives/C05UVVAFWKB/p1701202161473369) som kom etter at jeg kommenterte at koden min føltes kanskje litt imperativ.
 - Kommentarene er kjempe verdifulle for meg. 
 	- Mange av de som kommenterer på postene mine ser jeg ikke daglig, og det er jo ikke sånn at man nødvendigvis har tid til å loke med Haskell ila. arbeidsdagen. 
