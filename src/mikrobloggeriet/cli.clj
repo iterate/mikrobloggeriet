@@ -14,7 +14,7 @@
 ;; Low-level helpers for managing the config file
 
 (defn- config-file []
-  (fs/file (fs/xdg-config-home "mikrobloggeriet") "config.edn"))
+  (fs/file (fs/xdg-config-home) "mikrobloggeriet" "config.edn"))
 
 (defn- load-config []
   (into (sorted-map)
@@ -39,7 +39,7 @@
                ::cannot-roundtrip)))
     (let [config (load-config)]
       (when-not (fs/exists? (config-file))
-        (fs/create-dirs (fs/xdg-config-home "mikrobloggeriet")))
+        (fs/create-dirs (fs/file (fs/xdg-config-home) "mikrobloggeriet")))
       (spit (config-file)
             (with-out-str (pprint (assoc config property value)))))))
 
