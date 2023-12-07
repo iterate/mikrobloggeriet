@@ -1,4 +1,4 @@
-# LUKE-5 - Her kan jeg skrive hva som helst
+# LUKE-5 - Om å lære offentlig
 Jeg lærer meg Haskell, og har valgt å gjøre det offentlig i kanalen [\#thusan-lærer-haskell](https://garasjen.slack.com/archives/C05UVVAFWKB/p1695993916317479).
 
 Hvorfor?
