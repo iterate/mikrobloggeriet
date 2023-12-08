@@ -49,7 +49,8 @@
                     {:author/email "julian.hallen.eriksen@iterate.no" :author/first-name "Julian"}
                     {:author/email "finn@iterate.no" :author/first-name "Finn"}
                     {:author/email "sindre@iterate.no" :author/first-name "Sindre"}
-                    {:author/email "thusan@iterate.no" :author/first-name "Thusan"}]))
+                    {:author/email "thusan@iterate.no" :author/first-name "Thusan"}
+                    {:author/email "kjersti@iterate.no" :author/first-name "Kjersti"}]))
 
 (def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke))
 
