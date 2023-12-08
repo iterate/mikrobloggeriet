@@ -23,18 +23,20 @@ Mikrobloggeriet.no requires some setup:
 
 Please install your Java Development Kit (JDK) of choice with your package manager.
 
-### Installing Java on Mac
+### Installing Java on Mac with Homebrew
 
-You can install Java however you like.
+As long as `java -version` prints a Java version, you have a working Java installation.
 
-Here's one example on how to do it:
+To install java with Homebrew:
 
 ```shell
 brew install openjdk
 ```
 
-You can install multiple Java versions at the same time on Mac.
-To choose the java version you just installed, run:
+Multiple java versions can be installed at the same time.
+You need to select one.
+Read the Homebrew package docs for an explanation.
+You'll probably run something like this:
 
 ```shell
 sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
