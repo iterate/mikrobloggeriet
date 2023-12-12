@@ -81,14 +81,6 @@ curl -s http://artscene.textfiles.com/vt100/xmas2.vt \
 —Richard Tingstad
 
 
-P.S. Bonus: Lag kule Git-meldinger:
-
-```
-$ git commit -m "$(printf '\033(0 hello \033(B world')"
-[master 8253c70]  ␤␊┌┌⎺  world
-```
-
-
 [arkiv]: http://artscene.textfiles.com/vt100/
 [ECMA-35]: https://www.ecma-international.org/wp-content/uploads/ECMA-35_2nd_edition_january_1980.pdf ("ESC 2/8 F [...] designate sets of 94 characters which will be used as the G0 set.", § 5.3.7)
 [linux]: https://man7.org/linux/man-pages/man4/console_codes.4.html
