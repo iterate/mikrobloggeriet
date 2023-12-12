@@ -31,17 +31,17 @@ og manualen sier:
 > The VT100 has many control commands which cause it to
 take action other than displaying a character on the
 screen. In this way, the host can command the terminal to
-move the cursor, change modes, ring the bell, etc. 
+move the cursor, change modes, ring the bell, etc.
 > [...]
 
-```
-Character set                G0 designator
+-----------------------------------------
+Character set               G0 designator
+--------------------------- -------------
+United States (USASCII)     ESC ( B
 
-United States (USASCII)      ESC ( B
-
-Special graphics characters  ESC ( 0
+Special graphics characters ESC ( 0
  and line drawing set
-```
+-----------------------------------------
 
 Så hvis terminalen mottar tegnene `ESC` `(` `0`
 bytter den tegnsett til Special graphics and line drawing.
@@ -52,13 +52,14 @@ men _hvilke_ tegnsett (`B`, `0`) som implementeres er ikke spesifisert.
 
 Uansett kan vi lese i Linux-[dokumentasjonen][linux] om Console Controls:
 
-```
+-------   -----------------------------------------
 ESC (     Start sequence defining G0 character set
           (followed by one of B, 0, U, K, as below)
 
 ESC ( B   Select default (ISO 8859-1 mapping).
+
 ESC ( 0   Select VT100 graphics mapping.
-```
+-------   -----------------------------------------
 
 Jeg liker at plattformer har [bakoverkompatibilitet][],
 og dette er et heftig eksempel.
@@ -78,6 +79,14 @@ curl -s http://artscene.textfiles.com/vt100/xmas2.vt \
 ```
 
 —Richard Tingstad
+
+
+P.S. Bonus: Lag kule Git-meldinger:
+
+```
+$ git commit -m "$(printf '\033(0 hello \033(B world')"
+[master 8253c70]  ␤␊┌┌⎺  world
+```
 
 
 [arkiv]: http://artscene.textfiles.com/vt100/
