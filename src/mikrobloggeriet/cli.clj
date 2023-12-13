@@ -273,6 +273,7 @@ Allowed options:
         opts (let [edit? (:edit opts true) ;; by default, we shell out to the user's editor to write.
                    git? (cond
                           (= (:git opts) true) true ;; if explicitly set in a CLI option, do what the user says.
+                          (= (:no-git opts) true) false ;; Support older Babashka versions
                           (not edit?) false         ;; otherwise, if the user has disabled editing, also disable Git.
                           :else (:git opts true)    ;; otherwise, take the CLI arg, and default to true.
                           )]
