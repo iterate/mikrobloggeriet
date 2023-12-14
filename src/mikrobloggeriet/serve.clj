@@ -201,6 +201,17 @@
                          [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]))
             )])
 
+       [:section
+        [:h2 "URLOG"]
+        [:p "Mikrobloggen URLOG skrives av Neno."]
+        [:p
+         (let [cohort store/neno]
+           (interpose " · "
+                      (for [doc (->> (store/docs cohort)
+                                     (map (fn [doc] (store/load-meta cohort doc)))
+                                     (remove doc-meta/draft?))]
+                        [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))]]
+
        [:hr]
 
        [:section
@@ -418,6 +429,11 @@
   (GET "/luke/:slug/" req (doc req store/luke)) 
   (GET "/luke/draw/:pool" req (draw req store/luke
                                     {\o "olav" \j "johan" \t "teodor" \m "magnus" \l "lars"}))
+
+  ;; NENO
+  (GET "/neno/" req (cohort-doc-table req store/luke))
+  (GET "/neno/:slug/" req (doc req store/luke))
+  (GET "/neno/draw/:pool" req (draw req store/luke {\n "neno"}))
   )
 
 (comment
