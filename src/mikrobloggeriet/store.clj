@@ -23,8 +23,7 @@
    :cohort/root "j"
    :cohort/slug "jals"
    :cohort/members [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
-                    {:author/email "adrian.tofting@iterate.no",
-                     :author/first-name "Adrian"}
+                    {:author/email "adrian.tofting@iterate.no", :author/first-name "Adrian"}
                     {:author/email "larshbj@gmail.com", :author/first-name "Lars"}
                     {:author/email "sindre@iterate.no", :author/first-name "Sindre"}]))
 

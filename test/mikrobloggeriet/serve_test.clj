@@ -16,10 +16,6 @@
     (testing "Index refers to olorm-4"
       (is (str/includes? index "/olorm/olorm-4")))))
 
-(deftest name-test
-  (is (serve/app {:uri "/olorm/draw/o", :request-method :get}))
-  (is (= 200 (:status (serve/app {:uri "/olorm/draw/o", :request-method :get})))))
-
 (deftest doc-test
   ;; Sanity test that one document for each cohort renders successfully. Makes it more comfortable to work with doc logic!
   (let [olorm-1 (serve/app {:uri "/olorm/olorm-1/" :request-method :get})]

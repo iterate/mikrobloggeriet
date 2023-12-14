@@ -331,53 +331,6 @@
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
 
-(defn draw [req cohort first-letter-names]
-  (let [pool (get-in req [:params :pool])
-        chosen (rand-nth pool)
-        beige "#FAAB66"
-        neon-green "#15ff4f"
-        old-command-name (str/lower-case (cohort/name cohort))
-        ]
-    {:status 200
-     :header {"Content-Type" "text/html"
-              "Cache-Control" "no-cache"}
-     :body (page/html5
-            [:head
-             [:meta {:charset "utf-8"}]
-             [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-             (hiccup.page/include-css "/reset.css")]
-            [:body {:style (style/inline {:background beige})}
-             [:div {:style (style/inline {:margin-left "2rem"
-                                          :margin-right "2rem"
-                                          :height "100vh"
-                                          :display "flex"
-                                          :align-items "center"})}
-              [:div {:style (style/inline {:width "100%"})}
-               [:div {:style (style/inline {:font-family "monospace"
-                                            :font-size "1.8rem"
-                                            :padding "0.8rem"
-                                            :line-height "1.4"
-                                            :width "100%"
-                                            :border-radius "10px"
-                                            :background "black"
-                                            :color neon-green})}
-                [:div (str "$ " old-command-name " draw " pool)]
-                [:div (str (get first-letter-names chosen) " 🎁")]]
-
-               [:div {:style (style/inline {:margin-top "2rem"
-                                            :font-family "monospace"
-                                            :font-size "1.8rem"
-                                            :padding "0.8rem"
-                                            :line-height "1.4"
-                                            :width "100%"
-                                            :border-radius "10px"
-                                            :background "black"
-                                            :color neon-green})}
-                [:div (str "# For å skrive ny " (cohort/name cohort) ", kjør:")]
-                [:div (str "$ " old-command-name " create")]
-                [:div (str "# Eller bruk nytt CLI:")]
-                [:div "$ mblog create"]]]]])}))
-
 (defroutes app
   (GET "/" req (index req))
 
@@ -404,8 +357,6 @@
 
   (GET "/o/:slug/" req (http/permanent-redirect {:target (str "/olorm/" (:slug (:route-params req)) "/")}))
   (GET "/olorm/:slug/" req (doc req store/olorm))
-  (GET "/olorm/draw/:pool" req (draw req store/olorm
-                                     {\o "oddmund" \l "lars" \r "richard"}))
 
   ;; JALS
   ;; /j/* URLS are deprecated in favor of /jals/* URLs
@@ -413,8 +364,6 @@
   (GET "/jals/" req (cohort-doc-table req store/jals))
   (GET "/j/:slug/" req (http/permanent-redirect {:target (str "/jals/" (:slug (:route-params req)) "/")}))
   (GET "/jals/:slug/" req (doc req store/jals))
-  (GET "/jals/draw/:pool" req (draw req store/jals
-                                    {\a "adrian" \l "lars" \s "sindre"}))
 
   ;; OJ
   (GET "/oj/" req (cohort-doc-table req store/oj))
@@ -427,19 +376,17 @@
   ;; LUKE 
   (GET "/luke/" req (cohort-doc-table req store/luke))
   (GET "/luke/:slug/" req (doc req store/luke)) 
-  (GET "/luke/draw/:pool" req (draw req store/luke
-                                    {\o "olav" \j "johan" \t "teodor" \m "magnus" \l "lars"}))
 
   ;; NENO
   (GET "/urlog/" req (cohort-doc-table req store/urlog))
   (GET "/urlog/:slug/" req (doc req store/urlog))
-  (GET "/urlog/draw/:pool" req (draw req store/urlog {\n "neno"}))
+
   )
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})
   (app {:uri "/hops-info", :request-method :get})
-  (app {:uri "/olorm/draw/o", :request-method :get}))
+  )
 
 (defonce server (atom nil))
 (def port 7223)
