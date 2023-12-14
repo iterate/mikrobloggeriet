@@ -37,7 +37,7 @@ Du kan forbedres, koden din kan forbedres.
 
 Og når forbedringer på produktet kan shippes på én dag i stedet for på to uker, kan jeg love deg at jobben med å lage et godt produkt blir lettere.
 
-Kjersti skriver om å avfeie kundens i [LUKE-6 - Kunden tar alltid feil!][luke-6]
+Kjersti skriver om å avfeie kundens i [LUKE-6 - Kunden tar alltid feil!][luke-6]:
 
 > Kanskje vi ville bli bedre på å ta utgangspunkt i kundens hypoteser dersom vi
 > samlet sett vet at vi ikke blir «tatt» på å feile litt lenger ned i løypa (ref
