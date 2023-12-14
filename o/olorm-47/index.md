@@ -12,4 +12,10 @@ Fordi han har tenkt på ting jeg aldri kunne tenkt på å tenke meg selv i går 
 <!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
 Snakk med neno!
 
-https://mikrobloggeriet.no/
+<a href="https://mikrobloggeriet.no/">mikrobloggeriet.no</a>
+
+[mikrobloggeriet]
+
+[mikrobloggeriet]: https://mikrobloggeriet.no/
+
+[tjohei](https://mikrobloggeriet.no/)
