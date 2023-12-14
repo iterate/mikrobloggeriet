@@ -1,3 +1,3 @@
 # URLOG-2
 
-[🚪](https://bezier.method.ac/)
+[Åpne dør 02](https://bezier.method.ac/)
