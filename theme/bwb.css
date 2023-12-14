@@ -1,0 +1,41 @@
+:root {
+    /* a */
+    --bwb-white: white;
+    --bwb-black:  black;
+    --bwb-link: blue;
+    --bwb-hover: lightblue;
+    --bwb-extra: lightgray;
+
+
+
+
+
+
+    /* Assign for use in HTML */
+    --desktop-font-size: 1.2rem/1.55;
+    --mobile-font-size: 1rem/1.45;
+    --background-color: var(--bwb-white);
+    --text-color: var(--bwb-black);
+    --link-color: var(--bwb-link);
+    --link-color-alt: var(--bwb-hover);
+    --primary-color: var(--bwb-extra);
+    --secondary-color: var(--bwb-extra);
+    --tertiary-color: var(--bwb-extra);
+}
+
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #0f0f23;
+    }
+    :root {
+        --background-color: var(--bwb-black);
+        --text-color: var(--bwb-white);
+        --link-color: var(--bwb-link);
+        --link-color-alt: var(--bwb-hover);
+        --primary-color: var(--bwb-extra);
+        --secondary-color: var(--bwb-extra);
+        --tertiary-color: var(--bwb-extra);
+        }
+}
