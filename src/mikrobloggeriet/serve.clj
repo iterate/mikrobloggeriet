@@ -203,7 +203,7 @@
 
        [:section
         [:h2 "URLOG"]
-        [:p "Mikrobloggen URLOG skrives av Neno."]
+        [:p "Dører til steder på Internett som kan være morsomme, interessante, tidsspisende og grensesprengende å besøke."]
         [:p
          (let [cohort store/urlog]
            (interpose " · "
