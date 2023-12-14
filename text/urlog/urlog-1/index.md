@@ -7,4 +7,4 @@ mblog create
 (gå helt ut av Code for å publisere)
 -->
 
-<a href="https://www.my90stv.com/" target="_blank" style="font-size: 10vw; text-align:center;">🚪</a>
+<a href="https://www.my90stv.com/" target="_blank" style="font-size: 10vw; text-align:center;"><div>🚪</div></a>
