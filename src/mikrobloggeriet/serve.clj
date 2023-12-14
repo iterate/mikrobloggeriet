@@ -203,7 +203,7 @@
 
        [:section
         [:h2 "URLOG"]
-        [:p "Dører til steder på Internett som kan være morsomme og interessante å besøke."]
+        [:p "Dører til steder på Internett som kan være morsomme og/eller interessante å besøke."]
         [:p
          (let [cohort store/urlog]
            (interpose " · "
