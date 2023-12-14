@@ -205,7 +205,7 @@
         [:h2 "URLOG"]
         [:p "Mikrobloggen URLOG skrives av Neno."]
         [:p
-         (let [cohort store/neno]
+         (let [cohort store/urlog]
            (interpose " · "
                       (for [doc (->> (store/docs cohort)
                                      (map (fn [doc] (store/load-meta cohort doc)))
