@@ -210,7 +210,7 @@
                       (for [doc (->> (store/docs cohort)
                                      (map (fn [doc] (store/load-meta cohort doc)))
                                      (remove doc-meta/draft?))]
-                        [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))]]
+                        [:a {:href (store/doc-href cohort doc)} "🚪"])))]]
 
        [:hr]
 
