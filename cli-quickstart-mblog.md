@@ -19,8 +19,20 @@ Mikrobloggeriet.no requires some setup:
 
 2. [Babashka] must be installed.
    You have a working Babashka installation if you can run `bb --help` in a terminal.
+   
+   With Homebrew:
+   
+   ```
+   brew install borkdude/brew/babashka
+   ```
 
 3. [bbin] must be installed and added to your PATH.
+   With Homebrew:
+   
+   ```
+   brew install borkdude/brew/bbin
+   ```
+   
    Running `bbin` in a terminal should show something like this:
 
     ```shell
