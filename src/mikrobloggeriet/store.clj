@@ -60,7 +60,7 @@
   (sorted-map
    :cohort/root "text/urlog"
    :cohort/slug "urlog"
-   :cohort/members []))
+   :cohort/members [{:author/email "neno.mindjek@iterate.no" :author7first-name "N"}]))
 
 (def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke :urlog urlog))
 
