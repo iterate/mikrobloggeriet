@@ -103,7 +103,6 @@
   )
 
 (defn cohort-doc-table [req cohort]
-  (tap> req)
   (page/html5
    (into [:head] (shared-html-header req))
    [:body
@@ -277,7 +276,6 @@
 
 (defn doc
   [req cohort]
-  (tap> req)
   (when (:slug (:route-params req))
     (let [doc (doc/from-slug (:slug (:route-params req)))
           {:keys [title doc-html]}
