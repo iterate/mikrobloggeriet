@@ -53,7 +53,8 @@
                     {:author/email "kjersti@iterate.no" :author/first-name "Kjersti"}
                     {:author/email "rasmus.stride@iterate.no" :author/first-name "Rasmus"}
                     {:author/email "pernille@iterate.no" :author/first-name "Pernille"}
-                    {:author/email "richard.tingstad@iterate.no" :author/first-name "Richard"}]))
+                    {:author/email "richard.tingstad@iterate.no" :author/first-name "Richard"}
+                    {:author/email "camilla@iterate.no" :author/first-name "Camilla"}]))
 
 (def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke))
 
