@@ -431,9 +431,9 @@
                                     {\o "olav" \j "johan" \t "teodor" \m "magnus" \l "lars"}))
 
   ;; NENO
-  (GET "/neno/" req (cohort-doc-table req store/luke))
-  (GET "/neno/:slug/" req (doc req store/luke))
-  (GET "/neno/draw/:pool" req (draw req store/luke {\n "neno"}))
+  (GET "/urlog/" req (cohort-doc-table req store/luke))
+  (GET "/urlog/:slug/" req (doc req store/luke))
+  (GET "/urlog/draw/:pool" req (draw req store/luke {\n "neno"}))
   )
 
 (comment
