@@ -7,7 +7,6 @@ I tillegg har kunde hatt høye krav til hva som må inn, og begrenset budsjett.
 Jeg føler på kroppen at jeg ikke er i stand til å gjøre de beste beslutningene om hvordan en ting bør løses i kodebasen.
 Jeg har tid til å sette meg _delvis_ inn i eksisterende arkitektur og hvordan det har blitt jobbet, men for å faktisk komme i mål med det jeg skal gjøre må jeg sette strek.
 Det er det pragmatiske valget; kunden har et behov, jeg kommer og gjør en jobb, og skal gjøre den jobben til budsjettert tid.
-
 Kodeteknisk _vet jeg_ at det er ting jeg bør ta tak i som jeg ganske enkelt ikke rekker.
 
 Jeg er overbevist om at kode kan være _objektivt god_.
