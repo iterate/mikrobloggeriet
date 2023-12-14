@@ -1,6 +1,6 @@
 # URLOG-1
 
-[⓿❶](https://www.my90stv.com/)
+[🚪](https://www.my90stv.com/)
 
 <!--
 git add . && git commit -m URLOG && git pull --rebase && git push
