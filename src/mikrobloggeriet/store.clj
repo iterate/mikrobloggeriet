@@ -56,13 +56,13 @@
                     {:author/email "richard.tingstad@iterate.no" :author/first-name "Richard"}
                     {:author/email "camilla@iterate.no" :author/first-name "Camilla"}]))
 
-(def neno
+(def urlog
   (sorted-map
-   :cohort/root "text/neno"
-   :cohort/slug "neno"
+   :cohort/root "text/urlog"
+   :cohort/slug "urlog"
    :cohort/members []))
 
-(def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke :neno neno))
+(def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke :urlog urlog))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
