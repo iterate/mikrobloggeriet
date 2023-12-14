@@ -7,4 +7,4 @@ mblog create
 (gå helt ut av Code for å publisere)
 -->
 
-[Åpne dør 01](https://www.my90stv.com/)
+<a href="https://www.my90stv.com/" target="_blank">Åpne dør 01</a>

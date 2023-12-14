@@ -1,3 +1,3 @@
 # URLOG-3
 
-[Åpne dør 03](https://grids.obys.agency/)
+<a href="https://grids.obys.agency/" target="_blank">Åpne dør 03</a>
