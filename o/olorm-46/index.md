@@ -65,6 +65,8 @@ Er dette mye å forvente?
 Ja!
 Bli gjerne god på å kode først.
 Men ikke avfei det kunden sier før dere har prøvd: følg [Principle of charity] før du setter deg selv i kritikkmodus.
+Bonus: når du viser villighet til å _prøve_, begynner kunden å stole på deg.
+Når kunden stoler på deg, er det mer sannsynlig at du blir hørt.
 
 [luke-6]: https://mikrobloggeriet.no/luke/luke-6/
 [Principle of charity]: https://en.m.wikipedia.org/wiki/Principle_of_charity
