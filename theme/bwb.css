@@ -26,14 +26,12 @@
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-    body {
-        background: #0f0f23;
-    }
+
     :root {
         --background-color: var(--bwb-black);
         --text-color: var(--bwb-white);
-        --link-color: var(--bwb-link);
-        --link-color-alt: var(--bwb-hover);
+        --link-color: var(--bwb-hover);
+        --link-color-alt: var(--bwb-link);
         --primary-color: var(--bwb-extra);
         --secondary-color: var(--bwb-extra);
         --tertiary-color: var(--bwb-extra);
