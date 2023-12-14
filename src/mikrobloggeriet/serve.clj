@@ -159,7 +159,7 @@
                         [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))]]
        [:section
         [:h2 "OLORM"]
-        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars og Richard."]
+        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor."]
         [:p
          (let [cohort store/olorm]
            (interpose " · "
