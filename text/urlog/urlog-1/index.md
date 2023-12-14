@@ -7,8 +7,8 @@ mblog create
 (gå helt ut av Code for å publisere)
 -->
 
-<a href="https://www.my90stv.com/" style="background-color: black; ">
-<pre>
+<a href="https://www.my90stv.com/" style="background-color: white; ">
+<pre style="color: black;">
       ______      
    ,-' ;  ! `-.   
   / :  !  :  . \  
