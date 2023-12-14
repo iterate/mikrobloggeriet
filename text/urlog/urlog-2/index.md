@@ -1,3 +1,3 @@
 # URLOG-2
 
-<a href="https://bezier.method.ac/" target="_blank">Åpne dør 02</a>
+<a href="https://bezier.method.ac/" target="_blank" style="font-size: 10vw; text-align:center;">🚪</a>
