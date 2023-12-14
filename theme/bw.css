@@ -1,0 +1,24 @@
+:root {
+    /* a */
+    --bw-background: white;
+    --bw-text:  black;
+    --bw-link: blue;
+    --bw-hover: lightblue;
+    --bw-extra: lightgray;
+
+
+
+
+
+
+    /* Assign for use in HTML */
+    --desktop-font-size: 1.2rem/1.55;
+    --mobile-font-size: 1rem/1.45;
+    --background-color: var(--bw-background);
+    --text-color: var(--bw-text);
+    --link-color: var(--bw-link);
+    --link-color-alt: var(--bw-hover);
+    --primary-color: var(--bw-extra);
+    --secondary-color: var(--bw-extra);
+    --tertiary-color: var(--bw-extra);
+}
