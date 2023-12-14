@@ -103,6 +103,7 @@
   )
 
 (defn cohort-doc-table [req cohort]
+  (tap> req)
   (page/html5
    (into [:head] (shared-html-header req))
    [:body
@@ -276,6 +277,7 @@
 
 (defn doc
   [req cohort]
+  (tap> req)
   (when (:slug (:route-params req))
     (let [doc (doc/from-slug (:slug (:route-params req)))
           {:keys [title doc-html]}
@@ -431,9 +433,9 @@
                                     {\o "olav" \j "johan" \t "teodor" \m "magnus" \l "lars"}))
 
   ;; NENO
-  (GET "/urlog/" req (cohort-doc-table req store/luke))
-  (GET "/urlog/:slug/" req (doc req store/luke))
-  (GET "/urlog/draw/:pool" req (draw req store/luke {\n "neno"}))
+  (GET "/urlog/" req (cohort-doc-table req store/urlog))
+  (GET "/urlog/:slug/" req (doc req store/urlog))
+  (GET "/urlog/draw/:pool" req (draw req store/urlog {\n "neno"}))
   )
 
 (comment
