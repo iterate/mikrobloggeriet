@@ -53,7 +53,8 @@
                     {:author/email "rasmus.stride@iterate.no" :author/first-name "Rasmus"}
                     {:author/email "pernille@iterate.no" :author/first-name "Pernille"}
                     {:author/email "richard.tingstad@iterate.no" :author/first-name "Richard"}
-                    {:author/email "camilla@iterate.no" :author/first-name "Camilla"}]))
+                    {:author/email "camilla@iterate.no" :author/first-name "Camilla"}
+                    {:author/email "brunstad@iterate.no" :author/first-name "Ole Jacob"}]))
 
 (def urlog
   (sorted-map
