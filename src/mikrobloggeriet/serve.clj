@@ -333,9 +333,9 @@
 
 (defn urlogs
   "Display urlogs to Neno's liking (hopefully)"
-  [req]
+  [_req]
   (page/html5
-      (into [:head] (shared-html-header req))
+      [:head (hiccup.page/include-css "/urlog.css")]
     [:body
      [:p (feeling-lucky "🎄") " — " [:a {:href "/"} "mikrobloggeriet"]]
      [:p
@@ -354,6 +354,7 @@
   (GET "/vanilla.css" _req (css-response "vanilla.css"))
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
+  (GET "/urlog.css" _req (css-response "urlog.css")) ;; NENO STUFF
 
   ;; THEMES AND FEATURE FLAGGING
   (GET "/set-theme/:theme" req (set-theme req))
