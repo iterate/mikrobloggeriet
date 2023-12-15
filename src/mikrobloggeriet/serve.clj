@@ -204,7 +204,7 @@
        [:section
         [:h2 "URLOG"]
         [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-        [:p {:style (style/inline {:font-size "10vw"})}
+        [:p
          (let [cohort store/urlog]
            (interpose " · "
                       (for [doc (->> (store/docs cohort)
@@ -338,13 +338,14 @@
       [:head (hiccup.page/include-css "/urlog.css")]
     [:body
      [:p (feeling-lucky "🎄") " — " [:a {:href "/"} "mikrobloggeriet"]]
-     [:p
-      (let [cohort store/urlog]
-        (interpose " · "
-                   (for [doc (->> (store/docs cohort)
-                                  (map (fn [doc] (store/load-meta cohort doc)))
-                                  (remove doc-meta/draft?))]
-                     [:a {:href (store/doc-href cohort doc)} "🚪"])))]]))
+     [:main
+      [:p
+       (let [cohort store/urlog]
+         (interpose " · "
+                    (for [doc (->> (store/docs cohort)
+                                   (map (fn [doc] (store/load-meta cohort doc)))
+                                   (remove doc-meta/draft?))]
+                      [:a {:href (store/doc-href cohort doc)} "🚪"])))]]]))
 
 (defroutes app
   (GET "/" req (index req))
