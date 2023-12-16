@@ -15,7 +15,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.style :as style]
+   [mikrobloggeriet.urlog :as urlog]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
@@ -331,22 +331,6 @@
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
 
-(defn urlogs
-  "Display urlogs to Neno's liking (hopefully)"
-  [_req]
-  (page/html5
-      [:head (hiccup.page/include-css "/urlog.css")]
-    [:body
-     [:p (feeling-lucky "🎄") " — " [:a {:href "/"} "mikrobloggeriet"]]
-     [:main
-      [:p
-       (let [cohort store/urlog]
-         (interpose " · "
-                    (for [doc (->> (store/docs cohort)
-                                   (map (fn [doc] (store/load-meta cohort doc)))
-                                   (remove doc-meta/draft?))]
-                      [:a {:href (store/doc-href cohort doc)} "🚪"])))]]]))
-
 (defroutes app
   (GET "/" req (index req))
 
@@ -395,8 +379,8 @@
   (GET "/luke/:slug/" req (doc req store/luke)) 
 
   ;; NENO
-  (GET "/urlog/" req (urlogs req))
-  (GET "/urlog/:slug/" req (doc req store/urlog))
+  (GET "/urlog/" req (urlog/urlogs req))
+  (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
 
   )
 
