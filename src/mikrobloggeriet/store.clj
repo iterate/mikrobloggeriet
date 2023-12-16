@@ -68,6 +68,12 @@
    :cohort/slug "vakt"
    :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}]))
 
+(def urlog2
+  "En ny eksperimentell kohort uten dagens markdown-system"
+  (sorted-map
+   :cohort/root "text/urlog2"
+   :cohort/slug "urlog2"))
+
 (def cohorts
   (sorted-map
    :olorm olorm
@@ -95,7 +101,9 @@
   (fs/file (doc-folder cohort doc)
            "meta.edn"))
 
-(defn doc-exists? [cohort doc]
+(defn doc-exists?
+  "True iff doc meta and doc markdown file exists."
+  [cohort doc]
   (and (cohort/root cohort)
        (doc/slug doc)
        (fs/exists? (doc-md-path cohort doc))
