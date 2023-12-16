@@ -1,4 +1,15 @@
-(ns mikrobloggeriet.urlog
+(ns
+    ^{:doc "https://mikrobloggeriet.no/urlog/
+
+Neno deler lenker --- og ønsker mer kontroll på utseende enn det han får ut
+av boksen med mikrobloggeriet.
+
+Trekker dette ut i et eget navnerom for å gjøre det lettere for Neno å
+fokusere på det som er relevant for Neno, og gjøre koden i
+`mikrobloggeriet.serve` mer lesbar. Det reduserer også risiko for at
+urlog-eksperimentering brekker resten av mikrobloggeriet.
+"}
+    mikrobloggeriet.urlog
   (:require
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
@@ -8,16 +19,6 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [ring.middleware.cookies :as cookies]))
-
-;; https://mikrobloggeriet.no/urlog/
-;;
-;; Neno deler lenker --- og ønsker mer kontroll på utseende enn det han får ut
-;; av boksen med mikrobloggeriet.
-;;
-;; Trekker dette ut i et eget navnerom for å gjøre det lettere for Neno å
-;; fokusere på det som er relevant for Neno, og gjøre koden i
-;; `mikrobloggeriet.serve` mer lesbar. Det reduserer også risiko for at
-;; urlog-eksperimentering brekker resten av mikrobloggeriet.
 
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
