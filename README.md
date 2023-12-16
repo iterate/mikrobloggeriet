@@ -2,7 +2,7 @@
 
 https://mikrobloggeriet.no/
 
-_A collection of technical microblogs—written in Norwegian._
+_A collection of microblogs—written in Norwegian._
 
 Vocabulary:
 
