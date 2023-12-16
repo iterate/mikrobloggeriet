@@ -98,3 +98,14 @@
                      ))]]
          doc-html])})))
 
+(defn index-section [_req]
+  [:section
+   [:h2 "URLOG"]
+   [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
+   [:p
+    (let [cohort store/urlog]
+      (interpose " · "
+                 (for [doc (->> (store/docs cohort)
+                                (map (fn [doc] (store/load-meta cohort doc)))
+                                (remove doc-meta/draft?))]
+                   [:a {:href (store/doc-href cohort doc)} "🚪"])))]])
