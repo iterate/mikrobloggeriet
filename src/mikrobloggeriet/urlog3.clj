@@ -52,5 +52,5 @@
     [:body [:main
             [:p (interpose " " (for [url (parse-urlfile (slurp urlfile-path))]
                                 [:a {:href url
-                                    :target "_blank"}
+                                     :target "_blank"}
                                 "🚪"]))]]]))
