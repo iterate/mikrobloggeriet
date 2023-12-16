@@ -17,6 +17,7 @@
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.urlog :as urlog]
    [mikrobloggeriet.urlog2 :as urlog2]
+   [mikrobloggeriet.urlog3 :as urlog3]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
@@ -376,6 +377,7 @@
 
   ;; NENO 2
   (GET "/urlog2/" req (urlog2/urlogs req))
+  (GET "/urlog3/" req (urlog3/urlogs req))
   )
 
 (comment

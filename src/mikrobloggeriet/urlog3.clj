@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.urlog2
+(ns mikrobloggeriet.urlog3
   (:require
    [babashka.fs :as fs]
    [clojure.string :as str]
@@ -7,7 +7,7 @@
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.store :as store]))
 
-;; urlog --- men uten markdown.
+;; like urlog2 -- but all urls in one file
 
 (defn doc-exists?
   "True iff doc exists, does not care about content format."
@@ -30,12 +30,27 @@
   (store/doc-folder store/urlog2 (first (docs store/urlog2)))
   :rcf)
 
+(def urlfile-path "text/urlog3/urls.txt")
+(defn parse-urlfile
+  "Parse an urlfile into a vector of urls (strings).
+
+  - Empty lines are ignored
+  - Lines starting with # or whitespace then # are treated as comments
+"
+  [s]
+  (->> (str/split-lines (str/trim s))
+       (map str/trim)
+       (remove str/blank?)
+       (remove #(str/starts-with? % "#"))))
+
+(comment
+  (parse-urlfile (slurp urlfile-path))
+  )
+
 (defn urlogs [_req]
   (page/html5 [:head (page/include-css "/urlog.css")]
-    [:body [:main [:p (interpose " "
-                                 (for [doc (docs store/urlog2)]
-                                   (let [txt-file (fs/file (store/doc-folder store/urlog2 doc) "url.txt")
-                                         content (slurp (str txt-file))]
-                                     [:a {:href (str/trim content)
-                                          :target "_blank"}
-                                      "🚪"])))]]]))
+    [:body [:main
+            [:p (interpose " " (for [url (parse-urlfile (slurp urlfile-path))]
+                                [:a {:href url
+                                    :target "_blank"}
+                                "🚪"]))]]]))
