@@ -39,7 +39,7 @@ urlog-eksperimentering brekker resten av mikrobloggeriet.
                                   (remove doc-meta/draft?))]
                      [:a {:href (store/doc-href cohort doc)} "🚪"])))]]]))
 
-(defn shared-html-header
+(defn html-header
   "Shared HTML, including CSS.
   Handles CSS theming system with cookies."
   [req]
@@ -75,7 +75,7 @@ urlog-eksperimentering brekker resten av mikrobloggeriet.
        :body
        (page/html5
         (into [:head] (concat (when title [[:title title]])
-                              (shared-html-header req)))
+                              (html-header req)))
         [:body
          [:p (feeling-lucky "🎄")
           " — "
