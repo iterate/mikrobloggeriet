@@ -62,7 +62,21 @@
    :cohort/slug "urlog"
    :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]))
 
-(def cohorts (sorted-map :olorm olorm :jals jals :oj oj :genai genai :luke luke :urlog urlog))
+(def vakt
+  (sorted-map
+   :cohort/root "text/vakt"
+   :cohort/slug "vakt"
+   :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}]))
+
+(def cohorts
+  (sorted-map
+   :olorm olorm
+   :jals jals
+   :oj oj
+   :genai genai
+   :luke luke
+   :urlog urlog
+   :vakt vakt))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
