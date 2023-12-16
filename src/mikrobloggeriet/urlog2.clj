@@ -26,22 +26,17 @@
            (filter (partial doc-exists? cohort))
            (sort-by doc/number)))))
 
-(docs store/urlog2)
-(store/doc-folder store/urlog2 (first (docs store/urlog2)))
+(comment
+  (docs store/urlog2)
+  (store/doc-folder store/urlog2 (first (docs store/urlog2)))
+  :rcf)
 
 (defn urlogs [_req]
-  (page/html5
-      [:head (page/include-css "/urlog.css")]
-    [:body
-     [:p [:a {:href "/random-doc" :class :feeling-lucky} "🎄"]]
-     [:main
-      [:p (str/join " "
-                    (for [doc (docs store/urlog2)]
-                      (doc/slug doc)))]
-      [:p
-       (let [cohort store/urlog]
-         (interpose " · "
-                    (for [doc (->> (store/docs cohort)
-                                   (map (fn [doc] (store/load-meta cohort doc)))
-                                   (remove doc-meta/draft?))]
-                      [:a {:href (store/doc-href cohort doc)} "🚪"])))]]]))
+  (page/html5 [:head (page/include-css "/urlog.css")]
+    [:body [:main [:p (interpose " "
+                                 (for [doc (docs store/urlog2)]
+                                   (let [txt-file (fs/file (store/doc-folder store/urlog2 doc) "url.txt")
+                                         content (slurp (str txt-file))]
+                                     [:a {:href (str/trim content)
+                                          :target "_blank"}
+                                      "🚪"])))]]]))

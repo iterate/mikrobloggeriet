@@ -16,6 +16,7 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.urlog :as urlog]
+   [mikrobloggeriet.urlog2 :as urlog2]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
@@ -373,6 +374,8 @@
   (GET "/urlog/" req (urlog/urlogs req))
   (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
 
+  ;; NENO 2
+  (GET "/urlog2/" req (urlog2/urlogs req))
   )
 
 (comment

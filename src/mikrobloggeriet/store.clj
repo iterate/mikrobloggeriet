@@ -92,7 +92,6 @@
            (cohort/root cohort)
            (doc/slug doc)))
 
-
 (defn doc-md-path [cohort doc]
   (fs/file (doc-folder cohort doc)
            "index.md"))
