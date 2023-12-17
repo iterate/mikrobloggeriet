@@ -347,6 +347,10 @@ doesn't do anything.
     (println)
     (println "  mblog urlog create --url https://mindjek.com/")
     (System/exit 0))
+  (let [required-properties #{:repo-path :editor}]
+    (when-not (configured-properties? required-properties)
+      (println (config-error-message required-properties))
+      (System/exit 1)))
   (let [url (:url (:opts args+opts))
         editor (config-get :editor)
         repo-path (config-get :repo-path)
