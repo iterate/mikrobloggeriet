@@ -328,6 +328,35 @@ edit files from a terminal. For example:")
            (map command-transform)
            execute!))))
 
+(defn urlog-create [args+opts]
+  (when (or (:h (:opts args+opts))
+            (:help (:opts args+opts))
+            (not (:url (:opts args+opts))))
+    (println (str/trim "
+
+mblog urlog create is a an experimental subcommand for urlog. Right now, it
+doesn't do anything.
+
+"))
+    (println)
+    (println "Usage:")
+    (println)
+    (println "  mblog urlog create --url URL")
+    (println)
+    (println "Example:")
+    (println)
+    (println "  mblog urlog create --url https://mindjek.com/")
+    (System/exit 0))
+  (let [url (:url (:opts args+opts))
+        editor (config-get :editor)
+        repo-path (config-get :repo-path)
+        cohort :urlog
+        opts {:url url
+              :editor editor
+              :repo-path repo-path
+              :cohort cohort}]
+    (pprint opts)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
 ;;
@@ -338,6 +367,7 @@ edit files from a terminal. For example:")
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
    {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
+   {:cmds ["urlog" "create"] :fn urlog-create}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]

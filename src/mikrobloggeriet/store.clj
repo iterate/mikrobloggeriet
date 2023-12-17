@@ -78,7 +78,9 @@
   "En ny eksperimentell kohort med input som én url (som data) per dag"
   (sorted-map
    :cohort/root "text/urlog4"
-   :cohort/slug "urlog4"))
+   :cohort/slug "urlog4"
+   ;; Problem: hvordan enkoder jeg _her_, i _data_ hvordan template skal genereres?
+   ))
 
 (def cohorts
   (sorted-map
