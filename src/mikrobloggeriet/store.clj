@@ -69,10 +69,16 @@
    :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}]))
 
 (def urlog2
-  "En ny eksperimentell kohort uten dagens markdown-system"
+  "En ny eksperimentell kohort med input som en liste av URL-er"
   (sorted-map
    :cohort/root "text/urlog2"
    :cohort/slug "urlog2"))
+
+(def urlog4
+  "En ny eksperimentell kohort med input som én url (som data) per dag"
+  (sorted-map
+   :cohort/root "text/urlog4"
+   :cohort/slug "urlog4"))
 
 (def cohorts
   (sorted-map
