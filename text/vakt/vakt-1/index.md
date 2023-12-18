@@ -6,7 +6,7 @@ Da fikk jeg forventninger.
 Det høres bra ut!"
 I praksis var det ikke helt som jeg forventet.
 Kodebaser er kodebaser; bare fordi man har kildekoden er det ikke nødvendigvis trivielt å endre.
-Jeg har gjort én kodeendring som andre I Iterate bruker minst én gang i måneden: at knappen i timeføringssystemet viser hvilken måned det er man lukker når man lukker måneden.
+Jeg har gjort én kodeendring som andre i Iterate bruker minst én gang i måneden: at knappen i timeføringssystemet viser hvilken måned det er man lukker når man lukker måneden.
 
 Kontroll over egne verktøy og kontroll over egen arbeidsflyt har vært et viktig prinsipp og en kilde til inspirasjon for Mikrobloggeriet.
 Mikrobloggeriet bør være et verktøy jeg kan være stolt av---et verktøy jeg vil bruke selv.
