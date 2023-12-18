@@ -1,9 +1,3 @@
 # URLOG-15
 
-<!-- 1. Hva gjør du akkurat nå? -->
-
-<!-- 2. Finner du kvalitet i det? -->
-
-<!-- 3. Hvorfor / hvorfor ikke? -->
-
-<!-- 4. Call to action---hva ønsker du kommentarer på fra de som leser? -->
+<a href="https://bjango.com/articles/designtoolcanvashandles/" target="_blank" style="font-size: 10vw; text-align:center;"><div>🚪</div></a>
