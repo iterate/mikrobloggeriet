@@ -27,3 +27,7 @@
         ;;
         ;; Systemdesign
         )
+
+(option "Teori er eksplisitt, praksis er effektiv"
+        ;; Teori er deskriptiv, praksis er preskriptiv
+        )
