@@ -1,3 +1,8 @@
+# Nenos liste over URL-er
+
+# linjer som starter med "#" er kommentarer, og blir ignorert.
+# resten tolkes som URL-er!
+
 https://www.my90stv.com/
 https://bezier.method.ac/
 https://grids.obys.agency/
