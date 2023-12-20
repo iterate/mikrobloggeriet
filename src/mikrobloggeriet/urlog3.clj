@@ -1,34 +1,9 @@
 (ns mikrobloggeriet.urlog3
   (:require
-   [babashka.fs :as fs]
    [clojure.string :as str]
-   [hiccup.page :as page]
-   [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.store :as store]))
+   [hiccup.page :as page]))
 
 ;; like urlog2 -- but all urls in one file
-
-(defn doc-exists?
-  "True iff doc exists, does not care about content format."
-  [cohort doc]
-  (and (cohort/root cohort)
-       (doc/slug doc)
-       (fs/exists? (store/doc-meta-path cohort doc))))
-
-(defn docs [cohort]
-  (let [root (fs/file (cohort/repo-path cohort)
-                      (cohort/root cohort))]
-    (when (fs/directory? root)
-      (->> (fs/list-dir (fs/file root))
-           (map (comp doc/from-slug fs/file-name))
-           (filter (partial doc-exists? cohort))
-           (sort-by doc/number)))))
-
-(comment
-  (docs store/urlog2)
-  (store/doc-folder store/urlog2 (first (docs store/urlog2)))
-  :rcf)
 
 (def urlfile-path "text/urlog3/urls.txt")
 (defn parse-urlfile
