@@ -56,3 +56,5 @@ Om vi ønsker kan vi matche `Phone(int pre, int num)` i stedet for `Phone p` ogs
 (P.S. Hvis de ulike typene ikke ligger samme sted som `sealed`-interface-et/klassen
 trengs `permits`: `sealed interface Contact permits Email, Phone {`)
 
+—Richard Tingstad
+
