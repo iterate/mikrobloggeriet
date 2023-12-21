@@ -57,7 +57,8 @@
                     {:author/email "brunstad@iterate.no" :author/first-name "Ole Jacob"}
                     {:author/email "lars.barlindhaug@iterate.no" :author/first-name "Lars"}
                     {:author/email "ella.swan@iterate.no" :author/first-name "Ella"}
-                    {:author/email "rune@iterate.no" :author/first-name "Rune"}]))
+                    {:author/email "rune@iterate.no" :author/first-name "Rune"}
+                    {:author/email "haugeto@iterate.no" :author/first-name "Anders"}]))
 
 (def urlog
   (sorted-map
