@@ -28,11 +28,10 @@
     (paragraphs
      (str "# " title)
      (htmlcomment "Hei, Neno! Jeg lagde en ny markdown-mal som jeg håper passer bedre for URLOG. —Teodor")
-     (hiccup/html
-         [:a {:href "URL_HER"
-              :target "_blank"
-              :style "font-size: 10vw; text-align:center;"}
-          [:div "🚪"]]))))
+     (hiccup/html [:a {:href "URL_HER"
+                       :target "_blank"
+                       :style "font-size: 10vw; text-align:center;"}
+                   [:div "🚪"]]))))
 
 (comment
   (url-new-tab-big-door {:title "URLOG-88"})
