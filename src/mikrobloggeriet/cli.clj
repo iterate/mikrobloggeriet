@@ -96,6 +96,25 @@
 (defn mblog-config [opts+args]
   (let [property (:property (:opts opts+args))
         value (:value (:opts opts+args))]
+    (when (and property
+               (or (:help (:opts opts+args))
+                   (:h (:opts opts+args))))
+      (println (str/trim "
+Get current cohort:
+
+    mblog config cohort
+
+Set current cohort:
+
+    mblog config cohort COHORT
+"
+                         ))
+      (println)
+      (println "Known cohorts:")
+      (println)
+      (doseq [[c _] store/cohorts]
+        (println (str "    " c)))
+      (System/exit 0))
     (when (or (:help (:opts opts+args))
               (:h (:opts opts+args)))
       (println (str/trim "
