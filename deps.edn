@@ -8,6 +8,8 @@
   hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
   http-kit/http-kit {:mvn/version "2.7.0"}
   io.github.nextjournal/clerk {:mvn/version "0.15.957"}
+  io.github.teodorlu/jorm {:git/url "https://github.com/teodorlu/jorm"
+                           :git/sha "71e9abbaa8ec64f6efb853239f83cab486c9b70e"}
   org.babashka/cli {:mvn/version "0.7.53"}
   org.clojure/clojure {:mvn/version "1.11.1"}
   }
