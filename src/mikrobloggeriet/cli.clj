@@ -209,15 +209,15 @@ Supported values for PROPERTY:
           doc (store/next-doc cohort)]
       (concat (when git
                 [[:shell {:dir dir} "git pull --ff-only"]])
-              [[:create-dirs (store/doc-folder cohort doc)]
+              [[:create-dirs (str (store/doc-folder cohort doc))]
                [:spit
-                (store/doc-md-path cohort doc)
+                (str (store/doc-md-path cohort doc))
                 (md-skeleton doc)]
                (let [doc-meta (cond-> {:git.user/email git-user-email
                                        :doc/created (today)
                                        :doc/uuid (uuid)}
                                 (:draft opts) (assoc :doc/state :draft))]
-                 [:spit (store/doc-meta-path cohort doc) (with-out-str (pprint doc-meta))])]
+                 [:spit (str (store/doc-meta-path cohort doc)) (with-out-str (pprint doc-meta))])]
               (when editor
                 [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
               (when (and git editor)
