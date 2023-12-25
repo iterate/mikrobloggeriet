@@ -152,7 +152,7 @@ Supported values for PROPERTY:
           :cohort (config-set-cohort value))))))
 
 (defn md-skeleton [doc] 
-  (str "# " (str (str/upper-case (doc/slug doc))) "\n\n"
+  (str "# " (str/upper-case (doc/slug doc)) "\n\n"
        (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
 
@@ -206,20 +206,21 @@ Supported values for PROPERTY:
     
     (let [cohort (-> (store/cohorts cohort-id)
                      (cohort/set-repo-path dir))
-          doc (store/next-doc cohort)]
+          doc (store/next-doc cohort)
+          proposed-title (str/upper-case (doc/slug doc))]
       (concat (when git
                 [[:shell {:dir dir} "git pull --ff-only"]])
               [[:create-dirs (str (store/doc-folder cohort doc))]
                [:spit
                 (str (store/doc-md-path cohort doc))
-                (md-skeleton doc)]
+                ((cohort/index-md-template cohort) {:title proposed-title})]
                (let [doc-meta (cond-> {:git.user/email git-user-email
                                        :doc/created (today)
                                        :doc/uuid (uuid)}
                                 (:draft opts) (assoc :doc/state :draft))]
                  [:spit (str (store/doc-meta-path cohort doc)) (with-out-str (pprint doc-meta))])]
               (when editor
-                [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
+                [[:shell {:dir dir} editor (str (store/doc-md-path cohort doc))]])
               (when (and git editor)
                 [[:shell {:dir dir} "git add ."]
                  [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]

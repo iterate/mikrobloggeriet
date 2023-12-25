@@ -4,7 +4,8 @@
    [clojure.edn :as edn]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]))
+   [mikrobloggeriet.doc-meta :as doc-meta]
+   [mikrobloggeriet.doc-template :as doc-template]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS
@@ -64,7 +65,8 @@
   (sorted-map
    :cohort/root "text/urlog"
    :cohort/slug "urlog"
-   :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]))
+   :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]
+   :cohort/index-md-template doc-template/url-new-tab-big-door))
 
 (def vakt
   (sorted-map

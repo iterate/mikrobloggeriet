@@ -1,9 +1,8 @@
 (ns mikrobloggeriet.cohort
   (:refer-clojure :exclude [name])
   (:require
-   [babashka.fs :as fs]
-   [mikrobloggeriet.doc :as doc]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [mikrobloggeriet.doc-template :as doc-template]))
 
 (comment
   ;; example cohort:
@@ -38,3 +37,7 @@
 
 (defn name [cohort]
   (some-> (slug cohort) str/upper-case))
+
+(defn index-md-template [cohort]
+  (or (:cohort/index-md-template cohort)
+      doc-template/md-quality-nudge))
