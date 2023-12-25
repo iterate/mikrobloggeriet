@@ -13,15 +13,10 @@
                     {:author/first-name "Olav"}])
   )
 
-;; This namespace contains no constructors.
 ;; See store.clj for available cohorts.
 
 (defn slug [cohort]
-  (or
-   (:cohort/slug cohort)
-   ;; TODO: delete this branch, present for backwards compatibility
-   (when-let [cohort-id (:cohort/id cohort)]
-     (clojure.core/name cohort-id))))
+  (:cohort/slug cohort))
 
 (defn root [cohort]
   (:cohort/root cohort))
