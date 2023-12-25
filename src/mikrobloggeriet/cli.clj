@@ -152,7 +152,7 @@ Supported values for PROPERTY:
           :cohort (config-set-cohort value))))))
 
 (defn md-skeleton [doc] 
-  (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n" 
+  (str "# " (str (str/upper-case (doc/slug doc))) "\n\n"
        (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
 
@@ -227,7 +227,7 @@ Supported values for PROPERTY:
                  [:shell {:dir dir} "git push"]
                  [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
                                 "\n\n   "
-                                (str (str (clojure.string/upper-case (doc/slug doc)))
+                                (str (str/upper-case (doc/slug doc))
                                      ": $DIN_TITTEL → https://mikrobloggeriet.no"
                                      (store/doc-href cohort doc)))]])))))
 
