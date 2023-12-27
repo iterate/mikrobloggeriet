@@ -22,6 +22,39 @@
   (parse-urlfile (slurp urlfile-path))
   )
 
+(defn doc
+  [req cohort]
+  (when (:slug (:route-params req))
+    (let [doc (doc/from-slug (:slug (:route-params req)))
+          {:keys [title doc-html]}
+          (when (store/doc-exists? cohort doc)
+            (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
+      {:status 200
+       :body
+       (page/html5
+        (into [:head] (concat (when title [[:title title]])
+                              (html-header req)))
+        [:body
+         [:p (feeling-lucky "🎄")
+          " — "
+          [:a {:href "/"} "mikrobloggeriet"]
+          " "
+          [:a {:href (str "/" (cohort/slug cohort) "/")}
+           (cohort/slug cohort)]
+          " — "
+          [:span (let [
+                       previouse-number (dec (doc/number doc))
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                   (when (store/doc-exists? cohort prev)
+                     [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
+          [:span (:doc/slug doc) ]
+          [:span (let [previouse-number (inc (doc/number doc))
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                   (when (store/doc-exists? cohort prev)
+                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]
+                     ))]]
+         doc-html])})))
+
 (defn urlogs [_req]
   (page/html5 [:head (page/include-css "/urlog.css")]
     [:body [:main
