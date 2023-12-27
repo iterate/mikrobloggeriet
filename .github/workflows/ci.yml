@@ -1,0 +1,15 @@
+name: clj-kondo static analysis
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install clj-kondo
+      uses: DeLaGuardo/setup-clj-kondo@afc83dbbf4e7e32e04649e29dbf30668d30e9e3e
+      with:
+        version: '2023.10.20'
+
+    - uses: actions/checkout@v2
+
+    - name: Lint
+      run: clj-kondo --fail-level error --lint src
