@@ -2,8 +2,8 @@
     /* a */
     --bwb-white: white;
     --bwb-black:  black;
-    --bwb-link: blue;
-    --bwb-hover: lightblue;
+    --bwb-link-light: blue;
+    --bwb-link-dark: lightskyblue;
     --bwb-extra: lightgray;
 
 
@@ -16,8 +16,8 @@
     --mobile-font-size: 1rem/1.45;
     --background-color: var(--bwb-white);
     --text-color: var(--bwb-black);
-    --link-color: var(--bwb-link);
-    --link-color-alt: var(--bwb-hover);
+    --link-color: var(--bwb-link-light);
+    --link-color-alt: var(--bwb-link-dark);
     --primary-color: var(--bwb-extra);
     --secondary-color: var(--bwb-extra);
     --tertiary-color: var(--bwb-extra);
@@ -30,8 +30,8 @@
     :root {
         --background-color: var(--bwb-black);
         --text-color: var(--bwb-white);
-        --link-color: var(--bwb-hover);
-        --link-color-alt: var(--bwb-link);
+        --link-color: var(--bwb-link-dark);
+        --link-color-alt: var(--bwb-link-light);
         --primary-color: var(--bwb-extra);
         --secondary-color: var(--bwb-extra);
         --tertiary-color: var(--bwb-extra);
