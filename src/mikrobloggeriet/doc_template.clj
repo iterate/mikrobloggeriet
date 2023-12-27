@@ -6,8 +6,8 @@
 ;; Document templates for content on Mikrobloggeriet
 
 (defn md-quality-nudge [{:keys [title]}]
-  (let [paragraphs (fn [& args] (str/join "\n\n" args))
-        htmlcomment (fn [& args] (str "<!-- " (apply str args) " -->"))]
+  (let [paragraphs (fn [& paras] (str/join "\n\n" paras))
+        htmlcomment (fn [& comments] (str "<!-- " (apply str comments) " -->"))]
     (assert title)
     (paragraphs
      (str "# " title)
@@ -22,7 +22,7 @@
   )
 
 (defn url-new-tab-big-door [{:keys [title]}]
-  (let [paragraphs (fn [& args] (str/join "\n\n" args))]
+  (let [paragraphs (fn [& paras] (str/join "\n\n" paras))]
     (assert title)
     (paragraphs
      (str "# " title)
