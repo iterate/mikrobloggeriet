@@ -22,8 +22,7 @@
   )
 
 (defn url-new-tab-big-door [{:keys [title]}]
-  (let [paragraphs (fn [& args] (str/join "\n\n" args))
-        htmlcomment (fn [& args] (str "<!-- " (apply str args) " -->"))]
+  (let [paragraphs (fn [& args] (str/join "\n\n" args))]
     (assert title)
     (paragraphs
      (str "# " title)
