@@ -1,8 +1,28 @@
-# Nenos liste over URL-er
-
 # linjer som starter med "#" er kommentarer, og blir ignorert.
 # resten tolkes som URL-er!
 
 https://www.my90stv.com/
 https://bezier.method.ac/
 https://grids.obys.agency/
+https://www.accessguide.io/
+http://astronaut.io/
+https://www.designsystemsforfigma.com/
+https://fockups.com/
+https://typescale.com/
+https://radio.garden/
+https://figmalion.com/
+https://unwrapyourface.tumblr.com/
+https://lines.chromeexperiments.com/
+https://calmtech.com/
+https://www.unmade.com/
+https://bjango.com/articles/designtoolcanvashandles/
+https://studiomoniker.com/projects
+https://type.method.ac/
+https://index.kitasenju.design/
+https://scanwiches.com/
+https://www.window-swap.com/
+https://yhsong.com/index.html#home
+https://flagstories.co/
+https://www.modernillustration.org/archive
+https://instorier.com/
+https://www.schultzschultz.com/tools.html
