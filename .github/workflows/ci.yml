@@ -1,6 +1,5 @@
 name: clj-kondo static analysis
 on: push
-name: Push / PR Builder
 jobs:
   lint:
     runs-on: ubuntu-latest
