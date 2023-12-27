@@ -9,6 +9,7 @@
     --text-color: #2d2d2d;
     --link-color: blue;
     --link-color-alt: darkblue;
+    --link-color-visit: purple;
     --primary-color: lightsteelblue;
     --secondary-color: aliceblue;
     --tertiary-color: whitesmoke;
@@ -23,6 +24,7 @@
         --text-color: #fff;
         --link-color: orange;
         --link-color-alt: yellow;
+        --link-color-visit: fuchsia;
         --primary-color: orange;
         --primary-color-light: dimgrey;
         --secondary-color: black;

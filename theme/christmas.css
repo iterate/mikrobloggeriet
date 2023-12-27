@@ -5,6 +5,7 @@
     --text-color: #2d2d2d;
     --link-color: #ff0000; /* Red */
     --link-color-alt: #009900; /* Forest Green */
+    --link-color-visit: purple;
     --primary-color: #804850; /* Light red */
     --secondary-color: #f5efdb; /* Beige */
     --tertiary-color:  #ff7878;
@@ -19,6 +20,7 @@
         --text-color: #cccccc;
         --link-color: #009900; /* Green */
         --link-color-alt: #99ff99; /* Light green */
+        --link-color-visit: fuchsia;
         --primary-color: #ffff66; /* Light Yellow */
         --primary-color-light: #10101a;
         --secondary-color: #10101a; /* Lime Green */

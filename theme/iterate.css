@@ -34,6 +34,7 @@
     --text-color: var(--iterate-base02);
     --link-color: var(--iterate-base00);
     --link-color-alt: var(--iterate-base03);
+    --link-color-visit: var(--iterate-magenta);
     --primary-color: var(--iterate-base1);
     --secondary-color: var(--iterate-teal);
     --tertiary-color: var(--iterate-softclay);

@@ -28,6 +28,7 @@
     --text-color: var(--solarized-base03);
     --link-color: var(--solarized-blue);
     --link-color-alt: var(--solarized-cyan);
+    --link-color-visit: var(--solarized-violet);
     --primary-color: var(--solarized-base0);
     --secondary-color: var(--solarized-base3);
     --tertiary-color: var(--solarized-base2);

@@ -56,8 +56,9 @@ body {
     background-color:  var(--background-color);
 }
 
-a,a:visited { color: var(--link-color); }
+a { color: var(--link-color); }
 a:hover,a:focus { color: var(--link-color-alt); }
+a:visited { color: var(--link-color-visit); }
 
 strong, time, b { font-weight: bold; }
 em, dfn, i { font-style: italic; }

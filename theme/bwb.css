@@ -4,7 +4,10 @@
     --bwb-black:  black;
     --bwb-link-light: blue;
     --bwb-link-dark: lightskyblue;
+    --bwb-link-visit-light: purple;
+    --bwb-link-visit-dark: fuchsia;
     --bwb-extra: lightgray;
+
 
 
 
@@ -18,6 +21,7 @@
     --text-color: var(--bwb-black);
     --link-color: var(--bwb-link-light);
     --link-color-alt: var(--bwb-link-dark);
+    --link-color-visit: var(--bwb-link-visit-dark);
     --primary-color: var(--bwb-extra);
     --secondary-color: var(--bwb-extra);
     --tertiary-color: var(--bwb-extra);
@@ -32,6 +36,7 @@
         --text-color: var(--bwb-white);
         --link-color: var(--bwb-link-dark);
         --link-color-alt: var(--bwb-link-light);
+        --link-color-visit: var(--bwb-link-visit-light);
         --primary-color: var(--bwb-extra);
         --secondary-color: var(--bwb-extra);
         --tertiary-color: var(--bwb-extra);

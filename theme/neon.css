@@ -28,6 +28,7 @@
     --text-color: var(--neon-base03);
     --link-color: var(--neon-blue);
     --link-color-alt: var(--neon-cyan);
+    --link-color-visit: var(--neon-violet);
     --primary-color: var(--neon-base0);
     --secondary-color: var(--neon-base3);
     --tertiary-color: var(--neon-base2);
