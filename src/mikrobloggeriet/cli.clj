@@ -96,6 +96,25 @@
 (defn mblog-config [opts+args]
   (let [property (:property (:opts opts+args))
         value (:value (:opts opts+args))]
+    (when (and property
+               (or (:help (:opts opts+args))
+                   (:h (:opts opts+args))))
+      (println (str/trim "
+Get current cohort:
+
+    mblog config cohort
+
+Set current cohort:
+
+    mblog config cohort COHORT
+"
+                         ))
+      (println)
+      (println "Known cohorts:")
+      (println)
+      (doseq [[c _] store/cohorts]
+        (println (str "    " c)))
+      (System/exit 0))
     (when (or (:help (:opts opts+args))
               (:h (:opts opts+args)))
       (println (str/trim "
@@ -133,7 +152,7 @@ Supported values for PROPERTY:
           :cohort (config-set-cohort value))))))
 
 (defn md-skeleton [doc] 
-  (str "# " (str (clojure.string/upper-case (doc/slug doc))) "\n\n" 
+  (str "# " (str/upper-case (doc/slug doc)) "\n\n"
        (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
 
@@ -187,20 +206,21 @@ Supported values for PROPERTY:
     
     (let [cohort (-> (store/cohorts cohort-id)
                      (cohort/set-repo-path dir))
-          doc (store/next-doc cohort)]
+          doc (store/next-doc cohort)
+          proposed-title (str/upper-case (doc/slug doc))]
       (concat (when git
                 [[:shell {:dir dir} "git pull --ff-only"]])
-              [[:create-dirs (store/doc-folder cohort doc)]
+              [[:create-dirs (str (store/doc-folder cohort doc))]
                [:spit
-                (store/doc-md-path cohort doc)
-                (md-skeleton doc)]
+                (str (store/doc-md-path cohort doc))
+                ((cohort/index-md-template cohort) {:title proposed-title})]
                (let [doc-meta (cond-> {:git.user/email git-user-email
                                        :doc/created (today)
                                        :doc/uuid (uuid)}
                                 (:draft opts) (assoc :doc/state :draft))]
-                 [:spit (store/doc-meta-path cohort doc) (with-out-str (pprint doc-meta))])]
+                 [:spit (str (store/doc-meta-path cohort doc)) (with-out-str (pprint doc-meta))])]
               (when editor
-                [[:shell {:dir dir} editor (store/doc-md-path cohort doc)]])
+                [[:shell {:dir dir} editor (str (store/doc-md-path cohort doc))]])
               (when (and git editor)
                 [[:shell {:dir dir} "git add ."]
                  [:shell {:dir dir} "git commit -m" (str (doc/slug doc))]
@@ -208,7 +228,7 @@ Supported values for PROPERTY:
                  [:shell {:dir dir} "git push"]
                  [:println (str "Husk å publisere i #mikrobloggeriet-announce på Slack. Feks:"
                                 "\n\n   "
-                                (str (str (clojure.string/upper-case (doc/slug doc)))
+                                (str (str/upper-case (doc/slug doc))
                                      ": $DIN_TITTEL → https://mikrobloggeriet.no"
                                      (store/doc-href cohort doc)))]])))))
 
@@ -328,39 +348,6 @@ edit files from a terminal. For example:")
            (map command-transform)
            execute!))))
 
-(defn urlog-create [args+opts]
-  (when (or (:h (:opts args+opts))
-            (:help (:opts args+opts))
-            (not (:url (:opts args+opts))))
-    (println (str/trim "
-
-mblog urlog create is a an experimental subcommand for urlog. Right now, it
-doesn't do anything.
-
-"))
-    (println)
-    (println "Usage:")
-    (println)
-    (println "  mblog urlog create --url URL")
-    (println)
-    (println "Example:")
-    (println)
-    (println "  mblog urlog create --url https://mindjek.com/")
-    (System/exit 0))
-  (let [required-properties #{:repo-path :editor}]
-    (when-not (configured-properties? required-properties)
-      (println (config-error-message required-properties))
-      (System/exit 1)))
-  (let [url (:url (:opts args+opts))
-        editor (config-get :editor)
-        repo-path (config-get :repo-path)
-        cohort :urlog
-        opts {:url url
-              :editor editor
-              :repo-path repo-path
-              :cohort cohort}]
-    (pprint opts)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
 ;;
@@ -371,7 +358,6 @@ doesn't do anything.
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
    {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
-   {:cmds ["urlog" "create"] :fn urlog-create}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]

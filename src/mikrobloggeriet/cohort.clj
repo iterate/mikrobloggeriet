@@ -1,9 +1,8 @@
 (ns mikrobloggeriet.cohort
   (:refer-clojure :exclude [name])
   (:require
-   [babashka.fs :as fs]
-   [mikrobloggeriet.doc :as doc]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [mikrobloggeriet.doc-template :as doc-template]))
 
 (comment
   ;; example cohort:
@@ -14,15 +13,10 @@
                     {:author/first-name "Olav"}])
   )
 
-;; This namespace contains no constructors.
 ;; See store.clj for available cohorts.
 
 (defn slug [cohort]
-  (or
-   (:cohort/slug cohort)
-   ;; TODO: delete this branch, present for backwards compatibility
-   (when-let [cohort-id (:cohort/id cohort)]
-     (clojure.core/name cohort-id))))
+  (:cohort/slug cohort))
 
 (defn root [cohort]
   (:cohort/root cohort))
@@ -38,3 +32,7 @@
 
 (defn name [cohort]
   (some-> (slug cohort) str/upper-case))
+
+(defn index-md-template [cohort]
+  (or (:cohort/index-md-template cohort)
+      doc-template/md-quality-nudge))

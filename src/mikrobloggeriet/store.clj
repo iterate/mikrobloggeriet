@@ -4,7 +4,8 @@
    [clojure.edn :as edn]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]))
+   [mikrobloggeriet.doc-meta :as doc-meta]
+   [mikrobloggeriet.doc-template :as doc-template]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS
@@ -57,13 +58,15 @@
                     {:author/email "brunstad@iterate.no" :author/first-name "Ole Jacob"}
                     {:author/email "lars.barlindhaug@iterate.no" :author/first-name "Lars"}
                     {:author/email "ella.swan@iterate.no" :author/first-name "Ella"}
-                    {:author/email "rune@iterate.no" :author/first-name "Rune"}]))
+                    {:author/email "rune@iterate.no" :author/first-name "Rune"}
+                    {:author/email "haugeto@iterate.no" :author/first-name "Anders"}]))
 
 (def urlog
   (sorted-map
    :cohort/root "text/urlog"
    :cohort/slug "urlog"
-   :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]))
+   :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]
+   :cohort/index-md-template doc-template/url-new-tab-big-door))
 
 (def vakt
   (sorted-map
