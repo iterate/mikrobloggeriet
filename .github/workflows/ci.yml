@@ -9,8 +9,6 @@ jobs:
       with:
         version: '2023.10.20'
 
-    - run: clj-kondo --version
-
     - uses: actions/checkout@v2
 
     - name: Lint
