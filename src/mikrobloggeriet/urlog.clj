@@ -101,7 +101,8 @@ urlog-eksperimentering brekker resten av mikrobloggeriet.
   [:section
     [:h2 "URLOG"]
     [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-    [:p [:a {:href "/urlog3/"} "🏨"]]
+    [:p [:a {:href "/urlog3/"} "Gå inn i huset –> 🏨"]]
+    
     (comment
     [:p
       (let [cohort store/urlog]
