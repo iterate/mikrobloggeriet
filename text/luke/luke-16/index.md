@@ -15,10 +15,56 @@ Når jeg forstår hva Neno og Bendik jobber for å oppnå for å få et design _
 Treningen soldater i romerriket fikk var preget av disiplin og mønstre.
 En gruppe soldater med spyd og høye skjold i en tett formasjon var vanskelig å trenge gjennom.
 
+Disiplin og kontroll er ikke lenger nok for å vinne i strid. David S. Alberts
+har ledet flere NATO-forskningsgrupper i arbeidet om hvordan
+militærorganisasjoner bør struktureres, og skriver i [Power to the Edge]
+følgende på side 5:
+
+> Power to the edge is about changing the way individuals, organizations, and
+> systems relate to one another and work. Power to the edge involves the
+> empowerment of individuals at the edge of an organization (where the
+> organization interacts with its operating environment to have an impact or
+> effect on that environment) or, in the case of systems, edge devices. Empow-
+> erment involves expanding access to information and the elimination of
+> unnecessary constraints. For example, empow- erment involves providing access
+> to available information and expertise and the elimination of procedural
+> constraints previ- ously needed to deconflict elements of the force in the
+> absence of quality information.
+>
+> Moving power to the edge implies adoption of an edge organization, with
+> greatly enhanced peer-to-peer interactions. Edge organizations also move
+> senior personnel into roles that place them at the edge. They often reduce the
+> need for middle managers whose role is to manage constraints and control
+> measures. Command and control become unbundled. Commanders become responsible
+> for creating initial conditions that make success more likely and exercise
+> control by:
+>
+> - Creating congruent command intent across the enterprise;
+>
+> - Allocating resources dynamically; and
+>
+> - Establishing rules of engagement and other control mechanisms that the
+>   fighting forces implement themselves.
+
+[Power to the Edge]: http://www.dodccrp.org/files/Alberts_Power.pdf
+
+Sammenliknet med militæret går utviklingen i IT _fort_.
+Vi trenger at beslutninger kan tas nær problemene vi løser.
+
 ## Delt forståelse av hva som er bra---når mange tar initiativ
 
-Hvis vi ikke har én teamleder som koordinerer, men alle snakker med alle, hva gjør vi da?
-Spesialsoldater [REF POWER TO THE EDGE]
+Men hva skal vi gjøre?
+Når vi sitter på kanten, og har problemet?
+Skal vi peise på med magefølelsen vår?
+Hvis alle gjør sin egen greie, har vi ikke én plan.
+Da er vi ikke ett team.
+
+Finnes det et alternativ?
+
+Ja.
+
+Alle på teamet bidrar med kompetanse på sin ekspertise.
+Innen hvert fag er det forskjell på det som er bra, og det som er dårlig.
 
 ## Du er ansvarlig for å bygge delt forståelse av hva som er bra, innenfor din ekspertise.
 
