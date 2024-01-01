@@ -6,13 +6,13 @@ God kode, godt design, god produktledelse.
 Når den delte forståelsen av hva som er bra er på plass, blir samarbeid bedre.
 Når jeg forstår hva Neno og Bendik jobber for å oppnå for å få et design _godt_, vet jeg hvordan jeg kan bidra.
 
-## Er det én leder, eller tar mange initiativ?
+## Er det én leder, eller mange som tar initiativ?
 
 ![Romerske soldater i skilpaddeformasjon. Bildet er [fra Wikipedia][skilpaddeformasjon-wikipedia], åndsverket er offentlig eiendom.](https://i.imgur.com/DU6R6B8.jpeg "title")
 
 [skilpaddeformasjon-wikipedia]: https://commons.wikimedia.org/wiki/File:Colonne_trajane_1-57_(cropped).jpg
 
-Treningen soldater i romerriket fikk var preget av disiplin og mønstre.
+Treningen soldater i romerriket fikk var preget av disiplin innøvde formasjoner.
 En gruppe soldater med spyd og høye skjold i en tett formasjon var vanskelig å trenge gjennom.
 
 Disiplin og kontroll er ikke lenger nok for å vinne i strid. David S. Alberts
