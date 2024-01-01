@@ -8,8 +8,12 @@ Når jeg forstår hva Neno og Bendik jobber for å oppnå for å få et design _
 
 ## Er det én leder, eller tar mange initiativ?
 
+![Romerske soldater i skilpaddeformasjon. Bildet er [fra Wikipedia][skilpaddeformasjon-wikipedia], åndsverket er offentlig eiendom.](https://i.imgur.com/DU6R6B8.jpeg "title")
+
+[skilpaddeformasjon-wikipedia]: https://commons.wikimedia.org/wiki/File:Colonne_trajane_1-57_(cropped).jpg
+
 Treningen soldater i romerriket fikk var preget av disiplin og mønstre.
-En gruppe soldater med spyd og høye skjold i en tett formasjon var effektivt 
+En gruppe soldater med spyd og høye skjold i en tett formasjon var vanskelig å trenge gjennom.
 
 ## Delt forståelse av hva som er bra---når mange tar initiativ
 
