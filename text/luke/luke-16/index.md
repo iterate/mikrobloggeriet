@@ -18,7 +18,7 @@ En gruppe soldater med spyd og høye skjold i en tett formasjon var vanskelig å
 Disiplin og kontroll er ikke lenger nok for å vinne i strid. David S. Alberts
 har ledet flere NATO-forskningsgrupper i arbeidet om hvordan
 militærorganisasjoner bør struktureres, og skriver i [Power to the Edge]
-følgende på side 5:
+på side 5:
 
 > Power to the edge is about changing the way individuals, organizations, and
 > systems relate to one another and work. Power to the edge involves the
