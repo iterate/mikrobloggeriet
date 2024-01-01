@@ -14,7 +14,7 @@ En gruppe soldater med spyd og høye skjold i en tett formasjon var effektivt
 ## Delt forståelse av hva som er bra---når mange tar initiativ
 
 Hvis vi ikke har én teamleder som koordinerer, men alle snakker med alle, hva gjør vi da?
-Spesialsoldater [REF LEADING AT THE EDGE]
+Spesialsoldater [REF POWER TO THE EDGE]
 
 ## Du er ansvarlig for å bygge delt forståelse av hva som er bra, innenfor din ekspertise.
 
