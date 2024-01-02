@@ -97,7 +97,7 @@ I praksis må vi ta valg teorien ikke svarer på.
 
 ## Mikrobloggeriet er et verktøy for å dele hva du synes er bra, uten styr!
 
-Når du kjører `mblog create`, får du åpnet en fil med fire spørsmål i:
+Når du kjører `mblog create`, får du åpnet en fil med fire spørsmål:
 
 1. Hva gjør du akkurat nå?
 2. Finner du kvalitet i det?
