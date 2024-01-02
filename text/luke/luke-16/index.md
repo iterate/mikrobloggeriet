@@ -26,11 +26,11 @@ på side 5:
 > systems relate to one another and work. Power to the edge involves the
 > empowerment of individuals at the edge of an organization (where the
 > organization interacts with its operating environment to have an impact or
-> effect on that environment) or, in the case of systems, edge devices. Empow-
-> erment involves expanding access to information and the elimination of
-> unnecessary constraints. For example, empow- erment involves providing access
+> effect on that environment) or, in the case of systems, edge devices.
+> Empowerment involves expanding access to information and the elimination of
+> unnecessary constraints. For example, empowerment involves providing access
 > to available information and expertise and the elimination of procedural
-> constraints previ- ously needed to deconflict elements of the force in the
+> constraints previously needed to deconflict elements of the force in the
 > absence of quality information.
 >
 > Moving power to the edge implies adoption of an edge organization, with
