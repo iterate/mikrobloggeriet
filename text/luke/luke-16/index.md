@@ -4,7 +4,7 @@ Godt samarbeid krever at vi har en felles forståelse av _hva som er bra_.
 Det er ikke nok å ha et mål vi skal oppnå---vi må vi må vite hva som skiller en god løsning fra en dårlig løsning.
 God kode, godt design, god produktledelse.
 Når den delte forståelsen av hva som er bra er på plass, blir samarbeid bedre.
-Når jeg forstår hva Neno og Bendik jobber for å oppnå for å få et design _godt_, vet jeg hvordan jeg kan bidra.
+Når jeg forstår hva Neno og Bendik jobber for å oppnå for å få et design _godt_, vet jeg hvordan jeg kan bidra som teknolog.
 
 ## Er det én leder, eller mange som tar initiativ?
 
@@ -12,7 +12,9 @@ Når jeg forstår hva Neno og Bendik jobber for å oppnå for å få et design _
 
 [skilpaddeformasjon-wikipedia]: https://commons.wikimedia.org/wiki/File:Colonne_trajane_1-57_(cropped).jpg
 
-Treningen soldater i romerriket fikk var preget av disiplin innøvde formasjoner.
+Soldater i hæren til Romerriket ble ikke bedt om å tenke selv.
+De fikk trening i å bidra i formasjonen som var bestemt, og straff om de gjorde noe annet.
+
 En gruppe soldater med spyd og høye skjold i en tett formasjon var vanskelig å trenge gjennom.
 
 Disiplin og kontroll er ikke lenger nok for å vinne i strid. David S. Alberts
@@ -106,4 +108,6 @@ De spørsmålene er laget for å grave fram hva du synes er bra med det du jobbe
 Du får reflektert over om du er fornøyd med det du gjør, og du får åpnet for diskusjon.
 
 ## Tusen takk til dere som har delt på Mikrobloggeriet i desember.
+
+LISTE
 
