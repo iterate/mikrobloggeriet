@@ -8,9 +8,9 @@ Når jeg forstår hva Neno og Bendik jobber for å oppnå for å få et design _
 
 ## Er det én leder, eller mange som tar initiativ?
 
-![Romerske soldater i skilpaddeformasjon. Bildet er [fra Wikipedia][skilpaddeformasjon-wikipedia], åndsverket er offentlig eiendom.](https://i.imgur.com/DU6R6B8.jpeg "title")
+![Romerske soldater i skilpaddeformasjon. Bildet er [fra Wikimedia][skilpaddeformasjon-wikimedia], åndsverket er offentlig eiendom.](https://i.imgur.com/DU6R6B8.jpeg "title")
 
-[skilpaddeformasjon-wikipedia]: https://commons.wikimedia.org/wiki/File:Colonne_trajane_1-57_(cropped).jpg
+[skilpaddeformasjon-wikimedia]: https://commons.wikimedia.org/wiki/File:Colonne_trajane_1-57_(cropped).jpg
 
 Soldater i hæren til Romerriket ble ikke bedt om å tenke selv.
 De fikk trening i å bidra i formasjonen som var bestemt, og straff om de gjorde noe annet.
