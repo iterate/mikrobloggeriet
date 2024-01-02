@@ -92,7 +92,7 @@ Sindre og jeg har både likheter og forskjelliger i hvordan vi liker å skrive k
 Vi trenger ikke bli 100 % enige, og gjensidig forståelse er uansett et godt steg mot enighet.
 Delt forståelse av hva som er bra.
 
-Dere som koder har lært teori om koding i løpet av utdannelsen.
+Mange som koder har lært teori om koding i løpet av utdannelsen.
 I praksis må vi ta valg teorien ikke svarer på.
 
 ## Mikrobloggeriet er et verktøy for å dele hva du synes er bra, uten styr!
