@@ -95,9 +95,9 @@
                                    (= cmd :shell))
                                  commands)]
       (is (every? (fn [[_ opts _]]
-                 (= dir (:dir opts)))
-               shell-commands))))
-  
+                    (= dir (:dir opts)))
+                  shell-commands))))
+
   (testing "when git and edit is enabled, there are git commands and promt"
     (is (contains? (->> (cli/create-opts->commands {:dir "."
                                                     :git true
@@ -106,8 +106,7 @@
                                                     :git.user/email "user@example.com"})
                         (map first)
                         (into #{}))
-                   :println))) 
-  )
+                   :println))))
 
 (deftest learn-test
   (testing "some? returns true for all non-nil values"
@@ -145,8 +144,8 @@
                 (filter odd? (range 6)))
 
            (->> (range 6)
-                (filter odd? ,,,)
-                (map (partial * 10) ,,,))
+                (filter odd?)
+                (map (partial * 10)))
 
            (->> (range 6)
                 (filter odd?)
@@ -154,7 +153,5 @@
 
            (->> (range 6)
                 (filter odd?)
-                (map #(* 10 %)))))
-    )
-  )
+                (map #(* 10 %)))))))
 

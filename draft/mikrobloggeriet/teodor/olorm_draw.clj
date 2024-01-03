@@ -27,7 +27,6 @@ vec      ; lag vektor av noe
 
 (keyword (str \c))
 
-
 (let [pool "olr"]
   (get m1
        (keyword (str (rand-nth (vec pool))))))

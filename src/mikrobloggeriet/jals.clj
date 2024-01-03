@@ -38,16 +38,16 @@
         doc (assoc doc :cohort :jals)
         doc (if repo-path (assoc doc :repo-path (str (fs/canonicalize repo-path))) doc)
         doc (if number
-                (assoc doc
-                       :number number
-                       :slug (str "jals-" number))
-                doc)
+              (assoc doc
+                     :number number
+                     :slug (str "jals-" number))
+              doc)
         doc (if (and slug (not number))
-                (when-let [number (parse-slug slug)]
-                  (assoc doc
-                         :slug slug
-                         :number number))
-                doc)]
+              (when-let [number (parse-slug slug)]
+                (assoc doc
+                       :slug slug
+                       :number number))
+              doc)]
     doc))
 
 (def ->doc ->jals)

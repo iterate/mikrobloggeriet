@@ -64,8 +64,7 @@
   (config-get :editor)
   (config-get :repo-path)
   (config-set :repo-path (fs/canonicalize "."))
-  (config-set :repo-path (str (fs/canonicalize ".")))
-  )
+  (config-set :repo-path (str (fs/canonicalize "."))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommands
@@ -82,7 +81,7 @@
       (config-set :cohort cohort)
       (do
         (println (str "Error: cohort " cohort " not found."))
-        (println (str "Valid cohorts are: " ))
+        (println (str "Valid cohorts are: "))
         (println)
         (doseq [cohort-id (keys store/cohorts)]
           (println (str "    " cohort-id)))
@@ -107,8 +106,7 @@ Get current cohort:
 Set current cohort:
 
     mblog config cohort COHORT
-"
-                         ))
+"))
       (println)
       (println "Known cohorts:")
       (println)
@@ -151,7 +149,7 @@ Supported values for PROPERTY:
           :editor (config-set-editor value)
           :cohort (config-set-cohort value))))))
 
-(defn md-skeleton [doc] 
+(defn md-skeleton [doc]
   (str "# " (str/upper-case (doc/slug doc)) "\n\n"
        (str/trim "
 <!-- 1. Hva gjør du akkurat nå? -->
@@ -193,7 +191,7 @@ Supported values for PROPERTY:
       :git.user/email \"user@example.com\"})
 
     (create-opts->commands sample-opts) 
-    ```" 
+    ```"
   [opts]
   (let [{:keys [dir git editor cohort-id]} opts
         git-user-email (:git.user/email opts)]
@@ -203,7 +201,7 @@ Supported values for PROPERTY:
                 (string? editor)))
     (assert git-user-email)
     (assert cohort-id)
-    
+
     (let [cohort (-> (store/cohorts cohort-id)
                      (cohort/set-repo-path dir))
           doc (store/next-doc cohort)
@@ -243,7 +241,7 @@ Supported values for PROPERTY:
       :shell (apply shell args)
       :spit (apply spit args))))
 
-(comment 
+(comment
   (def sample-opts
     {:dir "."
      :git true
@@ -251,8 +249,7 @@ Supported values for PROPERTY:
      :cohort-id :oj
      :git.user/email "user@example.com"})
 
-  (create-opts->commands sample-opts) 
-  )
+  (create-opts->commands sample-opts))
 
 (defn command->dry-command [command]
   [:prn command])
@@ -279,8 +276,7 @@ Supported values for PROPERTY:
 
 (comment
   (configured-properties? '(:cohort))
-  (config-error-message '(:cohort :editor :repo-path))
-  )
+  (config-error-message '(:cohort :editor :repo-path)))
 
 (defn mblog-create [{:keys [opts]}]
   (when (or (:help opts) (:h opts))
@@ -341,8 +337,7 @@ edit files from a terminal. For example:")
                                  (config-get :editor))
                        :git.user/email (git-user-email dir)
                        :cohort-id (config-get :cohort)
-                       :draft (or (:draft opts) false)}
-          ]
+                       :draft (or (:draft opts) false)}]
       (->> create-opts
            create-opts->commands
            (map command-transform)

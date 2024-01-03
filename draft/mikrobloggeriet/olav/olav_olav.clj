@@ -19,7 +19,6 @@
           :href (store/doc-href cohort doc)})
        (store/docs cohort)))
 
-
 (defn markdown-links [title-fn href-fn elements]
   (str/join ", " (map (fn [x]
                         (str "[" (title-fn x) "]" "(" (href-fn x) ")"))

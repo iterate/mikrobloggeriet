@@ -65,7 +65,7 @@
   (when-let [title-el (-> pandoc :meta :title)]
     (el->plaintext title-el)))
 
-(defn header? [el ]
+(defn header? [el]
   (= (:t el) "Header"))
 
 (defn h1? [el]

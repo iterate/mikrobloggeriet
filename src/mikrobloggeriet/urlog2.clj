@@ -32,10 +32,10 @@
 
 (defn urlogs [_req]
   (page/html5 [:head (page/include-css "/urlog.css")]
-    [:body [:main [:p (interpose " "
-                                 (for [doc (docs store/urlog2)]
-                                   (let [txt-file (fs/file (store/doc-folder store/urlog2 doc) "url.txt")
-                                         content (slurp (str txt-file))]
-                                     [:a {:href (str/trim content)
-                                          :target "_blank"}
-                                      "🚪"])))]]]))
+              [:body [:main [:p (interpose " "
+                                           (for [doc (docs store/urlog2)]
+                                             (let [txt-file (fs/file (store/doc-folder store/urlog2 doc) "url.txt")
+                                                   content (slurp (str txt-file))]
+                                               [:a {:href (str/trim content)
+                                                    :target "_blank"}
+                                                "🚪"])))]]]))

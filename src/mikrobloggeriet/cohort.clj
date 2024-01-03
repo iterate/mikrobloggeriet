@@ -10,8 +10,7 @@
    :cohort/root "text/oj"
    :cohort/slug "oj"
    :cohort/members [{:author/first-name "Johan"}
-                    {:author/first-name "Olav"}])
-  )
+                    {:author/first-name "Olav"}]))
 
 ;; See store.clj for available cohorts.
 

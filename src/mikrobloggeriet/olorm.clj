@@ -178,9 +178,7 @@
    (shell {:out :string} "pwd"))
   "/Users/teodorlu/dev/iterate/olorm/lib\n"
 
-
-  (infer-created-date (->olorm {:number 1 :repo-path "/Users/teodorlu/dev/iterate/olorm"}))
-  )
+  (infer-created-date (->olorm {:number 1 :repo-path "/Users/teodorlu/dev/iterate/olorm"})))
 
 (defn uuid []
   (str (java.util.UUID/randomUUID)))
