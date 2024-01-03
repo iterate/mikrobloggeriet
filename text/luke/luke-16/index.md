@@ -112,3 +112,5 @@ Du får reflektert over om du er fornøyd med det du gjør, og du får åpnet fo
 [Håvard](/luke/luke-1/), [Julian](/luke/luke-2/), [Finn](/luke/luke-3/), [Sindre](/luke/luke-4/), [Thusan](/luke/luke-5/), [Kjersti](/luke/luke-6/), [Rasmus](/luke/luke-7/), [Pernille](/luke/luke-8/), [Richard](/luke/luke-9/), [Camilla](/luke/luke-10/), [Ole Jacob](/luke/luke-11/), [Lars](/luke/luke-12/), [Ella](/luke/luke-13/), [Rune](/luke/luke-14/) og [Anders](/luke/luke-15/):
 tusen takk for at dere har skrevet om noe dere bryr dere om under advent i 2023!
 Det er første steg for at andre kan forestå hva dere synes er bra.
+
+—Teodor
