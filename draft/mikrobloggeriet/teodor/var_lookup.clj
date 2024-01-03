@@ -29,10 +29,9 @@
              #(str/starts-with? % "clojure")
              (comp :deprecated meta))
 
-#_
-(let [allns-set (into #{} (map symbol (all-ns)))
-      loadedlibs-set (into #{} (loaded-libs))]
-  (count (set/intersection allns-set loadedlibs-set)))
+#_(let [allns-set (into #{} (map symbol (all-ns)))
+        loadedlibs-set (into #{} (loaded-libs))]
+    (count (set/intersection allns-set loadedlibs-set)))
 
 (defn allns-syms []
   (map (comp symbol ns-name)

@@ -1,20 +1,19 @@
 (ns johan.draw)
 
-( def pool "olr")
+(def pool "olr")
 
 (rand-nth pool)
 
 (def mapping (hash-map \o "Oddmund" \l "Lars" \r "Richard"))
-(defn draw 
+(defn draw
   "Should draw random from a pool of char"
   [pool]
-  (get mapping (rand-nth pool))
-  )
+  (get mapping (rand-nth pool)))
 
 (draw pool)
 
 (draw pool)
-( def req
+(def req
   {:remote-addr "0:0:0:0:0:0:0:1",
    :start-time 54521377543833,
    :params {:pool "o"},
@@ -38,7 +37,7 @@
     "sec-fetch-dest" "document",
     "accept-encoding" "gzip, deflate, br",
     "sec-fetch-mode" "navigate",
-    "cache-control" "max-age=0"} 
+    "cache-control" "max-age=0"}
    :server-port 7223,
    :content-length 0,
    :compojure/route [:get "/olorm/draw/:pool"],
@@ -52,7 +51,7 @@
    :scheme :http,
    :request-method :get})
 
-(get-in req [ :params :pool])
+(get-in req [:params :pool])
 
 (defn get-pool
   "get pool from req"

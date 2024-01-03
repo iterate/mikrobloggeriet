@@ -16,8 +16,7 @@
     (let [twourls "\n\n\nhttps://teod.eu\n\n\nhttps://teodorheggelund.com\n\n\n"]
       (is (= ["https://teod.eu"
               "https://teodorheggelund.com"]
-             (urlog/parse-urlfile twourls))))
-    )
+             (urlog/parse-urlfile twourls)))))
   (testing "comments are whitespace"
     (let [twourls "
 # Hjemmeside

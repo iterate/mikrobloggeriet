@@ -1,5 +1,5 @@
 (ns
-    ^{:doc "https://mikrobloggeriet.no/urlog/
+ ^{:doc "https://mikrobloggeriet.no/urlog/
 
 Neno deler lenker --- og ønsker mer kontroll på utseende enn det han får ut
 av boksen med mikrobloggeriet.
@@ -9,7 +9,7 @@ fokusere på det som er relevant for Neno, og gjøre koden i
 `mikrobloggeriet.serve` mer lesbar. Det reduserer også risiko for at
 urlog-eksperimentering brekker resten av mikrobloggeriet.
 "}
-    mikrobloggeriet.urlog
+ mikrobloggeriet.urlog
   (:require
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
@@ -84,32 +84,28 @@ urlog-eksperimentering brekker resten av mikrobloggeriet.
           [:a {:href (str "/" (cohort/slug cohort) "/")}
            (cohort/slug cohort)]
           " — "
-          [:span (let [
-                       previouse-number (dec (doc/number doc))
+          [:span (let [previouse-number (dec (doc/number doc))
                        prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
                      [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
-          [:span (:doc/slug doc) ]
+          [:span (:doc/slug doc)]
           [:span (let [previouse-number (inc (doc/number doc))
                        prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
-                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]
-                     ))]]
+                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]))]]
          doc-html])})))
 
 (defn index-section [_req]
   [:section
-    [:h2 "URLOG"]
-    [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-    [:p [:a {:href "/urlog3/"} "Gå inn i huset –> 🏨"]]
-    
-    (comment
-    [:p
+   [:h2 "URLOG"]
+   [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
+   [:p [:a {:href "/urlog3/"} "Gå inn i huset –> 🏨"]]
+
+   (comment
+     [:p
       (let [cohort store/urlog]
         (interpose " · "
-          (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-            [:a {:href (store/doc-href cohort doc)} "🚪"])))]
-    )
-  ])
+                   (for [doc (->> (store/docs cohort)
+                                  (map (fn [doc] (store/load-meta cohort doc)))
+                                  (remove doc-meta/draft?))]
+                     [:a {:href (store/doc-href cohort doc)} "🚪"])))])])

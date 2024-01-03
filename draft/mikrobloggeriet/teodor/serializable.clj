@@ -36,5 +36,4 @@
 ;; Not sure how to handle map entries.
 (comment
   ;; this crashes:
-  (sanitize {:x 1 :name "teodor" :file (io/file "secrets")})
-  )
+  (sanitize {:x 1 :name "teodor" :file (io/file "secrets")}))

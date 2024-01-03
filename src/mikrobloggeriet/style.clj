@@ -11,6 +11,4 @@
   (inline {:display "flex"})
   "display: flex;"
 
-  (inline {:display "flex" :margin-left "12px"})
-
-  )
+  (inline {:display "flex" :margin-left "12px"}))

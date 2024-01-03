@@ -99,10 +99,7 @@
                             (docs->rss-map (store/docs store/olorm) store/olorm)
                             (docs->rss-map (store/docs store/jals) store/jals)
                             (docs->rss-map (store/docs store/oj) store/oj)
-                            (docs->rss-map (store/docs store/genai) store/genai))
-     } 
-    ) 
-  )
+                            (docs->rss-map (store/docs store/genai) store/genai))}))
 
 (defn cohort-doc-table [req cohort]
   (page/html5
@@ -124,14 +121,12 @@
                      (map (fn [doc]
                             (store/load-meta cohort doc)))
                      (pmap (fn [doc]
-                             (assoc doc :doc/title (:title (markdown->html+info (slurp (store/doc-md-path cohort doc)))))))
-                     )]
+                             (assoc doc :doc/title (:title (markdown->html+info (slurp (store/doc-md-path cohort doc))))))))]
         [:tr
          [:td [:a {:href (store/doc-href cohort doc)} (doc/slug doc)]]
          [:td (:doc/title doc)]
          [:td (store/author-first-name cohort doc)]
-         [:td (:doc/created doc)]]
-        )]]]))
+         [:td (:doc/created doc)]])]]]))
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -145,7 +140,7 @@
 
      (page/html5
       (into [:head] (shared-html-header req))
-      [:body 
+      [:body
        [:p (feeling-lucky "🎄")]
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
@@ -188,8 +183,7 @@
                      (for [doc (->> (store/docs cohort)
                                     (map (fn [doc] (store/load-meta cohort doc)))
                                     (remove doc-meta/draft?))]
-                       [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]))
-          )]
+                       [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))]
 
        (when (= "genai" (flag req))
          [:section
@@ -200,8 +194,7 @@
                        (for [doc (->> (store/docs cohort)
                                       (map (fn [doc] (store/load-meta cohort doc)))
                                       (remove doc-meta/draft?))]
-                         [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]))
-            )])
+                         [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))])
 
        (urlog/index-section req)
 
@@ -249,23 +242,21 @@
             [:p "Sett flagg: "
              (flag-element "ingen-flagg")
              " | "
-             (flag-element "genai") 
+             (flag-element "genai")
              " | "
-             (flag-element "god-jul")
-             ])])])}))
+             (flag-element "god-jul")])])])}))
 
 (comment
   (cohort/slug store/oj)
 
-  (store/doc-exists? store/oj ( doc/from-slug "oj-2"))
+  (store/doc-exists? store/oj (doc/from-slug "oj-2"))
 
   (let [cohort store/oj
         doc (doc/from-slug "oj-2")
-        prev (dec ( doc/number doc))] 
+        prev (dec (doc/number doc))]
     (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
 
-  (store/cohort-href store/oj)
-  )
+  (store/cohort-href store/oj))
 
 (defn doc
   [req cohort]
@@ -287,17 +278,15 @@
           [:a {:href (str "/" (cohort/slug cohort) "/")}
            (cohort/slug cohort)]
           " — "
-          [:span (let [
-                       previouse-number (dec (doc/number doc))
+          [:span (let [previouse-number (dec (doc/number doc))
                        prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
                      [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
-          [:span (:doc/slug doc) ]
+          [:span (:doc/slug doc)]
           [:span (let [previouse-number (inc (doc/number doc))
                        prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
-                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]
-                     ))]]
+                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]))]]
          doc-html])})))
 
 (defn random-doc [_req]
@@ -369,7 +358,7 @@
 
   ;; LUKE 
   (GET "/luke/" req (cohort-doc-table req store/luke))
-  (GET "/luke/:slug/" req (doc req store/luke)) 
+  (GET "/luke/:slug/" req (doc req store/luke))
 
   ;; NENO
   (GET "/urlog/" req (urlog/urlogs req))
@@ -377,13 +366,11 @@
 
   ;; NENO 2
   (GET "/urlog2/" req (urlog2/urlogs req))
-  (GET "/urlog3/" req (urlog3/urlogs req))
-  )
+  (GET "/urlog3/" req (urlog3/urlogs req)))
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})
-  (app {:uri "/hops-info", :request-method :get})
-  )
+  (app {:uri "/hops-info", :request-method :get}))
 
 (defonce server (atom nil))
 (def port 7223)

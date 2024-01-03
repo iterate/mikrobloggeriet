@@ -1,0 +1,10 @@
+## Ignore reformats when blaming
+##
+## git blame --ignore-revs-file .git-blame-ignore-revs ...
+## or
+## git config blame.ignoreRevsFile .git-blame-ignore-revs
+##
+## Taken from https://akrabat.com/ignoring-revisions-with-git-blame/
+
+# cljfmt fix .
+db1bb44cdee66a24c3ed1f2e32c9144caa2d1ecc

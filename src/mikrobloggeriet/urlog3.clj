@@ -19,14 +19,12 @@
        (remove #(str/starts-with? % "#"))))
 
 (comment
-  (parse-urlfile (slurp urlfile-path))
-  )
-
+  (parse-urlfile (slurp urlfile-path)))
 
 (defn urlogs [_req]
   (page/html5 [:head (page/include-css "/urlog.css")]
-    [:body [:main
-            [:p (interpose " " (for [url (parse-urlfile (slurp urlfile-path))]
-                                [:a {:href url
-                                     :target "_blank"}
-                                "🚪"]))]]]))
+              [:body [:main
+                      [:p (interpose " " (for [url (parse-urlfile (slurp urlfile-path))]
+                                           [:a {:href url
+                                                :target "_blank"}
+                                            "🚪"]))]]]))

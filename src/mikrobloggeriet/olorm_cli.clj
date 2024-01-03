@@ -83,9 +83,7 @@ your system, so we need to know where to find OLORM pages.
        (into #{}))
   ;; => #{:println :create-dirs :shell :spit}
 
-  (create-opts->commands {:dir (repo-path) :git true :edit true})
-
-  )
+  (create-opts->commands {:dir (repo-path) :git true :edit true}))
 
 (defn command->dry-command [command]
   [:prn command])
@@ -142,8 +140,7 @@ Example usage:
 
   $ olorm draw olr
   Richard
-"
-                         ))
+"))
       (if (or (:h opts) (:help opts))
         (System/exit 0)
         (System/exit 1)))
@@ -165,10 +162,9 @@ Allowed options:
   --conform-created       Add a :doc/created attribute for every doc with a created timestamp
   --infer-created         Infer created date from Git history
   --infer-email           Infer email from Git history
-"
-                         ))
-    )
-  ;; Add UUIDs for documents missing UUID
+")))
+
+;; Add UUIDs for documents missing UUID
   (when (:add-uuids opts)
     (doseq [o (olorm/docs {:repo-path (repo-path)})]
       (let [meta (olorm/load-meta o)
@@ -217,8 +213,7 @@ Allowed options:
                                 (assoc :doc/created (olorm/infer-created-date o)))))))))
 
 (def subcommands
-  [
-   {:cmds ["create"]        :fn olorm-create}
+  [{:cmds ["create"]        :fn olorm-create}
    {:cmds ["help"]          :fn olorm-help}
    {:cmds ["repo-path"]     :fn olorm-repo-path}
    {:cmds ["set-repo-path"] :fn olorm-set-repo-path :args->opts [:repo-path]}
@@ -241,6 +236,4 @@ Allowed options:
   ;; => ([["create"] {}]
   ;;     [["create" "--no-git"] {:git false}]
   ;;     [["create" "--no-git" "--no-edit"] {:git false, :edit false}])
-
-
   )

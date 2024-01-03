@@ -17,9 +17,7 @@
      (htmlcomment "4. Call to action---hva ønsker du kommentarer på fra de som leser?"))))
 
 (comment
-  (md-quality-nudge {:title "OLORM-44"})
-
-  )
+  (md-quality-nudge {:title "OLORM-44"}))
 
 (defn url-new-tab-big-door [{:keys [title]}]
   (let [paragraphs (fn [& paras] (str/join "\n\n" paras))]
@@ -32,6 +30,4 @@
                    [:div "🚪"]]))))
 
 (comment
-  (url-new-tab-big-door {:title "URLOG-88"})
-
-  )
+  (url-new-tab-big-door {:title "URLOG-88"}))

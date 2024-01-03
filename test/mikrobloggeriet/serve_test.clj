@@ -1,6 +1,6 @@
 (ns mikrobloggeriet.serve-test
   (:require [mikrobloggeriet.serve :as serve]
-            [clojure.test :refer [is testing deftest] ]
+            [clojure.test :refer [is testing deftest]]
             [clojure.string :as str]))
 
 (deftest index-test
@@ -31,5 +31,4 @@
   (let [oj-1 (serve/app {:uri "/oj/oj-1/" :request-method :get})]
     (is (str/includes? (str/lower-case (:body oj-1))
                        "refaktorering")
-        "OJ-1 handler refaktorering."))
-  )
+        "OJ-1 handler refaktorering.")))

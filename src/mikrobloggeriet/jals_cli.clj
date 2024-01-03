@@ -117,8 +117,7 @@ Example usage:
 
   $ jals draw jals
   Adrian
-"
-                         ))
+"))
       (if (or (:h opts) (:help opts))
         (System/exit 0)
         (System/exit 1)))
@@ -127,8 +126,7 @@ Example usage:
           (rand-nth pool)))))
 
 (def subcommands
-  [
-   {:cmds ["create"]        :fn jals-create}
+  [{:cmds ["create"]        :fn jals-create}
    {:cmds ["help"]          :fn jals-help}
    {:cmds ["repo-path"]     :fn jals-repo-path}
    {:cmds ["set-repo-path"] :fn jals-set-repo-path :args->opts [:repo-path]}
