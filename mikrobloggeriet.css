@@ -23,3 +23,16 @@ a.feeling-lucky {
         transform:rotate(360deg);
     }
 }
+
+ul.doc-list {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+        display: inline list-item;
+    }
+
+    li + li::before {
+        content: " · ";
+    }
+}
