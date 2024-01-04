@@ -128,7 +128,7 @@
          [:td (store/author-first-name cohort doc)]
          [:td (:doc/created doc)]])]]]))
 
-(defn doc-list [cohort]
+(defn default-doc-list [cohort]
   [:ul {:class "doc-list"}
    (for [doc (->> (store/docs cohort)
                   (map (fn [doc] (store/load-meta cohort doc)))
@@ -139,7 +139,7 @@
   [:section
    [:h2 name]
    [:p description]
-   (doc-list cohort)])
+   (default-doc-list cohort)])
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
