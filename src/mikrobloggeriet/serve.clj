@@ -128,6 +128,19 @@
          [:td (store/author-first-name cohort doc)]
          [:td (:doc/created doc)]])]]]))
 
+(defn doc-list [cohort]
+  [:ul {:class "doc-list"}
+   (for [doc (->> (store/docs cohort)
+                  (map (fn [doc] (store/load-meta cohort doc)))
+                  (remove doc-meta/draft?))]
+     [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])])
+
+(defn cohort-section [cohort name description]
+  [:section
+   [:h2 name]
+   [:p description]
+   (doc-list cohort)])
+
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
@@ -214,19 +227,6 @@
     (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
 
   (store/cohort-href store/oj))
-
-(defn cohort-section [cohort name description]
-  [:section
-   [:h2 name]
-   [:p description]
-   (doc-list cohort)])
-
-(defn doc-list [cohort]
-  [:ul {:class "doc-list"}
-   (for [doc (->> (store/docs cohort)
-                  (map (fn [doc] (store/load-meta cohort doc)))
-                  (remove doc-meta/draft?))]
-     [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])])
 
 (defn doc
   [req cohort]
