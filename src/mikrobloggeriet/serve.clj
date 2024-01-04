@@ -144,56 +144,32 @@
        [:p (feeling-lucky "🎄")]
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
+
        [:section
         [:h2 "Mikrobloggeriets Julekalender 2023"]
         [:p "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/luke]
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
+        (doc-list store/luke)]
+
        [:section
         [:h2 "OLORM"]
         [:p "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/olorm]
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
+        (doc-list store/olorm)]
+
        [:section
         [:h2 "JALS"]
         [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/jals]
-
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
+        (doc-list store/jals)]
 
        [:section
         [:h2 "OJ"]
         [:p "Mikrobloggen OJ skrives av Olav og Johan."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/oj]
-
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
+        (doc-list store/oj)]
 
        (when (= "genai" (flag req))
          [:section
           [:h2 "GENAI"]
           [:p "Mikrobloggen GENAI skrives av ... deg?"]
-          (let [cohort store/genai]
-            (interpose " · "
-                       (for [doc (->> (store/docs cohort)
-                                      (map (fn [doc] (store/load-meta cohort doc)))
-                                      (remove doc-meta/draft?))]
-                         [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))])
+          (doc-list store/genai)])
 
        (urlog/index-section req)
 
@@ -256,6 +232,13 @@
     (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
 
   (store/cohort-href store/oj))
+
+(defn doc-list [cohort]
+  [:ul {:class "doc-list"}
+   (for [doc (->> (store/docs cohort)
+                  (map (fn [doc] (store/load-meta cohort doc)))
+                  (remove doc-meta/draft?))]
+     [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])])
 
 (defn doc
   [req cohort]
