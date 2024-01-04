@@ -128,6 +128,19 @@
          [:td (store/author-first-name cohort doc)]
          [:td (:doc/created doc)]])]]]))
 
+(defn default-doc-list [cohort]
+  [:ul {:class "doc-list"}
+   (for [doc (->> (store/docs cohort)
+                  (map (fn [doc] (store/load-meta cohort doc)))
+                  (remove doc-meta/draft?))]
+     [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])])
+
+(defn default-cohort-section [cohort name description]
+  [:section
+   [:h2 name]
+   [:p description]
+   (default-doc-list cohort)])
+
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
@@ -144,56 +157,14 @@
        [:p (feeling-lucky "🎄")]
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
-       [:section
-        [:h2 "Mikrobloggeriets Julekalender 2023"]
-        [:p "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/luke]
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
-       [:section
-        [:h2 "OLORM"]
-        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/olorm]
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
-       [:section
-        [:h2 "JALS"]
-        [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/jals]
 
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
-
-       [:section
-        [:h2 "OJ"]
-        [:p "Mikrobloggen OJ skrives av Olav og Johan."]
-        [:ul {:class "doc-list"}
-         (let [cohort store/oj]
-
-           (for [doc (->> (store/docs cohort)
-                          (map (fn [doc] (store/load-meta cohort doc)))
-                          (remove doc-meta/draft?))]
-             [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]]))]]
+       (default-cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023.")
+       (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
+       (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
+       (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
 
        (when (= "genai" (flag req))
-         [:section
-          [:h2 "GENAI"]
-          [:p "Mikrobloggen GENAI skrives av ... deg?"]
-          (let [cohort store/genai]
-            (interpose " · "
-                       (for [doc (->> (store/docs cohort)
-                                      (map (fn [doc] (store/load-meta cohort doc)))
-                                      (remove doc-meta/draft?))]
-                         [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)])))])
+         (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
        (urlog/index-section req)
 
