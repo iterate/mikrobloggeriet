@@ -145,31 +145,13 @@
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
 
-       [:section
-        [:h2 "Mikrobloggeriets Julekalender 2023"]
-        [:p "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023."]
-        (doc-list store/luke)]
-
-       [:section
-        [:h2 "OLORM"]
-        [:p "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor."]
-        (doc-list store/olorm)]
-
-       [:section
-        [:h2 "JALS"]
-        [:p "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."]
-        (doc-list store/jals)]
-
-       [:section
-        [:h2 "OJ"]
-        [:p "Mikrobloggen OJ skrives av Olav og Johan."]
-        (doc-list store/oj)]
+       (cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023.")
+       (cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
+       (cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
+       (cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
 
        (when (= "genai" (flag req))
-         [:section
-          [:h2 "GENAI"]
-          [:p "Mikrobloggen GENAI skrives av ... deg?"]
-          (doc-list store/genai)])
+         (cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
        (urlog/index-section req)
 
@@ -232,6 +214,12 @@
     (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
 
   (store/cohort-href store/oj))
+
+(defn cohort-section [cohort name description]
+  [:section
+   [:h2 name]
+   [:p description]
+   (doc-list cohort)])
 
 (defn doc-list [cohort]
   [:ul {:class "doc-list"}
