@@ -135,7 +135,7 @@
                   (remove doc-meta/draft?))]
      [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])])
 
-(defn cohort-section [cohort name description]
+(defn default-cohort-section [cohort name description]
   [:section
    [:h2 name]
    [:p description]
@@ -158,13 +158,13 @@
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
 
-       (cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023.")
-       (cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
-       (cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
-       (cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
+       (default-cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023.")
+       (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
+       (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
+       (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
 
        (when (= "genai" (flag req))
-         (cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
+         (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
        (urlog/index-section req)
 
