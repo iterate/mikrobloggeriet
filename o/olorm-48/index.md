@@ -72,3 +72,11 @@ Her er to ting du kan gjøre:
    Hovedmodulen heter ofte "main".
    
 [mutual recursion]: https://en.wikipedia.org/wiki/Mutual_recursion
+
+## For å få løsere kobling, må du sannsynligvis gå saktere fram.
+
+Når du har noe som funker, tar du deg tiden til å se på hvordan koden henger sammen?
+Burde koden henge sammen på den måten?
+Den koden du skriver blir liggende i kodebasen!
+Når du nettopp har skrevet koden, kjenner du best hvordan den fungerer.
+Senere blir det vanskeligere å splitte opp.
