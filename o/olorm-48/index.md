@@ -58,7 +58,7 @@ Her er to ting du kan gjøre:
 
 2. Splitt koden i fire.
    Trekk først ut _grensesnittet_ mellom modul A og modul B.
-   Putt dette i modul G ("grensesnitt").
+   Putt grensesnittet i modul G.
    Skriv nå modul A og modul B om til å kun være avhengig av grensesnittet.
    I statiske språk blir dette typer, og/eller "interfaces" (Go, java), "traits" (Rust) eller typeklasser (Haskell).
    Skriv en siste hovedmodul H der du bruker både modul A og modul B.
