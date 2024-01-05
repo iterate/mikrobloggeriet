@@ -1,7 +1,7 @@
 # OLORM-48: Løs kobling
 
 Jeg har [trampet høylytt] og sagt at du er ansvarlig for å bygge delt forståelse av hva som er bra, innenfor din ekspertise.
-Jeg er også ansvarlig for å bygge delt forståelse av hva som er bra.
+Jeg er også ansvarlig for å bygge delt forståelse av hva som er bra, sånn jeg ser på det.
 
 [trampet høylytt]: /luke/luke-16/
 
