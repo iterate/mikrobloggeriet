@@ -23,7 +23,7 @@ Jeg vil ikke komme med en formell definisjon av hva løs kobling er; jeg vil hel
 | modul A bruker modul B, modul B henter tilstand i applikasjonen selv | module A bruker modul B, all informasjon sendes som eksplisitte funksjonsparametre |
 | for å jobbe på en app, kan jeg kjøre kun koden jeg bryr meg om       | for å jobbe på en app må jeg starte 7 ting jeg ikke vet hva er                     |
 | enhetstestene krever at databasen kjører                             | enhetstestene krever ikke at databasen kjører                                      |
-| jeg kan kjøre det jeg bryr meg om lokalt                             | jeg må ut og teste i test- eller prodmiljøer                                       |
+| jeg kan kjøre det jeg bryr meg om lokalt                             | jeg må ut og teste i test- eller prodmiljøer for å finne ut om det funker          |
 
 ## Liksom-løs kobling som egentlig er tett kobling
 
