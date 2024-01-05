@@ -80,3 +80,5 @@ Burde koden henge sammen på den måten?
 Den koden du skriver blir liggende i kodebasen!
 Når du nettopp har skrevet koden, kjenner du best hvordan den fungerer.
 Senere blir det vanskeligere å splitte opp.
+
+—Teodor
