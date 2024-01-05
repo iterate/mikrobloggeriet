@@ -69,7 +69,7 @@ Her er to ting du kan gjøre:
        A -> G
        B -> G
        
-   Hovedmodulen heter ofte "main".
+   Hovedmodulen (H) heter ofte "main", og vet det den må vite for å starte applikasjonen.
    
 [mutual recursion]: https://en.wikipedia.org/wiki/Mutual_recursion
 
