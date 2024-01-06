@@ -128,18 +128,13 @@
          [:td (store/author-first-name cohort doc)]
          [:td (:doc/created doc)]])]]]))
 
-(defn default-doc-list [cohort]
-  [:ul {:class "doc-list"}
-   (for [doc (->> (store/docs cohort)
-                  (map (fn [doc] (store/load-meta cohort doc)))
-                  (remove doc-meta/draft?))]
-     [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])])
-
 (defn default-cohort-section [cohort name description]
   [:section
    [:h2 name]
    [:p description]
-   (default-doc-list cohort)])
+   [:ul {:class "doc-list"}
+    (for [doc (store/published-docs-with-meta cohort)]
+      [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"

@@ -163,6 +163,11 @@
            (filter (partial doc-exists? cohort))
            (sort-by doc/number)))))
 
+(defn published-docs-with-meta [cohort]
+  (->> (docs cohort)
+       (map (fn [doc] (load-meta cohort doc)))
+       (remove doc-meta/draft?)))
+
 (defn next-doc
   "Creates a new doc for a cohort"
   [cohort]
