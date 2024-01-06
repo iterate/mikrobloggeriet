@@ -75,19 +75,17 @@
    (.parse (java.text.SimpleDateFormat. "yyyy-MM-dd") (str date))))
 
 (defn cohort-rss-section [cohort]
-  (let [docs (store/docs cohort)]
-    (->> docs
-         (map (fn [doc]
-                {:title (doc/slug doc)
-                 :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
-                 :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
-                 :category (cohort/slug cohort)
-                 :description (doc/slug doc)
-                 :guid (doc/slug doc)
-                 "content:encoded" (str
-                                    "<![CDATA["
-                                    (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
-                                    "]]>")})))))
+  (for [doc (store/docs cohort)]
+    {:title (doc/slug doc)
+     :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
+     :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
+     :category (cohort/slug cohort)
+     :description (doc/slug doc)
+     :guid (doc/slug doc)
+     "content:encoded" (str
+                        "<![CDATA["
+                        (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
+                        "]]>")}))
 
 (defn rss-feed []
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :feed-url "https://mikrobloggeriet.no/feed/" :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
