@@ -74,7 +74,7 @@
   (.toInstant
    (.parse (java.text.SimpleDateFormat. "yyyy-MM-dd") (str date))))
 
-(defn docs->rss-map [cohort]
+(defn cohort-rss-section [cohort]
   (let [docs (store/docs cohort)
         slugs (map :doc/slug docs)]
     (map (fn [slug]
@@ -96,10 +96,10 @@
     {:status 200
      :headers {"Content-type" "application/rss+xml"}
      :body (rss/channel-xml title
-                            (docs->rss-map store/olorm)
-                            (docs->rss-map store/jals)
-                            (docs->rss-map store/oj)
-                            (docs->rss-map store/genai))}))
+                            (cohort-rss-section store/olorm)
+                            (cohort-rss-section store/jals)
+                            (cohort-rss-section store/oj)
+                            (cohort-rss-section store/genai))}))
 
 (defn cohort-doc-table [req cohort]
   (page/html5
