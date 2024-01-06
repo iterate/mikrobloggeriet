@@ -11,7 +11,6 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
