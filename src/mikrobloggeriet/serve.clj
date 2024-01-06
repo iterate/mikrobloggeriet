@@ -133,7 +133,7 @@
    [:h2 name]
    [:p description]
    [:ul {:class "doc-list"}
-    (for [doc (store/published-docs-with-meta cohort)]
+    (for [doc (store/published-docs cohort)]
       [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
 
 (defn index [req]
