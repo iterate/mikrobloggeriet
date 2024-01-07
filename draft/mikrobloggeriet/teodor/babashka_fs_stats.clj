@@ -1,11 +1,10 @@
+^{:nextjournal.clerk/toc true}
 (ns mikrobloggeriet.teodor.babashka-fs-stats
   (:require
    [clojure.repl :as repl]
    [nextjournal.clerk :as clerk]))
 
-;; ## Hjelpefunksjoenr for å slå opp i navnerom
-
-;; out of curiosity, how many public / private functions are there in `babashka.fs`?
+;; ## Hjelpefunksjoner for å slå opp i navnerom
 
 ;; total:
 
@@ -15,7 +14,7 @@
 
 (ns-interns 'babashka.fs)
 
-;; private or public?
+;; ### Predicates for filtering vars
 
 (defn var-private? [var]
   (= true (:private (meta var))))
@@ -29,7 +28,7 @@
 (defn all-vars [ns-sym]
   (vals (ns-interns ns-sym)))
 
-;; ## statistikk
+;; ## Statistikk
 
 ;; private funksjoner
 
@@ -59,22 +58,30 @@
      (map type))
 
 ;; litt av hvert.
-;;
-;; Lurer på hva de delay-greiene er, la oss finne ut.
+
+;; ### `clojure.lang.Delay`?
 
 (->> (all-vars 'babashka.fs)
      (map var-get)
      (filter #(= clojure.lang.Delay (type %))))
+
+;; objekter, ok.
+;; Men hva er variabelnavneene?
 
 (def delayed
   (->> (ns-interns 'babashka.fs)
        (filter (fn [[_sym v]]
                  (= clojure.lang.Delay (type (var-get v)))))))
 
+;; la oss se på kildekoden.
+
 (apply clerk/fragment
        (for [[sym _v] delayed]
          (let [qualified-sym (symbol "babashka.fs" (name sym))]
            (clerk/code (clojure.repl/source-fn qualified-sym)))))
+
+;; OK, ser ut som diverse konstanter vi ikke vil laste _med en gang_.
+;; Litt usikker på hvorfor.
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (clerk/html [:div {:style {:height "50vh"}}])
