@@ -11,7 +11,6 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
@@ -75,31 +74,28 @@
   (.toInstant
    (.parse (java.text.SimpleDateFormat. "yyyy-MM-dd") (str date))))
 
-(defn docs->rss-map [docs cohort]
-  (let [slugs (map :doc/slug docs)]
-    (map (fn [slug]
-           (let [doc (doc/from-slug slug)]
-             {:title slug
-              :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
-              :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
-              :category (cohort/slug cohort)
-              :description slug
-              :guid slug
-              "content:encoded" (str
-                                 "<![CDATA["
-                                 (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
-                                 "]]>")}))
-         slugs)))
+(defn cohort-rss-section [cohort]
+  (for [doc (store/docs cohort)]
+    {:title (doc/slug doc)
+     :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
+     :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
+     :category (cohort/slug cohort)
+     :description (doc/slug doc)
+     :guid (doc/slug doc)
+     "content:encoded" (str
+                        "<![CDATA["
+                        (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
+                        "]]>")}))
 
 (defn rss-feed []
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :feed-url "https://mikrobloggeriet.no/feed/" :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
     {:status 200
      :headers {"Content-type" "application/rss+xml"}
      :body (rss/channel-xml title
-                            (docs->rss-map (store/docs store/olorm) store/olorm)
-                            (docs->rss-map (store/docs store/jals) store/jals)
-                            (docs->rss-map (store/docs store/oj) store/oj)
-                            (docs->rss-map (store/docs store/genai) store/genai))}))
+                            (cohort-rss-section store/olorm)
+                            (cohort-rss-section store/jals)
+                            (cohort-rss-section store/oj)
+                            (cohort-rss-section store/genai))}))
 
 (defn cohort-doc-table [req cohort]
   (page/html5
@@ -128,18 +124,13 @@
          [:td (store/author-first-name cohort doc)]
          [:td (:doc/created doc)]])]]]))
 
-(defn default-doc-list [cohort]
-  [:ul {:class "doc-list"}
-   (for [doc (->> (store/docs cohort)
-                  (map (fn [doc] (store/load-meta cohort doc)))
-                  (remove doc-meta/draft?))]
-     [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])])
-
 (defn default-cohort-section [cohort name description]
   [:section
    [:h2 name]
    [:p description]
-   (default-doc-list cohort)])
+   [:ul {:class "doc-list"}
+    (for [doc (store/published-docs cohort)]
+      [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
