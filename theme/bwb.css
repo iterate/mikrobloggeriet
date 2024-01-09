@@ -1,12 +1,18 @@
 :root {
     /* a */
-    --bwb-white: white;
-    --bwb-black:  black;
-    --bwb-link-light: blue;
-    --bwb-link-dark: lightskyblue;
-    --bwb-link-visit-light: purple;
-    --bwb-link-visit-dark: fuchsia;
-    --bwb-extra: lightgray;
+    --bwb-light: #F7F7F7;
+    --bwb-dark:  #080808;
+    --bwb-link-light: #0000FF;
+    --bwb-link-dark: #87CEFA;
+    --bwb-link-hover-light: #000080;
+    --bwb-link-hover-dark: #1E90FF;
+    --bwb-link-visit-light: #800080;
+    --bwb-link-visit-dark: #FF00FF;
+    --bwb-link-visit-hover-light: #4B0082;
+    --bwb-link-visit-hover-dark: #FF1493;
+    --bwb-extra-light: #E6E6E6;
+    --bwb-extra-dark: #1A1A1A;
+
 
 
 
@@ -17,14 +23,15 @@
     /* Assign for use in HTML */
     --desktop-font-size: 1.2rem/1.55;
     --mobile-font-size: 1rem/1.45;
-    --background-color: var(--bwb-white);
-    --text-color: var(--bwb-black);
+    --background-color: var(--bwb-light);
+    --text-color: var(--bwb-dark);
     --link-color: var(--bwb-link-light);
-    --link-color-alt: var(--bwb-link-dark);
-    --link-color-visit: var(--bwb-link-visit-dark);
-    --primary-color: var(--bwb-extra);
-    --secondary-color: var(--bwb-extra);
-    --tertiary-color: var(--bwb-extra);
+    --link-color-alt: var(--bwb-link-hover-light);
+    --link-color-visit: var(--bwb-link-visit-light);
+    --link-color-visit-alt: var(--bwb-link-visit-hover-light);
+    --primary-color: var(--bwb-extra-light);
+    --secondary-color: var(--bwb-extra-light);
+    --tertiary-color: var(--bwb-extra-light);
 }
 
 
@@ -32,13 +39,14 @@
 @media (prefers-color-scheme: dark) {
 
     :root {
-        --background-color: var(--bwb-black);
-        --text-color: var(--bwb-white);
+        --background-color: var(--bwb-dark);
+        --text-color: var(--bwb-light);
         --link-color: var(--bwb-link-dark);
-        --link-color-alt: var(--bwb-link-light);
-        --link-color-visit: var(--bwb-link-visit-light);
-        --primary-color: var(--bwb-extra);
-        --secondary-color: var(--bwb-extra);
-        --tertiary-color: var(--bwb-extra);
+        --link-color-alt: var(--bwb-link-hover-dark);
+        --link-color-visit: var(--bwb-link-visit-dark);
+        --link-color-visit-alt: var(--bwb-link-visit-hover-dark);
+        --primary-color: var(--bwb-extra-dark);
+        --secondary-color: var(--bwb-extra-dark);
+        --tertiary-color: var(--bwb-extra-dark);
         }
 }

@@ -59,6 +59,7 @@ body {
 a { color: var(--link-color); }
 a:hover,a:focus { color: var(--link-color-alt); }
 a:visited { color: var(--link-color-visit); }
+a:visited:hover { color: var(--link-color-visit-alt); }
 
 strong, time, b { font-weight: bold; }
 em, dfn, i { font-style: italic; }
