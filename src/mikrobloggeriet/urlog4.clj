@@ -1,6 +1,7 @@
 (ns mikrobloggeriet.urlog4
   (:require
-   [hiccup.page :as page]))
+   [hiccup.page :as page]
+   [clojure.string :as str]))
 
 (defn logo []
   [:p {:class "logo"}
@@ -171,16 +172,35 @@
       |_//__________\\\\|"]]
     [:p "_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__"]]])
 
-(defn urlogs [_req] 
+(def doors [door-1 door-2 door-3 door-4])
+
+(defn rand-door [url]
+  ((rand-nth doors) url))
+
+(def urlfile-path "text/urlog3/urls.txt")
+(defn parse-urlfile
+  "Parse an urlfile into a vector of urls (strings).
+
+  - Empty lines are ignored
+  - Lines starting with # or whitespace then # are treated as comments
+"
+  [s]
+  (->> (str/split-lines (str/trim s))
+       (map str/trim)
+       (remove str/blank?)
+       (remove #(str/starts-with? % "#"))))
+
+(comment
+  (reverse (parse-urlfile (slurp urlfile-path))))
+
+(defn urlogs [_req]
   (page/html5
-   [:head (page/include-css "/urlog4.css")]
+   [:head
+    (page/include-css "/urlog4.css")]
    [:body
     [:header
      (-> (logo))
      [:p {:class "intro"}
       "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
     [:div {:class "all-doors"}
-     (-> (door-1 ""))
-     (-> (door-2 ""))
-     (-> (door-3 ""))
-     (-> (door-4 ""))]]))
+     (for [url (reverse (parse-urlfile (slurp urlfile-path)))] (-> (rand-door url)))]]))

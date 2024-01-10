@@ -1,6 +1,7 @@
 body {
     margin: 1vh 0 10vh 0;
     padding: 0;
+    @media only screen and (max-width: 600px) {margin: 0;}
 }
 
 header {
@@ -31,9 +32,7 @@ header {
     
     @media only screen and (max-width: 600px) {
         max-width: 35ch;
-        display: grid;
         margin: auto;
-        background-color: red;
     }
 }
 
