@@ -95,11 +95,11 @@ urlog-eksperimentering brekker resten av mikrobloggeriet.
                      [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]))]]
          doc-html])})))
 
-(defn index-section [_req]
+(defn index-section [_req slug]
   [:section
    [:h2 "URLOG"]
    [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-   [:p [:a {:href "/urlog3/"} "Gå inn i huset –> 🏨"]]
+   [:p [:a {:href slug} "Gå inn i huset –> 🏨"]]
 
    (comment
      [:p
