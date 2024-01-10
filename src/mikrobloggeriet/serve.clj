@@ -31,7 +31,7 @@
    (hiccup.page/include-css "/mikrobloggeriet.css")
    (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
-                       "christmas")]
+                       "vanilla")]
      (hiccup.page/include-css (str "/theme/" theme ".css")))
    (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
          number (rand-nth (range 4))]
@@ -103,7 +103,7 @@
    (into [:head] (shared-html-header req))
    [:body
     [:p
-     (feeling-lucky "🎄")
+     (feeling-lucky "🎲")
      " — "
      [:a {:href "/"} "mikrobloggeriet"]]
     [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
@@ -146,7 +146,7 @@
      (page/html5
       (into [:head] (shared-html-header req))
       [:body
-       [:p (feeling-lucky "🎄")]
+       [:p (feeling-lucky "🎲")]
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
 
@@ -235,7 +235,7 @@
         (into [:head] (concat (when title [[:title title]])
                               (shared-html-header req)))
         [:body
-         [:p (feeling-lucky "🎄")
+         [:p (feeling-lucky "🎲")
           " — "
           [:a {:href "/"} "mikrobloggeriet"]
           " "
