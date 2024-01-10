@@ -158,7 +158,7 @@
        (when (= "genai" (flag req))
          (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
-       (urlog/index-section req "/urlog4/")
+       (urlog/index-section req "/urlog/")
 
        [:hr]
 
@@ -331,7 +331,7 @@
   (GET "/luke/:slug/" req (doc req store/luke))
 
   ;; NENO
-  (GET "/urlog/" req (urlog/urlogs req))
+  (GET "/urlog/" req (urlog4/urlogs req))
   (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
 
   ;; NENO 2
@@ -354,4 +354,3 @@
                   (stop-server old-server)
                   (println (str "mikroboggeriet.serve running: http://localhost:" port))
                   (httpkit/run-server #'app {:port port}))))
-
