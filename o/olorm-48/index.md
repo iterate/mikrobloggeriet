@@ -16,14 +16,14 @@ God kode er delt i moduler der hver modul er løst koblet fra andre moduler.
 Jepp, det er det gode spørsmålet.
 Jeg vil ikke komme med en formell definisjon av hva løs kobling er; jeg vil heller komme med noen eksempler.
 
-| tettere koblet                                                       | løsere koblet                                                                      |
-|----------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| `package.json` har 20 avhengigheter                                  | `package.json` har 16 avhengigheter                                                |
-| modul A bruker 6 funksjoner i modul B                                | modul A bruker 3 funksjoner i modul B                                              |
-| modul A bruker modul B, modul B henter tilstand i applikasjonen selv | module A bruker modul B, all informasjon sendes som eksplisitte funksjonsparametre |
-| for å jobbe på en app, kan jeg kjøre kun koden jeg bryr meg om       | for å jobbe på en app må jeg starte 7 ting jeg ikke vet hva er                     |
-| enhetstestene krever at databasen kjører                             | enhetstestene krever ikke at databasen kjører                                      |
-| jeg kan kjøre det jeg bryr meg om lokalt                             | jeg må ut og teste i test- eller prodmiljøer for å finne ut om det funker          |
+| tettere koblet                                                            | løsere koblet                                                                      |
+|---------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| `package.json` har 20 avhengigheter                                       | `package.json` har 16 avhengigheter                                                |
+| modul A bruker 6 funksjoner i modul B                                     | modul A bruker 3 funksjoner i modul B                                              |
+| modul A bruker modul B, modul B henter tilstand i applikasjonen selv      | module A bruker modul B, all informasjon sendes som eksplisitte funksjonsparametre |
+| for å jobbe på en app, kan jeg kjøre kun koden jeg bryr meg om            | for å jobbe på en app må jeg starte 7 ting jeg ikke vet hva er                     |
+| enhetstestene krever at databasen kjører                                  | enhetstestene krever ikke at databasen kjører                                      |
+| jeg må ut og teste i test- eller prodmiljøer for å finne ut om det funker | jeg kan kjøre det jeg bryr meg om lokalt                                           |
 
 ## Liksom-løs kobling som egentlig er tett kobling
 
