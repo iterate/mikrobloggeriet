@@ -36,6 +36,7 @@ COPY reset.css           /mikrobloggeriet/reset.css
 COPY theme/              /mikrobloggeriet/theme/
 COPY text/               /mikrobloggeriet/text/
 COPY mikrobloggeriet.css /mikrobloggeriet/mikrobloggeriet.css
+COPY urlog4.css          /mikrobloggeriet/urlog4.css
 COPY o/                  /mikrobloggeriet/o
 COPY j/                  /mikrobloggeriet/j
 
