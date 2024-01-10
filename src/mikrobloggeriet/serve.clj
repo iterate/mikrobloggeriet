@@ -158,7 +158,7 @@
        (when (= "genai" (flag req))
          (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
-       (urlog/index-section req)
+       (urlog/index-section req (if (= (flag req) "urlog-ascii") "/urlog4/" "/urlog3/"))
 
        [:hr]
 
@@ -206,7 +206,9 @@
              " | "
              (flag-element "genai")
              " | "
-             (flag-element "god-jul")])])])}))
+             (flag-element "god-jul")
+             " | "
+             (flag-element "urlog-ascii")])])])}))
 
 (comment
   (cohort/slug store/oj)
