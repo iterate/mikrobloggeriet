@@ -80,6 +80,14 @@ a {
     display: none;
 }
 
-.door:hover, .door:active .open {
+.door:active .closed {
+    display: none;
+}
+
+.door:hover .open {
+    display: block;
+}
+
+.door:active .open {
     display: block;
 }
