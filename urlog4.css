@@ -29,7 +29,7 @@ header {
     justify-content: center;
     gap: 0;
 
-    @media (max-width: 400px) {
+    @media (max-width: 600px) {
         max-width: 35ch;
         margin: auto;
     }
