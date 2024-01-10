@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 1vh 0 10vh 0;
+    padding: 0;
+}
+
+header {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.logo {
+    width: 30ch;
+    margin: auto;
+}
+
+.intro {
+    margin: 2vh 0;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.all-doors {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+}
+
+.component {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-family: monospace;
+    margin: 0;
+}
+
+
+a {
+    text-decoration: none;
+    cursor: alias;
+}
+
+
+.wall {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+}
+
+.closed {
+    display: block;
+}
+
+.open {
+    display: none;
+}
+
+.door {
+    display: inline-block;
+}
+
+.door:hover .closed {
+    display: none;
+}
+
+.door:hover .open {
+    display: block;
+}

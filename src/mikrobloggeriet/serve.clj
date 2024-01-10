@@ -17,6 +17,7 @@
    [mikrobloggeriet.urlog :as urlog]
    [mikrobloggeriet.urlog2 :as urlog2]
    [mikrobloggeriet.urlog3 :as urlog3]
+   [mikrobloggeriet.urlog4 :as urlog4]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
@@ -157,7 +158,7 @@
        (when (= "genai" (flag req))
          (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
-       (urlog/index-section req)
+       (urlog/index-section req (if (= (flag req) "urlog-ascii") "/urlog4/" "/urlog3/"))
 
        [:hr]
 
@@ -205,7 +206,9 @@
              " | "
              (flag-element "genai")
              " | "
-             (flag-element "god-jul")])])])}))
+             (flag-element "god-jul")
+             " | "
+             (flag-element "urlog-ascii")])])])}))
 
 (comment
   (cohort/slug store/oj)
@@ -270,6 +273,12 @@
    :headers {"Content-Type" "text/css"}
    :body (io/file file)})
 
+
+(defn js-response [file]
+  {:status 200
+   :headers {"Content-Type" "text/javascript"}
+   :body (io/file file)})
+
 (defn theme [req]
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
@@ -283,6 +292,8 @@
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
   (GET "/urlog.css" _req (css-response "urlog.css")) ;; NENO STUFF
+  (GET "/urlog4.css" _req (css-response "urlog4.css"))
+  (GET "src/mikrobloggeriet/urlog.js" _req (js-response "urlog.js"))
 
   ;; THEMES AND FEATURE FLAGGING
   (GET "/set-theme/:theme" req (set-theme req))
@@ -327,7 +338,8 @@
 
   ;; NENO 2
   (GET "/urlog2/" req (urlog2/urlogs req))
-  (GET "/urlog3/" req (urlog3/urlogs req)))
+  (GET "/urlog3/" req (urlog3/urlogs req))
+  (GET "/urlog4/" req (urlog4/urlogs req)))
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})
