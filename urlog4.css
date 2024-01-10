@@ -1,6 +1,4 @@
 body {
-    display: flex;
-    flex-direction: column;
     margin: 1vh 0 10vh 0;
     padding: 0;
 }
@@ -9,7 +7,7 @@ header {
     width: auto;
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: auto 10vw;
 }
 
 .logo {
@@ -18,9 +16,10 @@ header {
 }
 
 .intro {
-    margin: 2vh 0;
+    margin: 2vh auto;
     text-align: center;
     line-height: 1.5;
+    max-width: 40ch;
 }
 
 .all-doors {
@@ -29,7 +28,13 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0;
+
+    @media (max-width: 400px) {
+        max-width: 35ch;
+        margin: auto;
+    }
 }
+
 
 .component {
     display: flex;
@@ -41,12 +46,14 @@ header {
 p {
     font-family: monospace;
     margin: 0;
+    font-size: 16px;
 }
 
 
 a {
     text-decoration: none;
     cursor: alias;
+    font-size: 16px;
 }
 
 
@@ -73,6 +80,6 @@ a {
     display: none;
 }
 
-.door:hover .open {
+.door:hover, .door:active .open {
     display: block;
 }

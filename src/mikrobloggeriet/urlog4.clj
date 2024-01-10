@@ -178,7 +178,7 @@
     [:header
      (-> (logo))
      [:p {:class "intro"}
-      "Tilfeldige dører til internettsteder som kan være<br> morsomme og/eller interessante å besøke en eller annen gang."]]
+      "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
     [:div {:class "all-doors"}
      (-> (door-1 ""))
      (-> (door-2 ""))
