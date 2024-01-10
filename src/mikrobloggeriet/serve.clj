@@ -158,7 +158,7 @@
        (when (= "genai" (flag req))
          (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
-       (urlog/index-section req (if (= "urlog-ascii" (flag req)) "/urlog4/" "/urlog3/"))
+       (urlog/index-section req (if (= (flag req) "urlog-ascii") "/urlog4/" "/urlog3/"))
 
        [:hr]
 
