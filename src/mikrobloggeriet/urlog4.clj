@@ -203,4 +203,4 @@
      [:p {:class "intro"}
       "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
     [:div {:class "all-doors"}
-     (for [url (parse-urlfile (slurp urlfile-path))] (-> (rand-door url)))]]))
+     (for [url (reverse (parse-urlfile (slurp urlfile-path)))] (-> (rand-door url)))]]))
