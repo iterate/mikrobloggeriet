@@ -61,12 +61,12 @@
                     {:author/email "rune@iterate.no" :author/first-name "Rune"}
                     {:author/email "haugeto@iterate.no" :author/first-name "Anders"}]))
 
-(def urlog
-  (sorted-map
-   :cohort/root "text/urlog"
-   :cohort/slug "urlog"
-   :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]
-   :cohort/index-md-template doc-template/url-new-tab-big-door))
+;; (def urlog
+;;   (sorted-map
+;;    :cohort/root "text/urlog"
+;;    :cohort/slug "urlog"
+;;    :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]
+;;    :cohort/index-md-template doc-template/url-new-tab-big-door))
 
 (def vakt
   (sorted-map
@@ -74,17 +74,11 @@
    :cohort/slug "vakt"
    :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}]))
 
-(def urlog2
-  "En ny eksperimentell kohort med input som en liste av URL-er"
-  (sorted-map
-   :cohort/root "text/urlog2"
-   :cohort/slug "urlog2"))
-
-(def urlog4
+(def urlog
   "En ny eksperimentell kohort med input som én url (som data) per dag"
   (sorted-map
-   :cohort/root "text/urlog4"
-   :cohort/slug "urlog4"
+   :cohort/root "text/urlog"
+   :cohort/slug "urlog"
    ;; Problem: hvordan enkoder jeg _her_, i _data_ hvordan template skal genereres?
    ))
 

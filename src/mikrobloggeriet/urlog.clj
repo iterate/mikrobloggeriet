@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.urlog4
+(ns mikrobloggeriet.urlog
   (:require
    [hiccup.page :as page]
    [clojure.string :as str]))
@@ -205,7 +205,7 @@
 (defn urlogs [_req]
   (page/html5
    [:head
-    (page/include-css "/urlog4.css")]
+    (page/include-css "/urlog.css")]
    [:body
     ;; [:p
     ;;  (feeling-lucky "🎲")
