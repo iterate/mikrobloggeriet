@@ -1,7 +1,7 @@
-(ns mikrobloggeriet.urlog3-test
+(ns mikrobloggeriet.urlog-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [mikrobloggeriet.urlog3 :as urlog]))
+   [mikrobloggeriet.urlog :as urlog]))
 
 (deftest parse-urlfile-test
   (testing "urls can be parsed"
