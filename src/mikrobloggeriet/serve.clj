@@ -15,8 +15,6 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.urlog :as urlog]
-   [mikrobloggeriet.urlog2 :as urlog2]
-   [mikrobloggeriet.urlog3 :as urlog3]
    [mikrobloggeriet.urlog4 :as urlog4]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
@@ -332,12 +330,7 @@
 
   ;; NENO
   (GET "/urlog/" req (urlog4/urlogs req))
-  (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
-
-  ;; NENO 2
-  (GET "/urlog2/" req (urlog2/urlogs req))
-  (GET "/urlog3/" req (urlog3/urlogs req))
-  (GET "/urlog4/" req (urlog4/urlogs req)))
+  (GET "/urlog/:slug/" req (urlog/doc req store/urlog)))
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})
