@@ -28,5 +28,15 @@
   (clerk/fragment (clerk/md md-links)
                   (clerk/html [:code md-links])))
 
+(defn doc-date [cohort]
+  (map (fn [doc]
+         (merge doc
+                {:author (store/author-first-name cohort doc)}
+                {:doc/created (:doc/created (store/load-meta cohort doc))}))
+       (store/docs cohort)))
+
+(clerk/table (flatten (map (fn [c] (doc-date c)) (vals store/cohorts))))
+
+
 (comment
   (clerk/clear-cache!))
