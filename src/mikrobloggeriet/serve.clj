@@ -14,7 +14,6 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.urlog :as urlog]
    [mikrobloggeriet.urlog4 :as urlog4]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
@@ -156,7 +155,7 @@
        (when (= "genai" (flag req))
          (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
-       (urlog/index-section req "/urlog/")
+       (urlog4/index-section req "/urlog/")
 
        [:hr]
 
@@ -287,10 +286,7 @@
   (GET "/vanilla.css" _req (css-response "vanilla.css"))
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
-  (GET "/urlog.css" _req (css-response "urlog.css")) ;; NENO STUFF
-  (GET "/urlog4.css" _req (css-response "urlog4.css"))
-  (GET "src/mikrobloggeriet/urlog.js" _req (js-response "urlog.js"))
-
+  (GET "/urlog4.css" _req (css-response "urlog4.css")) ;; NENO STUFF
   ;; THEMES AND FEATURE FLAGGING
   (GET "/set-theme/:theme" req (set-theme req))
   (GET "/set-flag/:flag" req (set-flag req))
@@ -330,7 +326,8 @@
 
   ;; NENO
   (GET "/urlog/" req (urlog4/urlogs req))
-  (GET "/urlog/:slug/" req (urlog/doc req store/urlog)))
+  ;; (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
+  )
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})

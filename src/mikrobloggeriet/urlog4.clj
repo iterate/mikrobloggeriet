@@ -193,11 +193,24 @@
 (comment
   (reverse (parse-urlfile (slurp urlfile-path))))
 
+(defn index-section [_req slug]
+  [:section
+   [:h2 "URLOG"]
+   [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
+   [:p [:a {:href slug} "Gå inn i huset –> 🏨"]]])
+
+(defn feeling-lucky [content]
+  [:a {:href "/random-doc" :class :feeling-lucky} content])
+
 (defn urlogs [_req]
   (page/html5
    [:head
     (page/include-css "/urlog4.css")]
    [:body
+    ;; [:p
+    ;;  (feeling-lucky "🎲")
+    ;;  " — "
+    ;;  [:a {:href "/"} "mikrobloggeriet"]]
     [:header
      (-> (logo))
      [:p {:class "intro"}
