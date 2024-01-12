@@ -325,7 +325,7 @@
   (GET "/luke/:slug/" req (doc req store/luke))
 
   ;; NENO
-  (GET "/urlog/" req (urlog/urlogs req))
+  (GET "/urlog/" req (urlog/page req))
   ;; (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
   )
 

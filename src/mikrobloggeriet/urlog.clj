@@ -38,7 +38,7 @@
       (slurp (str door-path "/open.txt"))]]]
    [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
 
-(defn urlogs [_req]
+(defn page [_req]
   (page/html5
    [:head
     (page/include-css "/mikrobloggeriet.css")
