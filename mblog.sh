@@ -67,7 +67,7 @@ uuid4() {
         r = ""
         while (len-- > 0) {
             n = int(rand() * 16)
-            r = r sprintf("%c", (n > 9 ? n+97 : n+48))
+            r = r sprintf("%c", (n > 9 ? n+87 : n+48))
         }
         return r
     }'
@@ -106,8 +106,27 @@ dryrun() {
     "$@"
 }
 
+test() {
+    pattern='^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+    for i in $(seq 20); do
+        value=$(uuid4)
+        printf %s "$value" | grep -Eq "$pattern" \
+            || fail 'uuid %s did not match pattern %s\n' "$value" "$pattern"
+    done
+    echo OK
+}
+
+seq() { # [first] last
+    last=${2:-$1}
+    if [ $# -gt 1 ]; then i=$1; else i=1; fi
+    while [ $i -le $last ]; do
+        printf '%d\n' $i
+        i=$((i + 1))
+    done
+}
+
 case "$1" in
-    create|help|uuid4)
+    create|help|uuid4|test)
         "$@"
         ;;
     "")
