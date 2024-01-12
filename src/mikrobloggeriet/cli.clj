@@ -352,7 +352,7 @@ edit files from a terminal. For example:")
 (def subcommands
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
-   {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
+   {:cmds ["create"] :fn mblog-create}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
