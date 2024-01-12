@@ -44,6 +44,11 @@
        (remove #(str/starts-with? % "#"))))
 
 (comment
+  (for [u (parse-urlfile (slurp urlfile-path))]
+    {:urlog/url u :urlog/tags #{}})
+  )
+
+(comment
   (reverse (parse-urlfile (slurp urlfile-path))))
 
 (defn index-section [_req slug]
