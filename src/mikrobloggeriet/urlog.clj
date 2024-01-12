@@ -24,7 +24,8 @@
     [(str doors-dir "door1/")
      (str doors-dir "door2/")
      (str doors-dir "door3/")
-     (str doors-dir "door4/")]))
+     (str doors-dir "door4/")
+     (str doors-dir "door5/")]))
 
 (defn rand-door [url]
   (door (rand-nth door-paths) url))
