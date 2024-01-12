@@ -46,7 +46,7 @@
 (comment
   (def urls-edn
     (let [urls (parse-urlfile (slurp urlfile-path))
-          slugs (map (partial str "urlog-") (range))]
+          slugs (map (partial str "urlog-") (map inc (range)))]
       {:urlog/docs
        (into []
              (map (fn [url slug]
@@ -57,8 +57,7 @@
 
   (spit "text/urlog3/urls.edn"
         (binding [*print-namespace-maps* false]
-          (with-out-str (clojure.pprint/pprint urls-edn))))
-  )
+          (with-out-str (clojure.pprint/pprint urls-edn)))))
 
 (comment
   (reverse (parse-urlfile (slurp urlfile-path))))

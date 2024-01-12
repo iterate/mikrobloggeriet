@@ -1,152 +1,152 @@
 {:urlog/docs
- [{:doc/slug "urlog-0",
+ [{:doc/slug "urlog-1",
    :urlog/url "https://www.my90stv.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-1",
+  {:doc/slug "urlog-2",
    :urlog/url "https://bezier.method.ac/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-2",
+  {:doc/slug "urlog-3",
    :urlog/url "https://grids.obys.agency/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-3",
+  {:doc/slug "urlog-4",
    :urlog/url "https://www.accessguide.io/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-4",
+  {:doc/slug "urlog-5",
    :urlog/url "http://astronaut.io/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-5",
+  {:doc/slug "urlog-6",
    :urlog/url "https://www.designsystemsforfigma.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-6",
+  {:doc/slug "urlog-7",
    :urlog/url "https://fockups.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-7",
+  {:doc/slug "urlog-8",
    :urlog/url "https://typescale.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-8",
+  {:doc/slug "urlog-9",
    :urlog/url "https://radio.garden/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-9",
+  {:doc/slug "urlog-10",
    :urlog/url "https://figmalion.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-10",
+  {:doc/slug "urlog-11",
    :urlog/url "https://unwrapyourface.tumblr.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-11",
+  {:doc/slug "urlog-12",
    :urlog/url "https://lines.chromeexperiments.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-12",
+  {:doc/slug "urlog-13",
    :urlog/url "https://calmtech.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-13",
+  {:doc/slug "urlog-14",
    :urlog/url "https://www.unmade.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-14",
+  {:doc/slug "urlog-15",
    :urlog/url "https://bjango.com/articles/designtoolcanvashandles/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-15",
+  {:doc/slug "urlog-16",
    :urlog/url "https://studiomoniker.com/projects",
    :urlog/tags #{}}
-  {:doc/slug "urlog-16",
+  {:doc/slug "urlog-17",
    :urlog/url "https://type.method.ac/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-17",
+  {:doc/slug "urlog-18",
    :urlog/url "https://index.kitasenju.design/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-18",
+  {:doc/slug "urlog-19",
    :urlog/url "https://scanwiches.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-19",
+  {:doc/slug "urlog-20",
    :urlog/url "https://www.window-swap.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-20",
+  {:doc/slug "urlog-21",
    :urlog/url "https://yhsong.com/index.html#home",
    :urlog/tags #{}}
-  {:doc/slug "urlog-21",
+  {:doc/slug "urlog-22",
    :urlog/url "https://flagstories.co/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-22",
+  {:doc/slug "urlog-23",
    :urlog/url "https://www.modernillustration.org/archive",
    :urlog/tags #{}}
-  {:doc/slug "urlog-23",
+  {:doc/slug "urlog-24",
    :urlog/url "https://instorier.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-24",
+  {:doc/slug "urlog-25",
    :urlog/url "https://www.schultzschultz.com/tools.html",
    :urlog/tags #{}}
-  {:doc/slug "urlog-25",
+  {:doc/slug "urlog-26",
    :urlog/url
    "https://apps.apple.com/us/app/hidden-bar/id1452453066?mt=12",
    :urlog/tags #{}}
-  {:doc/slug "urlog-26",
+  {:doc/slug "urlog-27",
    :urlog/url "https://a.singlediv.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-27",
+  {:doc/slug "urlog-28",
    :urlog/url "http://onemillionlols.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-28", :urlog/url "https://fig.io/", :urlog/tags #{}}
-  {:doc/slug "urlog-29",
+  {:doc/slug "urlog-29", :urlog/url "https://fig.io/", :urlog/tags #{}}
+  {:doc/slug "urlog-30",
    :urlog/url "http://patternindex.org/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-30",
+  {:doc/slug "urlog-31",
    :urlog/url "https://temper.one/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-31",
+  {:doc/slug "urlog-32",
    :urlog/url "https://animate.style/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-32",
+  {:doc/slug "urlog-33",
    :urlog/url "https://getwaves.io/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-33",
+  {:doc/slug "urlog-34",
    :urlog/url "https://clickclickclick.click/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-34",
+  {:doc/slug "urlog-35",
    :urlog/url "https://yizzle.com/whatthehex/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-35",
+  {:doc/slug "urlog-36",
    :urlog/url "https://sarthology.github.io/Animatopy/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-36",
+  {:doc/slug "urlog-37",
    :urlog/url "https://theuselessweb.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-37",
+  {:doc/slug "urlog-38",
    :urlog/url "https://www.blobmaker.app/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-38",
+  {:doc/slug "urlog-39",
    :urlog/url "https://www.watching-grass-grow.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-39",
+  {:doc/slug "urlog-40",
    :urlog/url "https://fakeflag.net/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-40",
+  {:doc/slug "urlog-41",
    :urlog/url "https://play.ertdfgcvb.xyz/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-41",
+  {:doc/slug "urlog-42",
    :urlog/url "https://randoma11y.com/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-42",
+  {:doc/slug "urlog-43",
    :urlog/url "https://www.figma.com/blog/the-birth-of-inter/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-43",
+  {:doc/slug "urlog-44",
    :urlog/url "http://thomas-mayer.de/portfolio/table-tennis-trainer",
    :urlog/tags #{}}
-  {:doc/slug "urlog-44",
+  {:doc/slug "urlog-45",
    :urlog/url "https://madebyfieldwork.com/projects/mavis/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-45",
+  {:doc/slug "urlog-46",
    :urlog/url
    "https://www.dezeen.com/2013/08/20/stack-printer-on-pile-of-paper-by-mugi-yamamoto/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-46",
+  {:doc/slug "urlog-47",
    :urlog/url "https://appleadjectiv.es/",
    :urlog/tags #{}}
-  {:doc/slug "urlog-47",
+  {:doc/slug "urlog-48",
    :urlog/url "http://www.flagsmithfont.com/index.html",
    :urlog/tags #{}}
-  {:doc/slug "urlog-48",
+  {:doc/slug "urlog-49",
    :urlog/url
    "https://hihayk.github.io/scale/#4/6/50/80/-51/67/20/14/1D9A6C/29/154/108/white",
    :urlog/tags #{}}
-  {:doc/slug "urlog-49",
+  {:doc/slug "urlog-50",
    :urlog/url "https://www.bedow.se/",
    :urlog/tags #{}}]}
