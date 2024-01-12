@@ -12,20 +12,19 @@ help() {
 }
 
 create() {
-    if [ $# -gt 1 ]; then
-        withusage fail 'too many arguments\n'
-    fi
+    [ $# -eq 1 ] || withusage fail 'too many arguments\n'
     path="${1%/}" # remove any trailing /
-    if ! [ -d "$path" ]; then
-        withusage fail 'cohort "%s" not found\n' "$1"
-    fi
+    [ -d "$path" ] || withusage fail 'cohort "%s" not found\n' "$1"
+
     IFS=- read -r name last <<-EOF
 		$(find "$path" -type d -name '*[0-9]' -prune -print \
             | sed 's,.*/,,' | sort -t - -k 2 -n | tail -n1)
 	EOF
     [ -n "$name" ] || name=$(basename "$path")
     next=$(( ${last:-0} + 1 ))
+
     dir="$path/$name-$next"
+
     dryrun mkdir "$dir"
     mdfile | tofile "$dir/index.md"
     ednfile \
@@ -33,6 +32,7 @@ create() {
         "$(uuid4)" \
         "$(git config user.email)" \
         | tofile "$dir/meta.edn"
+
     [ -n "$DRYRUN" ] || printf 'created %s\n'  "$dir/index.md"
     [ -n "$DRYRUN" ] || [ -z "$EDITOR" ] || "$EDITOR" "$dir/index.md"
 }
