@@ -343,6 +343,17 @@ edit files from a terminal. For example:")
            (map command-transform)
            execute!))))
 
+(defn parse-urlogtsv [s]
+  (let [[header & body] (->> (str/split-lines s)
+                             (map #(str/split % #"\t")))
+        header (map edn/read-string header)]
+    (map (fn [row-cells]
+           (zipmap header row-cells))
+         body)))
+
+(defn mblog-nenobatch [_opts+args]
+  (pprint (parse-urlogtsv (slurp *in*))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Subcommand table
 ;;
@@ -353,6 +364,7 @@ edit files from a terminal. For example:")
   [{:cmds ["help"] :fn mblog-help}
    {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
    {:cmds ["create"] :fn mblog-create :args->opts [:property :value]}
+   {:cmds ["nenobatch"] :fn mblog-nenobatch }
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]

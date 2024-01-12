@@ -1,0 +1,15 @@
+({:doc/slug "olorm-1",
+  :git.user/email "lars@iterate.no",
+  :doc/created "2023-01-01",
+  :doc/uuid "uuid1",
+  :urlog/url "olav.no"}
+ {:doc/slug "olorm-2",
+  :git.user/email "olav@iterate.no",
+  :doc/created "2023-01-01",
+  :doc/uuid "uuid2",
+  :urlog/url "teod.eu"})
+
+(
+ {:doc/slug "olorm-1", :urlog/url "olav.no" :urlog/tags #{:ui :ux :dev}}
+ {:doc/slug "olorm-2", :urlog/url "teod.eu" :urlog/tags #{:fantasy}}
+ )
