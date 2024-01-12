@@ -116,6 +116,7 @@ test() {
     echo OK
 }
 
+# shellcheck disable=SC2086 # integers only
 seq() { # [first] last
     last=${2:-$1}
     if [ $# -gt 1 ]; then i=$1; else i=1; fi
