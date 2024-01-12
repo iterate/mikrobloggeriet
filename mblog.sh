@@ -84,9 +84,7 @@ fail() {
 
 withusage() {
     rc=0
-    if ! "$@"; then
-        rc=$?
-    fi
+    "$@" || rc=$?
     help
     return $rc
 }
