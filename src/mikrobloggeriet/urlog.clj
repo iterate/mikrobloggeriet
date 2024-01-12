@@ -4,178 +4,30 @@
    [clojure.string :as str]))
 
 (defn logo []
-  [:p {:class "logo"}
-   "&nbsp;_&nbsp;&nbsp;&nbsp;_ ____&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;____ <br>
-    | | | |&nbsp;&nbsp;_ \\| |&nbsp;&nbsp;&nbsp;/ _ \\ / ___|<br>
-    | | | | |_) | |&nbsp;&nbsp;| | | | |&nbsp;&nbsp;_ <br>
-    | |_| |&nbsp;&nbsp;_ <| |__| |_| | |_| |<br>
-    &nbsp;\\___/|_| \\_\\_____\\___/ \\____|<br>"])
+  [:pre {:class :logo}
+   (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")])
 
-(defn door-1 [url]
-  [:div {:class "component"}
-   [:p "|____|____|____|____|____|____|____"]
-   [:div {:class "wall"}
-    [:p "__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>___|____<br>__|____|_"]
-    [:a {:href url :class "door"}
-     [:p {:class "closed"}
-      "&nbsp;__|____|____|__<br>
-      |\\ ___________ /|<br>
-      | |&nbsp;&nbsp;_______&nbsp;&nbsp;| |<br>
-      | | |___|___| | |<br>
-      | | |___x___| | |<br>
-      | | |___x___| | |<br>
-      | | |___|___| | |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;[___] ()| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-      |_|___________|_|"]
-     [:p {:class "open"}
-      "
-      &nbsp;__|____|____|__<br>
-      |\\ ___________ /|<br>
-      | |&nbsp;&nbsp;/|,| |&nbsp;&nbsp;&nbsp;| |<br>
-      | | |,x,| |&nbsp;&nbsp;&nbsp;| |<br>
-      | | |,x,' |&nbsp;&nbsp;&nbsp;| |<br>
-      | | |,|&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;| |<br>
-      | | |/&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;/]()&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;[/ &nbsp;|&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,'&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;,'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-      |_|,'_________|_|"]]
-    [:p "__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>___|____<br>__|____|_"]]])
+(defn door [door-path url]
+  [:div {:class :wall}
+   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]
+   [:div {:class :component}
+    [:pre "_|____|____|____|"]
+    [:a {:href url :class :door}
+     [:pre {:class :closed}
+      (slurp (str door-path "closed.txt"))]
+     [:pre {:class :open}
+      (slurp (str door-path "open.txt"))]]]
+   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
 
-(defn door-2 [url]
-  [:div {:class "component"}
-   [:p "|____|____|____|____|____|____|___"]
-   [:div {:class "wall"}
-    [:p "_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__"]
-    [:a {:href url :class "door"}
-     [:p {:class "closed"}
-      "&nbsp;__|____|____|__<br>
-      |\\ __________ /|<br>
-      | |&nbsp;&nbsp;__&nbsp;&nbsp;__&nbsp;&nbsp;| |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |__||__| | |<br>
-      | |&nbsp;&nbsp;__&nbsp;&nbsp;__()| |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |&nbsp;&nbsp;||&nbsp;&nbsp;| | |<br>
-      | | |__||__| | |<br>
-      |_|__________|_|"]
-     [:p {:class "open"}
-      "&nbsp;__|____|____|__<br>
-    |\\ __________ /|<br>
-    | |&nbsp;&nbsp;,|| ||&nbsp;&nbsp;| |<br>
-    | | | || ||&nbsp;&nbsp;| |<br>
-    | | | || ||&nbsp;&nbsp;| |<br>
-    | | | || ||&nbsp;&nbsp;| |<br>
-    | | | ||/ |&nbsp;&nbsp;| |<br>
-    | | |/&nbsp;&nbsp;, () | |<br>
-    | |&nbsp;&nbsp;, | ||&nbsp;&nbsp;| |<br>
-    | | | || ||&nbsp;&nbsp;| |<br>
-    | | | || ||&nbsp;&nbsp;| |<br>
-    | | | ||/ |&nbsp;&nbsp;| |<br>
-    | | |/&nbsp;&nbsp;&nbsp;,'&nbsp;&nbsp;| |<br>
-    | |&nbsp;&nbsp;&nbsp;,'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |<br>
-    |_|,'________|_|"]]
-    [:p "__|____|__<br>____|_____<br>__|____|__<br>____|_____<br>__|____|__<br>____|_____<br>__|____|__<br>____|_____<br>__|____|__<br>____|_____<br>__|____|__<br>____|_____<br>__|____|__<br>____|_____<br>__|____|__"]]])
-
-(defn door-3 [url]
-  [:div {:class "component"}
-   [:p "|____|____|____|____|____|____|___"]
-   [:div {:class "wall"}
-    [:p "_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__<br>___|____<br>_|____|__"]
-    [:a {:href url :class "door"}
-     [:p {:class "closed"}
-      "__|____|____|_____<br> 
-      |_,-''______&lsquo;&lsquo;-.|_<br>
-       _/,-'&nbsp;&nbsp;;&nbsp;&nbsp;! &lsquo;-.,\\_<br>
-       //&nbsp;&nbsp;:&nbsp;&nbsp;!&nbsp;&nbsp;:&nbsp;&nbsp;.&nbsp;&nbsp;\\\\<br>
-       ||&nbsp;&nbsp;:&nbsp;&nbsp;:&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||<br>
-       ||_ ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;;&nbsp;&nbsp;||<br>
-       ()| .&nbsp;&nbsp;:&nbsp;&nbsp;.&nbsp;&nbsp;!&nbsp;&nbsp;||<br>
-       ||&rdquo;&nbsp;&nbsp;&nbsp;&nbsp;(##)&nbsp;&nbsp;_&nbsp;&nbsp;||<br>
-       ||&nbsp;&nbsp;:&nbsp;&nbsp;;&lsquo;&lsquo;'&nbsp;(_) (|<br>
-       ||&nbsp;&nbsp;:&nbsp;&nbsp;:&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||<br>
-       ()_ !&nbsp;&nbsp;,&nbsp;&nbsp;;&nbsp;&nbsp;;&nbsp;&nbsp;||<br>
-       ||| .&nbsp;&nbsp;.&nbsp;&nbsp;:&nbsp;&nbsp;:&nbsp;&nbsp;||<br>
-       ||&rdquo; .&nbsp;&nbsp;:&nbsp;&nbsp;:&nbsp;&nbsp;.&nbsp;&nbsp;||<br>
-       ||&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;&nbsp;:&nbsp;&nbsp;:&nbsp;&nbsp;||<br>
-       ||____;----.____||"]
-     [:p {:class "open"}
-      "__|____|____|_____<br>
-         |_,-‘’&lsquo;-.&nbsp;&nbsp;&nbsp;&lsquo;&lsquo;-.|_<br>
-        _//&nbsp;&nbsp;! :.\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\_<br>
-       // : : .&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\<br>
-       || :&nbsp;&nbsp;&nbsp;&nbsp;; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       ||_; : .! |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       ()|.&nbsp;&nbsp;{}&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       ||&rdquo;&nbsp;&nbsp;;&lsquo;'()(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       || : : . ;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       || : , : :|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       ()_! . : .|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       |||. : .&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       ||&rdquo;: . _.,’&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       ||&nbsp;&nbsp;&nbsp;,´&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
-       ||,’’____________|"]]
-    [:p "_|____|_<br>___|____<br>_|____|_<br>___|____<br>_|____|_<br>___|____<br>_|____|_<br>___|____<br>_|____|_<br>___|____<br>_|____|_<br>___|____<br>_|____|_<br>___|____<br>_|____|_"]]])
-
-(defn door-4 [url]
-  [:div {:class "component"}
-   [:p "|____|____|____|____|____|____|____"]
-   [:div {:class "wall"}
-    [:p "__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>____|____<br>__|____|_<br>___|____<br>__|____|_"]
-    [:a {:href url :class "door"}
-     [:p {:class "closed"}
-      "&nbsp;__|____|____|__<br>
-      |\\\\___________ //<br>
-      | \\\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//|<br>
-      | |\\\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// |<br>
-      | | \\\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//| |<br>
-      | |&nbsp;&nbsp;\\\\&nbsp;&nbsp;&nbsp;&nbsp;// | |<br>
-      | |&nbsp;&nbsp;&nbsp;\\\\&nbsp;&nbsp;//&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;\\\\//&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\\\&nbsp;&nbsp;()| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;//\\\\&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;\\\\&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;&nbsp;\\\\ | |<br>
-      | | //&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\\\| |<br>
-      | |//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\\\ |<br>
-      |_//__________\\\\|"]
-     [:p {:class "open"}
-      "&nbsp;__|____|____|__<br>
-      |\\\\___________ //<br>
-      | \\\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;//|<br>
-      | |\\\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;// |<br>
-      | | \\\\&nbsp;&nbsp;&nbsp;&nbsp;| //| |<br>
-      | |&nbsp;&nbsp;\\\\&nbsp;&nbsp;&nbsp;|// | |<br>
-      | |&nbsp;&nbsp;&nbsp;\\\\&nbsp;&nbsp;//&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;\\\\//&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\\\|&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;&nbsp;//\\\\&nbsp;&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;\\\\&nbsp;&nbsp;| |<br>
-      | |&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;|\\\\ | |<br>
-      | | //&nbsp;&nbsp;,'&nbsp;&nbsp;\\\\| |<br>
-      | |//,'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\\\ |<br>
-      |_//__________\\\\|"]]
-    [:p "_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__<br>___|_____<br>_|____|__"]]])
-
-(def doors [door-1 door-2 door-3 door-4])
+(def door-paths
+  (let [doors-dir "src/mikrobloggeriet/urlog_assets/doors/"]
+    [(str doors-dir "door1/")
+     (str doors-dir "door2/")
+     (str doors-dir "door3/")
+     (str doors-dir "door4/")]))
 
 (defn rand-door [url]
-  ((rand-nth doors) url))
+  (door (rand-nth door-paths) url))
 
 (def urlfile-path "text/urlog3/urls.txt")
 (defn parse-urlfile
@@ -205,12 +57,13 @@
 (defn urlogs [_req]
   (page/html5
    [:head
+    (page/include-css "/mikrobloggeriet.css")
     (page/include-css "/urlog.css")]
    [:body
-    ;; [:p
-    ;;  (feeling-lucky "🎲")
-    ;;  " — "
-    ;;  [:a {:href "/"} "mikrobloggeriet"]]
+    [:p
+     (feeling-lucky "🎲")
+     " — "
+     [:a {:href "/"} "mikrobloggeriet"]]
     [:header
      (-> (logo))
      [:p {:class "intro"}
