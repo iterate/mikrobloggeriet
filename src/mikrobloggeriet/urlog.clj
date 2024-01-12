@@ -30,7 +30,7 @@
 (defn rand-door [url]
   (door (rand-nth door-paths) url))
 
-(def urlfile-path "text/urlog3/urls.txt")
+(def urlfile-path "text/urlog/urls.txt")
 (defn parse-urlfile
   "Parse an urlfile into a vector of urls (strings).
 
@@ -70,6 +70,8 @@
 
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
+
+
 
 (defn urlogs [_req]
   (page/html5
