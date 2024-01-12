@@ -56,7 +56,8 @@
                   urls slugs))}))
 
   (spit "text/urlog3/urls.edn"
-        (with-out-str (clojure.pprint/pprint urls-edn)))
+        (binding [*print-namespace-maps* false]
+          (with-out-str (clojure.pprint/pprint urls-edn))))
   )
 
 (comment
