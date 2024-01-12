@@ -47,12 +47,13 @@
   (def urls-edn
     (let [urls (parse-urlfile (slurp urlfile-path))
           slugs (map (partial str "urlog-") (range))]
-      (into []
-            (map (fn [url slug]
-                   {:doc/slug slug
-                    :urlog/url url
-                    :urlog/tags #{}})
-                 urls slugs))))
+      {:urlog/docs
+       (into []
+             (map (fn [url slug]
+                    {:doc/slug slug
+                     :urlog/url url
+                     :urlog/tags #{}})
+                  urls slugs))}))
 
   (spit "text/urlog3/urls.edn"
         (with-out-str (clojure.pprint/pprint urls-edn)))
