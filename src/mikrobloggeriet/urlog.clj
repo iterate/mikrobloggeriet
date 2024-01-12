@@ -2,7 +2,8 @@
   (:require
    [hiccup.page :as page]
    [clojure.string :as str]
-   [clojure.edn :as edn]))
+   [clojure.edn :as edn]
+   [babashka.fs :as fs]))
 
 (defn logo []
   [:pre {:class :logo}
@@ -15,19 +16,23 @@
     [:pre "_|____|____|____|"]
     [:a {:href url :class :door}
      [:pre {:class :closed}
-      (slurp (str door-path "closed.txt"))]
+      (slurp (str door-path "/closed.txt"))]
      [:pre {:class :open}
-      (slurp (str door-path "open.txt"))]]]
+      (slurp (str door-path "/open.txt"))]]]
    [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
 
 (def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
 
+(->> (fs/list-dir doors-dir)
+     (map str)
+     (sort))
+
+(map str (sort (fs/list-dir doors-dir)))
+
 (def door-paths
-  [(str doors-dir "door1/")
-   (str doors-dir "door2/")
-   (str doors-dir "door3/")
-   (str doors-dir "door4/")
-   (str doors-dir "door5/")])
+  (->> (fs/list-dir doors-dir)
+       (map str)
+       (sort)))
 
 (defn rand-door [url]
   (door (rand-nth door-paths) url))
