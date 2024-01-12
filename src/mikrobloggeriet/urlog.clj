@@ -1,111 +1,73 @@
-(ns
- ^{:doc "https://mikrobloggeriet.no/urlog/
-
-Neno deler lenker --- og ønsker mer kontroll på utseende enn det han får ut
-av boksen med mikrobloggeriet.
-
-Trekker dette ut i et eget navnerom for å gjøre det lettere for Neno å
-fokusere på det som er relevant for Neno, og gjøre koden i
-`mikrobloggeriet.serve` mer lesbar. Det reduserer også risiko for at
-urlog-eksperimentering brekker resten av mikrobloggeriet.
-"}
- mikrobloggeriet.urlog
+(ns mikrobloggeriet.urlog
   (:require
    [hiccup.page :as page]
-   [mikrobloggeriet.cache :as cache]
-   [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]
-   [mikrobloggeriet.pandoc :as pandoc]
-   [mikrobloggeriet.store :as store]
-   [ring.middleware.cookies :as cookies]))
+   [clojure.string :as str]))
 
-(defn feeling-lucky [content]
-  [:a {:href "/random-doc" :class :feeling-lucky} content])
+(defn logo []
+  [:pre {:class :logo}
+   (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")])
 
-(defn urlogs
-  "Display urlogs to Neno's liking (hopefully)"
-  [_req]
-  (page/html5
-   [:head (page/include-css "/urlog.css")]
-   [:body
-    [:p [:a {:href "/random-doc" :class :feeling-lucky} "🎄"]]
-    [:main
-     [:p
-      (let [cohort store/urlog]
-        (interpose " · "
-                   (for [doc (->> (store/docs cohort)
-                                  (map (fn [doc] (store/load-meta cohort doc)))
-                                  (remove doc-meta/draft?))]
-                     [:a {:href (store/doc-href cohort doc)} "🚪"])))]]]))
+(defn door [door-path url]
+  [:div {:class :wall}
+   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]
+   [:div {:class :component}
+    [:pre "_|____|____|____|"]
+    [:a {:href url :class :door}
+     [:pre {:class :closed}
+      (slurp (str door-path "closed.txt"))]
+     [:pre {:class :open}
+      (slurp (str door-path "open.txt"))]]]
+   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
 
-(defn html-header
-  "Shared HTML, including CSS.
-  Handles CSS theming system with cookies."
-  [req]
-  [[:meta {:charset "utf-8"}]
-   [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-   (hiccup.page/include-css "/vanilla.css")
-   (hiccup.page/include-css "/mikrobloggeriet.css")
-   (let [theme (get-in (cookies/cookies-request req)
-                       [:cookies "theme" :value]
-                       "christmas")]
-     (hiccup.page/include-css (str "/theme/" theme ".css")))
-   (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
-         number (rand-nth (range 4))]
-     (when (= theme "iterate")
-       [:style {:type "text/css"}
-        (str ":root{ --text-color: var(--iterate-base0" number ")}")]))])
+(def door-paths
+  (let [doors-dir "src/mikrobloggeriet/urlog_assets/doors/"]
+    [(str doors-dir "door1/")
+     (str doors-dir "door2/")
+     (str doors-dir "door3/")
+     (str doors-dir "door4/")
+     (str doors-dir "door5/")]))
 
-(def markdown->html+info
-  (cache/cache-fn-by (fn markdown->html+info [markdown]
-                       (let [pandoc (pandoc/from-markdown markdown)]
-                         {:doc-html (pandoc/to-html pandoc)
-                          :title (pandoc/infer-title pandoc)}))
-                     identity))
+(defn rand-door [url]
+  (door (rand-nth door-paths) url))
 
-(defn doc
-  [req cohort]
-  (when (:slug (:route-params req))
-    (let [doc (doc/from-slug (:slug (:route-params req)))
-          {:keys [title doc-html]}
-          (when (store/doc-exists? cohort doc)
-            (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
-      {:status 200
-       :body
-       (page/html5
-        (into [:head] (concat (when title [[:title title]])
-                              (html-header req)))
-        [:body
-         [:p (feeling-lucky "🎄")
-          " — "
-          [:a {:href "/"} "mikrobloggeriet"]
-          " "
-          [:a {:href (str "/" (cohort/slug cohort) "/")}
-           (cohort/slug cohort)]
-          " — "
-          [:span (let [previouse-number (dec (doc/number doc))
-                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
-                   (when (store/doc-exists? cohort prev)
-                     [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
-          [:span (:doc/slug doc)]
-          [:span (let [previouse-number (inc (doc/number doc))
-                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
-                   (when (store/doc-exists? cohort prev)
-                     [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]))]]
-         doc-html])})))
+(def urlfile-path "text/urlog3/urls.txt")
+(defn parse-urlfile
+  "Parse an urlfile into a vector of urls (strings).
+
+  - Empty lines are ignored
+  - Lines starting with # or whitespace then # are treated as comments
+"
+  [s]
+  (->> (str/split-lines (str/trim s))
+       (map str/trim)
+       (remove str/blank?)
+       (remove #(str/starts-with? % "#"))))
+
+(comment
+  (reverse (parse-urlfile (slurp urlfile-path))))
 
 (defn index-section [_req slug]
   [:section
    [:h2 "URLOG"]
    [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-   [:p [:a {:href slug} "Gå inn i huset –> 🏨"]]
+   [:p [:a {:href slug} "Gå inn i huset –> 🏨"]]])
 
-   (comment
-     [:p
-      (let [cohort store/urlog]
-        (interpose " · "
-                   (for [doc (->> (store/docs cohort)
-                                  (map (fn [doc] (store/load-meta cohort doc)))
-                                  (remove doc-meta/draft?))]
-                     [:a {:href (store/doc-href cohort doc)} "🚪"])))])])
+(defn feeling-lucky [content]
+  [:a {:href "/random-doc" :class :feeling-lucky} content])
+
+(defn urlogs [_req]
+  (page/html5
+   [:head
+    (page/include-css "/mikrobloggeriet.css")
+    (page/include-css "/urlog.css")]
+   [:body
+    [:p
+     (feeling-lucky "🎲")
+     " — "
+     [:a {:href "/"} "mikrobloggeriet"]]
+    [:header
+     (-> (logo))
+     [:p {:class "intro"}
+      "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
+    [:div {:class "all-doors"}
+     (for [url (reverse (parse-urlfile (slurp urlfile-path)))] (-> (rand-door url)))]]))

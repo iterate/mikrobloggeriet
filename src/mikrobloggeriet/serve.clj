@@ -15,9 +15,6 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.urlog :as urlog]
-   [mikrobloggeriet.urlog2 :as urlog2]
-   [mikrobloggeriet.urlog3 :as urlog3]
-   [mikrobloggeriet.urlog4 :as urlog4]
    [org.httpkit.server :as httpkit]
    [ring.middleware.cookies :as cookies]))
 
@@ -290,9 +287,6 @@
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
   (GET "/urlog.css" _req (css-response "urlog.css")) ;; NENO STUFF
-  (GET "/urlog4.css" _req (css-response "urlog4.css"))
-  (GET "src/mikrobloggeriet/urlog.js" _req (js-response "urlog.js"))
-
   ;; THEMES AND FEATURE FLAGGING
   (GET "/set-theme/:theme" req (set-theme req))
   (GET "/set-flag/:flag" req (set-flag req))
@@ -331,13 +325,9 @@
   (GET "/luke/:slug/" req (doc req store/luke))
 
   ;; NENO
-  (GET "/urlog/" req (urlog4/urlogs req))
-  (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
-
-  ;; NENO 2
-  (GET "/urlog2/" req (urlog2/urlogs req))
-  (GET "/urlog3/" req (urlog3/urlogs req))
-  (GET "/urlog4/" req (urlog4/urlogs req)))
+  (GET "/urlog/" req (urlog/urlogs req))
+  ;; (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
+  )
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})

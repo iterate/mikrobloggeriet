@@ -1,3 +1,103 @@
-main p {
-    font-size: 10vw;
+body {
+    margin: 1vh 0 10vh 0;
+    padding: 0;
+
+    @media only screen and (max-width: 600px) {
+        margin: 0;
+    }
+}
+
+header {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: auto 10vw;
+}
+
+.logo {
+    width: 30ch;
+    margin: auto;
+    font-size: 16px;
+}
+
+.intro {
+    margin: 2vh auto;
+    text-align: center;
+    line-height: 1.5;
+    max-width: 60ch;
+}
+
+.all-doors {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+
+    @media only screen and (max-width: 600px) {
+        max-width: 35ch;
+        margin: auto;
+    }
+}
+
+
+.component {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+p,
+pre {
+    font-family: monospace;
+    margin: 0;
+    font-size: 16px;
+}
+
+
+a {
+    text-decoration: none;
+    cursor: alias;
+    font-size: 16px;
+}
+
+a:visited {
+    color: black;
+}
+
+
+.wall {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+}
+
+.closed {
+    display: block;
+}
+
+.open {
+    display: none;
+}
+
+.door {
+    display: inline-block;
+}
+
+.door:hover .closed {
+    display: none;
+}
+
+.door:active .closed {
+    display: none;
+}
+
+.door:hover .open {
+    display: block;
+}
+
+.door:active .open {
+    display: block;
 }
