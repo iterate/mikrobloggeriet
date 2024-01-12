@@ -27,17 +27,18 @@ create() {
     next=$(( ${last:-0} + 1 ))
     dir="$path/$name-$next"
     dryrun mkdir "$dir"
-    dryrun mdfile "$dir/index.md"
-    dryrun ednfile "$dir/meta.edn" \
+    mdfile | tofile "$dir/index.md"
+    ednfile \
         "$(date +%Y-%m-%d)" \
         "$(uuid4)" \
-        "$(git config user.email)"
-    printf 'created %s\n'  "$dir/index.md"
-    [ -z "$EDITOR" ] || "$EDITOR" "$dir/index.md"
+        "$(git config user.email)" \
+        | tofile "$dir/meta.edn"
+    [ -n "$DRYRUN" ] || printf 'created %s\n'  "$dir/index.md"
+    [ -n "$DRYRUN" ] || [ -z "$EDITOR" ] || "$EDITOR" "$dir/index.md"
 }
 
 mdfile() {
-    cat <<-EOF >"$1"
+    cat <<-EOF
 		<!-- Hva gjør du akkurat nå? -->
 
 		<!-- Finner du kvalitet i det? -->
@@ -50,10 +51,10 @@ mdfile() {
 }
 
 ednfile() {
-    cat <<-EOF >"$1"
-		{:doc/created "$2",
-		 :doc/uuid "$3",
-		 :git.user/email "$4"}
+    cat <<-EOF
+		{:doc/created "$1",
+		 :doc/uuid "$2",
+		 :git.user/email "$3"}
 	EOF
 }
 
@@ -88,6 +89,16 @@ withusage() {
     fi
     help
     return $rc
+}
+
+
+tofile() {
+    if [ -n "$DRYRUN" ]; then
+        printf '> %s\n' "$1"
+        cat
+    else
+        cat > "$1"
+    fi
 }
 
 dryrun() {
