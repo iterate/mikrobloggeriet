@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+# POSIX Bourne Shell to support as many clients as possible
 
 
 help() {
