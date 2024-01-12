@@ -261,7 +261,11 @@ Supported values for PROPERTY:
   (println)
   (doseq [c subcommands]
     (when-not (::experimental c)
-      (println (str "  " (str/join " " (:cmds c)))))))
+      (let [cmd-helptext-suffix (or (when-let [cmd-helptext (:mblog/cmd-helptext c)]
+                                      (str " " cmd-helptext))
+                                    "")
+            cmd-helptext (str "  " (str/join " " (:cmds c)) cmd-helptext-suffix)]
+        (println cmd-helptext)))))
 
 (defn ^:private configured-properties? [config-keys]
   (every? config-get config-keys))
@@ -351,8 +355,8 @@ edit files from a terminal. For example:")
 
 (def subcommands
   [{:cmds ["help"] :fn mblog-help}
-   {:cmds ["config"] :fn mblog-config :args->opts [:property :value]}
-   {:cmds ["create"] :fn mblog-create}
+   {:cmds ["config"] :fn mblog-config :args->opts [:property :value] :mblog/cmd-helptext "[-h] [PROPERTY [VALUE]]"}
+   {:cmds ["create"] :fn mblog-create :mblog/cmd-helptext "[-h] [--no-git] [--no-edit] [--dry-run]"}
    {:cmds [] :fn mblog-help}])
 
 (defn -main [& args]
