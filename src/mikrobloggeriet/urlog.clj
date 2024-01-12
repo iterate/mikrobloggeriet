@@ -48,7 +48,7 @@
      " — "
      [:a {:href "/"} "mikrobloggeriet"]]
     [:header
-     (-> (logo))
+     (logo)
      [:p {:class "intro"}
       "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
     [:div {:class "all-doors"}
