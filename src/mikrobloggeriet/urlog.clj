@@ -20,13 +20,14 @@
       (slurp (str door-path "open.txt"))]]]
    [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
 
+(def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
+
 (def door-paths
-  (let [doors-dir "src/mikrobloggeriet/urlog_assets/doors/"]
-    [(str doors-dir "door1/")
-     (str doors-dir "door2/")
-     (str doors-dir "door3/")
-     (str doors-dir "door4/")
-     (str doors-dir "door5/")]))
+  [(str doors-dir "door1/")
+   (str doors-dir "door2/")
+   (str doors-dir "door3/")
+   (str doors-dir "door4/")
+   (str doors-dir "door5/")])
 
 (defn rand-door [url]
   (door (rand-nth door-paths) url))
