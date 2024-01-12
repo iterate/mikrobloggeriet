@@ -155,8 +155,10 @@
        (when (= "genai" (flag req))
          (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
 
-       (urlog/index-section req "/urlog/")
-
+       [:section
+        [:h2 "URLOG"]
+        [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
+        [:p [:a {:href "/urlog/"} "Gå inn i huset –> 🏨"]]]
        [:hr]
 
        [:section

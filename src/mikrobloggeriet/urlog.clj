@@ -5,18 +5,18 @@
    [babashka.fs :as fs]
    [mikrobloggeriet.urlog :as urlog]))
 
+;; TO-DO
+;; skille wall-html og door-html som seperate komponenter
+;; dra ut filinnlasting fra fra html komponentene
+;; lage load for å laste inn alle ascii txt assets
+;; splitte i flere navnerom, eks view, store
+
 (def urlogfile-path "text/urlog/urls.edn")
 (def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
 (defn door-paths []
   (->> (fs/list-dir doors-dir)
        (map str)
        (sort)))
-
-(defn index-section [_req slug]
-  [:section
-   [:h2 "URLOG"]
-   [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-   [:p [:a {:href slug} "Gå inn i huset –> 🏨"]]])
 
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
