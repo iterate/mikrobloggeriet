@@ -13,7 +13,8 @@ help() {
 }
 
 create() {
-    [ $# -eq 1 ] || withusage fail 'too many arguments\n'
+    [ $# -gt 0 ] || withusage fail 'too few arguments\n'
+    [ $# -lt 2 ] || withusage fail 'too many arguments\n'
     path="${1%/}" # remove any trailing /
     [ -d "$path" ] || withusage fail 'cohort "%s" not found\n' "$1"
 
