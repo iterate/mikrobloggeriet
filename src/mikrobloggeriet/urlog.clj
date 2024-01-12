@@ -1,7 +1,8 @@
 (ns mikrobloggeriet.urlog
   (:require
    [hiccup.page :as page]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [clojure.edn :as edn]))
 
 (defn logo []
   [:pre {:class :logo}
@@ -43,6 +44,12 @@
        (remove str/blank?)
        (remove #(str/starts-with? % "#"))))
 
+(def urlogfile-path "text/urlog/urls.edn")
+
+(comment
+  (->> (:urlog/docs (edn/read-string (slurp urlogfile-path)))
+       (map :urlog/url)))
+
 (comment
   (def urls-edn
     (let [urls (parse-urlfile (slurp urlfile-path))
@@ -71,8 +78,6 @@
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
 
-
-
 (defn urlogs [_req]
   (page/html5
    [:head
@@ -88,4 +93,5 @@
      [:p {:class "intro"}
       "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
     [:div {:class "all-doors"}
-     (for [url (reverse (parse-urlfile (slurp urlfile-path)))] (-> (rand-door url)))]]))
+     (for [doc (reverse (:urlog/docs (edn/read-string (slurp urlogfile-path))))]
+       (-> (rand-door (:urlog/url doc))))]]))
