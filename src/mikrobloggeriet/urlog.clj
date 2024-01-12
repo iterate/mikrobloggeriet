@@ -4,11 +4,29 @@
    [clojure.edn :as edn]
    [babashka.fs :as fs]))
 
+(def urlogfile-path "text/urlog/urls.edn")
+(def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
+(defn door-paths []
+  (->> (fs/list-dir doors-dir)
+       (map str)
+       (sort)))
+
+(defn index-section [_req slug]
+  [:section
+   [:h2 "URLOG"]
+   [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
+   [:p [:a {:href slug} "Gå inn i huset –> 🏨"]]])
+
+(defn feeling-lucky [content]
+  [:a {:href "/random-doc" :class :feeling-lucky} content])
+
 (defn logo []
   [:pre {:class :logo}
    (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")])
 
-(defn door [door-path url]
+
+
+(defn door-path+url->html [door-path url]
   [:div {:class :wall}
    [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]
    [:div {:class :component}
@@ -19,27 +37,6 @@
      [:pre {:class :open}
       (slurp (str door-path "/open.txt"))]]]
    [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
-
-(def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
-
-(def door-paths
-  (->> (fs/list-dir doors-dir)
-       (map str)
-       (sort)))
-
-(defn rand-door [url]
-  (door (rand-nth door-paths) url))
-
-(def urlogfile-path "text/urlog/urls.edn")
-
-(defn index-section [_req slug]
-  [:section
-   [:h2 "URLOG"]
-   [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-   [:p [:a {:href slug} "Gå inn i huset –> 🏨"]]])
-
-(defn feeling-lucky [content]
-  [:a {:href "/random-doc" :class :feeling-lucky} content])
 
 (defn urlogs [_req]
   (page/html5
@@ -57,4 +54,6 @@
       "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
     [:div {:class "all-doors"}
      (for [doc (reverse (:urlog/docs (edn/read-string (slurp urlogfile-path))))]
-       (-> (rand-door (:urlog/url doc))))]]))
+       (let [door-path (rand-nth (door-paths))
+             url (:urlog/url doc)]
+         (door-path+url->html door-path url)))]]))
