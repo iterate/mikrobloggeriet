@@ -6,9 +6,9 @@
    [mikrobloggeriet.urlog :as urlog]))
 
 ;; TO-DO
-;; skille wall-html og door-html som seperate komponenter
-;; dra ut filinnlasting fra fra html komponentene
-;; lage load for å laste inn alle ascii txt assets
+;; rename komponenter slik at de gir mening
+;; rydde i css-filen, spesielt rundt "wall" klassen
+;; rydde opp i page, spesielt rundt random og reverse logikken
 ;; splitte i flere navnerom, eks view, store
 
 (def urlogfile-path "text/urlog/urls.edn")
