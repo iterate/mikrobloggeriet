@@ -25,6 +25,37 @@
   [:pre {:class :logo}
    (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")])
 
+(def load-ascii
+  {:logo (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")
+   :wall (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")
+   :doors (map (fn [n] {:closed (slurp (str n "/closed.txt"))
+                        :open (slurp (str n "/open.txt"))}) (door-paths))})
+
+(defn door+url->html [closed open url]
+  [:div {:class :wall}
+   [:div {:class :component}
+    [:pre "_|____|____|____|"]
+    [:a {:href url :class :door}
+     [:pre {:class :closed}
+      closed]
+     [:pre {:class :open}
+      open]]]])
+
+(defn wall->html [wall]
+  [:div {:class :wall}
+   [:pre wall]])
+
+(defn logo->html [logo]
+  [:pre {:class :logo}
+   logo])
+
+(comment
+  (logo->html (:logo load-ascii))
+  (wall->html (:wall load-ascii))
+  (let [door (first (:doors load-ascii))]
+    (door+url->html (:closed door) (:open door) ""))
+  (rand-nth (:doors load-ascii)))
+
 (defn door-path+url->html [door-path url]
   [:div {:class :wall}
    [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]
