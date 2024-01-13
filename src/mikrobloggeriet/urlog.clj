@@ -21,10 +21,6 @@
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
 
-(defn logo []
-  [:pre {:class :logo}
-   (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")])
-
 (def load-ascii
   {:logo (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")
    :wall (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")
@@ -56,18 +52,6 @@
     (door+url->html (:closed door) (:open door) ""))
   (rand-nth (:doors load-ascii)))
 
-(defn door-path+url->html [door-path url]
-  [:div {:class :wall}
-   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]
-   [:div {:class :component}
-    [:pre "_|____|____|____|"]
-    [:a {:href url :class :door}
-     [:pre {:class :closed}
-      (slurp (str door-path "/closed.txt"))]
-     [:pre {:class :open}
-      (slurp (str door-path "/open.txt"))]]]
-   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
-
 (defn page [_req]
   (page/html5
    [:head
@@ -79,12 +63,16 @@
      " — "
      [:a {:href "/"} "mikrobloggeriet"]]
     [:header
-     (logo)
+     (logo->html (:logo load-ascii))
      [:p {:class "intro"}
       "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
     [:div {:class "all-doors"}
-     (let [urlog-data (edn/read-string (slurp urlogfile-path))]
+     (let [urlog-data (edn/read-string (slurp urlogfile-path))
+           wall (wall->html (:wall load-ascii))]
        (for [doc (reverse (:urlog/docs urlog-data))]
-         (let [door-path (rand-nth (door-paths))
+         (let [door (rand-nth (:doors load-ascii))
                url (:urlog/url doc)]
-           (door-path+url->html door-path url))))]]))
+           [:div {:class :wall}
+            wall
+            (door+url->html (:closed door) (:open door) url)
+            wall])))]]))
