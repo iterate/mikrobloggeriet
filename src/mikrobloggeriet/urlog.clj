@@ -6,24 +6,9 @@
    [mikrobloggeriet.urlog :as urlog]))
 
 ;; TO-DO
-;; rename komponenter slik at de gir mening
 ;; rydde i css-filen, spesielt rundt "wall" klassen
 ;; rydde opp i page, spesielt rundt random og reverse logikken
 ;; splitte i flere navnerom, eks view, store
-
-(defn door-paths [doors-dir]
-  (->> (fs/list-dir doors-dir)
-       (map str)
-       (sort)))
-
-(defn load-door [door-path]
-  {:closed (slurp (str door-path "/closed.txt"))
-   :open (slurp (str door-path "/open.txt"))})
-
-(defn load-ascii-assets [assets-dir]
-  {:logo (slurp (str assets-dir "/logo.txt"))
-   :wall (slurp (str assets-dir "/wall.txt"))
-   :doors (doall (map load-door (door-paths (str assets-dir "/doors/"))))})
 
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
@@ -42,6 +27,21 @@
 
 (defn logo->html [logo]
   [:pre {:class :logo} logo])
+
+
+(defn door-paths [doors-dir]
+  (->> (fs/list-dir doors-dir)
+       (map str)
+       (sort)))
+
+(defn load-door [door-path]
+  {:closed (slurp (str door-path "/closed.txt"))
+   :open (slurp (str door-path "/open.txt"))})
+
+(defn load-ascii-assets [assets-dir]
+  {:logo (slurp (str assets-dir "/logo.txt"))
+   :wall (slurp (str assets-dir "/wall.txt"))
+   :doors (doall (map load-door (door-paths (str assets-dir "/doors/"))))})
 
 (comment
   (logo->html (:logo load-ascii-assets))
