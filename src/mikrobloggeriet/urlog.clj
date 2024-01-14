@@ -55,8 +55,7 @@
 
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
-        assets (load-ascii-assets assets-dir)
-        wall-html (wall->html (:wall assets))]
+        assets (load-ascii-assets assets-dir)]
     (page/html5
      [:head
       (page/include-css "/mikrobloggeriet.css")
@@ -75,6 +74,6 @@
          (let [url (:urlog/url doc)
                door (rand-nth (:doors assets))]
            [:div {:class :wall}
-            wall-html
+            (wall->html (:wall assets))
             (door+url->html door url)
-            wall-html]))]])))
+            (wall->html (:wall assets))]))]])))
