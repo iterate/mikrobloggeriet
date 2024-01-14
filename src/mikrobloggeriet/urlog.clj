@@ -11,11 +11,7 @@
 ;; rydde opp i page, spesielt rundt random og reverse logikken
 ;; splitte i flere navnerom, eks view, store
 
-(def urlogfile-path "text/urlog/urls.edn")
-(def assets-dir "src/mikrobloggeriet/urlog_assets")
-(def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
-
-(defn door-paths []
+(defn door-paths [doors-dir]
   (->> (fs/list-dir doors-dir)
        (map str)
        (sort)))
@@ -24,10 +20,10 @@
   {:closed (slurp (str door-path "/closed.txt"))
    :open (slurp (str door-path "/open.txt"))})
 
-(defn load-ascii-assets []
+(defn load-ascii-assets [assets-dir]
   {:logo (slurp (str assets-dir "/logo.txt"))
    :wall (slurp (str assets-dir "/wall.txt"))
-   :doors (doall (map load-door (door-paths)))})
+   :doors (doall (map load-door (door-paths (str assets-dir "/doors/"))))})
 
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
@@ -54,9 +50,12 @@
     (door+url->html door ""))
   (rand-nth (:doors load-ascii-assets)))
 
+(def urlogfile-path "text/urlog/urls.edn")
+(def assets-dir "src/mikrobloggeriet/urlog_assets")
+
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
-        assets (load-ascii-assets)
+        assets (load-ascii-assets assets-dir)
         wall-html (wall->html (:wall assets))]
     (page/html5
      [:head
