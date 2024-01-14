@@ -12,67 +12,70 @@
 ;; splitte i flere navnerom, eks view, store
 
 (def urlogfile-path "text/urlog/urls.edn")
+(def assets-dir "src/mikrobloggeriet/urlog_assets")
 (def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
+
 (defn door-paths []
   (->> (fs/list-dir doors-dir)
        (map str)
        (sort)))
 
+(defn load-door [door-path]
+  {:closed (slurp (str door-path "/closed.txt"))
+   :open (slurp (str door-path "/open.txt"))})
+
+(defn load-ascii-assets []
+  {:logo (slurp (str assets-dir "/logo.txt"))
+   :wall (slurp (str assets-dir "/wall.txt"))
+   :doors (doall (map load-door (door-paths)))})
+
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
 
-(def load-ascii
-  {:logo (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")
-   :wall (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")
-   :doors (map (fn [n] {:closed (slurp (str n "/closed.txt"))
-                        :open (slurp (str n "/open.txt"))}) (door-paths))})
-
-(defn door+url->html [closed open url]
-  [:div {:class :wall}
-   [:div {:class :component}
-    [:pre "_|____|____|____|"]
-    [:a {:href url :class :door}
-     [:pre {:class :closed}
-      closed]
-     [:pre {:class :open}
-      open]]]])
+(defn door+url->html [door url]
+  [:div {:class :component}
+   [:pre "_|____|____|____|"]
+   [:a {:href url :class :door}
+    [:pre {:class :closed}
+     (:closed door)]
+    [:pre {:class :open}
+     (:open door)]]])
 
 (defn wall->html [wall]
-  [:div {:class :wall}
-   [:pre wall]])
+  [:pre wall])
 
 (defn logo->html [logo]
-  [:pre {:class :logo}
-   logo])
+  [:pre {:class :logo} logo])
 
 (comment
-  (logo->html (:logo load-ascii))
-  (wall->html (:wall load-ascii))
-  (let [door (first (:doors load-ascii))]
-    (door+url->html (:closed door) (:open door) ""))
-  (rand-nth (:doors load-ascii)))
+  (logo->html (:logo load-ascii-assets))
+  (wall->html (:wall load-ascii-assets))
+  (let [door (first (:doors load-ascii-assets))]
+    (door+url->html door ""))
+  (rand-nth (:doors load-ascii-assets)))
 
 (defn page [_req]
-  (page/html5
-   [:head
-    (page/include-css "/mikrobloggeriet.css")
-    (page/include-css "/urlog.css")]
-   [:body
-    [:p
-     (feeling-lucky "🎲")
-     " — "
-     [:a {:href "/"} "mikrobloggeriet"]]
-    [:header
-     (logo->html (:logo load-ascii))
-     [:p {:class "intro"}
-      "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
-    [:div {:class "all-doors"}
-     (let [urlog-data (edn/read-string (slurp urlogfile-path))
-           wall (wall->html (:wall load-ascii))]
+  (let [urlog-data (edn/read-string (slurp urlogfile-path))
+        assets (load-ascii-assets)
+        wall-html (wall->html (:wall assets))]
+    (page/html5
+     [:head
+      (page/include-css "/mikrobloggeriet.css")
+      (page/include-css "/urlog.css")]
+     [:body
+      [:p
+       (feeling-lucky "🎲")
+       " — "
+       [:a {:href "/"} "mikrobloggeriet"]]
+      [:header
+       (logo->html (:logo assets))
+       [:p {:class :intro}
+        "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
+      [:div {:class :all-doors}
        (for [doc (reverse (:urlog/docs urlog-data))]
-         (let [door (rand-nth (:doors load-ascii))
-               url (:urlog/url doc)]
+         (let [url (:urlog/url doc)
+               door (rand-nth (:doors assets))]
            [:div {:class :wall}
-            wall
-            (door+url->html (:closed door) (:open door) url)
-            wall])))]]))
+            wall-html
+            (door+url->html door url)
+            wall-html]))]])))
