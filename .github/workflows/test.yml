@@ -16,9 +16,6 @@ jobs:
       - name: Install pandoc binary
         uses: nikeee/setup-pandoc@v1
 
-      - name: Read env (for learning github actions)
-        run: env
-
       - name: Configure OLORM repo path (required for unit tests)
         run: mkdir -p "$HOME/.config/olorm/" && echo "{:repo-path \"$GITHUB_WORKSPACE\"}" > /home/runner/.config/olorm/config.edn
 
