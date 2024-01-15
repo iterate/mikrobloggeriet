@@ -6,54 +6,73 @@
    [mikrobloggeriet.urlog :as urlog]))
 
 ;; TO-DO
-;; skille wall-html og door-html som seperate komponenter
-;; dra ut filinnlasting fra fra html komponentene
-;; lage load for å laste inn alle ascii txt assets
+;; rydde i css-filen, spesielt rundt "wall" klassen
+;; rydde opp i page, spesielt rundt random og reverse logikken
 ;; splitte i flere navnerom, eks view, store
-
-(def urlogfile-path "text/urlog/urls.edn")
-(def doors-dir "src/mikrobloggeriet/urlog_assets/doors/")
-(defn door-paths []
-  (->> (fs/list-dir doors-dir)
-       (map str)
-       (sort)))
 
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
 
-(defn logo []
-  [:pre {:class :logo}
-   (slurp "src/mikrobloggeriet/urlog_assets/logo.txt")])
+(defn door+url->html [door url]
+  [:div {:class :component}
+   [:pre {:aria-hidden :true} "_|____|____|____|"]
+   [:a {:href url :class :door :aria-label "door ascii art"}
+    [:pre {:class :closed}
+     (:closed door)]
+    [:pre {:class :open}
+     (:open door)]]])
 
-(defn door-path+url->html [door-path url]
-  [:div {:class :wall}
-   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]
-   [:div {:class :component}
-    [:pre "_|____|____|____|"]
-    [:a {:href url :class :door}
-     [:pre {:class :closed}
-      (slurp (str door-path "/closed.txt"))]
-     [:pre {:class :open}
-      (slurp (str door-path "/open.txt"))]]]
-   [:pre (slurp "src/mikrobloggeriet/urlog_assets/wall.txt")]])
+(defn wall->html [wall]
+  [:pre {:aria-hidden :true} wall])
+
+(defn logo->html [logo]
+  [:pre {:class :logo :aria-label "URLOG logo ascii art"} logo])
+
+(defn door-paths [doors-dir]
+  (->> (fs/list-dir doors-dir)
+       (map str)
+       (sort)))
+
+(defn load-door [door-path]
+  {:closed (slurp (str door-path "/closed.txt"))
+   :open (slurp (str door-path "/open.txt"))})
+
+(defn load-ascii-assets [assets-dir]
+  {:logo (slurp (str assets-dir "/logo.txt"))
+   :wall (slurp (str assets-dir "/wall.txt"))
+   :doors (doall (map load-door (door-paths (str assets-dir "/doors/"))))})
+
+(comment
+  (logo->html (:logo load-ascii-assets))
+  (wall->html (:wall load-ascii-assets))
+  (let [door (first (:doors load-ascii-assets))]
+    (door+url->html door "example.com"))
+  (rand-nth (:doors load-ascii-assets)))
+
+(def urlogfile-path "text/urlog/urls.edn")
+(def assets-dir "src/mikrobloggeriet/urlog_assets")
 
 (defn page [_req]
-  (page/html5
-   [:head
-    (page/include-css "/mikrobloggeriet.css")
-    (page/include-css "/urlog.css")]
-   [:body
-    [:p
-     (feeling-lucky "🎲")
-     " — "
-     [:a {:href "/"} "mikrobloggeriet"]]
-    [:header
-     (logo)
-     [:p {:class "intro"}
-      "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
-    [:div {:class "all-doors"}
-     (let [urlog-data (edn/read-string (slurp urlogfile-path))]
+  (let [urlog-data (edn/read-string (slurp urlogfile-path))
+        assets (load-ascii-assets assets-dir)]
+    (page/html5
+     [:head
+      (page/include-css "/mikrobloggeriet.css")
+      (page/include-css "/urlog.css")]
+     [:body
+      [:p
+       (feeling-lucky "🎲")
+       " — "
+       [:a {:href "/"} "mikrobloggeriet"]]
+      [:header
+       (logo->html (:logo assets))
+       [:p {:class :intro}
+        "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
+      [:div {:class :all-doors}
        (for [doc (reverse (:urlog/docs urlog-data))]
-         (let [door-path (rand-nth (door-paths))
+         (let [door (rand-nth (:doors assets))
                url (:urlog/url doc)]
-           (door-path+url->html door-path url))))]]))
+           [:div {:class :wall :role :none}
+            (wall->html (:wall assets))
+            (door+url->html door url)
+            (wall->html (:wall assets))]))]])))
