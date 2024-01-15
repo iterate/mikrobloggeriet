@@ -15,18 +15,18 @@
 
 (defn door+url->html [door url]
   [:div {:class :component}
-   [:pre "_|____|____|____|"]
-   [:a {:href url :class :door}
+   [:pre {:aria-hidden :true} "_|____|____|____|"]
+   [:a {:href url :class :door :aria-label "door ascii art"}
     [:pre {:class :closed}
      (:closed door)]
     [:pre {:class :open}
      (:open door)]]])
 
 (defn wall->html [wall]
-  [:pre wall])
+  [:pre {:aria-hidden :true} wall])
 
 (defn logo->html [logo]
-  [:pre {:class :logo} logo])
+  [:pre {:class :logo :aria-label "URLOG logo ascii art"} logo])
 
 
 (defn door-paths [doors-dir]
@@ -73,7 +73,7 @@
        (for [doc (reverse (:urlog/docs urlog-data))]
          (let [url (:urlog/url doc)
                door (rand-nth (:doors assets))]
-           [:div {:class :wall}
+           [:div {:class :wall :role :none}
             (wall->html (:wall assets))
             (door+url->html door url)
             (wall->html (:wall assets))]))]])))
