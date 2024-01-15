@@ -28,7 +28,6 @@
 (defn logo->html [logo]
   [:pre {:class :logo :aria-label "URLOG logo ascii art"} logo])
 
-
 (defn door-paths [doors-dir]
   (->> (fs/list-dir doors-dir)
        (map str)
@@ -47,7 +46,7 @@
   (logo->html (:logo load-ascii-assets))
   (wall->html (:wall load-ascii-assets))
   (let [door (first (:doors load-ascii-assets))]
-    (door+url->html door ""))
+    (door+url->html door "example.com"))
   (rand-nth (:doors load-ascii-assets)))
 
 (def urlogfile-path "text/urlog/urls.edn")
@@ -71,8 +70,8 @@
         "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
       [:div {:class :all-doors}
        (for [doc (reverse (:urlog/docs urlog-data))]
-         (let [url (:urlog/url doc)
-               door (rand-nth (:doors assets))]
+         (let [door (rand-nth (:doors assets))
+               url (:urlog/url doc)]
            [:div {:class :wall :role :none}
             (wall->html (:wall assets))
             (door+url->html door url)
