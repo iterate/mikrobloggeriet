@@ -56,7 +56,12 @@
   (wall->html (:wall (load-ascii-assets assets-dir)))
   (let [door (first (:doors (load-ascii-assets assets-dir)))]
     (door+url->html door "example.com"))
-  (rand-nth (:doors (load-ascii-assets assets-dir))))
+  (rand-nth (:doors (load-ascii-assets assets-dir)))
+
+  ;; Samme resultat hver gang:
+  (let [doors (:doors (load-ascii-assets assets-dir))]
+    (select-door "example.com" doors))
+  )
 
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
