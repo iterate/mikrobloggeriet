@@ -81,8 +81,8 @@
         "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
       [:div {:class :all-doors}
        (for [doc (reverse (:urlog/docs urlog-data))]
-         (let [door (rand-nth (:doors assets))
-               url (:urlog/url doc)]
+         (let [url (:urlog/url doc)
+               door (select-door url (:doors assets))]
            [:div {:class :wall :role :none}
             (wall->html (:wall assets))
             (door+url->html door url)
