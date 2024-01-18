@@ -49,12 +49,6 @@
     (door+url->html door "example.com"))
   (rand-nth (:doors load-ascii-assets)))
 
-(defn select-door [url doors]
-  (let [seed (java.util.Random. (.hashCode url))]
-    (when (seq doors)
-      (let [index (.nextInt seed (count doors))]
-        (nth doors index)))))
-
 (def urlogfile-path "text/urlog/urls.edn")
 (def assets-dir "src/mikrobloggeriet/urlog_assets")
 
