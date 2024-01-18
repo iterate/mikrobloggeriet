@@ -42,13 +42,6 @@
    :wall (slurp (str assets-dir "/wall.txt"))
    :doors (doall (map load-door (door-paths (str assets-dir "/doors/"))))})
 
-(comment
-  (logo->html (:logo load-ascii-assets))
-  (wall->html (:wall load-ascii-assets))
-  (let [door (first (:doors load-ascii-assets))]
-    (door+url->html door "example.com"))
-  (rand-nth (:doors load-ascii-assets)))
-
 (defn select-door [url doors]
   (let [seed (java.util.Random. (.hashCode url))]
     (when (seq doors)
@@ -57,6 +50,13 @@
 
 (def urlogfile-path "text/urlog/urls.edn")
 (def assets-dir "src/mikrobloggeriet/urlog_assets")
+
+(comment
+  (logo->html (:logo (load-ascii-assets assets-dir)))
+  (wall->html (:wall (load-ascii-assets assets-dir)))
+  (let [door (first (:doors (load-ascii-assets assets-dir)))]
+    (door+url->html door "example.com"))
+  (rand-nth (:doors (load-ascii-assets assets-dir))))
 
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
