@@ -42,15 +42,26 @@
    :wall (slurp (str assets-dir "/wall.txt"))
    :doors (doall (map load-door (door-paths (str assets-dir "/doors/"))))})
 
-(comment
-  (logo->html (:logo load-ascii-assets))
-  (wall->html (:wall load-ascii-assets))
-  (let [door (first (:doors load-ascii-assets))]
-    (door+url->html door "example.com"))
-  (rand-nth (:doors load-ascii-assets)))
+(defn select-door [url doors]
+  (let [seed (java.util.Random. (.hashCode url))]
+    (when (seq doors)
+      (let [index (.nextInt seed (count doors))]
+        (nth doors index)))))
 
 (def urlogfile-path "text/urlog/urls.edn")
 (def assets-dir "src/mikrobloggeriet/urlog_assets")
+
+(comment
+  (logo->html (:logo (load-ascii-assets assets-dir)))
+  (wall->html (:wall (load-ascii-assets assets-dir)))
+  (let [door (first (:doors (load-ascii-assets assets-dir)))]
+    (door+url->html door "example.com"))
+  (rand-nth (:doors (load-ascii-assets assets-dir)))
+
+  ;; Samme resultat hver gang:
+  (let [doors (:doors (load-ascii-assets assets-dir))]
+    (select-door "example.com" doors))
+  )
 
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
@@ -70,8 +81,8 @@
         "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
       [:div {:class :all-doors}
        (for [doc (reverse (:urlog/docs urlog-data))]
-         (let [door (rand-nth (:doors assets))
-               url (:urlog/url doc)]
+         (let [url (:urlog/url doc)
+               door (select-door url (:doors assets))]
            [:div {:class :wall :role :none}
             (wall->html (:wall assets))
             (door+url->html door url)
