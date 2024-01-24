@@ -3,12 +3,33 @@
    [hiccup.page :as page]
    [clojure.edn :as edn]
    [babashka.fs :as fs]
-   [mikrobloggeriet.urlog :as urlog]))
+   [mikrobloggeriet.urlog :as urlog]
+   [clojure.pprint :as pprint]))
 
 ;; TO-DO
 ;; rydde i css-filen, spesielt rundt "wall" klassen
 ;; rydde opp i page, spesielt rundt random og reverse logikken
 ;; splitte i flere navnerom, eks view, store
+
+;; URLOG skrives ved å legge på ett og ett element i text/urlog/urls.edn.
+;;
+;; text/urlog/urls.edn ser ut:
+
+{:urlog/docs
+ [{:doc/slug "urlog-1",
+   :urlog/url "https://www.my90stv.com/"}
+  {:doc/slug "urlog-2",
+   :urlog/url "https://bezier.method.ac/",}
+  {:doc/slug "urlog-3",
+   :urlog/url "https://grids.obys.agency/",}
+  ,,, #_ "... og så mange flere URL-er ..."
+  ]}
+
+;; TAGS
+;;
+;; Neno ønsker tag-støtte til URLOG.
+;; Vi ser for oss at en URL kan ha en :urlog/tags, som er et sett.
+;; Utover det har vi ikke en bestemt plan for datamodellering.
 
 (defn feeling-lucky [content]
   [:a {:href "/random-doc" :class :feeling-lucky} content])
@@ -61,6 +82,32 @@
   ;; Samme resultat hver gang:
   (let [doors (:doors (load-ascii-assets assets-dir))]
     (select-door "example.com" doors))
+
+  :rcf)
+
+(defn update-urls!
+  "Update each url with a function
+
+  Will update URL file on disk. You can run it from a REPL to migrate data, then
+  commit your changes."
+  [f]
+  (let [old (edn/read-string (slurp urlogfile-path))
+        new (update old :urlog/docs (comp vec #(map f %)))]
+    (spit urlogfile-path
+          (binding [*print-namespace-maps* false
+                    pprint/*print-right-margin* 200]
+            (with-out-str (pprint/pprint new))))))
+
+(comment
+
+  ;; DATA MIGRATION
+  ;; When tags are empty, omit the :urlog/tags key
+  (update-urls! (fn [u]
+                  (if (seq (:urlog/tags u))
+                    u
+                    (dissoc u :urlog/tags))))
+
+  :rcf
   )
 
 (defn page [_req]
