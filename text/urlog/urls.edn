@@ -150,3 +150,6 @@
   {:doc/slug "urlog-50",
    :urlog/url "https://www.bedow.se/",
    :urlog/tags #{}}]}
+{:doc/slug "urlog-51",
+   :urlog/url "https://moderncss.dev/12-modern-css-one-line-upgrades/",
+   :urlog/tags #{}}]}
