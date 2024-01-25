@@ -147,10 +147,8 @@
        [:h1 "Mikrobloggeriet"]
        [:p "Folk fra Iterate deler fra hverdagen."]
 
-       (default-cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023.")
        (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
        (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
-       (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
 
        (when (= "genai" (flag req))
          (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
@@ -159,6 +157,8 @@
         [:h2 "URLOG"]
         [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
         [:p [:a {:href "/urlog/"} "Gå inn i huset –> 🏨"]]]
+       (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
+       (default-cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023.")
        [:hr]
 
        [:section
