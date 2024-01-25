@@ -158,7 +158,7 @@
         [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
         [:p [:a {:href "/urlog/"} "Gå inn i huset –> 🏨"]]]
        (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
-       (default-cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE skrives av Iterate-ansatte gjennom adventstida 2023.")
+       (default-cohort-section store/luke "Mikrobloggeriets Julekalender 2023" "Mikrobloggen LUKE ble skrevet av Iterate-ansatte gjennom adventstida 2023.")
        [:hr]
 
        [:section
