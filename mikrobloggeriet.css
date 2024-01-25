@@ -28,11 +28,11 @@ ul.doc-list {
     list-style-type: none;
     padding: 0;
 
-    li {
+    & li {
         display: inline;
     }
 
-    li + li::before {
+    & li + li::before {
         content: " · ";
     }
 }
