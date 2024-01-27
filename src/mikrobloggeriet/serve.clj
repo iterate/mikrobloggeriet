@@ -389,9 +389,12 @@
         [:td "HTTP Request"]
         [:td "Lik respons gammel/ny?"]]
        [:tbody
-        (for [[k v] @app12-compat]
+        (for [[[method uri] v] @app12-compat]
           [:tr
-           [:td [:code (pr-str k)]]
+           [:td
+            [:code (pr-str method)]
+            " "
+            [:code [:a {:href uri} uri]]]
            [:td [:code (pr-str v)]]])]]])})
 
 (defn app12 [req]
