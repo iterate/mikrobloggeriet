@@ -56,6 +56,6 @@ RUN clj -M:run-tests
 #
 #     https://github.com/Yelp/dumb-init
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["clj", "-X", "mikrobloggeriet.serve/start!"]
+CMD ["clj", "-X", "mikrobloggeriet.serve/start-prod!"]
 
 EXPOSE 7223
