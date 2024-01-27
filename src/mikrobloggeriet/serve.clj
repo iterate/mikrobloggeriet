@@ -366,6 +366,44 @@
 
   :rcf)
 
+(defonce app12-compat (atom {}))
+
+(defn app12-compat-report [req]
+  {:status 200
+   :headers {}
+   :body
+   (page/html5 (into [:head] (shared-html-header req))
+     [:body
+      [:p
+       (feeling-lucky "🎲")
+       " — "
+       [:a {:href "/"} "mikrobloggeriet"]]
+      [:h1 "Kompatibilitetsrapport gammel/ny router"]
+      [:table
+       [:thead
+        [:td "HTTP Request"]
+        [:td "Lik respons gammel/ny?"]]
+       [:tbody
+        (for [[k v] @app12-compat]
+          [:tr
+           [:td [:code (pr-str k)]]
+           [:td [:code (pr-str v)]]])]]])})
+
+(defn app12 [req]
+  (cond
+    (= (:uri req) "/app12-compat-report")
+    (app12-compat-report req)
+    :else
+    (let [response-1 (app req)
+          response-2 (app-experimental req)
+          req->key (juxt :request-method :uri)]
+      ;; Compare and report
+      (if (= response-1 response-2)
+        (swap! app12-compat assoc (req->key req) :ok)
+        (swap! app12-compat assoc (req->key req) :not-ok))
+      ;; Return the old value
+      response-1)))
+
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
@@ -378,4 +416,4 @@
   (swap! server (fn [old-server]
                   (stop-server old-server)
                   (println (str "mikroboggeriet.serve running: http://localhost:" port))
-                  (httpkit/run-server #'app {:port port}))))
+                  (httpkit/run-server #'app12 {:port port}))))
