@@ -282,11 +282,14 @@
   (css-response (str "theme/"
                      (get-in req [:route-params :theme]))))
 
+(defn health [_req]
+  {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
+
 (defroutes app
   (GET "/" req (index req))
 
   ;; STATIC FILES
-  (GET "/health" _req {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
+  (GET "/health" _req health)
   (GET "/vanilla.css" _req (css-response "vanilla.css"))
   (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
   (GET "/reset.css" _req (css-response "reset.css"))
@@ -356,7 +359,9 @@
   (reitit.ring/ring-handler
    (reitit.ring/router
     [["/hops-info" {:get hops-info
-                    :name :mikrobloggeriet/hops-info}]])))
+                    :name :mikrobloggeriet/hops-info}]
+     ["/health" {:get health
+                 :name :mikrobloggeriet/health}]])))
 
 (comment
   (let [req {:request-method :get :uri "/hops-info"}]
