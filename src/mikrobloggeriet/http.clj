@@ -7,8 +7,3 @@
 
 (defn response-ok? [response]
   (= 200 (:status response)))
-
-(defn temporary-redirect [{:keys [target]}]
-  (assert target)
-  {:status 301
-   :headers {"Location" target}})
