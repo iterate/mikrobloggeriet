@@ -353,8 +353,9 @@
 ;; - Og vi prøver å bruke orakeltesting for å sjekke hvordan dette går.
 ;;   (forslag fra Oddmund i diskusjonstråden)
 
-(def ^{:experimental true}
-  app-experimental
+(defn ^:experimental
+  app-reitit
+  []
   (reitit.ring/ring-handler
    (reitit.ring/router
     [["/hops-info" {:get hops-info
@@ -365,7 +366,7 @@
 (comment
   (let [req {:request-method :get :uri "/hops-info"}]
     (= (app req)
-       (app-experimental req)))
+       ((app-reitit) req)))
   ;; => true
 
   :rcf)
@@ -404,7 +405,7 @@
   viewed on /app12-compat-report.
 
   For details, see https://github.com/iterate/mikrobloggeriet/pull/81"
-  [req]
+  [default-app experimental-app req]
   (cond
     ;; Report is special!
     (= (:uri req) "/app12-compat-report")
@@ -413,11 +414,11 @@
     ;; Not a GET or HEAD request?
     ;; Don't send two requests.
     (not (#{:get :head} (:request-method req)))
-    (app req)
+    ((default-app) req)
 
     :else
-    (let [response-1 (app req)
-          response-2 (app-experimental req)
+    (let [response-1 ((default-app) req)
+          response-2 ((experimental-app) req)
           req->key (juxt :request-method :uri)]
       (when (http/response-ok? response-1)
         ;; Compare and report
@@ -434,9 +435,33 @@
 (defn stop-server [stop-fn] (when stop-fn (stop-fn)) nil)
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! [] (swap! server stop-server))
+
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start! [_opts]
-  (swap! server (fn [old-server]
-                  (stop-server old-server)
-                  (println (str "mikroboggeriet.serve running: http://localhost:" port))
-                  (httpkit/run-server #'app-with-reitit-test {:port port}))))
+  (swap! server
+         (fn [old-server]
+           (stop-server old-server)
+           (println (str "mikroboggeriet.serve running: http://localhost:" port))
+           (httpkit/run-server #(app-with-reitit-test (constantly app)
+                                                      #'app-reitit
+                                                      %)
+                               {:port port}))))
+
+(comment
+  ((app-reitit) {:uri "/hops-info", :request-method :get})
+
+  (let [f #(app-with-reitit-test (constantly app)
+                                 #'app-reitit
+                                 %)]
+    (f {:uri "/hops-info", :request-method :get}))
+  :rcf)
+
+(defn start-prod! [_opts]
+  (swap! server
+         (fn [old-server]
+           (stop-server old-server)
+           (println (str "mikroboggeriet.serve running: http://localhost:" port))
+           (httpkit/run-server #(app-with-reitit-test (constantly app)
+                                                      (constantly (app-reitit))
+                                                      %)
+                               {:port port}))))
