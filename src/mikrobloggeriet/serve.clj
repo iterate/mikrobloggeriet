@@ -16,6 +16,8 @@
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.urlog :as urlog]
    [org.httpkit.server :as httpkit]
+   [reitit.core :as reitit]
+   [reitit.ring]
    [ring.middleware.cookies :as cookies]))
 
 (defn shared-html-header
@@ -333,7 +335,38 @@
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})
-  (app {:uri "/hops-info", :request-method :get}))
+  (app {:uri "/hops-info", :request-method :get})
+  :rcf)
+
+;; ## Ekspriment, bør vi bruke Reitit?
+;;
+;; Hvorfor?
+;;
+;; - Les begrunnelse og diskusjon i tråd:
+;;   https://garasjen.slack.com/archives/C05MH5RCLH3/p1706353191440179
+;;
+;; Hvordan?
+;;
+;; - Vi prøver oss på å implementere Reitit i prod ved siden av Compojure.
+;; - Og vi prøver å bruke orakeltesting for å sjekke hvordan dette går.
+;;   (forslag fra Oddmund i diskusjonstråden)
+
+(def ^{:experimental true}
+  app-experimental
+  (reitit.ring/ring-handler
+   (reitit.ring/router
+    [["/hops-info" {:get hops-info
+                    :name :mikrobloggeriet/hops-info}]])))
+
+(comment
+  (let [req {:request-method :get :uri "/hops-info"}]
+    (= (app req)
+       (app-experimental req)))
+  ;; => true
+
+  :rcf)
+
+;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
 (def port 7223)
