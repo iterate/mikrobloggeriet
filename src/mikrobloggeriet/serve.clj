@@ -396,7 +396,15 @@
             [:code [:a {:href uri} uri]]]
            [:td [:code (pr-str v)]]])]]])})
 
-(defn app12 [req]
+(defn app-with-reitit-test
+  "Temporary wrapper around `app` while we implement Reitit
+
+  This handler calls Mikrobloggeriet through the old Compojure router, and also
+  through the new Reitit router. Compojure / Reitit compatibility status can be
+  viewed on /app12-compat-report.
+
+  For details, see https://github.com/iterate/mikrobloggeriet/pull/81"
+  [req]
   (cond
     ;; Report is special!
     (= (:uri req) "/app12-compat-report")
@@ -411,10 +419,11 @@
     (let [response-1 (app req)
           response-2 (app-experimental req)
           req->key (juxt :request-method :uri)]
-      ;; Compare and report
-      (if (= response-1 response-2)
-        (swap! app12-compat assoc (req->key req) :ok)
-        (swap! app12-compat assoc (req->key req) :not-ok))
+      (when (http/response-ok? response-1)
+        ;; Compare and report
+        (if (= response-1 response-2)
+          (swap! app12-compat assoc (req->key req) :ok)
+          (swap! app12-compat assoc (req->key req) :not-ok)))
       ;; Return the old value
       response-1)))
 
@@ -430,4 +439,4 @@
   (swap! server (fn [old-server]
                   (stop-server old-server)
                   (println (str "mikroboggeriet.serve running: http://localhost:" port))
-                  (httpkit/run-server #'app12 {:port port}))))
+                  (httpkit/run-server #'app-with-reitit-test {:port port}))))
