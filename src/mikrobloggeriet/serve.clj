@@ -399,8 +399,15 @@
 
 (defn app12 [req]
   (cond
+    ;; Report is special!
     (= (:uri req) "/app12-compat-report")
     (app12-compat-report req)
+
+    ;; Not a GET or HEAD request?
+    ;; Don't send two requests.
+    (not (#{:get :head} (:request-method req)))
+    (app req)
+
     :else
     (let [response-1 (app req)
           response-2 (app-experimental req)
