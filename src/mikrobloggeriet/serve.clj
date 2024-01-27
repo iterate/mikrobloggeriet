@@ -371,7 +371,7 @@
 
   :rcf)
 
-(defonce app12-compat (atom {}))
+(defonce app12-compat (atom (sorted-map)))
 
 (defn app12-compat-report [req]
   {:status 200
