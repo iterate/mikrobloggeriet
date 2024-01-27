@@ -16,7 +16,6 @@
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.urlog :as urlog]
    [org.httpkit.server :as httpkit]
-   [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
 
