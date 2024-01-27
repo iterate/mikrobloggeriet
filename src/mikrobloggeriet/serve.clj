@@ -16,6 +16,8 @@
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.urlog :as urlog]
    [org.httpkit.server :as httpkit]
+   [reitit.core :as reitit]
+   [reitit.ring]
    [ring.middleware.cookies :as cookies]))
 
 (defn shared-html-header
@@ -333,7 +335,76 @@
 
 (comment
   (app {:uri "/olorm/olorm-1/", :request-method :get})
-  (app {:uri "/hops-info", :request-method :get}))
+  (app {:uri "/hops-info", :request-method :get})
+  :rcf)
+
+;; ## Ekspriment, bør vi bruke Reitit?
+;;
+;; Hvorfor?
+;;
+;; - Les begrunnelse og diskusjon i tråd:
+;;   https://garasjen.slack.com/archives/C05MH5RCLH3/p1706353191440179
+;;
+;; Hvordan?
+;;
+;; - Vi prøver oss på å implementere Reitit i prod ved siden av Compojure.
+;; - Og vi prøver å bruke orakeltesting for å sjekke hvordan dette går.
+;;   (forslag fra Oddmund i diskusjonstråden)
+
+(def ^{:experimental true}
+  app-experimental
+  (reitit.ring/ring-handler
+   (reitit.ring/router
+    [["/hops-info" {:get hops-info
+                    :name :mikrobloggeriet/hops-info}]])))
+
+(comment
+  (let [req {:request-method :get :uri "/hops-info"}]
+    (= (app req)
+       (app-experimental req)))
+  ;; => true
+
+  :rcf)
+
+(defonce app12-compat (atom {}))
+
+(defn app12-compat-report [req]
+  {:status 200
+   :headers {}
+   :body
+   (page/html5 (into [:head] (shared-html-header req))
+     [:body
+      [:p
+       (feeling-lucky "🎲")
+       " — "
+       [:a {:href "/"} "mikrobloggeriet"]]
+      [:h1 "Kompatibilitetsrapport gammel/ny router"]
+      [:table
+       [:thead
+        [:td "HTTP Request"]
+        [:td "Lik respons gammel/ny?"]]
+       [:tbody
+        (for [[k v] @app12-compat]
+          [:tr
+           [:td [:code (pr-str k)]]
+           [:td [:code (pr-str v)]]])]]])})
+
+(defn app12 [req]
+  (cond
+    (= (:uri req) "/app12-compat-report")
+    (app12-compat-report req)
+    :else
+    (let [response-1 (app req)
+          response-2 (app-experimental req)
+          req->key (juxt :request-method :uri)]
+      ;; Compare and report
+      (if (= response-1 response-2)
+        (swap! app12-compat assoc (req->key req) :ok)
+        (swap! app12-compat assoc (req->key req) :not-ok))
+      ;; Return the old value
+      response-1)))
+
+;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
 (def port 7223)
@@ -345,4 +416,4 @@
   (swap! server (fn [old-server]
                   (stop-server old-server)
                   (println (str "mikroboggeriet.serve running: http://localhost:" port))
-                  (httpkit/run-server #'app {:port port}))))
+                  (httpkit/run-server #'app12 {:port port}))))
