@@ -9,12 +9,12 @@
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
-   [mikrobloggeriet.cohort.markdown :as cohort]
+   [mikrobloggeriet.cohort.markdown :as cohort.markdown]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.cohort.urlog :as urlog]
+   [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [org.httpkit.server :as httpkit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
@@ -78,7 +78,7 @@
     {:title (doc/slug doc)
      :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
      :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
-     :category (cohort/slug cohort)
+     :category (cohort.markdown/slug cohort)
      :description (doc/slug doc)
      :guid (doc/slug doc)
      "content:encoded" (str
@@ -104,10 +104,10 @@
      (feeling-lucky "🎲")
      " — "
      [:a {:href "/"} "mikrobloggeriet"]]
-    [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
+    [:h1 (str "Alle " (str/upper-case (cohort.markdown/slug cohort)) "-er")]
     [:table
      [:thead
-      [:td (cohort/slug cohort)]
+      [:td (cohort.markdown/slug cohort)]
       [:td "tittel"]
       [:td "forfatter"]
       [:td "publisert"]]
@@ -209,14 +209,14 @@
              (flag-element "god-jul")])])])}))
 
 (comment
-  (cohort/slug store/oj)
+  (cohort.markdown/slug store/oj)
 
   (store/doc-exists? store/oj (doc/from-slug "oj-2"))
 
   (let [cohort store/oj
         doc (doc/from-slug "oj-2")
         prev (dec (doc/number doc))]
-    (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
+    (store/doc-exists? cohort (doc/from-slug (str (cohort.markdown/slug cohort) "-" prev))))
 
   (store/cohort-href store/oj))
 
@@ -237,16 +237,16 @@
           " — "
           [:a {:href "/"} "mikrobloggeriet"]
           " "
-          [:a {:href (str "/" (cohort/slug cohort) "/")}
-           (cohort/slug cohort)]
+          [:a {:href (str "/" (cohort.markdown/slug cohort) "/")}
+           (cohort.markdown/slug cohort)]
           " — "
           [:span (let [previouse-number (dec (doc/number doc))
-                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                       prev (doc/from-slug (str (cohort.markdown/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
                      [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
           [:span (:doc/slug doc)]
           [:span (let [previouse-number (inc (doc/number doc))
-                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
+                       prev (doc/from-slug (str (cohort.markdown/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
                      [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]))]]
          doc-html])})))
@@ -331,7 +331,7 @@
   (GET "/luke/:slug/" req (doc req store/luke))
 
   ;; NENO
-  (GET "/urlog/" req (urlog/page req))
+  (GET "/urlog/" req (cohort.urlog/page req))
   ;; (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
   )
 
