@@ -9,7 +9,7 @@
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
-   [mikrobloggeriet.bubble :as cohort]
+   [mikrobloggeriet.cohort.markdown :as cohort]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]

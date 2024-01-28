@@ -2,7 +2,7 @@
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [mikrobloggeriet.bubble :as cohort]
+   [mikrobloggeriet.cohort.markdown :as cohort]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.doc-template :as doc-template]))

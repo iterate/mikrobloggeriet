@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.cohort-test
   (:require
    [clojure.test :refer [deftest is]]
-   [mikrobloggeriet.bubble :as cohort]
+   [mikrobloggeriet.cohort.markdown :as cohort]
    [mikrobloggeriet.store :as store]))
 
 (deftest slug-test

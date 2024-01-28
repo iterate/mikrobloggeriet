@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.bubble
+(ns mikrobloggeriet.cohort.markdown
   (:refer-clojure :exclude [name])
   (:require
    [clojure.string :as str]
