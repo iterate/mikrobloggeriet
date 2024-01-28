@@ -6,7 +6,7 @@
    [clojure.edn :as edn]
    [clojure.pprint :refer [pprint]]
    [clojure.string :as str]
-   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.bubble :as cohort]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.store :as store]))
 

@@ -3,7 +3,7 @@
    [clojure.test :refer [deftest is testing]]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.cohort :as cohort]))
+   [mikrobloggeriet.bubble :as cohort]))
 
 (deftest doc-exists?-test
   (is (store/doc-exists? store/olorm
