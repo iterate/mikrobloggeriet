@@ -1,8 +1,8 @@
 # Contributing to Mikrobloggeriet
 
-Developing on Mikrobloggeriet requires some dependencies to be installed.
+Developing on Mikrobloggeriet requires certain dependencies.
 
-## Brew
+## Setup a development environment on Mac with Homebrew
 
 ### Clojure
 Mikrobloggeriet is developed in [Clojure]. 
@@ -11,7 +11,8 @@ brew install clojure/tools/clojure
 ```
 For more information on installing Clojure, read the official [Clojure installation Guide](https://clojure.org/guides/install_clojure).
 
-Clojure runs on the Java Virtual Machine (JVM), meaning a JDK build must be installed as well. We recommend using [Temurin] as it has a permissive license and is activly maintained.
+Clojure runs on the Java Virtual Machine (JVM), meaning a JDK build must be installed as well.
+We recommend using [Temurin] as it has a permissive license and is activly maintained.
 
 ```shell
 brew install --cask temurin
