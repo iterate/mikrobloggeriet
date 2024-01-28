@@ -9,7 +9,6 @@
    [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
-   [mikrobloggeriet.cohort.markdown :as cohort.markdown]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
@@ -79,7 +78,7 @@
     {:title (doc/slug doc)
      :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
      :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
-     :category (cohort.markdown/slug cohort)
+     :category (cohort/slug cohort)
      :description (doc/slug doc)
      :guid (doc/slug doc)
      "content:encoded" (str
@@ -108,10 +107,10 @@
      (feeling-lucky "🎲")
      " — "
      [:a {:href "/"} "mikrobloggeriet"]]
-    [:h1 (str "Alle " (str/upper-case (cohort.markdown/slug cohort)) "-er")]
+    [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
     [:table
      [:thead
-      [:td (cohort.markdown/slug cohort)]
+      [:td (cohort/slug cohort)]
       [:td "tittel"]
       [:td "forfatter"]
       [:td "publisert"]]
@@ -213,14 +212,14 @@
              (flag-element "god-jul")])])])}))
 
 (comment
-  (cohort.markdown/slug store/oj)
+  (cohort/slug store/oj)
 
   (store/doc-exists? store/oj (doc/from-slug "oj-2"))
 
   (let [cohort store/oj
         doc (doc/from-slug "oj-2")
         prev (dec (doc/number doc))]
-    (store/doc-exists? cohort (doc/from-slug (str (cohort.markdown/slug cohort) "-" prev))))
+    (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
 
   (store/cohort-href store/oj))
 
@@ -241,16 +240,16 @@
           " — "
           [:a {:href "/"} "mikrobloggeriet"]
           " "
-          [:a {:href (str "/" (cohort.markdown/slug cohort) "/")}
-           (cohort.markdown/slug cohort)]
+          [:a {:href (str "/" (cohort/slug cohort) "/")}
+           (cohort/slug cohort)]
           " — "
           [:span (let [previouse-number (dec (doc/number doc))
-                       prev (doc/from-slug (str (cohort.markdown/slug cohort) "-" previouse-number))]
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
                      [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
           [:span (:doc/slug doc)]
           [:span (let [previouse-number (inc (doc/number doc))
-                       prev (doc/from-slug (str (cohort.markdown/slug cohort) "-" previouse-number))]
+                       prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
                    (when (store/doc-exists? cohort prev)
                      [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]))]]
          doc-html])})))
