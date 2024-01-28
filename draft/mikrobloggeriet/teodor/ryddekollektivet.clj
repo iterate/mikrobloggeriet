@@ -13,7 +13,7 @@
        (map val)
        (filter var-match?)
        (sort-by symbol)))
-​
+
 (lookup-vars (all-ns)
              (fn [n]
                (str/starts-with? (str (ns-name n)) "mikrobloggeriet"))
