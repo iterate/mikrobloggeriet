@@ -10,6 +10,7 @@
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort.markdown :as cohort.markdown]
+   [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
@@ -85,6 +86,9 @@
                         "<![CDATA["
                         (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
                         "]]>")}))
+
+(comment
+  (cohort/slug store/olorm))
 
 (defn rss-feed []
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :feed-url "https://mikrobloggeriet.no/feed/" :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]

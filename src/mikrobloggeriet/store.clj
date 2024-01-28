@@ -13,6 +13,7 @@
   (sorted-map
    :cohort/root "o"
    :cohort/slug "olorm"
+   :cohort/type :cohort.type/markdown
    :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}
                     {:author/email "lars.barlindhaug@iterate.no", :author/first-name "Lars"}
                     {:author/email "oddmunds@iterate.no", :author/first-name "Oddmund"}
@@ -22,6 +23,7 @@
   (sorted-map
    :cohort/root "j"
    :cohort/slug "jals"
+   :cohort/type :cohort.type/markdown
    :cohort/members [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
                     {:author/email "adrian.tofting@iterate.no", :author/first-name "Adrian"}
                     {:author/email "larshbj@gmail.com", :author/first-name "Lars"}
@@ -31,6 +33,7 @@
   (sorted-map
    :cohort/root "text/oj"
    :cohort/slug "oj"
+   :cohort/type :cohort.type/markdown
    :cohort/members [{:author/email "jomarn@me.com" :author/first-name "Johan"}
                     {:author/email "olav.moseng@iterate.no" :author/first-name "Olav"}]))
 
@@ -38,12 +41,14 @@
   (sorted-map
    :cohort/root "text/genai"
    :cohort/slug "genai"
+   :cohort/type :cohort.type/markdown
    :cohort/members [{:author/first-name "Julian"}]))
 
 (def luke
   (sorted-map
    :cohort/root "text/luke"
    :cohort/slug "luke"
+   :cohort/type :cohort.type/markdown
    :cohort/members [{:author/email "haavard@vaage.com" :author/first-name "Håvard"}
                     {:author/email "julian.hallen.eriksen@iterate.no" :author/first-name "Julian"}
                     {:author/email "finn@iterate.no" :author/first-name "Finn"}
@@ -60,26 +65,19 @@
                     {:author/email "rune@iterate.no" :author/first-name "Rune"}
                     {:author/email "haugeto@iterate.no" :author/first-name "Anders"}]))
 
-;; (def urlog
-;;   (sorted-map
-;;    :cohort/root "text/urlog"
-;;    :cohort/slug "urlog"
-;;    :cohort/members [{:author/email "neno.mindjek@iterate.no" :author/first-name "N"}]
-;;    :cohort/index-md-template doc-template/url-new-tab-big-door))
-
 (def vakt
   (sorted-map
    :cohort/root "text/vakt"
    :cohort/slug "vakt"
+   :cohort/type :cohort.type/markdown
    :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}]))
 
 (def urlog
-  "En ny eksperimentell kohort med input som én url (som data) per dag"
   (sorted-map
    :cohort/root "text/urlog"
    :cohort/slug "urlog"
-   ;; Problem: hvordan enkoder jeg _her_, i _data_ hvordan template skal genereres?
-   ))
+   :cohort/type :cohort.type/urlog
+   :cohort/members [{:author/email "neno.mindjek@iterate.no", :author/first-name "Neno"}]))
 
 (def cohorts
   (sorted-map
