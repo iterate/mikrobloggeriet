@@ -4,8 +4,7 @@
    [clojure.edn :as edn]
    [mikrobloggeriet.cohort.markdown :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]
-   [mikrobloggeriet.doc-template :as doc-template]))
+   [mikrobloggeriet.doc-meta :as doc-meta]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS
