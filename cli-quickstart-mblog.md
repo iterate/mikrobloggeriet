@@ -1,13 +1,13 @@
 # CLI quickstart for `mblog`
 
-This guide gets you started with the new CLI: `mblog`.
-Per `2023-09-15`:
+This guide gets you started with `mblog`, a CLI for writing on Mikrobloggeriet.
+Per `2024-01-28`, you have two options for writing on Mikrobloggeriet.
 
-1. `mblog` is the recommended CLI for writing documents,
-2. `olorm` and `jals` are deprecated, but still supported.
-   To install `olorm` or `jals`, please read the [old `olorm` and `jals` CLI Quickstart].
+- `mblog` is written in Clojure, mostly by Teodor and Olav
+- `mblog.sh` is written in Bourne shell by Richard.
 
-[old `olorm` and `jals` CLI Quickstart]: cli-quickstart.md
+`mblog.sh` requires no setup, and has no configuration.
+`mblog` requires several installation steps, and has configuration.
 
 ## Required dependencies
 
