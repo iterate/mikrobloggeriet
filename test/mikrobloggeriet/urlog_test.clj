@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.urlog-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [mikrobloggeriet.urlog :as urlog]))
+   [mikrobloggeriet.cohort.urlog :as urlog]))
 
 (deftest select-door-test
   (let [doors (:doors (urlog/load-ascii-assets urlog/assets-dir))

@@ -14,7 +14,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.urlog :as urlog]
+   [mikrobloggeriet.cohort.urlog :as urlog]
    [org.httpkit.server :as httpkit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))

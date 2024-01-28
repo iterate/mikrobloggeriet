@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.urlog
+(ns mikrobloggeriet.cohort.urlog
   (:require
    [hiccup.page :as page]
    [clojure.edn :as edn]
