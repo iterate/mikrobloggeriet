@@ -1,9 +1,8 @@
-(ns mikrobloggeriet.urlog
+(ns mikrobloggeriet.cohort.urlog
   (:require
    [hiccup.page :as page]
    [clojure.edn :as edn]
    [babashka.fs :as fs]
-   [mikrobloggeriet.urlog :as urlog]
    [clojure.pprint :as pprint]))
 
 ;; TO-DO

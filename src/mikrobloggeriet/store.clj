@@ -2,10 +2,9 @@
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.cohort.markdown :as cohort]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]
-   [mikrobloggeriet.doc-template :as doc-template]))
+   [mikrobloggeriet.doc-meta :as doc-meta]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KNOWN COHORTS

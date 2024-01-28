@@ -3,7 +3,7 @@
 (ns mikrobloggeriet.teodor.pluggable-transformer
   (:require
    [babashka.fs :as fs]
-   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.cohort.markdown :as cohort]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.store :as store]
    [nextjournal.clerk :as clerk]))
