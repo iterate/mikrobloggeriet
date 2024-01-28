@@ -29,8 +29,8 @@
                (swap! cache assoc cache-key result)
                ;; Otherwise, warn that the cache key isn't valid
                (when warn-fn
-                 (if-let [n (:name (meta f))]
-                   (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key wrapping" n)
+                 (if-let [fn-name (:name (meta f))]
+                   (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key wrapping" fn-name)
                    (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key"))))
              result)))))))
 
