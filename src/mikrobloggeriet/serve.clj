@@ -139,8 +139,8 @@
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"]
     {:status 200
+     :headers {}
      :body
-
      (page/html5
       (into [:head] (shared-html-header req))
       [:body
@@ -364,7 +364,9 @@
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
      [["/theme/:theme" {:get theme
-                        :name :mikrobloggeriet/theme}]]
+                        :name :mikrobloggeriet/theme}]
+      ["/" {:get index
+            :name :mikrobloggeriet/frontpage}]]
      ))))
 
 (defonce app12-compat (atom (sorted-map)))
@@ -375,6 +377,12 @@
   (list
    ((app-reitit) {:request-method :get :uri "/theme/bwb.css"})
    (app {:request-method :get :uri "/theme/bwb.css"}))
+
+  (let [uri "/"]
+    (=
+     ((app-reitit) {:request-method :get :uri uri})
+     (app {:request-method :get :uri uri}))
+    )
 
 
   (let [req {:request-method :get :uri "/hops-info"}]
