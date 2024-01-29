@@ -11,6 +11,7 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
@@ -64,20 +65,11 @@
                           :title (pandoc/infer-title pandoc)}))
                      identity))
 
-(defn read-created-date [file-path]
-  (let [content (slurp file-path)
-        data (edn/read-string content)]
-    (:doc/created data)))
-
-(defn ->java-time-instant [date]
-  (.toInstant
-   (.parse (java.text.SimpleDateFormat. "yyyy-MM-dd") (str date))))
-
 (defn cohort-rss-section [cohort]
   (for [doc (store/docs cohort)]
     {:title (doc/slug doc)
      :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
-     :pubDate (->java-time-instant (read-created-date (store/doc-meta-path cohort doc)))
+     :pubDate (doc-meta/created-instant (store/load-meta cohort doc))
      :category (cohort/slug cohort)
      :description (doc/slug doc)
      :guid (doc/slug doc)
@@ -98,6 +90,11 @@
                             (cohort-rss-section store/jals)
                             (cohort-rss-section store/oj)
                             (cohort-rss-section store/genai))}))
+
+(comment
+  (def rss1 (rss-feed))
+  (spit "rss.xml" (:body rss1))
+  )
 
 (defn cohort-doc-table [req cohort]
   (page/html5
