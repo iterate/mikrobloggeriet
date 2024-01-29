@@ -456,6 +456,7 @@
     (f {:uri "/hops-info", :request-method :get}))
   :rcf)
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start-prod! [_opts]
   (swap! server
          (fn [old-server]
