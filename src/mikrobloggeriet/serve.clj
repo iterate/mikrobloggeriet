@@ -278,8 +278,10 @@
    :body (io/file file)})
 
 (defn theme [req]
-  (css-response (str "theme/"
-                     (get-in req [:route-params :theme]))))
+  (let [theme (or (get-in req [:route-params :theme]) ;; compojure
+                  (get-in req [:path-params :theme]) ;; reitit
+                  )]
+    (css-response (str "theme/" theme))))
 
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
@@ -364,22 +366,29 @@
       ["/health" {:get health
                   :name :mikrobloggeriet/health}]]
      (for [css-file ["vanilla.css" "mikrobloggeriet.css" "reset.css" "urlog.css"]]
-       [(str "/" css-file) {:get (constantly (css-response css-file))}])
+       [(str "/" css-file) {:get (constantly (css-response css-file))
+                            :name (keyword "mikrobloggeriet.default-css"
+                                           css-file)}])
+     [["/theme/:theme" {:get theme
+                        :name :mikrobloggeriet/theme}]]
      ))))
 
+(defonce app12-compat (atom (sorted-map)))
 
 (comment
+  (reset! app12-compat (sorted-map))
+
+  (list
+   ((app-reitit) {:request-method :get :uri "/theme/bwb.css"})
+   (app {:request-method :get :uri "/theme/bwb.css"}))
+
+
   (let [req {:request-method :get :uri "/hops-info"}]
     (= (app req)
        ((app-reitit) req)))
   ;; => true
 
   :rcf)
-
-(defonce app12-compat (atom (sorted-map)))
-
-(comment
-  (reset! app12-compat (sorted-map)))
 
 (defn app12-compat-report [req]
   {:status 200
