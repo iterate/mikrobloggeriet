@@ -358,10 +358,15 @@
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
-    [["/hops-info" {:get hops-info
-                    :name :mikrobloggeriet/hops-info}]
-     ["/health" {:get health
-                 :name :mikrobloggeriet/health}]])))
+    (concat
+     [["/hops-info" {:get hops-info
+                     :name :mikrobloggeriet/hops-info}]
+      ["/health" {:get health
+                  :name :mikrobloggeriet/health}]]
+     (for [css-file ["vanilla.css" "mikrobloggeriet.css" "reset.css" "urlog.css"]]
+       [(str "/" css-file) {:get (constantly (css-response css-file))}])
+     ))))
+
 
 (comment
   (let [req {:request-method :get :uri "/hops-info"}]
