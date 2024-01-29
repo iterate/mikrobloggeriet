@@ -378,6 +378,9 @@
 
 (defonce app12-compat (atom (sorted-map)))
 
+(comment
+  (reset! app12-compat (sorted-map)))
+
 (defn app12-compat-report [req]
   {:status 200
    :headers {}
