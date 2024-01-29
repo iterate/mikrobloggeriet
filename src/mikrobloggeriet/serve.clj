@@ -271,12 +271,6 @@
    :headers {"Content-Type" "text/css"}
    :body (io/file file)})
 
-
-(defn js-response [file]
-  {:status 200
-   :headers {"Content-Type" "text/javascript"}
-   :body (io/file file)})
-
 (defn theme [req]
   (let [theme (or (get-in req [:route-params :theme]) ;; compojure
                   (get-in req [:path-params :theme]) ;; reitit
