@@ -380,6 +380,8 @@
      ;; Urlog
      [["/urlog/" {:get cohort.urlog/page
                   :name :mikrobloggeriet.urlog/all}]]
+     ;; TODO redirects
+     [["/o/" {:get (constantly (http/permanent-redirect {:target "/olorm/"}))}]]
      ))))
 
 (defonce
@@ -397,7 +399,7 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
-  (let [uri "/urlog/"]
+  (let [uri "/o/"]
     (=
      ((app-reitit) {:request-method :get :uri uri})
      (app {:request-method :get :uri uri})))
