@@ -275,7 +275,7 @@
    :body (io/file file)})
 
 (defn theme [req]
-  (css-response (str "theme/" (http/path-param req theme))))
+  (css-response (str "theme/" (http/path-param req :theme))))
 
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
