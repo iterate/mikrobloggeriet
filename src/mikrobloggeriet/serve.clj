@@ -351,11 +351,13 @@
   (reitit.ring/ring-handler
    (reitit.ring/router
     (concat
+
      ;; Deployment aides
      [["/hops-info" {:get hops-info
                      :name :mikrobloggeriet/hops-info}]
       ["/health" {:get health
                   :name :mikrobloggeriet/health}]]
+
      ;; Arbitrary CSS files
      (for [css-file ["vanilla.css" "mikrobloggeriet.css" "reset.css" "urlog.css"]]
        [(str "/" css-file) {:get (constantly (css-response css-file))
@@ -366,9 +368,16 @@
                         :name :mikrobloggeriet/theme}]
       ["/" {:get index
             :name :mikrobloggeriet/frontpage}]]
+
      ;; regular markdown cohorts
      (for [c [store/olorm store/jals store/oj store/luke]]
-       (reitit-cohort-routes c))))))
+       (reitit-cohort-routes c))
+
+     ;; RSS
+     [["/feed/" {:get rss-feed
+                 :name :mikrobloggeriet/feed}]]
+
+     ))))
 
 (defonce
   ^{:doc "Compatibility report for compojure and reitit router.
