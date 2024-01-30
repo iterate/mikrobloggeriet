@@ -411,6 +411,19 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
+  (require 'reitit.core)
+  (reitit.ring/get-router (app-reitit))
+
+  (reitit.core/match-by-name (reitit.ring/get-router (app-reitit))
+                             :mikrobloggeriet/hops-info)
+
+  (->
+   (reitit.ring/get-router (app-reitit))
+   (reitit.core/match-by-name :mikrobloggeriet/hops-info)
+   (reitit.core/match->path {}))
+
+  (app-reitit)
+
   (let [uri "/random-doc"]
     (list
      ((app-reitit) {:request-method :get :uri uri})
