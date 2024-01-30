@@ -81,7 +81,7 @@
 (comment
   (cohort/slug store/olorm))
 
-(defn rss-feed []
+(defn rss-feed [_req]
   (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :feed-url "https://mikrobloggeriet.no/feed/" :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
     {:status 200
      :headers {"Content-type" "application/rss+xml"}
@@ -91,7 +91,7 @@
                             (cohort-rss-section store/oj))}))
 
 (comment
-  (def rss1 (rss-feed))
+  (def rss1 (rss-feed {}))
   (spit "rss.xml" (:body rss1))
   )
 
@@ -290,7 +290,7 @@
   (GET "/theme/:theme" req (theme req))
 
   ;; STUFF
-  (GET "/feed/" _req (rss-feed))
+  (GET "/feed/" _req (rss-feed _req))
   (GET "/hops-info" req (hops-info req))
   (GET "/random-doc" _req random-doc)
 
