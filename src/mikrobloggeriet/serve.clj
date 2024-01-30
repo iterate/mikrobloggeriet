@@ -298,7 +298,6 @@
   ;; /o/* URLS are deprecated in favor of /olorm/* URLs
   (GET "/o/" _req (http/permanent-redirect {:target "/olorm/"}))
   (GET "/olorm/" req (cohort-doc-table req store/olorm))
-
   (GET "/o/:slug/" req (http/permanent-redirect {:target (str "/olorm/" (:slug (:route-params req)) "/")}))
   (GET "/olorm/:slug/" req (doc req store/olorm))
 
