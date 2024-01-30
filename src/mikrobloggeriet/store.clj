@@ -37,13 +37,6 @@
    :cohort/members [{:author/email "jomarn@me.com" :author/first-name "Johan"}
                     {:author/email "olav.moseng@iterate.no" :author/first-name "Olav"}]))
 
-(def genai
-  (sorted-map
-   :cohort/root "text/genai"
-   :cohort/slug "genai"
-   :cohort/type :cohort.type/markdown
-   :cohort/members [{:author/first-name "Julian"}]))
-
 (def luke
   (sorted-map
    :cohort/root "text/luke"

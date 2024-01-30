@@ -88,8 +88,7 @@
      :body (rss/channel-xml title
                             (cohort-rss-section store/olorm)
                             (cohort-rss-section store/jals)
-                            (cohort-rss-section store/oj)
-                            (cohort-rss-section store/genai))}))
+                            (cohort-rss-section store/oj))}))
 
 (comment
   (def rss1 (rss-feed))
@@ -154,9 +153,6 @@
        (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
        (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
 
-       (when (= "genai" (flag req))
-         (default-cohort-section store/genai "GENAI" "Mikrobloggen GENAI skrives av ... deg?"))
-
        [:section
         [:h2 "URLOG"]
         [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
@@ -206,8 +202,6 @@
                                 [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
             [:p "Sett flagg: "
              (flag-element "ingen-flagg")
-             " | "
-             (flag-element "genai")
              " | "
              (flag-element "god-jul")])])])}))
 
@@ -318,10 +312,6 @@
   ;; OJ
   (GET "/oj/" req (cohort-doc-table req store/oj))
   (GET "/oj/:slug/" req (doc req store/oj))
-
-  ;; GENAI
-  (GET "/genai/" req (cohort-doc-table req store/genai))
-  (GET "/genai/:slug/" req (doc req store/genai))
 
   ;; LUKE 
   (GET "/luke/" req (cohort-doc-table req store/luke))
