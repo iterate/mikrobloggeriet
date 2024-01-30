@@ -380,10 +380,17 @@
      ;; Urlog
      [["/urlog/" {:get cohort.urlog/page
                   :name :mikrobloggeriet.urlog/all}]]
-     ;; TODO redirects
+
+     ;; Support old URLs
+     ;; Originally, OLORM was /o/ and JALS was /j/.
      [["/o/" {:get (constantly (http/permanent-redirect {:target "/olorm/"}))}]
-      ["/j/" {:get (constantly (http/permanent-redirect {:target "/jals/"}))}]]
-     ))))
+      ["/j/" {:get (constantly (http/permanent-redirect {:target "/jals/"}))}]
+      ["/o/:slug/" {:get (fn [req]
+                           (when-let [slug (http/path-param req :slug)]
+                             (http/permanent-redirect {:target (str "/olorm/" slug "/")})))}]
+      ["/j/:slug/" {:get (fn [req]
+                           (when-let [slug (http/path-param req :slug)]
+                             (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]))))
 
 (defonce
   ^{:doc "Compatibility report for compojure and reitit router.
@@ -400,7 +407,12 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
-  (let [uri "/j/"]
+  (let [uri "/j/jals-1/"]
+    (=
+     ((app-reitit) {:request-method :get :uri uri})
+     (app {:request-method :get :uri uri})))
+
+  (let [uri "/o/olorm-7/"]
     (=
      ((app-reitit) {:request-method :get :uri uri})
      (app {:request-method :get :uri uri})))
