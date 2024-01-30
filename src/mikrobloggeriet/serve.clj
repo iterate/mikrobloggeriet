@@ -225,12 +225,13 @@
 
 (defn doc
   [req cohort]
-  (when (:slug (:route-params req))
+  (when (http/path-param req :slug)
     (let [doc (doc/from-slug (http/path-param req :slug))
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
             (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
       {:status 200
+       :headers {"Content-Type" "text/html; charset=utf-8"}
        :body
        (page/html5
         (into [:head] (concat (when title [[:title title]])
@@ -349,6 +350,13 @@
 ;; - Og vi prøver å bruke orakeltesting for å sjekke hvordan dette går.
 ;;   (forslag fra Oddmund i diskusjonstråden)
 
+(defn reitit-cohort-routes [cohort]
+  [(str "/" (cohort/slug cohort))
+   ["/" {:get (fn [req] (cohort-doc-table req cohort))
+         :name (keyword (str "mikrobloggeriet." (cohort/slug cohort))
+                        "all")}]
+   ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
+
 (defn ^:experimental
   app-reitit
   []
@@ -367,6 +375,9 @@
                         :name :mikrobloggeriet/theme}]
       ["/" {:get index
             :name :mikrobloggeriet/frontpage}]
+      (reitit-cohort-routes store/olorm)
+
+      #_
       ["/olorm"
        ["/" {:get (fn [req] (cohort-doc-table req store/olorm))
              :name :mikrobloggeriet.olorm/all}]
@@ -402,6 +413,10 @@ In prod:
   (let [req {:request-method :get :uri "/olorm/"}]
     (list (app req)
           ((app-reitit) req)))
+
+  (let [req {:request-method :get :uri "/olorm/olorm-1/"}]
+    (= (app req)
+       ((app-reitit) req)))
 
   (let [req {:request-method :get :uri "/hops-info"}]
     (= (app req)
