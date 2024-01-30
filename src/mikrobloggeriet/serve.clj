@@ -470,8 +470,8 @@ In prod:
         (if (= response-1 response-2)
           (swap! app12-compat assoc (req->key req) :ok)
           (swap! app12-compat assoc (req->key req) :not-ok)))
-      ;; Return the old value
-      response-1)))
+      ;; Return the new value
+      response-2)))
 
 ;; ## REPL-grensesnitt
 
