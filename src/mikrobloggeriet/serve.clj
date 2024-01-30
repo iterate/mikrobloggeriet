@@ -318,7 +318,6 @@
 
   ;; NENO
   (GET "/urlog/" req (cohort.urlog/page req))
-  ;; (GET "/urlog/:slug/" req (urlog/doc req store/urlog))
   )
 
 (comment
