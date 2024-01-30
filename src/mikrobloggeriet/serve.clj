@@ -370,7 +370,7 @@
       ["/olorm"
        ["/" {:get (fn [req] (cohort-doc-table req store/olorm))
              :name :mikrobloggeriet.olorm/all}]
-       ["/:slug/" {:get :TODO}] ]
+       ["/:slug/" {:get (fn [req] (doc req store/olorm))}] ]
 
       ]))))
 
