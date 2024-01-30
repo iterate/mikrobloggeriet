@@ -386,28 +386,10 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
-  (list
-   ((app-reitit) {:request-method :get :uri "/theme/bwb.css"})
-   (app {:request-method :get :uri "/theme/bwb.css"}))
-
   (let [uri "/"]
     (=
      ((app-reitit) {:request-method :get :uri uri})
-     (app {:request-method :get :uri uri}))
-    )
-
-  (let [req {:request-method :get :uri "/olorm/"}]
-    (list (app req)
-          ((app-reitit) req)))
-
-  (let [req {:request-method :get :uri "/olorm/olorm-1/"}]
-    (= (app req)
-       ((app-reitit) req)))
-
-  (let [req {:request-method :get :uri "/hops-info"}]
-    (= (app req)
-       ((app-reitit) req)))
-  ;; => true
+     (app {:request-method :get :uri uri})))
 
   :rcf)
 
