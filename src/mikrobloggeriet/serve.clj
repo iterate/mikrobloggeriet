@@ -2,7 +2,6 @@
   (:require
    [babashka.fs :as fs]
    [clj-rss.core :as rss]
-   [clojure.edn :as edn]
    [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
@@ -10,12 +9,12 @@
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [org.httpkit.server :as httpkit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
