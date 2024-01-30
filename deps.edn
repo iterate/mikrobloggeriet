@@ -1,6 +1,6 @@
 {:paths ["src" "draft"]
  :deps
- {babashka/fs {:mvn/version "0.4.19"}
+ {babashka/fs {:mvn/version "0.5.20"}
   babashka/process {:mvn/version "0.5.21"}
   cheshire/cheshire {:mvn/version "5.12.0"}
   clj-rss/clj-rss {:mvn/version "0.4.0"}
@@ -9,7 +9,7 @@
   http-kit/http-kit {:mvn/version "2.7.0"}
   io.github.nextjournal/clerk {:mvn/version "0.15.957"}
   metosin/reitit {:mvn/version "0.6.0"}
-  org.babashka/cli {:mvn/version "0.7.53"}
+  org.babashka/cli {:mvn/version "0.8.55"}
   org.clojure/clojure {:mvn/version "1.11.1"}
   }
  :aliases
