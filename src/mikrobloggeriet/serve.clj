@@ -407,7 +407,8 @@
 
      ;; Go to a random document
      [["/random-doc" {:get random-doc
-                      :name :mikrobloggeriet/random-doc}]]))))
+                      :name :mikrobloggeriet/random-doc}]]))
+   (reitit.ring/redirect-trailing-slash-handler)))
 
 (defn url-for
   ([name] (url-for name {}))
