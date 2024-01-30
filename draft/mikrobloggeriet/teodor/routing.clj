@@ -9,8 +9,3 @@
 ;;     :result nil,
 ;;     :path-params {},
 ;;     :path "/offers/"}
-
-(let [router (reitit/router [["/offers/" {:get (fn [_req] "our offers!")}]])]
-
-  #_
-  (reitit/match-by-path router "/offers/"))
