@@ -77,7 +77,6 @@
    :olorm olorm
    :jals jals
    :oj oj
-   :genai genai
    :luke luke
    :urlog urlog
    :vakt vakt))
