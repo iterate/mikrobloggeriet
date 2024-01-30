@@ -16,8 +16,12 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [org.httpkit.server :as httpkit]
+   [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
+
+(declare app-reitit)
+(declare url-for)
 
 (defn shared-html-header
   "Shared HTML, including CSS.
@@ -37,8 +41,18 @@
        [:style {:type "text/css"}
         (str ":root{ --text-color: var(--iterate-base0" number ")}")]))])
 
+(comment
+
+  (url-for :mikrobloggeriet/random-doc)
+  )
+
 (defn feeling-lucky [content]
-  [:a {:href "/random-doc" :class :feeling-lucky} content])
+  [:a {:href (url-for :mikrobloggeriet/random-doc {}) :class :feeling-lucky} content])
+
+(comment
+  (feeling-lucky "")
+  ;; => [:a {:href "/random-doc", :class :feeling-lucky} ""]
+  )
 
 (defn set-theme [req]
   (let [target "/"
@@ -395,6 +409,20 @@
      [["/random-doc" {:get random-doc
                       :name :mikrobloggeriet/random-doc}]]))))
 
+(defn url-for
+  ([name] (url-for name {}))
+  ([name path-params]
+   (->
+    (reitit.ring/get-router (app-reitit))
+    (reitit/match-by-name name)
+    (reitit/match->path path-params))))
+
+(comment
+  (url-for :mikrobloggeriet/frontpage)
+
+  (url-for :mikrobloggeriet/theme {:theme "bwb"})
+  )
+
 (defonce
   ^{:doc "Compatibility report for compojure and reitit router.
 
@@ -410,16 +438,15 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
-  (require 'reitit.core)
   (reitit.ring/get-router (app-reitit))
 
-  (reitit.core/match-by-name (reitit.ring/get-router (app-reitit))
-                             :mikrobloggeriet/hops-info)
+  (reitit/match-by-name (reitit.ring/get-router (app-reitit))
+                        :mikrobloggeriet/hops-info)
 
   (->
    (reitit.ring/get-router (app-reitit))
-   (reitit.core/match-by-name :mikrobloggeriet/hops-info)
-   (reitit.core/match->path {}))
+   (reitit/match-by-name :mikrobloggeriet/hops-info)
+   (reitit/match->path {}))
 
   (app-reitit)
 
