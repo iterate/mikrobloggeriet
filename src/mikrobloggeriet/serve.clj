@@ -43,7 +43,7 @@
 
 (defn set-theme [req]
   (let [target "/"
-        theme (or (:theme (:route-params req)) "")]
+        theme (or (http/path-param req :theme) "")]
     {:status 307 ;; temporary redirect
      :headers {"Location" target
                "Set-Cookie" (str "theme=" theme "; Path=/")}
@@ -52,7 +52,7 @@
 (defn- set-flag [req]
   {:status 307
    :headers {"Location" "/"
-             "Set-Cookie" (str "flag=" (or (:flag (:route-params req)) "")
+             "Set-Cookie" (str "flag=" (or (http/path-param req :flag) "")
                                "; Path=/")}})
 
 (defn- flag [req]
@@ -275,10 +275,7 @@
    :body (io/file file)})
 
 (defn theme [req]
-  (let [theme (or (get-in req [:route-params :theme]) ;; compojure
-                  (get-in req [:path-params :theme]) ;; reitit
-                  )]
-    (css-response (str "theme/" theme))))
+  (css-response (str "theme/" (http/path-param req theme))))
 
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
@@ -371,9 +368,9 @@
       ["/" {:get index
             :name :mikrobloggeriet/frontpage}]
       ["/olorm"
-       ["/" {:get (fn [req] (cohort-doc-table req store/olorm))}]
-
-       ]
+       ["/" {:get (fn [req] (cohort-doc-table req store/olorm))
+             :name :mikrobloggeriet.olorm/all}]
+       ["/:slug/" {:get :TODO}] ]
 
       ]))))
 
