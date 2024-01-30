@@ -97,31 +97,34 @@
   )
 
 (defn cohort-doc-table [req cohort]
-  (page/html5
-   (into [:head] (shared-html-header req))
-   [:body
-    [:p
-     (feeling-lucky "🎲")
-     " — "
-     [:a {:href "/"} "mikrobloggeriet"]]
-    [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
-    [:table
-     [:thead
-      [:td (cohort/slug cohort)]
-      [:td "tittel"]
-      [:td "forfatter"]
-      [:td "publisert"]]
-     [:tbody
-      (for [doc (->> (store/docs cohort)
-                     (map (fn [doc]
-                            (store/load-meta cohort doc)))
-                     (pmap (fn [doc]
-                             (assoc doc :doc/title (:title (markdown->html+info (slurp (store/doc-md-path cohort doc))))))))]
-        [:tr
-         [:td [:a {:href (store/doc-href cohort doc)} (doc/slug doc)]]
-         [:td (:doc/title doc)]
-         [:td (store/author-first-name cohort doc)]
-         [:td (:doc/created doc)]])]]]))
+  {:status 200
+   :headers {"Content-Type" "text/html; charset=utf-8"}
+   :body
+   (page/html5
+       (into [:head] (shared-html-header req))
+     [:body
+      [:p
+       (feeling-lucky "🎲")
+       " — "
+       [:a {:href "/"} "mikrobloggeriet"]]
+      [:h1 (str "Alle " (str/upper-case (cohort/slug cohort)) "-er")]
+      [:table
+       [:thead
+        [:td (cohort/slug cohort)]
+        [:td "tittel"]
+        [:td "forfatter"]
+        [:td "publisert"]]
+       [:tbody
+        (for [doc (->> (store/docs cohort)
+                       (map (fn [doc]
+                              (store/load-meta cohort doc)))
+                       (pmap (fn [doc]
+                               (assoc doc :doc/title (:title (markdown->html+info (slurp (store/doc-md-path cohort doc))))))))]
+          [:tr
+           [:td [:a {:href (store/doc-href cohort doc)} (doc/slug doc)]]
+           [:td (:doc/title doc)]
+           [:td (store/author-first-name cohort doc)]
+           [:td (:doc/created doc)]])]]])})
 
 (defn default-cohort-section [cohort name description]
   [:section
@@ -366,8 +369,13 @@
      [["/theme/:theme" {:get theme
                         :name :mikrobloggeriet/theme}]
       ["/" {:get index
-            :name :mikrobloggeriet/frontpage}]]
-     ))))
+            :name :mikrobloggeriet/frontpage}]
+      ["/olorm"
+       ["/" {:get (fn [req] (cohort-doc-table req store/olorm))}]
+
+       ]
+
+      ]))))
 
 (defonce
   ^{:doc "Compatibility report for compojure and reitit router.
@@ -394,6 +402,9 @@ In prod:
      (app {:request-method :get :uri uri}))
     )
 
+  (let [req {:request-method :get :uri "/olorm/"}]
+    (list (app req)
+          ((app-reitit) req)))
 
   (let [req {:request-method :get :uri "/hops-info"}]
     (= (app req)
