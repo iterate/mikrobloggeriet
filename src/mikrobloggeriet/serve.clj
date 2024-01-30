@@ -390,7 +390,11 @@
                              (http/permanent-redirect {:target (str "/olorm/" slug "/")})))}]
       ["/j/:slug/" {:get (fn [req]
                            (when-let [slug (http/path-param req :slug)]
-                             (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]))))
+                             (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
+
+     ;; Go to a random document
+     [["/random-doc" {:get random-doc
+                      :name :mikrobloggeriet/random-doc}]]))))
 
 (defonce
   ^{:doc "Compatibility report for compojure and reitit router.
@@ -407,13 +411,8 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
-  (let [uri "/j/jals-1/"]
-    (=
-     ((app-reitit) {:request-method :get :uri uri})
-     (app {:request-method :get :uri uri})))
-
-  (let [uri "/o/olorm-7/"]
-    (=
+  (let [uri "/random-doc"]
+    (list
      ((app-reitit) {:request-method :get :uri uri})
      (app {:request-method :get :uri uri})))
 
