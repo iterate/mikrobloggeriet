@@ -112,24 +112,27 @@
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
         assets (load-ascii-assets assets-dir)]
-    (page/html5
-     [:head
-      (page/include-css "/mikrobloggeriet.css")
-      (page/include-css "/urlog.css")]
-     [:body
-      [:p
-       (feeling-lucky "🎲")
-       " — "
-       [:a {:href "/"} "mikrobloggeriet"]]
-      [:header
-       (logo->html (:logo assets))
-       [:p {:class :intro}
-        "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
-      [:div {:class :all-doors}
-       (for [doc (reverse (:urlog/docs urlog-data))]
-         (let [url (:urlog/url doc)
-               door (select-door url (:doors assets))]
-           [:div {:class :wall :role :none}
-            (wall->html (:wall assets))
-            (door+url->html door url)
-            (wall->html (:wall assets))]))]])))
+    {:status 200
+     :headers {"Content-Type" "text/html; charset=utf-8"}
+     :body
+     (page/html5
+         [:head
+          (page/include-css "/mikrobloggeriet.css")
+          (page/include-css "/urlog.css")]
+       [:body
+        [:p
+         (feeling-lucky "🎲")
+         " — "
+         [:a {:href "/"} "mikrobloggeriet"]]
+        [:header
+         (logo->html (:logo assets))
+         [:p {:class :intro}
+          "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
+        [:div {:class :all-doors}
+         (for [doc (reverse (:urlog/docs urlog-data))]
+           (let [url (:urlog/url doc)
+                 door (select-door url (:doors assets))]
+             [:div {:class :wall :role :none}
+              (wall->html (:wall assets))
+              (door+url->html door url)
+              (wall->html (:wall assets))]))]])}))

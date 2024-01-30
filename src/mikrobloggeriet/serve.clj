@@ -369,7 +369,7 @@
       ["/" {:get index
             :name :mikrobloggeriet/frontpage}]]
 
-     ;; regular markdown cohorts
+     ;; Markdown cohorts
      (for [c [store/olorm store/jals store/oj store/luke]]
        (reitit-cohort-routes c))
 
@@ -377,6 +377,9 @@
      [["/feed/" {:get rss-feed
                  :name :mikrobloggeriet/feed}]]
 
+     ;; Urlog
+     [["/urlog/" {:get cohort.urlog/page
+                  :name :mikrobloggeriet.urlog/all}]]
      ))))
 
 (defonce
@@ -394,7 +397,7 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
-  (let [uri "/"]
+  (let [uri "/urlog/"]
     (=
      ((app-reitit) {:request-method :get :uri uri})
      (app {:request-method :get :uri uri})))
