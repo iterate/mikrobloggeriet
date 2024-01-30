@@ -377,11 +377,7 @@
             :name :mikrobloggeriet/frontpage}]
       (reitit-cohort-routes store/olorm)
 
-      #_
-      ["/olorm"
-       ["/" {:get (fn [req] (cohort-doc-table req store/olorm))
-             :name :mikrobloggeriet.olorm/all}]
-       ["/:slug/" {:get (fn [req] (doc req store/olorm))}] ]
+
 
       ]))))
 
