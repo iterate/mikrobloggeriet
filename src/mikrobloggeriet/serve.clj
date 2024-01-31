@@ -272,7 +272,8 @@
      :body ""}))
 
 (defn hops-info [_req]
-  (let [info {:git/sha (System/getenv "HOPS_GIT_SHA")}]
+  (let [info {:git/sha (System/getenv "HOPS_GIT_SHA")
+              :bo-message "hei, bjørn olav!"}]
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (with-out-str (clojure.pprint/pprint info))}))
