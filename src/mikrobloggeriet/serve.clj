@@ -373,18 +373,6 @@
   (url-for :mikrobloggeriet/theme {:theme "bwb"})
   )
 
-(defonce
-  ^{:doc "Compatibility report for compojure and reitit router.
-
-In dev:
-
-    http://localhost:7223/app12-compat-report
-
-In prod:
-
-    https://mikrobloggeriet.no/app12-compat-report"}
-  app12-compat (atom (sorted-map)))
-
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
