@@ -20,7 +20,7 @@
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
 
-(declare app-reitit)
+(declare app)
 (declare url-for)
 
 (defn shared-html-header
@@ -308,8 +308,7 @@
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
-(defn ^:experimental
-  app-reitit
+(defn app
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
@@ -364,7 +363,7 @@
   ([name] (url-for name {}))
   ([name path-params]
    (->
-    (reitit.ring/get-router (app-reitit))
+    (reitit.ring/get-router (app))
     (reitit/match-by-name name)
     (reitit/match->path path-params))))
 
@@ -461,11 +460,11 @@ In prod:
            (stop-server old-server)
            (println (str "mikroboggeriet.serve running: http://localhost:" port))
            (httpkit/run-server (fn [req]
-                                 ((app-reitit) req))
+                                 ((app) req))
                                {:port port}))))
 
 (comment
-  ((app-reitit) {:uri "/hops-info", :request-method :get})
+  ((app) {:uri "/hops-info", :request-method :get})
   :rcf)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
@@ -474,5 +473,5 @@ In prod:
          (fn [old-server]
            (stop-server old-server)
            (println (str "mikroboggeriet.serve running: http://localhost:" port))
-           (httpkit/run-server (app-reitit)
+           (httpkit/run-server (app)
                                {:port port}))))
