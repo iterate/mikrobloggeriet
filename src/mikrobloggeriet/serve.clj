@@ -439,6 +439,8 @@ In prod:
 (comment
   (reset! app12-compat (sorted-map))
 
+  @app12-compat
+
   (let [uri "/random-doc"]
     (list
      ((app-reitit) {:request-method :get :uri uri})
@@ -515,9 +517,7 @@ In prod:
          (fn [old-server]
            (stop-server old-server)
            (println (str "mikroboggeriet.serve running: http://localhost:" port))
-           (httpkit/run-server #(app-with-reitit-test (constantly app)
-                                                      #'app-reitit
-                                                      %)
+           (httpkit/run-server (app-reitit)
                                {:port port}))))
 
 (comment
@@ -535,7 +535,5 @@ In prod:
          (fn [old-server]
            (stop-server old-server)
            (println (str "mikroboggeriet.serve running: http://localhost:" port))
-           (httpkit/run-server #(app-with-reitit-test (constantly app)
-                                                      (constantly (app-reitit))
-                                                      %)
+           (httpkit/run-server (app-reitit)
                                {:port port}))))
