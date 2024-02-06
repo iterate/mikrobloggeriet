@@ -288,7 +288,7 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-(defn reitit-markdown-cohort-routes [cohort]
+(defn markdown-cohort-routes [cohort]
   [(str "/" (cohort/slug cohort))
    ["/" {:get (fn [req] (cohort-doc-table req cohort))
          :name (keyword (str "mikrobloggeriet." (cohort/slug cohort))
@@ -320,7 +320,7 @@
 
      ;; Markdown cohorts
      (for [c [store/olorm store/jals store/oj store/luke]]
-       (reitit-markdown-cohort-routes c))
+       (markdown-cohort-routes c))
 
      ;; RSS
      [["/feed/" {:get rss-feed
