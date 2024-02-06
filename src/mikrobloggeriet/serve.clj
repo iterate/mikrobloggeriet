@@ -288,51 +288,6 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-(defroutes app
-  (GET "/" req (index req))
-
-  ;; STATIC FILES
-  (GET "/health" _req health)
-  (GET "/vanilla.css" _req (css-response "vanilla.css"))
-  (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
-  (GET "/reset.css" _req (css-response "reset.css"))
-  (GET "/urlog.css" _req (css-response "urlog.css")) ;; NENO STUFF
-  ;; THEMES AND FEATURE FLAGGING
-  (GET "/set-theme/:theme" req (set-theme req))
-  (GET "/set-flag/:flag" req (set-flag req))
-  (GET "/theme/:theme" req (theme req))
-
-  ;; STUFF
-  (GET "/feed/" _req (rss-feed _req))
-  (GET "/hops-info" req (hops-info req))
-  (GET "/random-doc" _req random-doc)
-
-  ;; OLORM
-  ;; /o/* URLS are deprecated in favor of /olorm/* URLs
-  (GET "/o/" _req (http/permanent-redirect {:target "/olorm/"}))
-  (GET "/olorm/" req (cohort-doc-table req store/olorm))
-  (GET "/o/:slug/" req (http/permanent-redirect {:target (str "/olorm/" (:slug (:route-params req)) "/")}))
-  (GET "/olorm/:slug/" req (doc req store/olorm))
-
-  ;; JALS
-  ;; /j/* URLS are deprecated in favor of /jals/* URLs
-  (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
-  (GET "/jals/" req (cohort-doc-table req store/jals))
-  (GET "/j/:slug/" req (http/permanent-redirect {:target (str "/jals/" (:slug (:route-params req)) "/")}))
-  (GET "/jals/:slug/" req (doc req store/jals))
-
-  ;; OJ
-  (GET "/oj/" req (cohort-doc-table req store/oj))
-  (GET "/oj/:slug/" req (doc req store/oj))
-
-  ;; LUKE 
-  (GET "/luke/" req (cohort-doc-table req store/luke))
-  (GET "/luke/:slug/" req (doc req store/luke))
-
-  ;; NENO
-  (GET "/urlog/" req (cohort.urlog/page req))
-  )
-
 ;; ## Ekspriment, bør vi bruke Reitit?
 ;;
 ;; Hvorfor?
