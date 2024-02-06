@@ -385,11 +385,6 @@ In prod:
     https://mikrobloggeriet.no/app12-compat-report"}
   app12-compat (atom (sorted-map)))
 
-(comment
-  (reset! app12-compat (sorted-map))
-  @app12-compat
-  :rcf)
-
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
