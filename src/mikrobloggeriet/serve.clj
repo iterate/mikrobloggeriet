@@ -414,37 +414,6 @@ In prod:
             [:code [:a {:href uri} uri]]]
            [:td [:code (pr-str v)]]])]]])})
 
-(defn app-with-reitit-test
-  "Temporary wrapper around `app` while we implement Reitit
-
-  This handler calls Mikrobloggeriet through the old Compojure router, and also
-  through the new Reitit router. Compojure / Reitit compatibility status can be
-  viewed on /app12-compat-report.
-
-  For details, see https://github.com/iterate/mikrobloggeriet/pull/81"
-  [default-app experimental-app req]
-  (cond
-    ;; Report is special!
-    (= (:uri req) "/app12-compat-report")
-    (app12-compat-report req)
-
-    ;; Not a GET or HEAD request?
-    ;; Don't send two requests.
-    (not (#{:get :head} (:request-method req)))
-    ((default-app) req)
-
-    :else
-    (let [response-1 ((default-app) req)
-          response-2 ((experimental-app) req)
-          req->key (juxt :request-method :uri)]
-      (when (http/response-ok? response-1)
-        ;; Compare and report
-        (if (= response-1 response-2)
-          (swap! app12-compat assoc (req->key req) :ok)
-          (swap! app12-compat assoc (req->key req) :not-ok)))
-      ;; Return the new value
-      response-2)))
-
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
