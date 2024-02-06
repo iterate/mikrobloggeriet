@@ -19,10 +19,11 @@
  [{:doc/slug "urlog-1",
    :urlog/url "https://www.my90stv.com/"}
   {:doc/slug "urlog-2",
-   :urlog/url "https://bezier.method.ac/"}
+   :urlog/url "https://bezier.method.ac/",}
   {:doc/slug "urlog-3",
-   :urlog/url "https://grids.obys.agency/"}
-  ,,, #_"... og så mange flere URL-er ..."]}
+   :urlog/url "https://grids.obys.agency/",}
+  ,,, #_ "... og så mange flere URL-er ..."
+  ]}
 
 ;; TAGS
 ;;
@@ -106,7 +107,8 @@
                     u
                     (dissoc u :urlog/tags))))
 
-  :rcf)
+  :rcf
+  )
 
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
