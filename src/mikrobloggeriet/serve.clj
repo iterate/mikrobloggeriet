@@ -333,11 +333,6 @@
   (GET "/urlog/" req (cohort.urlog/page req))
   )
 
-(comment
-  (app {:uri "/olorm/olorm-1/", :request-method :get})
-  (app {:uri "/hops-info", :request-method :get})
-  :rcf)
-
 ;; ## Ekspriment, bør vi bruke Reitit?
 ;;
 ;; Hvorfor?
@@ -438,14 +433,7 @@ In prod:
 
 (comment
   (reset! app12-compat (sorted-map))
-
   @app12-compat
-
-  (let [uri "/random-doc"]
-    (list
-     ((app-reitit) {:request-method :get :uri uri})
-     (app {:request-method :get :uri uri})))
-
   :rcf)
 
 (defn app12-compat-report [req]
@@ -523,11 +511,6 @@ In prod:
 
 (comment
   ((app-reitit) {:uri "/hops-info", :request-method :get})
-
-  (let [f #(app-with-reitit-test (constantly app)
-                                 #'app-reitit
-                                 %)]
-    (f {:uri "/hops-info", :request-method :get}))
   :rcf)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
