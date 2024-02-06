@@ -20,7 +20,7 @@
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
 
-(declare app-reitit)
+(declare app)
 (declare url-for)
 
 (defn shared-html-header
@@ -288,78 +288,14 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-(defroutes app
-  (GET "/" req (index req))
-
-  ;; STATIC FILES
-  (GET "/health" _req health)
-  (GET "/vanilla.css" _req (css-response "vanilla.css"))
-  (GET "/mikrobloggeriet.css" _req (css-response "mikrobloggeriet.css"))
-  (GET "/reset.css" _req (css-response "reset.css"))
-  (GET "/urlog.css" _req (css-response "urlog.css")) ;; NENO STUFF
-  ;; THEMES AND FEATURE FLAGGING
-  (GET "/set-theme/:theme" req (set-theme req))
-  (GET "/set-flag/:flag" req (set-flag req))
-  (GET "/theme/:theme" req (theme req))
-
-  ;; STUFF
-  (GET "/feed/" _req (rss-feed _req))
-  (GET "/hops-info" req (hops-info req))
-  (GET "/random-doc" _req random-doc)
-
-  ;; OLORM
-  ;; /o/* URLS are deprecated in favor of /olorm/* URLs
-  (GET "/o/" _req (http/permanent-redirect {:target "/olorm/"}))
-  (GET "/olorm/" req (cohort-doc-table req store/olorm))
-  (GET "/o/:slug/" req (http/permanent-redirect {:target (str "/olorm/" (:slug (:route-params req)) "/")}))
-  (GET "/olorm/:slug/" req (doc req store/olorm))
-
-  ;; JALS
-  ;; /j/* URLS are deprecated in favor of /jals/* URLs
-  (GET "/j/" _req (http/permanent-redirect {:target "/jals/"}))
-  (GET "/jals/" req (cohort-doc-table req store/jals))
-  (GET "/j/:slug/" req (http/permanent-redirect {:target (str "/jals/" (:slug (:route-params req)) "/")}))
-  (GET "/jals/:slug/" req (doc req store/jals))
-
-  ;; OJ
-  (GET "/oj/" req (cohort-doc-table req store/oj))
-  (GET "/oj/:slug/" req (doc req store/oj))
-
-  ;; LUKE 
-  (GET "/luke/" req (cohort-doc-table req store/luke))
-  (GET "/luke/:slug/" req (doc req store/luke))
-
-  ;; NENO
-  (GET "/urlog/" req (cohort.urlog/page req))
-  )
-
-(comment
-  (app {:uri "/olorm/olorm-1/", :request-method :get})
-  (app {:uri "/hops-info", :request-method :get})
-  :rcf)
-
-;; ## Ekspriment, bør vi bruke Reitit?
-;;
-;; Hvorfor?
-;;
-;; - Les begrunnelse og diskusjon i tråd:
-;;   https://garasjen.slack.com/archives/C05MH5RCLH3/p1706353191440179
-;;
-;; Hvordan?
-;;
-;; - Vi prøver oss på å implementere Reitit i prod ved siden av Compojure.
-;; - Og vi prøver å bruke orakeltesting for å sjekke hvordan dette går.
-;;   (forslag fra Oddmund i diskusjonstråden)
-
-(defn reitit-markdown-cohort-routes [cohort]
+(defn markdown-cohort-routes [cohort]
   [(str "/" (cohort/slug cohort))
    ["/" {:get (fn [req] (cohort-doc-table req cohort))
          :name (keyword (str "mikrobloggeriet." (cohort/slug cohort))
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
-(defn ^:experimental
-  app-reitit
+(defn app
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
@@ -384,7 +320,7 @@
 
      ;; Markdown cohorts
      (for [c [store/olorm store/jals store/oj store/luke]]
-       (reitit-markdown-cohort-routes c))
+       (markdown-cohort-routes c))
 
      ;; RSS
      [["/feed/" {:get rss-feed
@@ -414,7 +350,7 @@
   ([name] (url-for name {}))
   ([name path-params]
    (->
-    (reitit.ring/get-router (app-reitit))
+    (reitit.ring/get-router (app))
     (reitit/match-by-name name)
     (reitit/match->path path-params))))
 
@@ -423,83 +359,6 @@
 
   (url-for :mikrobloggeriet/theme {:theme "bwb"})
   )
-
-(defonce
-  ^{:doc "Compatibility report for compojure and reitit router.
-
-In dev:
-
-    http://localhost:7223/app12-compat-report
-
-In prod:
-
-    https://mikrobloggeriet.no/app12-compat-report"}
-  app12-compat (atom (sorted-map)))
-
-(comment
-  (reset! app12-compat (sorted-map))
-
-  (let [uri "/random-doc"]
-    (list
-     ((app-reitit) {:request-method :get :uri uri})
-     (app {:request-method :get :uri uri})))
-
-  :rcf)
-
-(defn app12-compat-report [req]
-  {:status 200
-   :headers {}
-   :body
-   (page/html5 (into [:head] (shared-html-header req))
-     [:body
-      [:p
-       (feeling-lucky "🎲")
-       " — "
-       [:a {:href "/"} "mikrobloggeriet"]]
-      [:h1 "Kompatibilitetsrapport gammel/ny router"]
-      [:table
-       [:thead
-        [:td "HTTP Request"]
-        [:td "Lik respons gammel/ny?"]]
-       [:tbody
-        (for [[[method uri] v] @app12-compat]
-          [:tr
-           [:td
-            [:code (pr-str method)]
-            " "
-            [:code [:a {:href uri} uri]]]
-           [:td [:code (pr-str v)]]])]]])})
-
-(defn app-with-reitit-test
-  "Temporary wrapper around `app` while we implement Reitit
-
-  This handler calls Mikrobloggeriet through the old Compojure router, and also
-  through the new Reitit router. Compojure / Reitit compatibility status can be
-  viewed on /app12-compat-report.
-
-  For details, see https://github.com/iterate/mikrobloggeriet/pull/81"
-  [default-app experimental-app req]
-  (cond
-    ;; Report is special!
-    (= (:uri req) "/app12-compat-report")
-    (app12-compat-report req)
-
-    ;; Not a GET or HEAD request?
-    ;; Don't send two requests.
-    (not (#{:get :head} (:request-method req)))
-    ((default-app) req)
-
-    :else
-    (let [response-1 ((default-app) req)
-          response-2 ((experimental-app) req)
-          req->key (juxt :request-method :uri)]
-      (when (http/response-ok? response-1)
-        ;; Compare and report
-        (if (= response-1 response-2)
-          (swap! app12-compat assoc (req->key req) :ok)
-          (swap! app12-compat assoc (req->key req) :not-ok)))
-      ;; Return the new value
-      response-2)))
 
 ;; ## REPL-grensesnitt
 
@@ -515,18 +374,12 @@ In prod:
          (fn [old-server]
            (stop-server old-server)
            (println (str "mikroboggeriet.serve running: http://localhost:" port))
-           (httpkit/run-server #(app-with-reitit-test (constantly app)
-                                                      #'app-reitit
-                                                      %)
+           (httpkit/run-server (fn [req]
+                                 ((app) req))
                                {:port port}))))
 
 (comment
-  ((app-reitit) {:uri "/hops-info", :request-method :get})
-
-  (let [f #(app-with-reitit-test (constantly app)
-                                 #'app-reitit
-                                 %)]
-    (f {:uri "/hops-info", :request-method :get}))
+  ((app) {:uri "/hops-info", :request-method :get})
   :rcf)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
@@ -535,7 +388,5 @@ In prod:
          (fn [old-server]
            (stop-server old-server)
            (println (str "mikroboggeriet.serve running: http://localhost:" port))
-           (httpkit/run-server #(app-with-reitit-test (constantly app)
-                                                      (constantly (app-reitit))
-                                                      %)
+           (httpkit/run-server (app)
                                {:port port}))))
