@@ -288,19 +288,6 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-;; ## Ekspriment, bør vi bruke Reitit?
-;;
-;; Hvorfor?
-;;
-;; - Les begrunnelse og diskusjon i tråd:
-;;   https://garasjen.slack.com/archives/C05MH5RCLH3/p1706353191440179
-;;
-;; Hvordan?
-;;
-;; - Vi prøver oss på å implementere Reitit i prod ved siden av Compojure.
-;; - Og vi prøver å bruke orakeltesting for å sjekke hvordan dette går.
-;;   (forslag fra Oddmund i diskusjonstråden)
-
 (defn reitit-markdown-cohort-routes [cohort]
   [(str "/" (cohort/slug cohort))
    ["/" {:get (fn [req] (cohort-doc-table req cohort))
