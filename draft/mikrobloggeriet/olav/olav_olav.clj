@@ -4,6 +4,23 @@
             [mikrobloggeriet.serve :as serve]
             [clojure.string :as str]))
 
+(defonce state (atom {}))
+@state
+
+(comment
+  (swap! state assoc :name "olav"))
+
+
+(defonce counter (atom 0))
+@counter
+
+(comment
+  (swap! counter inc)
+
+  (reset! counter 0))
+
+
+
 (let [cohort store/luke]
   (clerk/table (map (fn [doc]
                       (merge doc
@@ -40,3 +57,4 @@
 
 (comment
   (clerk/clear-cache!))
+
