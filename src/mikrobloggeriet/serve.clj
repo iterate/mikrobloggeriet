@@ -390,30 +390,6 @@ In prod:
   @app12-compat
   :rcf)
 
-(defn app12-compat-report [req]
-  {:status 200
-   :headers {}
-   :body
-   (page/html5 (into [:head] (shared-html-header req))
-     [:body
-      [:p
-       (feeling-lucky "🎲")
-       " — "
-       [:a {:href "/"} "mikrobloggeriet"]]
-      [:h1 "Kompatibilitetsrapport gammel/ny router"]
-      [:table
-       [:thead
-        [:td "HTTP Request"]
-        [:td "Lik respons gammel/ny?"]]
-       [:tbody
-        (for [[[method uri] v] @app12-compat]
-          [:tr
-           [:td
-            [:code (pr-str method)]
-            " "
-            [:code [:a {:href uri} uri]]]
-           [:td [:code (pr-str v)]]])]]])})
-
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
