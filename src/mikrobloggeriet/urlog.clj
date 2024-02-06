@@ -108,9 +108,6 @@
 
   :rcf)
 
-(defn rand-string [length]
-  (apply str (repeatedly length #(rand-nth "abcdefghijklmnopqrstuvwxyz0123456789"))))
-
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
         assets (load-ascii-assets assets-dir)]
