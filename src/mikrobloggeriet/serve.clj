@@ -518,8 +518,7 @@ In prod:
            (stop-server old-server)
            (println (str "mikroboggeriet.serve running: http://localhost:" port))
            (httpkit/run-server (fn [req]
-                      (let [routes (app-reitit)]
-                        (routes req)))
+                                 ((app-reitit) req))
                                {:port port}))))
 
 (comment
