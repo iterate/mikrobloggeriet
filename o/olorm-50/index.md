@@ -3,7 +3,9 @@
 Hvor mye bør man eksperimentere i bredden?
 Når bør man smalne sammen?
 
-I design thinking snakkes det om _expandering_ (_expand_) og _kontrahering_ (_contract_).
+[design thinking]: https://www.designcouncil.org.uk/our-resources/framework-for-innovation/
+
+I [design thinking] snakkes det om _expandering_ (_expand_) og _kontrahering_ (_contract_).
 
 - Under _ekspandering_ dyrker vi forskjeller.
   Vi trenger først å _finne muligheter_ før vi kan begynne å gjøre ting.
