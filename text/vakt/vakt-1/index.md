@@ -24,7 +24,7 @@ Kode bør organiseres så den er effektiv å jobbe med.
 Da bør du kunne velge å følge systemet eller ikke.
 Samtidig bør det være plankekjøring dersom man ønsker å følge veien de fleste følger.
 
-Neno lagde denne uka mikrobloggen [URLOG].
+Neno lagde i desember mikrobloggen [URLOG].
 Her utfordrer han status quo for mikroblogger på Mikrobloggeriet.
 Han vil ikke skrive, han vil lede oss til andre plasser på Internett der vi kan bli overrasket.
 
