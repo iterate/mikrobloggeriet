@@ -75,4 +75,11 @@ I praksis er abstraksjonen _for lite fleksibel_, fordi Neno og Olav ikke får gj
 Hvis du har for lite opsjonalitet kan du utfordre oppgaver og spørre _hvorfor_ dette skal gjøres.
 Hvis du har for mye opsjonalitet, kan du si nei til jobb eller kutte variasjon i produktet du lager.
 
+## Vil du ha mer lesestoff?
+
+Les [Let a 1,000 flowers bloom. Then rip 999 of them out by the roots.] av Peter Seibel.
+Den er bra!
+
+[Let a 1,000 flowers bloom. Then rip 999 of them out by the roots.]: https://gigamonkeys.com/flowers/
+
 —Teodor, 2024-02-09
