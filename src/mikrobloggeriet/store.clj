@@ -64,7 +64,10 @@
    :cohort/slug "vakt"
    :cohort/type :cohort.type/markdown
    :cohort/members [{:author/email "git@teod.eu", :author/first-name "Teodor"}
-                    {:author/email "olav.moseng@iterate.no" :author/first-name "Olav"}]))
+                    {:author/email "olav.moseng@iterate.no" :author/first-name "Olav"}
+                    {:author/email "neno.mindjek@iterate.no", :author/first-name "Neno"}
+
+                    ]))
 
 (def urlog
   (sorted-map
