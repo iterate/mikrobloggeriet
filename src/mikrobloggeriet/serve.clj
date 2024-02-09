@@ -5,7 +5,6 @@
    [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
-   [compojure.core :refer [defroutes GET]]
    [hiccup.page :as page]
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
