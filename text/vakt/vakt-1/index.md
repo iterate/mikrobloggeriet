@@ -97,6 +97,6 @@ Og det er lett å støtte gamle URL-er ([Cool URIs don't change]).
 Det var det jeg ville si for nå.
 Tusen takk til Neno for at du ikke bare snakker om ideer du har, men gjennomfører.
 
----Teodor
+---Teodor, 2024-02-09
 
 [URLOG]: /urlog/
