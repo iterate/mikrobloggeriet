@@ -1,7 +1,12 @@
 (ns ^{:experimental true
       :doc "Try out using Integrant for system state"}
     mikrobloggeriet.system
-  (:require [integrant.core :as ig]))
+  (:require
+   [integrant.core :as ig]
+   [malli.core :as m]
+   [mikrobloggeriet.config :as config]
+   [mikrobloggeriet.db :as db]
+   [pg.core :as pg]))
 
 ;; og Integrant?
 
@@ -36,5 +41,28 @@
   ;; => ["hello joe-92" "TERMINATE joe-92"]
 
   (ig/halt! sys1)
+
+  )
+
+(defn dev+db []
+  {::db {:host "localhost"
+         :port config/pg-port
+         :user "mikrobloggeriet"
+         :password "mikrobloggeriet"
+         :database "mikrobloggeriet"}})
+
+(defmethod ig/init-key ::db
+  [_ db-params]
+  (let [db-conf (m/coerce db/Pg2Config db-params)]
+    (pg/connect db-conf)))
+
+(defmethod ig/halt-key! ::db
+  [_ conn]
+  (pg/close conn))
+
+(comment
+  (def sys2 (ig/init (dev+db)))
+
+  sys2
 
   )
