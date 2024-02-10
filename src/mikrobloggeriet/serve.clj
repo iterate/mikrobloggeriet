@@ -387,7 +387,7 @@
   (swap! server
          (fn [old-server]
            (stop-server old-server)
-           (println (str "mikroboggeriet.serve running: http://localhost:" config/http-server-port))
+           (println (str "mikrobloggeriet.serve running: http://localhost:" config/http-server-port))
            (httpkit/run-server (fn [req]
                                  ((app) req))
                                {:port config/http-server-port}))))
@@ -401,6 +401,6 @@
   (swap! server
          (fn [old-server]
            (stop-server old-server)
-           (println (str "mikroboggeriet.serve running: http://localhost:" config/http-server-port))
+           (println (str "mikrobloggeriet.serve running: http://localhost:" config/http-server-port))
            (httpkit/run-server (app)
                                {:port config/http-server-port}))))
