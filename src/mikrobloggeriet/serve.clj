@@ -368,7 +368,6 @@
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
-(def port config/http-server-port)
 (defn stop-server [stop-fn] (when stop-fn (stop-fn)) nil)
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! [] (swap! server stop-server))
@@ -378,10 +377,10 @@
   (swap! server
          (fn [old-server]
            (stop-server old-server)
-           (println (str "mikroboggeriet.serve running: http://localhost:" port))
+           (println (str "mikroboggeriet.serve running: http://localhost:" config/http-server-port))
            (httpkit/run-server (fn [req]
                                  ((app) req))
-                               {:port port}))))
+                               {:port config/http-server-port}))))
 
 (comment
   ((app) {:uri "/hops-info", :request-method :get})
@@ -392,6 +391,6 @@
   (swap! server
          (fn [old-server]
            (stop-server old-server)
-           (println (str "mikroboggeriet.serve running: http://localhost:" port))
+           (println (str "mikroboggeriet.serve running: http://localhost:" config/http-server-port))
            (httpkit/run-server (app)
-                               {:port port}))))
+                               {:port config/http-server-port}))))
