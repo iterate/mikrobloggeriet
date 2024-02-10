@@ -49,9 +49,12 @@
    "PGUSER" :user})
 
 (defn hops-config [env]
-  (into {}
-        (for [[envvar confkey] hops->pg2]
-          [confkey (get env envvar)])))
+  (let [raw-config
+        (into {}
+              (for [[envvar confkey] hops->pg2]
+                [confkey (get env envvar)]))]
+    ;; Ensures :port is string
+    (m/coerce Pg2Config raw-config mt/string-transformer)))
 
 (comment
   (hops-config {"PGDATABASE" "mikrobloggeriet"
