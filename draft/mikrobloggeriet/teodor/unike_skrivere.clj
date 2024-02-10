@@ -30,7 +30,30 @@ store/doc-md-path
 (defn words
   "A crude word count!"
   [s]
-  (count (str/split s #"\w+")))
+  (count (str/split s #"\s+")))
+
+(def numeric-chars
+  (into #{} "0123456789"))
+
+(defn word-of-letters? [word]
+  (every? (complement numeric-chars) word))
+
+(defn letterwords
+  "A less crude word count"
+  [s]
+  (->> (str/split s #"\s+")
+       (filter word-of-letters?)
+       count))
+
+(comment
+  (let [sentence "jeg heter Teodor. Jeg snakker mest i ord, men også noen ganger i tall.
+123 456 789
+"]
+    {:words (words sentence)
+     :letterwords (letterwords sentence)})
+  ;; => {:words 17, :letterwords 14}
+
+  )
 
 (defn words2 [markdown-str]
   (-> markdown-str
@@ -71,13 +94,15 @@ another piece of owrds")
                      (map (fn [[cohort doc]]
                             (-> (store/load-meta cohort doc)
                                 (assoc :doc/words1 (words (slurp (store/doc-md-path cohort doc))))
-                                (assoc :doc/words2 (words2 (slurp (store/doc-md-path cohort doc)))))))
+                                (assoc :doc/words2 (words2 (slurp (store/doc-md-path cohort doc))))
+                                (assoc :doc/letterwords1 (letterwords (slurp (store/doc-md-path cohort doc)))))))
                      (group-by :git.user/email)
                      (map (fn [[email docs]]
                             (let [person-summary
                                   {:email email
                                    :total1 (reduce + (map :doc/words1 docs))
                                    :total2 (reduce + (map :doc/words2 docs))
+                                   :total-letterwords (reduce + (map :doc/letterwords1 docs))
                                    :doc-count (count docs)}]
                               (assoc person-summary :avg-words-per-doc
                                      (format "%.2f"
