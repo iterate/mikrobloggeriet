@@ -17,12 +17,13 @@ Vocabulary:
 | olorm           | a CLI for microblogging                  | deprecated, use mblog |
 | mblog           | a CLI for microblogging                  |                       |
 
-## How do I write docs?
+## I want to write on Mikrobloggeriet!
 
-Please see [CLI quickstart] to get started writing content.
+Text on Mikrobloggeriet is written in Markdown.
+To create a new Markdown text file and a metadata file, you can use one of the two available Mikrobloggeriet CLI applications.
 
-[CLI quickstart]: cli-quickstart-mblog.md
+- [The CLI with 0 installation steps] (by Richard)
+- [The CLI with 8 installation steps] (by Olav, Johan and Teodor)
 
-Note: we previously used cohort-specific CLI applications.
-These are replaced by `mblog`, a CLI that can be used to write documents for any cohort.
-We recommend users of the previous CLI to migrate to `mblog`.
+[The CLI with 0 installation steps]: cli-quickstart-mblog-sh.md
+[The CLI with 8 installation steps]: cli-quickstart-mblog.md
