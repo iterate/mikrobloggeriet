@@ -2,9 +2,8 @@
 
 (ns mikrobloggeriet.teodor.db
   (:require
+   [mikrobloggeriet.config :as config]
    [pg.core :as pg]))
-
-
 
 ;; skal vi ha tilstand?
 ;; Det har fordeler :)
@@ -18,17 +17,13 @@
 ;; - men jeg har lyst til å kunne jobbe mot /rå postgres/.
 ;;   Ikke bare gjøre "generell SQL".
 
-#_
-(def
-  "Does not yet work!"
-  config
-  {:host "127.0.0.1"
-   :port 10140
-   :user "test"
-   :password "test"
-   :database "test"})
+(def config
+  {:host "localhost"
+   :port config/pg-port
+   :user "mikrobloggeriet"
+   :password "mikrobloggeriet"
+   :database "mikrobloggeriet"})
 
-#_
 (defonce conn (pg/connect config))
 
 (comment
