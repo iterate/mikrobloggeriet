@@ -39,7 +39,7 @@ To connect VSCode to the Clojure REPL, we recommend using the VSCode extension [
 This will make Calva start a REPL. In the REPL, evaluate the function `(start!)` to start the server for mikrobloggeriet. 
 
 [Temurin]: https://adoptium.net/en-GB/
-[CLI quickstart]: cli-quickstart.md
+[CLI quickstart]: cli-quickstart-mblog.md
 [Calva]: https://calva.io
 
 ## Development FAQ
