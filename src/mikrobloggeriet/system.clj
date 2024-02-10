@@ -85,9 +85,13 @@
 
 (comment
   (def sys2 (ig/init (dev+db)))
+  (def sys2 (ig/init (dev)))
   (ig/halt! sys2)
 
   (pg/query (::db sys2) "select 43 as fourty_two")
 
-
   )
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn start-prod! [_opts]
+  (ig/init (prod+db)))
