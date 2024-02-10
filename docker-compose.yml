@@ -1,4 +1,7 @@
 services:
+  # Connect to local pg with psql:
+  #
+  #     $ psql -d "host=localhost port=5432 dbname=mikrobloggeriet user=mikrobloggeriet"
   db:
     image: postgres:13
     environment:
