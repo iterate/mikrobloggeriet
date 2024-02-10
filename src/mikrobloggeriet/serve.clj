@@ -9,6 +9,8 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
+   [mikrobloggeriet.config :as config]
+   [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
@@ -17,8 +19,7 @@
    [org.httpkit.server :as httpkit]
    [reitit.core :as reitit]
    [reitit.ring]
-   [ring.middleware.cookies :as cookies]
-   [mikrobloggeriet.config :as config]))
+   [ring.middleware.cookies :as cookies]))
 
 (declare app)
 (declare url-for)
@@ -348,7 +349,12 @@
 
      ;; Go to a random document
      [["/random-doc" {:get random-doc
-                      :name :mikrobloggeriet/random-doc}]]))
+                      :name :mikrobloggeriet/random-doc}]]
+
+     ;; Try if the DB works
+     [["/try-db-stuff" {:get db/try-db-stuff
+                        :name :mikrobloggeriet/try-db-stuff}]]
+     ))
    (reitit.ring/redirect-trailing-slash-handler)))
 
 (defn url-for
