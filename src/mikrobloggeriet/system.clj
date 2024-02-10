@@ -10,43 +10,9 @@
    [org.httpkit.server :as httpkit]
    [pg.core :as pg]))
 
-;; og Integrant?
-
-(def config
-  {:mikrobloggeriet/person {:name (str (rand-nth '(jack joe oleg))
-                                       "-"
-                                       (rand-int 100))}
-   :mikrobloggeriet/greeter {:message "hello"
-                             :person (ig/ref :mikrobloggeriet/person)}
-   :mikrobloggeriet/terminator {:message "TERMINATE"
-                                :person (ig/ref :mikrobloggeriet/person)}})
-
-(defmethod ig/init-key :mikrobloggeriet/person
-  [_ {}]
-  {:name (str (rand-nth '(jack joe oleg))
-              "-"
-              (rand-int 100))})
-
-(defmethod ig/init-key :mikrobloggeriet/greeter
-  [_ {:keys [message person]}]
-  (fn [] (str message " " (:name person))))
-
-(defmethod ig/init-key :mikrobloggeriet/terminator
-  [_ {:keys [message person]}]
-  (fn [] (str message " " (:name person))))
-
-(comment
-  (defonce sys1 (ig/init config))
-
-  (let [{:mikrobloggeriet/keys [greeter terminator]} sys1]
-    [(greeter) (terminator)])
-  ;; => ["hello joe-92" "TERMINATE joe-92"]
-
-  (ig/halt! sys1)
-
-  )
-
-(defn dev+db []
+(defn dev+db
+  "Development system with db"
+  []
   {::db {:host "localhost"
          :port config/pg-port
          :user "mikrobloggeriet"
@@ -57,19 +23,26 @@
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
-(defn dev []
-  {::db {:host "localhost"
-         :port config/pg-port
-         :user "mikrobloggeriet"
-         :password "mikrobloggeriet"
-         :database "mikrobloggeriet"}
-   ::app {:recreate-routes :every-request}
+(defn dev
+  "Development system without db"
+  []
+  {::app {:recreate-routes :every-request}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
-(defn prod []
+(defn prod+db
+  "Production system with db"
+  []
   {::db (db/hops-config (System/getenv))
-   ::app {:recreate-routes :once}
+   ::app {:recreate-routes :once
+          :db (ig/ref ::db)}
+   ::http-server {:port config/http-server-port
+                  :app (ig/ref ::app)}})
+
+(defn prod
+  "Production system without db"
+  []
+  {::app {:recreate-routes :once}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
