@@ -314,11 +314,18 @@
        [(str "/" css-file) {:get (constantly (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
-     ;; Theme system
-     [["/theme/:theme" {:get theme
-                        :name :mikrobloggeriet/theme}]
+     [;; Front page
       ["/" {:get index
-            :name :mikrobloggeriet/frontpage}]]
+            :name :mikrobloggeriet/frontpage}]
+
+      ;; Themes
+      ["/theme/:theme" {:get theme
+                        :name :mikrobloggeriet/theme}]
+      ["/set-theme/:theme" {:get set-theme
+                            :name :mikrobloggeriet/set-theme}]
+      ;; Feature flags
+      ["/set-flag/:theme" {:get set-flag
+                           :name :mikrobloggeriet/set-flag}]]
 
      ;; Markdown cohorts
      (for [c [store/olorm store/jals store/oj store/luke store/vakt]]
