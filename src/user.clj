@@ -93,7 +93,7 @@
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-start-watch! []
   (let [clerk-serve (requiring-resolve 'nextjournal.clerk/serve!)
-        clerk-port 7743]
+        clerk-port config/clerk-port]
     (clerk-serve {:browse? true
                   :port clerk-port
                   :watch-paths ["src" "test" "draft"]})))
