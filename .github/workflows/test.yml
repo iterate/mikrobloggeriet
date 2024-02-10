@@ -11,7 +11,7 @@ jobs:
       - name: Install Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'openjdk'
+          distribution: 'temurin'
           java-version: '18'
 
       - name: Install clojure tools
