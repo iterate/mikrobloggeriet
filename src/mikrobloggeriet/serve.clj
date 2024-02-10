@@ -238,8 +238,8 @@
 
 (defn doc
   [req cohort]
-  (when (http/path-param req :slug)
-    (let [doc (doc/from-slug (http/path-param req :slug))
+  (when-let [slug (http/path-param req :slug)]
+    (let [doc (doc/from-slug slug)
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
             (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
