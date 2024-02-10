@@ -6,6 +6,8 @@
    [malli.core :as m]
    [mikrobloggeriet.config :as config]
    [mikrobloggeriet.db :as db]
+   [mikrobloggeriet.serve :as serve]
+   [org.httpkit.server :as httpkit]
    [pg.core :as pg]))
 
 ;; og Integrant?
@@ -49,20 +51,46 @@
          :port config/pg-port
          :user "mikrobloggeriet"
          :password "mikrobloggeriet"
-         :database "mikrobloggeriet"}})
+         :database "mikrobloggeriet"}
+   ::app {:recreate-routes :every-request
+          :db (ig/ref ::db)}
+   ::http-server {:port config/http-server-port
+                  :app (ig/ref ::app)}})
 
 (defmethod ig/init-key ::db
-  [_ db-params]
-  (let [db-conf (m/coerce db/Pg2Config db-params)]
+  [_ opts]
+  (let [db-conf (m/coerce db/Pg2Config opts)]
     (pg/connect db-conf)))
 
 (defmethod ig/halt-key! ::db
   [_ conn]
   (pg/close conn))
 
+(defmethod ig/init-key ::app
+  [_ {:keys [recreate-routes db] :as opts}]
+  (assert (#{:every-request :once} recreate-routes)
+          "App must be recreated either on every request, or once.")
+  (cond (= recreate-routes :every-request)
+        (fn [req]
+          ((serve/app) (assoc req ::db db)))
+        (= (:recreate-routes opts) :once)
+        (let [app (serve/app)]
+          (fn [req] (app (assoc req ::db db))))))
+
+(defmethod ig/init-key ::http-server
+  [_ {:keys [port app]}]
+  (println (str "mikrobloggeriet.serve running: http://localhost:" port))
+  (httpkit/run-server app {:port port}))
+
+(defmethod ig/halt-key! ::http-server
+  [_ http-server-halt-fn]
+  (http-server-halt-fn))
+
 (comment
   (def sys2 (ig/init (dev+db)))
+  (ig/halt! sys2)
 
-  sys2
+  (pg/query (::db sys2) "select 43 as fourty_two")
+
 
   )
