@@ -311,18 +311,12 @@
    (reitit.ring/router
     (concat
 
-     ;; Deployment aides
-     [["/deploy-info" {:get deploy-info
-                     :name :mikrobloggeriet/deploy-info}]
-      ["/health" {:get health
-                  :name :mikrobloggeriet/health}]]
-
-     ;; Arbitrary CSS files
+     ;; CSS files we use
      (for [css-file ["vanilla.css" "mikrobloggeriet.css" "reset.css" "urlog.css"]]
        [(str "/" css-file) {:get (constantly (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
-     ;; Theme support
+     ;; Theme system
      [["/theme/:theme" {:get theme
                         :name :mikrobloggeriet/theme}]
       ["/" {:get index
@@ -351,9 +345,8 @@
                            (when-let [slug (http/path-param req :slug)]
                              (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
 
-      ;; DIV
-     [
-      ;; Go to a random document
+     ;; DIV
+     [;; Go to a random document
       ["/random-doc" {:get random-doc
                       :name :mikrobloggeriet/random-doc}]
 
@@ -361,7 +354,13 @@
       ["/try-db-stuff" {:get db/try-db-stuff
                         :name :mikrobloggeriet/try-db-stuff}]
       ["/trydb-2" {:get db/trydb-2
-                   :name :mikrobloggeriet/try-db-stuff}]]))
+                   :name :mikrobloggeriet/try-db-stuff}]
+
+      ;; Deploy
+      ["/deploy-info" {:get deploy-info
+                       :name :mikrobloggeriet/deploy-info}]
+      ["/health" {:get health
+                  :name :mikrobloggeriet/health}]]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
 (defn url-for
