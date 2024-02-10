@@ -2,7 +2,17 @@
   (:require
    [mikrobloggeriet.config :as config]
    [pg.core :as pg]
+   [malli.core :as m]
+   [malli.transform :as mt]
    [clojure.pprint :refer [pprint]]))
+
+(def Pg2Config
+  [:map
+   [:host :string]
+   [:port :int]
+   [:user :string]
+   [:password :string]
+   [:database :string]])
 
 (def dev-config
   {:host "localhost"
@@ -10,6 +20,22 @@
    :user "mikrobloggeriet"
    :password "mikrobloggeriet"
    :database "mikrobloggeriet"})
+
+(comment
+  (m/validate Pg2Config (dissoc dev-config :host))
+  ;; => false
+
+  (m/validate Pg2Config dev-config)
+
+  (m/coerce Pg2Config (assoc dev-config :port "9000") mt/string-transformer)
+  ;; => {:host "localhost",
+  ;;     :port 9000,
+  ;;     :user "mikrobloggeriet",
+  ;;     :password "mikrobloggeriet",
+  ;;     :database "mikrobloggeriet"}
+
+
+  )
 
 ;; igrishaev/pg2 config docs: https://github.com/igrishaev/pg2?tab=readme-ov-file#connecting-to-the-server
 ;;
