@@ -277,7 +277,7 @@
      :headers {"Location" target}
      :body ""}))
 
-(defn hops-info [_req]
+(defn deploy-info [_req]
   (let [env (System/getenv)
         info {:git/sha (get env  "HOPS_GIT_SHA")
               :env-keys (keys env)
@@ -311,7 +311,7 @@
     (concat
 
      ;; Deployment aides
-     [["/deploy-info" {:get hops-info
+     [["/deploy-info" {:get deploy-info
                      :name :mikrobloggeriet/deploy-info}]
       ["/health" {:get health
                   :name :mikrobloggeriet/health}]]
