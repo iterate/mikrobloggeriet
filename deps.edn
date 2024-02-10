@@ -5,7 +5,7 @@
   cheshire/cheshire {:mvn/version "5.12.0"}
   clj-rss/clj-rss {:mvn/version "0.4.0"}
   com.github.igrishaev/pg2-core {:mvn/version "0.1.2"}
-  hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
+  hiccup/hiccup {:mvn/version "2.0.0-RC2"}
   http-kit/http-kit {:mvn/version "2.7.0"}
   integrant/integrant {:mvn/version "0.8.1"}
   integrant/repl {:mvn/version "0.3.3"}
