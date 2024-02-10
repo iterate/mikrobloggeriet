@@ -8,9 +8,5 @@ services:
     command:
       - "-c"
       - "fsync=off"
-    volumes:
-      - "postgress-logs:/var/log/postgresql/"
     ports:
       - 5432:5432
-    networks:
-      - proxy
