@@ -375,32 +375,6 @@
   (url-for :mikrobloggeriet/theme {:theme "bwb"})
   )
 
-;; ## REPL-grensesnitt
-
-(defonce server (atom nil))
-(defn stop-server [stop-fn] (when stop-fn (stop-fn)) nil)
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn stop! [] (swap! server stop-server))
-
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn start! [_opts]
-  (swap! server
-         (fn [old-server]
-           (stop-server old-server)
-           (println (str "mikrobloggeriet.serve running: http://localhost:" config/http-server-port))
-           (httpkit/run-server (fn [req]
-                                 ((app) req))
-                               {:port config/http-server-port}))))
-
 (comment
   ((app) {:uri "/deploy-info", :request-method :get})
   :rcf)
-
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn start-prod! [_opts]
-  (swap! server
-         (fn [old-server]
-           (stop-server old-server)
-           (println (str "mikrobloggeriet.serve running: http://localhost:" config/http-server-port))
-           (httpkit/run-server (app)
-                               {:port config/http-server-port}))))
