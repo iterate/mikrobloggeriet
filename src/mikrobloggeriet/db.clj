@@ -43,12 +43,17 @@
 
 (defn try-db-stuff [_req]
   ;; function to try running database stuff to see if we can connect successfully.
-  (let [pg-config (hops-config (System/getenv))
-        conn (pg/connect pg-config)
-        fourty-two (pg/query conn "select 42 as fourty_two")
-        response
-        {:status 200
-         :headers {"Content-Type" "text/plain"}
-         :body (with-out-str (pprint fourty-two))}]
-    (pg/close conn)
-    response))
+  (try
+    (let [pg-config (hops-config (System/getenv))
+          conn (pg/connect pg-config)
+          fourty-two (pg/query conn "select 42 as fourty_two")
+          response
+          {:status 200
+           :headers {"Content-Type" "text/plain"}
+           :body (with-out-str (pprint fourty-two))}]
+      (pg/close conn)
+      response)
+    (catch Exception e
+      {:status 200
+       :headers {"Content-Type" "text/plain"}
+       :body (with-out-str (pprint (.getMessage e)))})))
