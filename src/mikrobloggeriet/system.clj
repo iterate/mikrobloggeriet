@@ -94,7 +94,7 @@
           (= (:recreate-routes opts) :once)
           (let [app (serve/app)]
             (fn [req] (app (assoc req ::db db)))))
-    ;; no db to attach.
+    ;; no db to attach, fine, don't attach a db.
     (cond (= recreate-routes :every-request)
           (fn [req]
             ((serve/app) req))
