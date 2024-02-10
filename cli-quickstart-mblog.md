@@ -1,13 +1,6 @@
 # CLI quickstart for `mblog`
 
 This guide gets you started with `mblog`, a CLI for writing on Mikrobloggeriet.
-Per `2024-01-28`, you have two options for writing on Mikrobloggeriet.
-
-- `mblog` is written in Clojure, mostly by Teodor and Olav
-- `mblog.sh` is written in Bourne shell by Richard.
-
-`mblog.sh` requires no setup, and has no configuration.
-`mblog` requires several installation steps, and has configuration.
 
 ## Required dependencies
 
