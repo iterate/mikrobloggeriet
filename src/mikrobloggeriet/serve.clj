@@ -308,8 +308,8 @@
     (concat
 
      ;; Deployment aides
-     [["/hops-info" {:get hops-info
-                     :name :mikrobloggeriet/hops-info}]
+     [["/deploy-info" {:get hops-info
+                     :name :mikrobloggeriet/deploy-info}]
       ["/health" {:get health
                   :name :mikrobloggeriet/health}]]
 
@@ -389,7 +389,7 @@
                                {:port config/http-server-port}))))
 
 (comment
-  ((app) {:uri "/hops-info", :request-method :get})
+  ((app) {:uri "/deploy-info", :request-method :get})
   :rcf)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
