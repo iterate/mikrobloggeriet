@@ -62,6 +62,11 @@
                 "PGPASSWORD" "mikrobloggeriet"
                 "PGPORT" config/pg-port
                 "PGUSER" "mikrobloggeriet"})
+  ;; => {:database "mikrobloggeriet",
+  ;;     :host "localhost",
+  ;;     :password "mikrobloggeriet",
+  ;;     :port 7574,
+  ;;     :user "mikrobloggeriet"}
 
   (System/getenv))
 
