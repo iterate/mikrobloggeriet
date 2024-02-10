@@ -56,4 +56,5 @@
     (catch Exception e
       {:status 200
        :headers {"Content-Type" "text/plain"}
-       :body (with-out-str (pprint (.getMessage e)))})))
+       :body (with-out-str (pprint {:exception e
+                                    :message (.getMessage e)}))})))
