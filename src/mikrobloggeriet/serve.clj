@@ -17,7 +17,8 @@
    [org.httpkit.server :as httpkit]
    [reitit.core :as reitit]
    [reitit.ring]
-   [ring.middleware.cookies :as cookies]))
+   [ring.middleware.cookies :as cookies]
+   [mikrobloggeriet.config :as config]))
 
 (declare app)
 (declare url-for)
@@ -367,7 +368,7 @@
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
-(def port 7223)
+(def port config/http-server-port)
 (defn stop-server [stop-fn] (when stop-fn (stop-fn)) nil)
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! [] (swap! server stop-server))
