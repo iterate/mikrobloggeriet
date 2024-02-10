@@ -74,8 +74,9 @@
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
-  (let [stop-fn (requiring-resolve 'mikrobloggeriet.serve/stop!)]
-    (stop-fn)))
+  (when-let [sys @system]
+    (ig/halt! sys)
+    (reset! system nil)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-start!
