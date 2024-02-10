@@ -5,14 +5,19 @@ Developing on Mikrobloggeriet requires certain dependencies.
 ## Setup a development environment on Mac with Homebrew
 
 ### Clojure
+
 Mikrobloggeriet is developed in [Clojure]. 
+
 ```shell
 brew install clojure/tools/clojure
 ```
+
 For more information on installing Clojure, read the official [Clojure installation Guide](https://clojure.org/guides/install_clojure).
 
 Clojure runs on the Java Virtual Machine (JVM), meaning a JDK build must be installed as well.
 We recommend using [Temurin] as it has a permissive license and is activly maintained.
+
+[Temurin]: https://adoptium.net/en-GB/
 
 ```shell
 brew install --cask temurin
@@ -25,11 +30,15 @@ brew install pandoc
 ```
 
 ## CLI
+
 To install dependencies related to the CLI, read the [CLI Quickstart].
+
+[CLI quickstart]: cli-quickstart-mblog.md
 
 ## Development environment
 
-### VSCode
+### Start a REPL in VSCode
+
 To connect VSCode to the Clojure REPL, we recommend using the VSCode extension [Calva].
 
 1. In the Command Palette, search for **Calva: Start a Project REPL and Connect**
@@ -38,13 +47,35 @@ To connect VSCode to the Clojure REPL, we recommend using the VSCode extension [
 
 This will make Calva start a REPL. In the REPL, evaluate the function `(start!)` to start the server for mikrobloggeriet. 
 
-[Temurin]: https://adoptium.net/en-GB/
-[CLI quickstart]: cli-quickstart-mblog.md
 [Calva]: https://calva.io
 
-## Development FAQ
+### Start the HTTP server
 
-**Q: How do I run the tests?**
+First, start a REPL from within your editor (using a REPL from a terminal is discouraged).
+
+Then, run `start!` from your REPL:
+
+```clojure
+user> (start!)
+```
+
+To stop the HTTP server from within your REPL, run `(stop!)`.
+To restart the HTTP server, run `(start!)` again.
+
+### Start the HTTP server with database access
+
+Per 2024-02-10, running a local database is optional.
+If you want to develop with a local database, first start PostgreSQL with Docker Compose:
+
+    $ docker compose up
+
+Then start the HTTP server,
+
+```clojure
+user> (start!)
+```
+
+### Run the tests
 
 To run all the tests with Kaocha (our test runner), run
 
@@ -59,18 +90,7 @@ In Calva, see the docs for the [Calva Test Runner].
 
 [Calva Test Runner]: https://calva.io/test-runner/
 
-**Q: How do I start the HTTP server locally?**
-
-First, start a REPL from within your editor (using a REPL from a terminal is discouraged).
-
-Then, run `start!` from your REPL:
-
-```clojure
-user> (start!)
-```
-
-To stop the HTTP server from within your REPL, run `(stop!)`.
-To restart the HTTP server, run `(start!)` again.
+## Development FAQ
 
 **Q: Where do `start!`, `stop!` and `run-all-tests` come from?**
 
