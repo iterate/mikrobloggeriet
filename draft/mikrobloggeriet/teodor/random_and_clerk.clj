@@ -11,5 +11,5 @@
 ^:nextjournal.clerk/no-cache
 (rand)
 
-;; Dokumentasjon for :nextjournal.clerk/no-cache:
+;; Dokumentasjon for `:nextjournal.clerk/no-cache:`
 ;; https://book.clerk.vision/#cached-evaluation
