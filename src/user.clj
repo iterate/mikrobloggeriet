@@ -1,7 +1,8 @@
 (ns user
   (:require
+   [babashka.fs :as fs]
    [clojure.string :as str]
-   [babashka.fs :as fs]))
+   [mikrobloggeriet.config :as config]))
 
 ;; Convenience functions when you start a REPL. The default user namespace is
 ;; always 'user. I'm putting functions here to make it easy to start the server
@@ -69,7 +70,7 @@
   ([] (clerk-start! {}))
   ([opts]
    (let [clerk-serve (requiring-resolve 'nextjournal.clerk/serve!)
-         clerk-port 7743
+         clerk-port config/clerk-port
          opts (merge {:browse? true :port clerk-port} opts)]
      (clerk-serve opts))))
 
