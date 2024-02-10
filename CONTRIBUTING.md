@@ -6,7 +6,9 @@ Developing on Mikrobloggeriet requires certain dependencies.
 
 ### Clojure
 
-Mikrobloggeriet is developed in [Clojure]. 
+Mikrobloggeriet is written in [Clojure].
+
+[Clojure]: https://clojure.org/
 
 ```shell
 brew install clojure/tools/clojure
