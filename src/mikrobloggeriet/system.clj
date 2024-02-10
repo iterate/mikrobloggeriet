@@ -1,4 +1,6 @@
-(ns mikrobloggeriet.system
+(ns ^{:experimental true
+      :doc "Try out using Integrant for system state"}
+    mikrobloggeriet.system
   (:require [integrant.core :as ig]))
 
 ;; og Integrant?
