@@ -9,6 +9,7 @@
   hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
   http-kit/http-kit {:mvn/version "2.7.0"}
   io.github.nextjournal/clerk {:mvn/version "0.15.957"}
+  metosin/malli {:mvn/version "0.14.0"}
   metosin/reitit {:mvn/version "0.6.0"}
   org.babashka/cli {:mvn/version "0.8.55"}
   org.clojure/clojure {:mvn/version "1.11.1"}
