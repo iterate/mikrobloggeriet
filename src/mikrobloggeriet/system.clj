@@ -57,6 +57,16 @@
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
+(defn dev []
+  {::db {:host "localhost"
+         :port config/pg-port
+         :user "mikrobloggeriet"
+         :password "mikrobloggeriet"
+         :database "mikrobloggeriet"}
+   ::app {:recreate-routes :every-request}
+   ::http-server {:port config/http-server-port
+                  :app (ig/ref ::app)}})
+
 (defmethod ig/init-key ::db
   [_ opts]
   (let [db-conf (m/coerce db/Pg2Config opts)]
