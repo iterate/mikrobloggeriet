@@ -1,0 +1,15 @@
+services:
+  # Connect to local pg with psql:
+  #
+  #     $ psql -d "postgresql://localhost:7574/mikrobloggeriet?user=mikrobloggeriet&password=mikrobloggeriet"
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: mikrobloggeriet
+      POSTGRES_USER: mikrobloggeriet
+      POSTGRES_DB: mikrobloggeriet
+    command:
+      - "-c"
+      - "fsync=off"
+    ports:
+      - 7574:5432

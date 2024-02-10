@@ -9,6 +9,8 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
+   [mikrobloggeriet.config :as config]
+   [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
@@ -347,7 +349,12 @@
 
      ;; Go to a random document
      [["/random-doc" {:get random-doc
-                      :name :mikrobloggeriet/random-doc}]]))
+                      :name :mikrobloggeriet/random-doc}]]
+
+     ;; Try if the DB works
+     [["/try-db-stuff" {:get db/try-db-stuff
+                        :name :mikrobloggeriet/try-db-stuff}]]
+     ))
    (reitit.ring/redirect-trailing-slash-handler)))
 
 (defn url-for
@@ -367,7 +374,6 @@
 ;; ## REPL-grensesnitt
 
 (defonce server (atom nil))
-(def port 7223)
 (defn stop-server [stop-fn] (when stop-fn (stop-fn)) nil)
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! [] (swap! server stop-server))
@@ -377,10 +383,10 @@
   (swap! server
          (fn [old-server]
            (stop-server old-server)
-           (println (str "mikroboggeriet.serve running: http://localhost:" port))
+           (println (str "mikroboggeriet.serve running: http://localhost:" config/http-server-port))
            (httpkit/run-server (fn [req]
                                  ((app) req))
-                               {:port port}))))
+                               {:port config/http-server-port}))))
 
 (comment
   ((app) {:uri "/hops-info", :request-method :get})
@@ -391,6 +397,6 @@
   (swap! server
          (fn [old-server]
            (stop-server old-server)
-           (println (str "mikroboggeriet.serve running: http://localhost:" port))
+           (println (str "mikroboggeriet.serve running: http://localhost:" config/http-server-port))
            (httpkit/run-server (app)
-                               {:port port}))))
+                               {:port config/http-server-port}))))
