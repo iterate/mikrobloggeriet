@@ -4,7 +4,7 @@ This guide gets you started with `mblog`, a CLI for writing on Mikrobloggeriet.
 
 ## Required dependencies
 
-Mikrobloggeriet.no requires some setup:
+`mblog` has several required dependencies:
 
 1. Java must be installed.
    If you use homebrew to install Java on a mac, you may have to run an additional command to select the active java version.
