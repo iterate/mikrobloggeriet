@@ -354,7 +354,7 @@
       ["/try-db-stuff" {:get db/try-db-stuff
                         :name :mikrobloggeriet/try-db-stuff}]
       ["/trydb-2" {:get db/trydb-2
-                   :name :mikrobloggeriet/try-db-stuff}]
+                   :name :mikrobloggeriet/trydb-2}]
 
       ;; Deploy
       ["/deploy-info" {:get deploy-info
