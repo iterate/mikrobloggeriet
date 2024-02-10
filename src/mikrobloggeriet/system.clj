@@ -70,12 +70,20 @@
   [_ {:keys [recreate-routes db] :as opts}]
   (assert (#{:every-request :once} recreate-routes)
           "App must be recreated either on every request, or once.")
-  (cond (= recreate-routes :every-request)
-        (fn [req]
-          ((serve/app) (assoc req ::db db)))
-        (= (:recreate-routes opts) :once)
-        (let [app (serve/app)]
-          (fn [req] (app (assoc req ::db db))))))
+  (if db
+    ;; we got a db, attach it.
+    (cond (= recreate-routes :every-request)
+          (fn [req]
+            ((serve/app) (assoc req ::db db)))
+          (= (:recreate-routes opts) :once)
+          (let [app (serve/app)]
+            (fn [req] (app (assoc req ::db db)))))
+    ;; no db to attach.
+    (cond (= recreate-routes :every-request)
+          (fn [req]
+            ((serve/app) req))
+          (= (:recreate-routes opts) :once)
+          (serve/app))))
 
 (defmethod ig/init-key ::http-server
   [_ {:keys [port app]}]
