@@ -67,6 +67,12 @@
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
+(defn prod []
+  {::db (db/hops-config (System/getenv))
+   ::app {:recreate-routes :once}
+   ::http-server {:port config/http-server-port
+                  :app (ig/ref ::app)}})
+
 (defmethod ig/init-key ::db
   [_ opts]
   (let [db-conf (m/coerce db/Pg2Config opts)]
