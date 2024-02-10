@@ -17,7 +17,7 @@ Vocabulary:
 | olorm           | a CLI for microblogging                  | deprecated, use mblog |
 | mblog           | a CLI for microblogging                  |                       |
 
-## I want to write on Mikrobloggeriet!
+## I want to publish text on Mikrobloggeriet!
 
 Text on Mikrobloggeriet is written in Markdown.
 To create a new Markdown text file and a metadata file, you can use one of the two available Mikrobloggeriet CLI applications.
@@ -27,3 +27,9 @@ To create a new Markdown text file and a metadata file, you can use one of the t
 
 [The CLI with 0 installation steps]: cli-quickstart-mblog-sh.md
 [The CLI with 8 installation steps]: cli-quickstart-mblog.md
+
+## I want to develop Mikrobloggeriet locally!
+
+Please read [CONTRIBUTING.md]!
+
+[CONTRIBUTING.md]: CONTRIBUTING.md
