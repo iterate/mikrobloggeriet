@@ -26,6 +26,8 @@
 
 (defonce conn (pg/connect config))
 
+(pg/query conn "select 1 as one")
+
 (comment
 
 
