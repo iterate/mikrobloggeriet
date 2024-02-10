@@ -74,9 +74,15 @@ another piece of owrds")
                                 (assoc :doc/words2 (words2 (slurp (store/doc-md-path cohort doc)))))))
                      (group-by :git.user/email)
                      (map (fn [[email docs]]
-                            {:email email
-                             :total1 (reduce + (map :doc/words1 docs))
-                             :total2 (reduce + (map :doc/words2 docs))}))
+                            (let [person-summary
+                                  {:email email
+                                   :total1 (reduce + (map :doc/words1 docs))
+                                   :total2 (reduce + (map :doc/words2 docs))
+                                   :doc-count (count docs)}]
+                              (assoc person-summary :avg-words-per-doc
+                                     (format "%.2f"
+                                             (double (/ (:total2 person-summary)
+                                                        (:doc-count person-summary))))))))
                      (sort-by :total2)
                      (reverse))))
 
