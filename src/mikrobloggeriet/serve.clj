@@ -280,8 +280,9 @@
 (defn deploy-info [_req]
   (let [env (System/getenv)
         info {:git/sha (get env  "HOPS_GIT_SHA")
-              :env-keys (keys env)
-              :db-cofig-keys (keys (db/hops-config env))}]
+              ;; :env-keys (keys env)
+              ;; :db-cofig-keys (keys (db/hops-config env))
+              }]
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (with-out-str (clojure.pprint/pprint info))}))
