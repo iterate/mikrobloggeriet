@@ -70,19 +70,6 @@
 
   (System/getenv))
 
-(defn try-db-stuff [_req]
-  ;; function to try running database stuff to see if we can connect successfully.
-  (try
-    (with-open [conn (pg/connect (hops-config (System/getenv)))]
-      {:status 200
-       :headers {"Content-Type" "text/plain"}
-       :body (with-out-str (pprint (pg/query conn "select 42 as fourty_two")))})
-    (catch Exception e
-      {:status 200
-       :headers {"Content-Type" "text/plain"}
-       :body (with-out-str (pprint {:exception e
-                                    :message (.getMessage e)}))})))
-
 (defn trydb-2 [req]
   (if-let [conn (:mikrobloggeriet.system/db req)]
     {:status 200

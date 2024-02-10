@@ -350,9 +350,7 @@
       ["/random-doc" {:get random-doc
                       :name :mikrobloggeriet/random-doc}]
 
-      ;; Try if the DB works
-      ["/try-db-stuff" {:get db/try-db-stuff
-                        :name :mikrobloggeriet/try-db-stuff}]
+      ;; Does the DB work?
       ["/trydb-2" {:get db/trydb-2
                    :name :mikrobloggeriet/trydb-2}]
 
