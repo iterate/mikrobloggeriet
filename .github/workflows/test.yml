@@ -24,5 +24,7 @@ jobs:
 
       - name: Download test deps
         run: clojure -A:test -e :test-deps-downloaded
+      - name: print java version
+        run: java -version
       - name: Run tests
         run: clojure -M:run-tests
