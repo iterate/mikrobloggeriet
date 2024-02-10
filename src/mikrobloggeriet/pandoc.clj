@@ -126,3 +126,6 @@
   (when (pandoc? pandoc)
     (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to org")))
 
+(defn to-plain [pandoc]
+  (when (pandoc? pandoc)
+    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to plain")))
