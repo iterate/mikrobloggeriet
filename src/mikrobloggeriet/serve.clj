@@ -351,14 +351,17 @@
                            (when-let [slug (http/path-param req :slug)]
                              (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
 
-     ;; Go to a random document
-     [["/random-doc" {:get random-doc
-                      :name :mikrobloggeriet/random-doc}]]
+      ;; DIV
+     [
+      ;; Go to a random document
+      ["/random-doc" {:get random-doc
+                      :name :mikrobloggeriet/random-doc}]
 
-     ;; Try if the DB works
-     [["/try-db-stuff" {:get db/try-db-stuff
-                        :name :mikrobloggeriet/try-db-stuff}]]
-     ))
+      ;; Try if the DB works
+      ["/try-db-stuff" {:get db/try-db-stuff
+                        :name :mikrobloggeriet/try-db-stuff}]
+      ["/trydb-2" {:get db/trydb-2
+                   :name :mikrobloggeriet/try-db-stuff}]]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
 (defn url-for

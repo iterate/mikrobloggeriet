@@ -82,3 +82,12 @@
        :headers {"Content-Type" "text/plain"}
        :body (with-out-str (pprint {:exception e
                                     :message (.getMessage e)}))})))
+
+(defn trydb-2 [req]
+  (if-let [conn (:mikrobloggeriet.system/db req)]
+    {:status 200
+     :headers {"Content-Type" "text/plain"}
+     :body (with-out-str (pprint (pg/query conn "select 42 as fourty_two")))}
+    {:status 200
+     :headers {"Content-Type" "text/plain"}
+     :body "No DB available."}))
