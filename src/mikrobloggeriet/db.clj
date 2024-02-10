@@ -48,11 +48,6 @@
    "PGPORT" :port
    "PGUSER" :user})
 
-(def pg2->hops
-  (into {}
-        (for [[k v] hops->pg2]
-          [v k])))
-
 (defn hops-config [env]
   (into {}
         (for [[envvar confkey] hops->pg2]
