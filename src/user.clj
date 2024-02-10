@@ -2,7 +2,8 @@
   (:require
    [babashka.fs :as fs]
    [clojure.string :as str]
-   [mikrobloggeriet.config :as config]))
+   [mikrobloggeriet.config :as config]
+   [integrant.core :as ig]))
 
 ;; Convenience functions when you start a REPL. The default user namespace is
 ;; always 'user. I'm putting functions here to make it easy to start the server
@@ -30,18 +31,29 @@
 ;; code! `require-resolve` is a dynamic require, and will crash runtime rather
 ;; than compile-time if there are import errors.
 
+(defonce system (atom nil))
+
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start!
   ([]
    (start! {}))
   ([opts]
    (let [opts (merge {:browse? true} opts)
-         start-fn (requiring-resolve 'mikrobloggeriet.serve/start!)
-         port (requiring-resolve 'mikrobloggeriet.serve/port)
-         shell (requiring-resolve 'babashka.process/shell)]
-     (start-fn {})
+         shell (requiring-resolve 'babashka.process/shell)
+         dev+db (requiring-resolve 'mikrobloggeriet.system/dev+db)
+         dev (requiring-resolve 'mikrobloggeriet.system/dev)]
+     (require 'mikrobloggeriet.system)
+     ;; Try start with db first.
+     (try
+       (reset! system (integrant.core/init (dev+db)))
+       (println "Started Mikrobloggeriet with database.")
+       (catch Exception _e
+           ;; error starting with db
+           ;; try again without db!
+           (reset! system (integrant.core/init (dev)))
+           (println "Started Mikrobloggeriet without database.")))
      (let [browser (System/getenv "BROWSER")
-           url (str "http://localhost:" (deref port))]
+           url (str "http://localhost:" config/http-server-port)]
        (when (:browse? opts)
          (cond (not (str/blank? browser)) (do (shell browser url) nil)
                (fs/which "open") (shell "open" url)
