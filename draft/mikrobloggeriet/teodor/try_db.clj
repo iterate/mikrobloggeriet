@@ -1,6 +1,6 @@
 ;; # Database for Mikrobloggeriet?
 
-(ns mikrobloggeriet.teodor.db
+(ns mikrobloggeriet.teodor.try-db
   (:require
    [mikrobloggeriet.config :as config]
    [pg.core :as pg]))
