@@ -35,5 +35,6 @@
     [(greeter) (terminator)])
   ;; => ["hello joe-92" "TERMINATE joe-92"]
 
+  (ig/halt! sys1)
 
   )
