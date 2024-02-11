@@ -14,7 +14,7 @@
 ;;     #object[java.nio.file.attribute.FileTime 0x27b75483 "2024-02-11T11:55:36.44456266Z"])
 
 (->>
- (fs/glob "." "**/*.{js,html,clj,md,edn}")
+ (fs/glob "." "**/*.{js,css,html,clj,md,edn}")
  (map fs/last-modified-time)
  (map fs/file-time->millis)
  (reduce max)
@@ -26,3 +26,14 @@
        (comp fs/file-time->millis fs/last-modified-time)
        (fs/glob "." "**/*.{js,css,html,clj,md,edn}"))
 ;; => #object[sun.nio.fs.UnixPath 0xb1a81e "draft/mikrobloggeriet/teodor/last_changed.clj"]
+
+(defn last-modified-file []
+  (apply max-key
+         (comp fs/file-time->millis fs/last-modified-time)
+         (fs/glob "." "**/*.{js,css,html,clj,md,edn}")))
+
+(time (last-modified-file))
+;; tar ca 8 ms
+
+(let [last-modified (last-modified-file)]
+  (str (fs/last-modified-time last-modified)))
