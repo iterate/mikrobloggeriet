@@ -34,7 +34,6 @@ create table if not exists migrations(
 
   :rcf)
 
-
 (defrecord PgDatabase [conn]
   ragtime.protocols/DataStore
   (add-migration-id [_ id]
