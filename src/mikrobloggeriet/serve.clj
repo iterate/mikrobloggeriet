@@ -285,7 +285,7 @@
 
   For example as an opt-in experience when working on HTML / Clojure"
   [_req]
-  (let [last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")]
+  (let [last-modified (last-modified-file "." "**/*.{clj,css,edn,html,js,md}")]
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (str (fs/last-modified-time last-modified) "\n")}))
