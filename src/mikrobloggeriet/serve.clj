@@ -325,14 +325,12 @@
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
 (defn before-app [req]
-  (when-let [conn (:mikrobloggeriet.system/db req)]
-    (tap> req)
-    (let [{:keys [uri request-method]} req]
-      #_
-      (pg/execute conn
-                  "insert into access_logs(method, uri) values ($1, $2)"
-                  {:params [(name request-method) uri]}))
-    (tap> ::success))
+  (future
+    (when-let [conn (:mikrobloggeriet.system/db req)]
+      (let [{:keys [uri request-method]} req]
+        (pg/execute conn
+                    "insert into access_logs(method, uri) values ($1, $2)"
+                    {:params [(name request-method) uri]}))))
   req)
 
 (defn app
