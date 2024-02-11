@@ -78,7 +78,7 @@ create table if not exists migrations(
                         )"
                    :down "drop table access_logs"})])
 
-(defn migrate!
+(defn migrate-prod!
   "Migrate, or raise error on conflicts."
   [conn]
   (assert (= (count all-migrations) (count migrations))
@@ -101,7 +101,7 @@ create table if not exists migrations(
   (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
 
   ;; in production, migrate with ragtime.strategy/raise-error
-  (migrate! (PgDatabase. dev-conn))
+  (migrate-prod! (PgDatabase. dev-conn))
 
   ;; in development, migrate with ragtime.strategy/rebase
   (migrate-dev! (PgDatabase. dev-conn))

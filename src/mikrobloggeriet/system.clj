@@ -62,7 +62,7 @@
 (defmethod ig/init-key ::db-migrate
   [_ {:keys [db]}]
   (db.migrate/ensure-migrations-table! db)
-  (db.migrate/migrate! db))
+  (db.migrate/migrate-prod! db))
 
 (defmethod ig/init-key ::app
   [_ {:keys [recreate-routes db] :as opts}]
