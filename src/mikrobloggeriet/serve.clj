@@ -294,7 +294,7 @@
   (let [env (System/getenv)
         last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
         info {:git/sha (get env  "HOPS_GIT_SHA")
-              :last-modified-file-time (fs/last-modified-time last-modified)
+              :last-modified-file-time (str (fs/last-modified-time last-modified))
               ;; :env-keys (keys env)
               ;; :db-cofig-keys (keys (db/hops-config env))
               }]
