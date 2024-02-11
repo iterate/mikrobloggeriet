@@ -33,3 +33,31 @@ To create a new Markdown text file and a metadata file, you can use one of the t
 Please read [CONTRIBUTING.md]!
 
 [CONTRIBUTING.md]: CONTRIBUTING.md
+
+## Contributors
+
+(in approximate chronological order)
+
+- Teodor (text and code)
+- Oddmund (text)
+- Lars B (text)
+- Richard (text and code)
+- Jørgen (text)
+- Adrian (text and code)
+- Lars BJ (text)
+- Sindre (text)
+- Johan (text and code)
+- Olav (text and code)
+- Håvard (text)
+- Julian (text and interaction design)
+- Finn (text)
+- Thusan (text)
+- Kjersti (text)
+- Rasmus (text)
+- Pernille (text)
+- Camilla (text)
+- Ole Jacob (text)
+- Ella (text)
+- Rune (text)
+- Anders (text)
+- Neno (text, interface design, interaction design and code)
