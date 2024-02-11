@@ -50,6 +50,7 @@ create table if not exists migrations(
     (run-down! [_ db] (pg/query (.conn db) down))))
 
 (def all-migrations
+  "All migrations that have been used in the current session."
   [(sql-migration {:id "add-foo-table"
                    :up "create table foo (id integer primary key, description text)"
                    :down "create table foo (id integer primary key, description text)"})
@@ -60,6 +61,9 @@ create table if not exists migrations(
 (def migration-index (ragtime/into-index all-migrations))
 
 (def migrations
+  "Represent the current desired database schema state.
+
+  Should be equal to `all-migrations` when code is merged to master."
   [])
 
 (defn migrate-dev!
