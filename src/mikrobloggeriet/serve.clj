@@ -312,7 +312,7 @@
   (let [last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")]
     {:status 200
      :headers {"Content-Type" "text/plain"}
-     :body (str (fs/last-modified-time last-modified))}))
+     :body (str (fs/last-modified-time last-modified) "\n")}))
 
 (defn app
   []
