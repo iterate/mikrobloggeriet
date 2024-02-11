@@ -16,11 +16,13 @@ create table if not exists migrations(
   timestamp timestamp default current_timestamp
 )"))
 
+(defn- not-prod? []
+  (not (System/getenv "HOPS_ENV")))
+
 (defn dangerously-delete-migrations-table!!
   [conn]
-  (assert (not (System/getenv "HOPS_ENV")) "Do NOT drop the migrations table in production.")
+  (assert (not-prod?) "Do NOT drop the migrations table in production.")
   (pg/query conn "drop table migrations"))
-
 
 (comment
   (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
@@ -64,26 +66,33 @@ create table if not exists migrations(
                    :up "create table foo (id integer primary key, description text)"
                    :down "create table foo (id integer primary key, description text)"})])
 
+(defn migrate-dev!
+  "Migrate and rebase if necessary."
+  [conn]
+  (assert (not-prod?) "Do NOT apply migrations with rebasing in production.")
+  (ragtime/migrate-all (PgDatabase. conn)
+                       migration-index
+                       migrations
+                       {:strategy ragtime.strategy/rebase}))
+
+(defn migrate!
+  "Migrate, or raise error on conflicts."
+  [conn]
+  (ragtime/migrate-all (PgDatabase. conn)
+                       migration-index
+                       migrations
+                       {:strategy ragtime.strategy/raise-error}))
+
 (comment
   (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
 
   ;; in production, migrate with ragtime.strategy/raise-error
-  (ragtime/migrate-all (PgDatabase. dev-conn)
-                       migration-index
-                       migrations
-                       {:strategy ragtime.strategy/raise-error})
+  (migrate! (PgDatabase. dev-conn))
 
   ;; in development, migrate with ragtime.strategy/rebase
-  (ragtime/migrate-all (PgDatabase. dev-conn)
-                       migration-index
-                       migrations
-                       {:strategy ragtime.strategy/rebase})
+  (migrate-dev! (PgDatabase. dev-conn))
 
-  ^::clerk/no-cache
-  (clerk/table
-   (pg/query dev-conn "select * from migrations"))
-  )
-
+  :rcf)
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (clerk/html [:div {:style {:height "50vh"}}])
