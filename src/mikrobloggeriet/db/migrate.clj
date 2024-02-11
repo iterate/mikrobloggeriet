@@ -27,15 +27,7 @@ create table if not exists migrations(
   (assert (not-prod?) "Do NOT drop the migrations table in production.")
   (pg/query conn "drop table migrations"))
 
-(comment
-  (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
-  (alter-var-root #'dev-conn (constantly (:mikrobloggeriet.system/db @repl/state)))
-  (ensure-migrations-table! dev-conn)
-  (dangerously-delete-migrations-table!! dev-conn)
 
-  (pg/query dev-conn "select * from migrations")
-
-  :rcf)
 
 (defrecord PgDatabase [conn]
   ragtime.protocols/DataStore
@@ -55,12 +47,15 @@ create table if not exists migrations(
 
 (def all-migrations
   "All migrations that have been used in the current session."
-  [(sql-migration {:id "add-foo-table"
-                   :up "create table foo (id integer primary key, description text)"
-                   :down "create table foo (id integer primary key, description text)"})
-   (sql-migration {:id "add-bar-table"
-                   :up "create table bar (id integer)"
-                   :down "drop table bar"})])
+  [(sql-migration {:id "access-logs-table"
+                   :up "create table access_logs (
+                          id integer primary key,
+                          method text,
+                          uri text,
+                          timestamp timestamp default current_timestamp,
+                          info jsonb
+                        )"
+                   :down "drop table access_logs"})])
 
 (def migration-index (ragtime/into-index all-migrations))
 
@@ -68,7 +63,25 @@ create table if not exists migrations(
   "Represent the current desired database schema state.
 
   Should be equal to `all-migrations` when code is merged to master."
-  [])
+  [(sql-migration {:id "access-logs-table"
+                   :up "create table access_logs (
+                          id integer primary key,
+                          method text,
+                          uri text,
+                          timestamp timestamp default current_timestamp,
+                          info jsonb
+                        )"
+                   :down "drop table access_logs"})])
+
+(defn migrate-prod!
+  "Migrate, or raise error on conflicts."
+  [conn]
+  (assert (= (count all-migrations) (count migrations))
+          "Ensure we don't mess up migration state in production.")
+  (ragtime/migrate-all (PgDatabase. conn)
+                       migration-index
+                       migrations
+                       {:strategy ragtime.strategy/raise-error}))
 
 (defn migrate-dev!
   "Migrate and rebase if necessary."
@@ -79,19 +92,23 @@ create table if not exists migrations(
                        migrations
                        {:strategy ragtime.strategy/rebase}))
 
-(defn migrate!
-  "Migrate, or raise error on conflicts."
-  [conn]
-  (ragtime/migrate-all (PgDatabase. conn)
-                       migration-index
-                       migrations
-                       {:strategy ragtime.strategy/raise-error}))
+(defn migrate! [conn env]
+  (assert (#{:dev :prod} env) "Env must be dev or prod.")
+  (cond (= :dev env) (migrate-dev! conn)
+        (= :prod env) (migrate-prod! conn)
+        :else (throw (ex-info "Illegal argument" {:env env
+                                                  :legal-env-values #{:dev :prod}}))))
 
 (comment
   (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
+  (alter-var-root #'dev-conn (constantly (:mikrobloggeriet.system/db @repl/state)))
+  (ensure-migrations-table! dev-conn)
+  (dangerously-delete-migrations-table!! dev-conn)
+
+  (pg/query dev-conn "select * from migrations")
 
   ;; in production, migrate with ragtime.strategy/raise-error
-  (migrate! (PgDatabase. dev-conn))
+  (migrate-prod! (PgDatabase. dev-conn))
 
   ;; in development, migrate with ragtime.strategy/rebase
   (migrate-dev! (PgDatabase. dev-conn))

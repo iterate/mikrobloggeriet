@@ -15,6 +15,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
+   [pg.core :as pg]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
@@ -290,11 +291,14 @@
      :headers {"Content-Type" "text/plain"}
      :body (str (fs/last-modified-time last-modified) "\n")}))
 
-(defn deploy-info [_req]
+(defn deploy-info [req]
   (let [env (System/getenv)
         last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
+        hits (when-let [db (:mikrobloggeriet.system/db req)]
+               (pg/query db "select 42 as f"))
         info {:git/sha (get env  "HOPS_GIT_SHA")
               :last-modified-file-time (str (fs/last-modified-time last-modified))
+              :hits hits
               ;; :env-keys (keys env)
               ;; :db-cofig-keys (keys (db/hops-config env))
               }]

@@ -19,7 +19,8 @@
          :user "mikrobloggeriet"
          :password "mikrobloggeriet"
          :database "mikrobloggeriet"}
-   ::db-migrate {:db (ig/ref ::db)}
+   ::db-migrate {:db (ig/ref ::db)
+                 :env :dev}
    ::app {:recreate-routes :every-request
           :db (ig/ref ::db)
           :db-migrate (ig/ref ::db-migrate)}
@@ -37,6 +38,8 @@
   "Production system with db"
   []
   {::db (db/hops-config (System/getenv))
+   ::db-migrate {:db (ig/ref ::db)
+                 :env :prod}
    ::app {:recreate-routes :once
           :db (ig/ref ::db)
           :db-migrate (ig/ref ::db-migrate)}
@@ -60,9 +63,9 @@
   (pg/close conn))
 
 (defmethod ig/init-key ::db-migrate
-  [_ {:keys [db]}]
+  [_ {:keys [db env]}]
   (db.migrate/ensure-migrations-table! db)
-  (db.migrate/migrate! db))
+  (db.migrate/migrate! db env))
 
 (defmethod ig/init-key ::app
   [_ {:keys [recreate-routes db] :as opts}]
