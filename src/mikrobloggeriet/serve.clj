@@ -308,7 +308,11 @@
          (comp fs/file-time->millis fs/last-modified-time)
          (fs/glob root match)))
 
-(defn last-modified-file-handler [_req]
+(defn last-modified-file-handler
+  "Endpoint that can be used from HTTP clients to provide live reloading
+
+  For example as an opt-in experience when working on HTML / Clojure"
+  [_req]
   (let [last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")]
     {:status 200
      :headers {"Content-Type" "text/plain"}
