@@ -324,7 +324,9 @@
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
-(defn before-app [req])
+(defn before-app [req]
+  (tap> req)
+  req)
 
 (defn app
   []
