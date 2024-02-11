@@ -329,10 +329,13 @@
 (defn before-app [req]
   (future
     (when-let [conn (:mikrobloggeriet.system/db req)]
-      (let [{:keys [uri request-method]} req]
+      (let [{:keys [uri request-method]} req
+            info (select-keys (:headers req) ["user-agent"])]
         (pg/execute conn
-                    "insert into access_logs(method, uri) values ($1, $2)"
-                    {:params [(name request-method) uri]}))))
+                    "insert into access_logs(method, uri, info) values ($1, $2, $3)"
+                    {:params [(name request-method)
+                              uri
+                              info]}))))
   req)
 
 (defn app
