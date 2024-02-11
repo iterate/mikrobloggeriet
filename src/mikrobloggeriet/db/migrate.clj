@@ -19,6 +19,10 @@ create table if not exists migrations(
   (not (System/getenv "HOPS_ENV")))
 
 (defn dangerously-delete-migrations-table!!
+  "Delete the migrations table.
+
+  Should `never` be used in production. Deleting the migrations table is useful
+  _only_ when working on the migrations system."
   [conn]
   (assert (not-prod?) "Do NOT drop the migrations table in production.")
   (pg/query conn "drop table migrations"))
