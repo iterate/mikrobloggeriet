@@ -303,6 +303,17 @@
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
+(defn last-modified-file [root match]
+  (apply max-key
+         (comp fs/file-time->millis fs/last-modified-time)
+         (fs/glob root match)))
+
+(defn last-modified-file-handler [_req]
+  (let [last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")]
+    {:status 200
+     :headers {"Content-Type" "text/plain"}
+     :body (str (fs/last-modified-time last-modified))}))
+
 (defn app
   []
   (reitit.ring/ring-handler
@@ -314,7 +325,7 @@
        [(str "/" css-file) {:get (constantly (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
-     [;; Front page
+     [ ;; Front page
       ["/" {:get index
             :name :mikrobloggeriet/frontpage}]
 
@@ -351,7 +362,7 @@
                              (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
 
      ;; DIV
-     [;; Go to a random document
+     [ ;; Go to a random document
       ["/random-doc" {:get random-doc
                       :name :mikrobloggeriet/random-doc}]
 
@@ -363,7 +374,10 @@
       ["/deploy-info" {:get deploy-info
                        :name :mikrobloggeriet/deploy-info}]
       ["/health" {:get health
-                  :name :mikrobloggeriet/health}]]))
+                  :name :mikrobloggeriet/health}]
+      ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
+                                   :get last-modified-file-handler}]
+      ]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
 (defn url-for
