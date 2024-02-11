@@ -324,6 +324,8 @@
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
+(defn before-app [req])
+
 (defn app
   []
   (reitit.ring/ring-handler

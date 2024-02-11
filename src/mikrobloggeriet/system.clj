@@ -75,16 +75,25 @@
     ;; we got a db, attach it.
     (cond (= recreate-routes :every-request)
           (fn [req]
-            ((serve/app) (assoc req ::db db)))
+            (let [app (serve/app)]
+              (-> req
+                  (assoc ::db db)
+                  app)))
           (= (:recreate-routes opts) :once)
           (let [app (serve/app)]
-            (fn [req] (app (assoc req ::db db)))))
+            (fn [req]
+              (-> req
+                  (assoc ::db db)
+                  app))))
     ;; no db to attach, fine, don't attach a db.
     (cond (= recreate-routes :every-request)
           (fn [req]
-            ((serve/app) req))
+            (let [app (serve/app)]
+              (app req)))
           (= (:recreate-routes opts) :once)
-          (serve/app))))
+          (let [app (serve/app)]
+            (fn [req]
+              (app req))))))
 
 (defmethod ig/init-key ::http-server
   [_ {:keys [port app]}]
