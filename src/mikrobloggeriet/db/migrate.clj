@@ -2,39 +2,40 @@
   "Database migrations on Mikrobloggeriet"
   (:require
    [mikrobloggeriet.repl :as repl]
+   [nextjournal.clerk :as clerk]
    [pg.core :as pg]
-   [nextjournal.clerk :as clerk]))
+   [ragtime.protocols]))
 
 (defn ensure-migrations-table!
   [conn]
-  (pg/query conn
-            "create table if not exists migrations(id text primary key)"))
+  (pg/query conn "create table if not exists migrations (id text primary key)"))
 
-(defn delete-migrations-table!
+(defn dangerously-delete-migrations-table!!
   [conn]
-  (assert (not (System/getenv "HOPS_ENV"))
-          "Do NOT run this in production!")
-  (pg/query conn
-            "drop table migrations"))
+  (assert (not (System/getenv "HOPS_ENV")) "Do NOT drop the migrations table in production.")
+  (pg/query conn "drop table migrations"))
 
 (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
 
 (comment
   (alter-var-root #'dev-conn (constantly (:mikrobloggeriet.system/db @repl/state)))
-
   (ensure-migrations-table! dev-conn)
-  (delete-migrations-table! dev-conn)
+  (dangerously-delete-migrations-table!! dev-conn)
+
+  (pg/query dev-conn "select * from migrations")
 
   )
 
-(pg/query dev-conn "select 123 as num")
 
-(pg/query dev-conn "create table if not exists foo(id integer not null, description text)")
-
-(comment
-  (pg/execute dev-conn "insert into foo(id, description) values ($1, $2)" {:params [1 "first"]})
-
-  )
+(defrecord PgDatabase [conn]
+  ragtime.protocols/DataStore
+  (add-migration-id [_ id]
+    (pg/execute conn "insert into migrations(id) values ($1)" {:params [id]}))
+  (remove-migration-id [_ id]
+    (pg/execute conn "delete from migrations where id = $1", {:params [id]}))
+  (applied-migration-ids [_]
+    (->> (pg/query conn "select id from migrations")
+         (map :id))))
 
 ^::clerk/no-cache
 (clerk/caption "foo table"
