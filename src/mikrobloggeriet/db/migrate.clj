@@ -55,7 +55,21 @@ create table if not exists migrations(
                           timestamp timestamp default current_timestamp,
                           info jsonb
                         )"
-                   :down "drop table access_logs"})])
+                   :down "drop table access_logs"})
+   (sql-migration {:id "access-logs-table-2"
+                   :up "drop table access_logs"
+                   :down ""})
+   (sql-migration {:id "access-logs-table"
+                   :up "create table access_logs (
+                          id serial primary key,
+                          method text,
+                          uri text,
+                          timestamp timestamp default current_timestamp,
+                          info jsonb
+                        )"
+                   :down "drop table access_logs"})
+
+   ])
 
 (def migration-index (ragtime/into-index all-migrations))
 
@@ -66,6 +80,18 @@ create table if not exists migrations(
   [(sql-migration {:id "access-logs-table"
                    :up "create table access_logs (
                           id integer primary key,
+                          method text,
+                          uri text,
+                          timestamp timestamp default current_timestamp,
+                          info jsonb
+                        )"
+                   :down "drop table access_logs"})
+   (sql-migration {:id "access-logs-table-2"
+                   :up "drop table access_logs"
+                   :down ""})
+   (sql-migration {:id "access-logs-table"
+                   :up "create table access_logs (
+                          id serial primary key,
                           method text,
                           uri text,
                           timestamp timestamp default current_timestamp,
