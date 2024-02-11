@@ -2,7 +2,6 @@
   "Database migrations on Mikrobloggeriet"
   (:require
    [mikrobloggeriet.repl :as repl]
-   [nextjournal.clerk :as clerk]
    [pg.core :as pg]
    [ragtime.core :as ragtime]
    [ragtime.strategy]
@@ -90,6 +89,3 @@ create table if not exists migrations(
   (migrate-dev! (PgDatabase. dev-conn))
 
   :rcf)
-
-^{:nextjournal.clerk/visibility {:code :hide}}
-(clerk/html [:div {:style {:height "50vh"}}])
