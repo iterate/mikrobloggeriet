@@ -295,7 +295,9 @@
   (let [env (System/getenv)
         last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
         hits (when-let [db (:mikrobloggeriet.system/db req)]
-               (pg/query db "select 42 as f"))
+               (-> (pg/query db "select count(*) as hits from access_logs")
+                   first
+                   :hits))
         info {:git/sha (get env  "HOPS_GIT_SHA")
               :last-modified-file-time (str (fs/last-modified-time last-modified))
               :hits hits
