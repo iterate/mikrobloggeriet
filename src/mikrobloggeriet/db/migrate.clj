@@ -50,7 +50,6 @@ create table if not exists migrations(
     (run-up! [_ db] (pg/query (.conn db) up))
     (run-down! [_ db] (pg/query (.conn db) down))))
 
-
 (def all-migrations
   [(sql-migration {:id "add-foo-table"
                    :up "create table foo (id integer primary key, description text)"
