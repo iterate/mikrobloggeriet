@@ -81,6 +81,8 @@ create table if not exists migrations(
 (defn migrate!
   "Migrate, or raise error on conflicts."
   [conn]
+  (assert (= (count all-migrations) (count migrations))
+          "Ensure we don't mess up migration state in production.")
   (ragtime/migrate-all (PgDatabase. conn)
                        migration-index
                        migrations
