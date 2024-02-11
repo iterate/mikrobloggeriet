@@ -39,7 +39,7 @@ Please read [CONTRIBUTING.md]!
 (in approximate chronological order)
 
 - Teodor (text and code)
-- Oddmund (text)
+- Oddmund (text and code)
 - Lars B (text)
 - Richard (text and code)
 - Jørgen (text)
@@ -47,7 +47,7 @@ Please read [CONTRIBUTING.md]!
 - Lars BJ (text)
 - Sindre (text)
 - Johan (text and code)
-- Olav (text and code)
+- Olav (text, code, project management and system design)
 - Håvard (text)
 - Julian (text and interaction design)
 - Finn (text)

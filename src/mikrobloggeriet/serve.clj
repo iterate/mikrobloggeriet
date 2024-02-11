@@ -275,9 +275,26 @@
      :headers {"Location" target}
      :body ""}))
 
+(defn last-modified-file [root match]
+  (apply max-key
+         (comp fs/file-time->millis fs/last-modified-time)
+         (fs/glob root match)))
+
+(defn last-modified-file-handler
+  "Endpoint that can be used from HTTP clients to provide live reloading
+
+  For example as an opt-in experience when working on HTML / Clojure"
+  [_req]
+  (let [last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")]
+    {:status 200
+     :headers {"Content-Type" "text/plain"}
+     :body (str (fs/last-modified-time last-modified) "\n")}))
+
 (defn deploy-info [_req]
   (let [env (System/getenv)
+        last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
         info {:git/sha (get env  "HOPS_GIT_SHA")
+              :last-modified-file-time (str (fs/last-modified-time last-modified))
               ;; :env-keys (keys env)
               ;; :db-cofig-keys (keys (db/hops-config env))
               }]
@@ -314,7 +331,7 @@
        [(str "/" css-file) {:get (constantly (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
-     [;; Front page
+     [ ;; Front page
       ["/" {:get index
             :name :mikrobloggeriet/frontpage}]
 
@@ -351,7 +368,7 @@
                              (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
 
      ;; DIV
-     [;; Go to a random document
+     [ ;; Go to a random document
       ["/random-doc" {:get random-doc
                       :name :mikrobloggeriet/random-doc}]
 
@@ -363,7 +380,10 @@
       ["/deploy-info" {:get deploy-info
                        :name :mikrobloggeriet/deploy-info}]
       ["/health" {:get health
-                  :name :mikrobloggeriet/health}]]))
+                  :name :mikrobloggeriet/health}]
+      ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
+                                   :get last-modified-file-handler}]
+      ]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
 (defn url-for
