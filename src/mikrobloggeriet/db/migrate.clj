@@ -4,11 +4,16 @@
    [mikrobloggeriet.repl :as repl]
    [nextjournal.clerk :as clerk]
    [pg.core :as pg]
+   [ragtime.core :as ragtime]
    [ragtime.protocols]))
 
 (defn ensure-migrations-table!
   [conn]
-  (pg/query conn "create table if not exists migrations (id text primary key)"))
+  (pg/query conn "
+create table if not exists migrations(
+  id text primary key,
+  timestamp timestamp default current_timestamp
+)"))
 
 (defn dangerously-delete-migrations-table!!
   [conn]
@@ -26,7 +31,6 @@
 
   )
 
-
 (defrecord PgDatabase [conn]
   ragtime.protocols/DataStore
   (add-migration-id [_ id]
@@ -37,9 +41,23 @@
     (->> (pg/query conn "select id from migrations")
          (map :id))))
 
+(def migrations [(reify ragtime.protocols/Migration
+                   (id [_] "add-foo-table")
+                   (run-up! [_ db] (pg/query (.conn db) "create table foo (id integer primary key, description text)"))
+                   (run-down! [_ db] (pg/query (.conn db) "create table foo (id integer primary key, description text)")))])
+
+(comment
+  (ragtime/migrate (PgDatabase. dev-conn)
+                   (first migrations))
+
+  (let [index (ragtime/into-index migrations)]
+    (ragtime/applied-migrations (PgDatabase. dev-conn) index))
+
+
+  )
+
 ^::clerk/no-cache
-(clerk/caption "foo table"
-               (clerk/table (pg/query dev-conn "select * from foo")))
+(pg/query dev-conn "select * from migrations")
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (clerk/html [:div {:style {:height "50vh"}}])
