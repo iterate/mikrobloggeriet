@@ -6,6 +6,7 @@
    [malli.core :as m]
    [mikrobloggeriet.config :as config]
    [mikrobloggeriet.db :as db]
+   [mikrobloggeriet.db.migrate :as db.migrate]
    [mikrobloggeriet.serve :as serve]
    [org.httpkit.server :as httpkit]
    [pg.core :as pg]))
@@ -18,8 +19,10 @@
          :user "mikrobloggeriet"
          :password "mikrobloggeriet"
          :database "mikrobloggeriet"}
+   ::db-migrate {:db (ig/ref ::db)}
    ::app {:recreate-routes :every-request
-          :db (ig/ref ::db)}
+          :db (ig/ref ::db)
+          :db-migrate (ig/ref ::db-migrate)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
@@ -35,7 +38,8 @@
   []
   {::db (db/hops-config (System/getenv))
    ::app {:recreate-routes :once
-          :db (ig/ref ::db)}
+          :db (ig/ref ::db)
+          :db-migrate (ig/ref ::db-migrate)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
@@ -54,6 +58,10 @@
 (defmethod ig/halt-key! ::db
   [_ conn]
   (pg/close conn))
+
+(defmethod ig/init-key ::db-migrate
+  [_ {:keys [db]}]
+  (db.migrate/migrate! db))
 
 (defmethod ig/init-key ::app
   [_ {:keys [recreate-routes db] :as opts}]

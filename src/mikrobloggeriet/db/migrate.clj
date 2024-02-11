@@ -32,7 +32,8 @@ create table if not exists migrations(
 
   (pg/query dev-conn "select * from migrations")
 
-  )
+  :rcf)
+
 
 (defrecord PgDatabase [conn]
   ragtime.protocols/DataStore
