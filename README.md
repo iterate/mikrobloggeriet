@@ -39,7 +39,7 @@ Please read [CONTRIBUTING.md]!
 (in approximate chronological order)
 
 - Teodor (text and code)
-- Oddmund (text)
+- Oddmund (text and code)
 - Lars B (text)
 - Richard (text and code)
 - Jørgen (text)
