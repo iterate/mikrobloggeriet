@@ -324,6 +324,15 @@
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
+(defn before-app [req]
+  (future
+    (when-let [conn (:mikrobloggeriet.system/db req)]
+      (let [{:keys [uri request-method]} req]
+        (pg/execute conn
+                    "insert into access_logs(method, uri) values ($1, $2)"
+                    {:params [(name request-method) uri]}))))
+  req)
+
 (defn app
   []
   (reitit.ring/ring-handler

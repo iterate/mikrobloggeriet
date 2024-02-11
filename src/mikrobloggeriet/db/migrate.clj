@@ -5,7 +5,8 @@
    [pg.core :as pg]
    [ragtime.core :as ragtime]
    [ragtime.strategy]
-   [ragtime.protocols]))
+   [ragtime.protocols]
+   [mikrobloggeriet.db :as db]))
 
 (defn ensure-migrations-table!
   [conn]
@@ -45,33 +46,60 @@ create table if not exists migrations(
     (run-up! [_ db] (pg/query (.conn db) up))
     (run-down! [_ db] (pg/query (.conn db) down))))
 
-(def all-migrations
-  "All migrations that have been used in the current session."
-  [(sql-migration {:id "access-logs-table"
-                   :up "create table access_logs (
+(do
+  (def all-migrations
+    "All migrations that have been used in the current session."
+    [(sql-migration {:id "access-logs-table"
+                     :up "create table access_logs (
                           id integer primary key,
                           method text,
                           uri text,
                           timestamp timestamp default current_timestamp,
                           info jsonb
                         )"
-                   :down "drop table access_logs"})])
+                     :down "drop table access_logs"})
+     (sql-migration {:id "access-logs-table-2"
+                     :up "drop table access_logs"
+                     :down ""})
+     (sql-migration {:id "access-logs-table-3"
+                     :up "create table access_logs (
+                          id serial primary key,
+                          method text,
+                          uri text,
+                          timestamp timestamp default current_timestamp,
+                          info jsonb
+                        )"
+                     :down "drop table access_logs"})
 
-(def migration-index (ragtime/into-index all-migrations))
+     ])
 
-(def migrations
-  "Represent the current desired database schema state.
+  (def migration-index (ragtime/into-index all-migrations))
+
+  (def migrations
+    "Represent the current desired database schema state.
 
   Should be equal to `all-migrations` when code is merged to master."
-  [(sql-migration {:id "access-logs-table"
-                   :up "create table access_logs (
+    [(sql-migration {:id "access-logs-table"
+                     :up "create table access_logs (
                           id integer primary key,
                           method text,
                           uri text,
                           timestamp timestamp default current_timestamp,
                           info jsonb
                         )"
-                   :down "drop table access_logs"})])
+                     :down "drop table access_logs"})
+     (sql-migration {:id "access-logs-table-2"
+                     :up "drop table access_logs"
+                     :down ""})
+     (sql-migration {:id "access-logs-table-3"
+                     :up "create table access_logs (
+                          id serial primary key,
+                          method text,
+                          uri text,
+                          timestamp timestamp default current_timestamp,
+                          info jsonb
+                        )"
+                     :down "drop table access_logs"})]))
 
 (defn migrate-prod!
   "Migrate, or raise error on conflicts."
@@ -112,5 +140,10 @@ create table if not exists migrations(
 
   ;; in development, migrate with ragtime.strategy/rebase
   (migrate-dev! (PgDatabase. dev-conn))
+
+  (defonce dev-conn (pg/connect db/dev-config))
+  (alter-var-root #'dev-conn (constantly (pg/connect db/dev-config)))
+  (ensure-migrations-table! dev-conn)
+  (migrate-dev! dev-conn)
 
   :rcf)
