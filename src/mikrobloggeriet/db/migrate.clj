@@ -68,7 +68,23 @@ create table if not exists migrations(
   "Represent the current desired database schema state.
 
   Should be equal to `all-migrations` when code is merged to master."
-  [])
+  [(sql-migration {:id "access-logs-table"
+                   :up "create table access_logs (
+                          id integer primary key,
+                          method text,
+                          uri text,
+                          timestamp timestamp default current_timestamp,
+                          info jsonb
+                        )"
+                   :down "drop table access_logs"})])
+
+(defn migrate!
+  "Migrate, or raise error on conflicts."
+  [conn]
+  (ragtime/migrate-all (PgDatabase. conn)
+                       migration-index
+                       migrations
+                       {:strategy ragtime.strategy/raise-error}))
 
 (defn migrate-dev!
   "Migrate and rebase if necessary."
@@ -78,14 +94,6 @@ create table if not exists migrations(
                        migration-index
                        migrations
                        {:strategy ragtime.strategy/rebase}))
-
-(defn migrate!
-  "Migrate, or raise error on conflicts."
-  [conn]
-  (ragtime/migrate-all (PgDatabase. conn)
-                       migration-index
-                       migrations
-                       {:strategy ragtime.strategy/raise-error}))
 
 (comment
   (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
