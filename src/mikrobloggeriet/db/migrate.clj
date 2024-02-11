@@ -97,6 +97,13 @@ create table if not exists migrations(
                        migrations
                        {:strategy ragtime.strategy/rebase}))
 
+(defn migrate! [conn env]
+  (assert (#{:dev :prod} env) "Env must be dev or prod.")
+  (cond (= :dev env) (migrate-dev! conn)
+        (= :prod env) (migrate-prod! conn)
+        :else (throw (ex-info "Illegal argument" {:env env
+                                                  :legal-env-values #{:dev :prod}}))))
+
 (comment
   (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
 
