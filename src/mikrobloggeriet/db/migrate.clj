@@ -62,9 +62,7 @@ create table if not exists migrations(
 (def migration-index (ragtime/into-index all-migrations))
 
 (def migrations
-  [(sql-migration {:id "add-foo-table"
-                   :up "create table foo (id integer primary key, description text)"
-                   :down "create table foo (id integer primary key, description text)"})])
+  [])
 
 (defn migrate-dev!
   "Migrate and rebase if necessary."
