@@ -3,6 +3,7 @@
    [babashka.fs :as fs]
    [clojure.string :as str]
    [mikrobloggeriet.config :as config]
+   [mikrobloggeriet.repl :as repl]
    [integrant.core :as ig]))
 
 ;; Convenience functions when you start a REPL. The default user namespace is
@@ -31,8 +32,6 @@
 ;; code! `require-resolve` is a dynamic require, and will crash runtime rather
 ;; than compile-time if there are import errors.
 
-(defonce system (atom nil))
-
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start!
   ([]
@@ -45,12 +44,12 @@
      (require 'mikrobloggeriet.system)
      ;; Try start with db first.
      (try
-       (reset! system (integrant.core/init (dev+db)))
+       (reset! repl/state (integrant.core/init (dev+db)))
        (println "Started Mikrobloggeriet with database.")
        (catch Exception _e
            ;; error starting with db
            ;; try again without db!
-           (reset! system (integrant.core/init (dev)))
+           (reset! repl/state (integrant.core/init (dev)))
            (println "Started Mikrobloggeriet without database.")))
      (let [browser (System/getenv "BROWSER")
            url (str "http://localhost:" config/http-server-port)]
@@ -74,9 +73,9 @@
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn stop! []
-  (when-let [sys @system]
+  (when-let [sys @repl/state]
     (ig/halt! sys)
-    (reset! system nil)))
+    (reset! repl/state nil)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-start!
