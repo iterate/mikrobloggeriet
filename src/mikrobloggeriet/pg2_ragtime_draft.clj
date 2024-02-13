@@ -3,7 +3,8 @@
    [ragtime.core :as ragtime]
    [ragtime.strategy]
    [ragtime.protocols]
-   [pg.core :as pg]))
+   [pg.core :as pg])
+  (:import org.pg.Connection))
 
 (defn ensure-migrations-table!
   [conn]
@@ -17,12 +18,12 @@ create table if not exists migrations(
   [conn]
   (pg/query conn "drop table migrations"))
 
-(defrecord DataStore [conn]
+(extend-type Connection
   ragtime.protocols/DataStore
-  (add-migration-id [_ id]
+  (add-migration-id [conn id]
     (pg/execute conn "insert into migrations(id) values ($1)" {:params [id]}))
-  (remove-migration-id [_ id]
+  (remove-migration-id [conn id]
     (pg/execute conn "delete from migrations where id = $1", {:params [id]}))
-  (applied-migration-ids [_]
+  (applied-migration-ids [conn]
     (->> (pg/query conn "select id from migrations")
          (map :id))))
