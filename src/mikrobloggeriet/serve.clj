@@ -177,6 +177,12 @@
        (default-cohort-section store/vakt
                                "VAKT"
                                "Fra oss som lager Mikrobloggeriet.")
+
+       (default-cohort-section store/kiel
+                               "Kunstig Intelligens—Ekte Læring"
+                               (str
+                                "Om AI i skolen."
+                                " Hvordan læring faktisk kan føre til læring i unge hoder."))
        [:hr]
 
        [:section
@@ -363,7 +369,7 @@
                            :name :mikrobloggeriet/set-flag}]]
 
      ;; Markdown cohorts
-     (for [c [store/olorm store/jals store/oj store/luke store/vakt]]
+     (for [c [store/olorm store/jals store/oj store/luke store/vakt store/kiel]]
        (markdown-cohort-routes c))
 
      ;; RSS

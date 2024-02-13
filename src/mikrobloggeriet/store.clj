@@ -68,6 +68,13 @@
                     {:author/email "neno.mindjek@iterate.no", :author/first-name "Neno"}
                     {:author/email "julian.hallen.eriksen@iterate.no" :author/first-name "Julian"}]))
 
+(def kiel
+  (sorted-map
+   :cohort/root "text/kiel"
+   :cohort/slug "kiel"
+   :cohort/type :cohort.type/markdown
+   :cohort/members [{:author/email "julian.hallen.eriksen@iterate.no" :author/first-name "Julian"}]))
+
 (def urlog
   (sorted-map
    :cohort/root "text/urlog"
@@ -82,7 +89,8 @@
    :oj oj
    :luke luke
    :urlog urlog
-   :vakt vakt))
+   :vakt vakt
+   :kiel kiel))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
