@@ -28,8 +28,6 @@ create table if not exists migrations(
   (assert (not-prod?) "Do NOT drop the migrations table in production.")
   (pg/query conn "drop table migrations"))
 
-
-
 (defrecord PgDatabase [conn]
   ragtime.protocols/DataStore
   (add-migration-id [_ id]
