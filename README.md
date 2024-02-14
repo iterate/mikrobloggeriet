@@ -6,20 +6,20 @@ _A collection of microblogs—written in Norwegian._
 
 Vocabulary:
 
-| term            | type               | definition                                       |
-|-----------------|--------------------|--------------------------------------------------|
-| cohort          | domain abstraction | a collection of people writing together          |
-| doc             | domain abstraction | a microblog entry                                |
-| jals            | cohort             | Jørgen, Adrian, Lars and Sindre's cohort         |
-| kiel            | cohort             | about artificial intetelligence, real learning   |
-| luke            | cohort             | the 2023 christmas calendar initiative           |
-| mblog           | CLI application    | second generation Mikrobloggeriet CLI            |
-| mblog.sh        | CLI application    | third generation Mikrobloggeriet CLI             |
-| mikrobloggeriet | a web site         | you're looking at it!                            |
-| oj              | cohort             | fresh opinions from recent Iterate hires         |
-| olorm           | cohort             | Oddmund, Lars and Richard's cohort               |
-| urlog           | cohort             | collection of weird and/or interesting web sites |
-| vakt            | cohort             | about the making of  Mikrobloggeriet             |
+| term            | type            | definition                                       |
+|-----------------|-----------------|--------------------------------------------------|
+| cohort          | abstraction     | a collection of people writing together          |
+| doc             | abstraction     | a microblog entry                                |
+| jals            | cohort          | Jørgen, Adrian, Lars and Sindre's cohort         |
+| kiel            | cohort          | about artificial intetelligence, real learning   |
+| luke            | cohort          | the 2023 christmas calendar initiative           |
+| mblog           | CLI application | second generation Mikrobloggeriet CLI            |
+| mblog.sh        | CLI application | third generation Mikrobloggeriet CLI             |
+| mikrobloggeriet | a web site      | you're looking at it!                            |
+| oj              | cohort          | fresh opinions from recent Iterate hires         |
+| olorm           | cohort          | Oddmund, Lars and Richard's cohort               |
+| urlog           | cohort          | collection of weird and/or interesting web sites |
+| vakt            | cohort          | about the making of  Mikrobloggeriet             |
 
 ## I want to publish text on Mikrobloggeriet!
 
