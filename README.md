@@ -11,10 +11,8 @@ Vocabulary:
 | cohort          | a microblogging collective               |                       |
 | doc             | a microblog entry                        |                       |
 | jals            | Jørgen, Adrian, Lars and Sindre's cohort |                       |
-| jals            | a CLI for microblogging                  | deprecated, use mblog |
 | mikrobloggeriet | a collection of microblogs               |                       |
 | olorm           | Oddmund, Lars and Richard's cohort       |                       |
-| olorm           | a CLI for microblogging                  | deprecated, use mblog |
 | mblog           | a CLI for microblogging                  |                       |
 
 ## I want to publish text on Mikrobloggeriet!
