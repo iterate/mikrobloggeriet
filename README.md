@@ -6,14 +6,19 @@ _A collection of microblogs—written in Norwegian._
 
 Vocabulary:
 
-| term            | definition                               | Deprecated?           |
-|-----------------|------------------------------------------|-----------------------|
-| cohort          | a microblogging collective               |                       |
-| doc             | a microblog entry                        |                       |
-| jals            | Jørgen, Adrian, Lars and Sindre's cohort |                       |
-| mikrobloggeriet | a collection of microblogs               |                       |
-| olorm           | Oddmund, Lars and Richard's cohort       |                       |
-| mblog           | a CLI for microblogging                  |                       |
+| term            | definition                                         |
+|-----------------|----------------------------------------------------|
+| cohort          | a microblogging collective                         |
+| doc             | a microblog entry                                  |
+| jals            | Jørgen, Adrian, Lars and Sindre's cohort           |
+| mikrobloggeriet | a collection of microblogs                         |
+| olorm           | Oddmund, Lars and Richard's cohort                 |
+| mblog           | a CLI for microblogging                            |
+| oj              | Oj, jeg er nyansatt!                               |
+| luke            | Iterates julekalender 2023                         |
+| urlog           | a collection of weird and/or interesting web sites |
+| vakt            | from the authors of Mikrobloggeriet                |
+| kiel            | artificial intetelligence, real learning           |
 
 ## I want to publish text on Mikrobloggeriet!
 
