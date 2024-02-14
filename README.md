@@ -30,7 +30,7 @@ To create a new Markdown text file and a metadata file, you can use one of the t
 
 ## I want to develop Mikrobloggeriet locally!
 
-You have two options, depending on what you want:
+You have two options, depending on who you are:
 
 | guide                            | target audience               |
 |----------------------------------|-------------------------------|
