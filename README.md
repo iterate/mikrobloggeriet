@@ -61,3 +61,5 @@ Please read [CONTRIBUTING.md]!
 - Rune (text)
 - Anders (text)
 - Neno (text, interface design, interaction design and code)
+
+Please add your name to the list if your name is missing.
