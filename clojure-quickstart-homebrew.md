@@ -35,7 +35,17 @@ The message tells you that "remember to pick java version"!
 This is because Apple made support for choosing which java you want, which is a good thing.
 Read this message carefully, and select _temurin_ as your java version of choice.
 
-We will now select _temurin_ as our Java version of choice.
+Now, install `rlwrap`:
+
+```shell
+brew install rlwrap
+```
+
+You don't have to understand `rlwrap` to do any of this.
+But it will make your editing experience nicer in certain ways, and is a recommended thing to install when setting up a Clojure REPL.
+Specifically, it will make `clj` support GNU readline-like actions in terminal based Clojure repls.
+Without rlwrap, arrow up, arrow down and ctrl+R will behave weirdly.
+With rlwrap, you'll get something nicer.
 
 ## Clojure is meant to be written _interactively_
 
