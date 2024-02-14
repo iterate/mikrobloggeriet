@@ -30,8 +30,14 @@ To create a new Markdown text file and a metadata file, you can use one of the t
 
 ## I want to develop Mikrobloggeriet locally!
 
-Please read [CONTRIBUTING.md]!
+You have two options, depending on what you want:
 
+| guide                            | target audience               |
+|----------------------------------|-------------------------------|
+| [CONTRIBUTING.md]                | Any developer, any system     |
+| [clojure-quickstart-homebrew.md] | Uses Mac, Homebrew and VSCode |
+
+[clojure-quickstart-homebrew.md]: clojure-quickstart-homebrew.md
 [CONTRIBUTING.md]: CONTRIBUTING.md
 
 ## Contributors
