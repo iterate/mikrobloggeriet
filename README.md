@@ -72,4 +72,4 @@ You have two options, depending on who you are:
 - Anders (text)
 - Neno (text, interface design, interaction design and code)
 
-Please add your name to the list if your name is missing.
+Please add your name to the list if your name should be on the list.
