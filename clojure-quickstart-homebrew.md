@@ -31,9 +31,13 @@ brew install --cask temurin
 ```
 
 You will see lots of text, then a _very important message_.
-The message tells you that "remember to pick java version"!
-This is because Apple made support for choosing which java you want, which is a good thing.
-Read this message carefully, and select _temurin_ as your java version of choice.
+The message asks you to "pick java version" for your mac.
+Why?
+Because Apple made a mechanism in Darwin to the user to choose which Darwin version to use.
+This is a good thing!
+It means you can select Java version once, then it works.
+
+Read the message carefully, then select _temurin_ as your java version of choice.
 
 Now, install `rlwrap`:
 
