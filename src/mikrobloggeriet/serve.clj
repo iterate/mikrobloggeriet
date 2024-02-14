@@ -189,7 +189,7 @@
         [:h2 "Hva er dette for noe?"]
         [:p
          "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
-         "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
+         "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
          "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
          "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
          "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]]
