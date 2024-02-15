@@ -13,3 +13,16 @@
 
 (clerk/table
  (pg/query conn "select * from access_logs"))
+
+(clerk/table
+ (pg/query conn "
+select uri,
+  date_trunc('hour', timestamp) as timestamp_hour,
+  count(*)
+from access_logs
+group by uri, timestamp_hour
+"))
+
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(clerk/html [:div {:style {:height "50vh"}}])
