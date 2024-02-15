@@ -14,10 +14,8 @@
 (clerk/table
  (pg/query conn "select * from access_logs"))
 
-(clerk/caption "Trafikk per time"
-               (clerk/table
-                (->>
-                 (pg/query conn "
+(defn traffic-by-hour [db-conn]
+  (pg/query db-conn "
 select
   method,
   uri,
@@ -25,7 +23,12 @@ select
   count(*)
 from access_logs
 group by method, uri, timestamp_hour
-")
+"))
+
+(clerk/caption "Trafikk per time"
+               (clerk/table
+                (->>
+                 (traffic-by-hour conn)
                  (map #(update % :timestamp_hour str)))))
 
 
