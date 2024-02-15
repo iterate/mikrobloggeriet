@@ -14,8 +14,10 @@
 (clerk/table
  (pg/query conn "select * from access_logs"))
 
-(clerk/table
- (pg/query conn "
+(clerk/caption "Trafikk per time"
+               (clerk/table
+                (->>
+                 (pg/query conn "
 select
   method,
   uri,
@@ -23,7 +25,8 @@ select
   count(*)
 from access_logs
 group by method, uri, timestamp_hour
-"))
+")
+                 (map #(update % :timestamp_hour str)))))
 
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
