@@ -16,11 +16,13 @@
 
 (clerk/table
  (pg/query conn "
-select uri,
+select
+  method,
+  uri,
   date_trunc('hour', timestamp) as timestamp_hour,
   count(*)
 from access_logs
-group by uri, timestamp_hour
+group by method, uri, timestamp_hour
 "))
 
 
