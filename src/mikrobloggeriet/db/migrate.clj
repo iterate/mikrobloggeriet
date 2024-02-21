@@ -68,10 +68,6 @@ create table if not exists migrations(
                           info jsonb
                         )"
                      :down "drop table access_logs"})
-     (sql-migration {:id "teodor_table"
-                     :up "create table teodor_table(id serial primary key, opinion text)"
-                     :down "drop table teodor_table"})
-
      ])
 
   (def migration-index (ragtime/into-index all-migrations))
