@@ -68,7 +68,6 @@ create table if not exists migrations(
                           info jsonb
                         )"
                      :down "drop table access_logs"})
-
      ])
 
   (def migration-index (ragtime/into-index all-migrations))
@@ -97,7 +96,9 @@ create table if not exists migrations(
                           timestamp timestamp default current_timestamp,
                           info jsonb
                         )"
-                     :down "drop table access_logs"})]))
+                     :down "drop table access_logs"})
+
+     ]))
 
 (defn migrate-prod!
   "Migrate, or raise error on conflicts."
@@ -134,10 +135,12 @@ create table if not exists migrations(
   (pg/query dev-conn "select * from migrations")
 
   ;; in production, migrate with ragtime.strategy/raise-error
-  (migrate-prod! (PgDatabase. dev-conn))
+  (migrate-prod! dev-conn)
 
   ;; in development, migrate with ragtime.strategy/rebase
-  (migrate-dev! (PgDatabase. dev-conn))
+  (migrate-dev! dev-conn)
+
+  (pg/query dev-conn "select * from teodor_table")
 
   (defonce dev-conn (pg/connect db/dev-config))
   (alter-var-root #'dev-conn (constantly (pg/connect db/dev-config)))
