@@ -68,6 +68,15 @@ create table if not exists migrations(
                           info jsonb
                         )"
                      :down "drop table access_logs"})
+
+     (sql-migration {:id "bo"
+                     :up "create table bananas_sold (
+                          id serial primary key,
+                          banana_seller text,
+                          banana_buyer text,
+                          banana_url text
+                        )"
+                     :down "drop table bananas_sold"})
      ])
 
   (def migration-index (ragtime/into-index all-migrations))
@@ -97,6 +106,14 @@ create table if not exists migrations(
                           info jsonb
                         )"
                      :down "drop table access_logs"})
+     (sql-migration {:id "bo"
+                     :up "create table bananas_sold (
+                          id serial primary key,
+                          banana_seller text,
+                          banana_buyer text,
+                          banana_url text
+                        )"
+                     :down "drop table bananas_sold"})
 
      ]))
 
@@ -128,6 +145,7 @@ create table if not exists migrations(
 
 (comment
   (defonce dev-conn (:mikrobloggeriet.system/db @repl/state))
+  dev-conn
   (alter-var-root #'dev-conn (constantly (:mikrobloggeriet.system/db @repl/state)))
   (ensure-migrations-table! dev-conn)
   (dangerously-delete-migrations-table!! dev-conn)
