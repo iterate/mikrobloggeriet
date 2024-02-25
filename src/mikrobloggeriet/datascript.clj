@@ -29,7 +29,7 @@
       (d/transact! conn [c]))
     @conn))
 
-;; Doesn't work:
+(def db (load-cohorts [store/vakt]))
 
-#_
-(def db (load-cohorts store/vakt))
+(into {} (d/entity db [:author/email "olav.moseng@iterate.no"]))
+;; => {:author/email "olav.moseng@iterate.no", :author/first-name "Olav"}
