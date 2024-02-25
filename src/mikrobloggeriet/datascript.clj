@@ -33,3 +33,8 @@
 
 (into {} (d/entity db [:author/email "olav.moseng@iterate.no"]))
 ;; => {:author/email "olav.moseng@iterate.no", :author/first-name "Olav"}
+
+(d/q '[:find ?name
+       :where [?cohort :author/first-name ?name]]
+     db)
+;; => #{["Olav"] ["Julian"] ["Teodor"] ["Neno"]}
