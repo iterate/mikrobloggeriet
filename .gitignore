@@ -1,3 +1,8 @@
+# Mikrobloggeriet
+#
+# /.local is for local files not intended to be checked into git.
+/.local
+
 # Mac stuff
 .DS_Store
 .idea
