@@ -1,7 +1,6 @@
 (ns mikrobloggeriet.teodor.traffic
   (:require
    [babashka.fs :as fs]
-   [clojure.string :as str]
    [clojure.test :as test]
    [mikrobloggeriet.repl :as repl]
    [nextjournal.clerk :as clerk]
@@ -76,10 +75,6 @@
 (clerk/table (take 30 (:log test-report)))
 
 (partition-by #(= :begin-test-ns (:ns %)) (:log test-report))
-
-#_
-(->> (:log test-report)
-     (filter #(str/starts-with)))
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (clerk/html [:div {:style {:height "50vh"}}])
