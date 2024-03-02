@@ -1,5 +1,8 @@
 (ns mikrobloggeriet.teodor.traffic
   (:require
+   [babashka.fs :as fs]
+   [clojure.string :as str]
+   [clojure.test :as test]
    [mikrobloggeriet.repl :as repl]
    [nextjournal.clerk :as clerk]
    [pg.core :as pg]))
@@ -45,6 +48,38 @@
 (double
  (* 116 (/ 353630
            29)))
+
+(-> (pg/query conn "select pg_size_pretty(pg_relation_size('access_logs')) as access_logs_size")
+    first
+    :access_logs_size)
+
+(comment
+  (->> (fs/glob "test" "**/*test.clj")
+       (map str)
+       (map load-file)))
+
+(def test-report
+  (let [log (atom [])
+        summary
+        (binding [test/report #(swap! log conj %)]
+          (test/run-all-tests))]
+    {:log @log
+     :summary summary}))
+
+(let [r (first (:log test-report))]
+  r)
+
+(into #{} (map keys (:log test-report)))
+
+(clerk/table (take 20 (shuffle (:log test-report))))
+
+(clerk/table (take 30 (:log test-report)))
+
+(partition-by #(= :begin-test-ns (:ns %)) (:log test-report))
+
+#_
+(->> (:log test-report)
+     (filter #(str/starts-with)))
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (clerk/html [:div {:style {:height "50vh"}}])
