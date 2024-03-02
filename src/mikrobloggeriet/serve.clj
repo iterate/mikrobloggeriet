@@ -304,8 +304,13 @@
                (-> (pg/query db "select count(*) as hits from access_logs")
                    first
                    :hits))
+        access-logs-size (when-let [db (:mikrobloggeriet.system/db req)]
+                           (-> (pg/query db "select pg_size_pretty(pg_relation_size('access_logs')) as access_logs_size")
+                               first
+                               :access_logs_size))
         info {:git/sha (get env  "HOPS_GIT_SHA")
               :last-modified-file-time (str (fs/last-modified-time last-modified))
+              :access-logs-size access-logs-size
               :hits hits
               ;; :env-keys (keys env)
               ;; :db-cofig-keys (keys (db/hops-config env))
