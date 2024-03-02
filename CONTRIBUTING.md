@@ -27,6 +27,9 @@ brew install --cask temurin
 
 ### Pandoc
 Mikrobloggeriet uses [Pandoc] to convert from Markdown-format to HTML when publishing blog posts. 
+
+[Pandoc]: https://pandoc.org/
+
 ```shell
 brew install pandoc
 ```

@@ -15,6 +15,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
+   [pg.core :as pg]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
@@ -176,13 +177,19 @@
        (default-cohort-section store/vakt
                                "VAKT"
                                "Fra oss som lager Mikrobloggeriet.")
+
+       (default-cohort-section store/kiel
+                               "Kunstig Intelligens—Ekte Læring"
+                               (str
+                                "Om AI i skolen."
+                                " Hvordan læring faktisk kan føre til læring i unge hoder."))
        [:hr]
 
        [:section
         [:h2 "Hva er dette for noe?"]
         [:p
          "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
-         "Vi velger å publisere fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
+         "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
          "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
          "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "
          "Hvis du har spørsmål eller kommentarer, kan du ta kontakt med " [:a {:href teodor-url} "Teodor"] "."]]
@@ -285,16 +292,21 @@
 
   For example as an opt-in experience when working on HTML / Clojure"
   [_req]
-  (let [last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")]
+  (let [last-modified (last-modified-file "." "**/*.{clj,css,edn,html,js,md}")]
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (str (fs/last-modified-time last-modified) "\n")}))
 
-(defn deploy-info [_req]
+(defn deploy-info [req]
   (let [env (System/getenv)
         last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
+        hits (when-let [db (:mikrobloggeriet.system/db req)]
+               (-> (pg/query db "select count(*) as hits from access_logs")
+                   first
+                   :hits))
         info {:git/sha (get env  "HOPS_GIT_SHA")
               :last-modified-file-time (str (fs/last-modified-time last-modified))
+              :hits hits
               ;; :env-keys (keys env)
               ;; :db-cofig-keys (keys (db/hops-config env))
               }]
@@ -319,6 +331,18 @@
          :name (keyword (str "mikrobloggeriet." (cohort/slug cohort))
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
+
+(defn before-app [req]
+  (future
+    (when-let [conn (:mikrobloggeriet.system/db req)]
+      (let [{:keys [uri request-method]} req
+            info (select-keys (:headers req) ["user-agent"])]
+        (pg/execute conn
+                    "insert into access_logs(method, uri, info) values ($1, $2, $3)"
+                    {:params [(name request-method)
+                              uri
+                              info]}))))
+  req)
 
 (defn app
   []
@@ -345,7 +369,7 @@
                            :name :mikrobloggeriet/set-flag}]]
 
      ;; Markdown cohorts
-     (for [c [store/olorm store/jals store/oj store/luke store/vakt]]
+     (for [c [store/olorm store/jals store/oj store/luke store/vakt store/kiel]]
        (markdown-cohort-routes c))
 
      ;; RSS

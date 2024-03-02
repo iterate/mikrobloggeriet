@@ -6,16 +6,20 @@ _A collection of microblogs—written in Norwegian._
 
 Vocabulary:
 
-| term            | definition                               | Deprecated?           |
-|-----------------|------------------------------------------|-----------------------|
-| cohort          | a microblogging collective               |                       |
-| doc             | a microblog entry                        |                       |
-| jals            | Jørgen, Adrian, Lars and Sindre's cohort |                       |
-| jals            | a CLI for microblogging                  | deprecated, use mblog |
-| mikrobloggeriet | a collection of microblogs               |                       |
-| olorm           | Oddmund, Lars and Richard's cohort       |                       |
-| olorm           | a CLI for microblogging                  | deprecated, use mblog |
-| mblog           | a CLI for microblogging                  |                       |
+| term            | type            | definition                                        |
+|-----------------|-----------------|---------------------------------------------------|
+| cohort          | abstraction     | a collection of people writing together           |
+| doc             | abstraction     | a microblog entry                                 |
+| jals            | cohort          | Jørgen, Adrian, Lars and Sindre's cohort          |
+| kiel            | cohort          | about artificial intetelligence and real learning |
+| luke            | cohort          | the 2023 christmas calendar initiative            |
+| mblog           | CLI application | second generation Mikrobloggeriet CLI             |
+| mblog.sh        | CLI application | third generation Mikrobloggeriet CLI              |
+| mikrobloggeriet | a web site      | you're looking at it!                             |
+| oj              | cohort          | fresh opinions from recent Iterate hires          |
+| olorm           | cohort          | Oddmund, Lars and Richard's cohort                |
+| urlog           | cohort          | collection of weird and/or interesting web sites  |
+| vakt            | cohort          | about the making of  Mikrobloggeriet              |
 
 ## I want to publish text on Mikrobloggeriet!
 
@@ -30,8 +34,14 @@ To create a new Markdown text file and a metadata file, you can use one of the t
 
 ## I want to develop Mikrobloggeriet locally!
 
-Please read [CONTRIBUTING.md]!
+You have two options, depending on who you are:
 
+| guide                            | target audience               |
+|----------------------------------|-------------------------------|
+| [CONTRIBUTING.md]                | Any developer, any system     |
+| [clojure-quickstart-homebrew.md] | Uses Mac, Homebrew and VSCode |
+
+[clojure-quickstart-homebrew.md]: clojure-quickstart-homebrew.md
 [CONTRIBUTING.md]: CONTRIBUTING.md
 
 ## Contributors
@@ -61,3 +71,5 @@ Please read [CONTRIBUTING.md]!
 - Rune (text)
 - Anders (text)
 - Neno (text, interface design, interaction design and code)
+
+Please add your name to the list if your name should be on the list.

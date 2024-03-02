@@ -6,6 +6,7 @@
    [malli.core :as m]
    [mikrobloggeriet.config :as config]
    [mikrobloggeriet.db :as db]
+   [mikrobloggeriet.db.migrate :as db.migrate]
    [mikrobloggeriet.serve :as serve]
    [org.httpkit.server :as httpkit]
    [pg.core :as pg]))
@@ -18,8 +19,11 @@
          :user "mikrobloggeriet"
          :password "mikrobloggeriet"
          :database "mikrobloggeriet"}
+   ::db-migrate {:db (ig/ref ::db)
+                 :env :dev}
    ::app {:recreate-routes :every-request
-          :db (ig/ref ::db)}
+          :db (ig/ref ::db)
+          :db-migrate (ig/ref ::db-migrate)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
@@ -34,8 +38,11 @@
   "Production system with db"
   []
   {::db (db/hops-config (System/getenv))
+   ::db-migrate {:db (ig/ref ::db)
+                 :env :prod}
    ::app {:recreate-routes :once
-          :db (ig/ref ::db)}
+          :db (ig/ref ::db)
+          :db-migrate (ig/ref ::db-migrate)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}})
 
@@ -55,6 +62,11 @@
   [_ conn]
   (pg/close conn))
 
+(defmethod ig/init-key ::db-migrate
+  [_ {:keys [db env]}]
+  (db.migrate/ensure-migrations-table! db)
+  (db.migrate/migrate! db env))
+
 (defmethod ig/init-key ::app
   [_ {:keys [recreate-routes db] :as opts}]
   (assert (#{:every-request :once} recreate-routes)
@@ -63,16 +75,27 @@
     ;; we got a db, attach it.
     (cond (= recreate-routes :every-request)
           (fn [req]
-            ((serve/app) (assoc req ::db db)))
+            (let [app (serve/app)]
+              (-> req
+                  (assoc ::db db)
+                  serve/before-app
+                  app)))
           (= (:recreate-routes opts) :once)
           (let [app (serve/app)]
-            (fn [req] (app (assoc req ::db db)))))
+            (fn [req]
+              (-> req
+                  (assoc ::db db)
+                  serve/before-app
+                  app))))
     ;; no db to attach, fine, don't attach a db.
     (cond (= recreate-routes :every-request)
           (fn [req]
-            ((serve/app) req))
+            (let [app (serve/app)]
+              (app req)))
           (= (:recreate-routes opts) :once)
-          (serve/app))))
+          (let [app (serve/app)]
+            (fn [req]
+              (app req))))))
 
 (defmethod ig/init-key ::http-server
   [_ {:keys [port app]}]
