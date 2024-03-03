@@ -11,6 +11,7 @@
   integrant/integrant {:mvn/version "0.8.1"}
   integrant/repl {:mvn/version "0.3.3"}
   io.github.nextjournal/clerk {:mvn/version "0.15.957"}
+  io.github.tonsky/clj-reload {:mvn/version "0.3.0"}
   metosin/malli {:mvn/version "0.14.0"}
   metosin/reitit {:mvn/version "0.6.0"}
   org.babashka/cli {:mvn/version "0.8.57"}
