@@ -114,3 +114,21 @@
 (defn clerk-stop! []
   (let [clerk-halt (requiring-resolve 'nextjournal.clerk/halt!)]
     (clerk-halt)))
+
+(defn clj-reload-init!
+  "Thin setup for https://github.com/tonsky/clj-reload.
+
+  Usage:
+
+  1. Run `start!` to initialize Mikrobloggeriet
+  1. Call `clj-reload-init!` _once_ to make clj-reload scan for dependencies
+  2. The call `reload!` each time you want a reload.
+
+  Consider binding `reload!` to a key binding."
+  []
+  ((requiring-resolve 'clj-reload.core/init)
+   {:dirs ["src" "draft" "text" "test"]
+    :no-reload '#{user mikrobloggeriet.repl}}))
+
+(defn reload! []
+  ((requiring-resolve 'clj-reload.core/reload)))
