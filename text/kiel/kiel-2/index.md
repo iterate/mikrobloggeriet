@@ -22,13 +22,13 @@ Her en en beskrivelse fra boka [Speculative Everything](https://mitpress.mit.edu
 Jeg har vært fascinert av spekulativ design lenge, men det er først i det siste at jeg har oppdaget effekten av et annet aspekt; nemlig humor. Dragningen mot å bruke nettopp spekulativ design i dette prosjektet startet med en fyr på Instagram ved navn Soren Iverson. Iverson lager og deler én idé hver dag, hver bestående av et skjermbilde av en iPhone med et fiktivt UX-design, eller som han selv beskriver dem, *absurd versions of the apps we interact with on a daily basis.* Høydepunkter **inkluderer en Spotify-funksjon som gjør julemusikk utilgjengelig utenfor juletida (Fig 1), en Tinder-funksjon som ber deg svare på hvorfor du sveipet til venstre (Fig 2), og annonser som sniker seg inn der du ikke skulle tro det var mulig (Fig 3). Idéene får meg til å humre, før de får meg til å tenke. Og plutselig begynte jeg å lure på om denne fremgangsmåten kunne brukes til å si noe nytt om bruk av AI i skolen.
 
 
-![image](https://github.com/iterate/mikrobloggeriet/assets/130968924/f71be9ef-8a64-49fe-bf25-7549329ef2d6) Fig 1
+![Fig 1](https://github.com/iterate/mikrobloggeriet/assets/130968924/f71be9ef-8a64-49fe-bf25-7549329ef2d6)
 
 
-![image](https://github.com/iterate/mikrobloggeriet/assets/130968924/0d520be8-c6d8-432f-84b8-14ebe8d9b905) Fig 2
+![Fig 2](https://github.com/iterate/mikrobloggeriet/assets/130968924/0d520be8-c6d8-432f-84b8-14ebe8d9b905)
 
 
-![image](https://github.com/iterate/mikrobloggeriet/assets/130968924/dfef2d31-aaa7-4a53-9062-1d60d921c67c) Fig 3
+![Fig 3](https://github.com/iterate/mikrobloggeriet/assets/130968924/dfef2d31-aaa7-4a53-9062-1d60d921c67c)
 
 
 
