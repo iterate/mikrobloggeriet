@@ -51,40 +51,40 @@ Idéene som kom ut av workshoppen traff over forventning, særlig fordi de fakti
 - Vipps-funksjon som gjør at foreldre kan vippse med forbehold om god karakter. Pengene låses opp ved skanning av tilfredsstillende karakter. (Fig 6)
 
   
-![WIUX SKETCH Lærer i Sanntid](https://github.com/iterate/mikrobloggeriet/assets/130968924/6fa33b5a-9cd7-40b4-ae67-8b7f88bf5f35) Fig 4
+![Fig 4: WIUX SKETCH Lærer i Sanntid](https://github.com/iterate/mikrobloggeriet/assets/130968924/6fa33b5a-9cd7-40b4-ae67-8b7f88bf5f35)
 
-![WIUX SKETCH Tilbakemelding](https://github.com/iterate/mikrobloggeriet/assets/130968924/76878182-5f6d-4479-84b8-cd993377a17b) Fig 5
+![Fig 5: WIUX SKETCH Tilbakemelding](https://github.com/iterate/mikrobloggeriet/assets/130968924/76878182-5f6d-4479-84b8-cd993377a17b)
 
-![WIUX SKETCH Vipps](https://github.com/iterate/mikrobloggeriet/assets/130968924/621e80c4-df37-4d36-8216-2a5f829ff63c) Fig 6
+![Fig 6: WIUX SKETCH Vipps](https://github.com/iterate/mikrobloggeriet/assets/130968924/621e80c4-df37-4d36-8216-2a5f829ff63c)
 
 
 
 Jeg tok noen av idéene, og begynte å skisse dem ut i troverdig oppløsning; bl.a. Vipps-idéen (Fig 7). Som nevnt gjør de kjente brukergrensesnittene det lettere for mottaker å koble seg på fiksjonen, og de er samtidig å komme i gang med enn de mer løsrevne konseptene. 
 
-![WIUX Vipps Mamma](https://github.com/iterate/mikrobloggeriet/assets/130968924/20b1eef7-3699-42a0-bc78-dae0b0a3e7d6) Fig 7
+![Fig 7: WIUX Vipps Mamma](https://github.com/iterate/mikrobloggeriet/assets/130968924/20b1eef7-3699-42a0-bc78-dae0b0a3e7d6)
 
 
 
 Et mer løsrevet konsept jeg endte opp med å tegne ut er et slags digital klasseromsvakt (Fig 8), som følger med på telefonen din om du gjør noe du ikke skal i timen, gir deg en varsel, og setter i gang en nedtelling før man får anmerkning.
 
-![WIUX Legg vekk tlf](https://github.com/iterate/mikrobloggeriet/assets/130968924/36c5105a-240e-4fe7-b01a-bbf3d442830d) Fig 8
+![Fig 8: WIUX Legg vekk tlf](https://github.com/iterate/mikrobloggeriet/assets/130968924/36c5105a-240e-4fe7-b01a-bbf3d442830d)
 
 
 Timeplan i Ruter (Fig 9) er langt mindre dystopisk, og gjør det muligens lettere for en trøtt elev å komme seg på skolen. 
 
 Side note: en motivasjon for meg i dette prosjektet er å terpe på UX-skills. Å kopiere det visuelle språket til f.eks. Ruter kan sikkert gjøres på hundre måter, og her har jeg bare prøvd meg fram. Det er rimelig tilfredsstillende å flytte på piksler til mitt kunstneriske bidrag smelter inn i det opprinnelige skjermbildet. Tålmodigheten som trengs er noe jeg vanligvis mangler, men nå har tid til. Derfor befinner jeg meg nå midt i en bratt og spennende læringskurve.
 
-![WIUX Ruter Timeplan](https://github.com/iterate/mikrobloggeriet/assets/130968924/64c70320-a884-45f4-8abe-f8e1995128e3) Fig 9
+![Fig 9: WIUX Ruter Timeplan](https://github.com/iterate/mikrobloggeriet/assets/130968924/64c70320-a884-45f4-8abe-f8e1995128e3)
 
 Det hadde vært nyttig å vite mer om hvilke verktøy norske vgs-elever bruker ila. skoledagen. I mellomtiden gjetter jeg på at de skriver oppgaver i programmer som Google Docs, og gjorde dermed et par skisser fra et scenario der eleven jobber med innlevering på maskinen sin. Disse tar i tillegg for seg AI-teknologi; den første advarer, den andre oppmuntrer.
 
 Fig 10: Advarsel i Google Docs om bruk av AI i oppgaveskriving. Google har (IRL) kjørt ut en testversjon av en AI-knapp i dokumentet hvor det står “Hjelp meg å skrive”. I mitt scenario dukker det opp en beskjed om man trykker på denne, bl.a. med advarsel om “KI-prikk” på vitnemålet. Jeg ser for meg en skolekultur der man får fordeler, f.eks. når man søker studier, dersom man klarer å bruke sin egen stemme, uten innblanding av AI.
 
-![WIUX Docs Advarsel](https://github.com/iterate/mikrobloggeriet/assets/130968924/125e6915-cb01-4568-a4a0-f8fede4876f9) Fig 10
+![Fig 10: WIUX Docs Advarsel](https://github.com/iterate/mikrobloggeriet/assets/130968924/125e6915-cb01-4568-a4a0-f8fede4876f9)
 
 Fig 11: AI-chat integrert i innleverings-dokument, hvor eleven kan snakke med relevante historiske personer, i dette tilfelle filosofer fra opplysningstiden. Idéen om å rigge chat-boten sånn at den svarer som en kjendis, fiktiv karakter eller historisk personlighet er ikke ny, men det er interessant å drømme om et pedagogisk brukergrensesnitt løsrevet fra en dedikert chat-applikasjon. Her er det er mye interessant å utforske, og jeg tror ikke det er lenge før vi ser AI-brukergrensesnitt som er langt mer fleksible enn de er i dag.
 
-![WIUX Filosof](https://github.com/iterate/mikrobloggeriet/assets/130968924/70d35419-1d97-4605-a4dc-a49c95e75f1e) Fig 11
+![Fig 11: WIUX Filosof](https://github.com/iterate/mikrobloggeriet/assets/130968924/70d35419-1d97-4605-a4dc-a49c95e75f1e)
 
 
 **Hva er veien videre?**
