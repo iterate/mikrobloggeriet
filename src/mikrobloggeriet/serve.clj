@@ -181,8 +181,7 @@
        (default-cohort-section store/kiel
                                "Kunstig Intelligens—Ekte Læring"
                                (str
-                                "Om AI i skolen."
-                                " Hvordan læring faktisk kan føre til læring i unge hoder."))
+                                "Julian Hallen Eriksen utforsker muligheter og utfordringer knytta til AI i norske skoler."))
        [:hr]
 
        [:section
