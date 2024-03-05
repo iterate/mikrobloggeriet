@@ -181,7 +181,7 @@
        (default-cohort-section store/kiel
                                "Kunstig Intelligens—Ekte Læring"
                                (str
-                                "Julian Hallen Eriksen utforsker muligheter og utfordringer knytta til AI i norske skoler."))
+                                "Designer og teknologiformidler, Julian Hallen Eriksen, utforsker muligheter og utfordringer knytta til AI i norske skoler."))
        [:hr]
 
        [:section
