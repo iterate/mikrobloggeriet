@@ -63,3 +63,13 @@
 (clerk/html (convert-nextjournal "Dette er alt—la oss gå videre!"))
 
 ;; mmmmm.
+
+;; hvordan representerer pandoc em-dasher?
+
+(pandoc/from-markdown "Dette er alt---la oss gå videre!")
+
+;; ikke noe spesielt type element nei, bare en rå —.
+;; Så det skjer på vei _inn_ fra markdown, ikke på vei ut.
+
+^{:nextjournal.clerk/visibility {:code :hide}}
+(clerk/html [:div {:style {:height "50vh"}}])
