@@ -1,9 +1,10 @@
 (ns mikrobloggeriet.teodor.markdown-compare
   (:require
+   [mikrobloggeriet.pandoc :as pandoc]
+   [mikrobloggeriet.store :as store]
    [nextjournal.clerk :as clerk]
    [nextjournal.markdown :as md]
-   [nextjournal.markdown.transform]
-   [mikrobloggeriet.pandoc :as pandoc]))
+   [nextjournal.markdown.transform]))
 
 (def text1
   "> et tout autour, la longue cohorte de ses personnages, avec leur histoire, leur passé, leurs légendes:
@@ -70,6 +71,42 @@
 
 ;; ikke noe spesielt type element nei, bare en rå —.
 ;; Så det skjer på vei _inn_ fra markdown, ikke på vei ut.
+
+(defn timed* [f]
+  (let [start (System/currentTimeMillis)
+        result (f)
+        end (System/currentTimeMillis)]
+    {:duration (- end start)
+     :result result}))
+
+(defmacro timed [& body]
+  `(timed* (fn [] ~@body)))
+
+^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
+(comment
+  (-> {}
+      (assoc :pandoc (timed (convert-pandoc "Dette er alt---la oss gå videre!")))
+      (assoc :nextjournal (timed (convert-nextjournal "Dette er alt---la oss gå videre!"))))
+  ;; => {:pandoc {:duration 84, :result "<p>Dette er alt—la oss gå videre!</p>\n"},
+  ;;     :nextjournal
+  ;;     {:duration 1, :result [:div [:p "Dette er alt---la oss gå videre!"]]}}
+  )
+
+(def doc (slurp "o/olorm-7/index.md"))
+
+(-> {}
+    (assoc :pandoc (timed (convert-pandoc doc)))
+    (assoc :nextjournal (timed (convert-nextjournal doc))))
+
+;; 40 ms vs 283 ms.
+;; Forbedring, det!
+;;
+;; Så (omtrent som forventet):
+;;
+;; 1. Veldig stor forskjell for små dokumenter
+;; 2. Nextjournal/markdown er fremdeles raskere for store dokumenter.
+;;
+;; Men nå har vi benchmarks.
 
 ^{:nextjournal.clerk/visibility {:code :hide}}
 (clerk/html [:div {:style {:height "50vh"}}])
