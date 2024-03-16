@@ -250,12 +250,14 @@
 
   (store/cohort-href store/oj))
 
+
 (defn doc
   [req cohort]
   (when-let [slug (http/path-param req :slug)]
-    (let [markdown-parser-fn (if (str/includes? (:query-string req) "markdown-parser=nextjournal")
+    (let [markdown-parser-fn (if (some-> req :query-string (str/includes? "markdown-parser=nextjournal"))
                                markdown->html+info2
                                markdown->html+info)
+          _ (prn markdown-parser-fn)
           doc (doc/from-slug slug)
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
@@ -444,3 +446,8 @@
 (comment
   ((app) {:uri "/deploy-info", :request-method :get})
   :rcf)
+
+(comment
+  (def app-instance (app))
+  (app-instance {:uri "/olorm/olorm-1/" :request-method :get})
+  :rfc)
