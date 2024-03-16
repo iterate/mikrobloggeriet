@@ -49,3 +49,17 @@
 ;; punktliste. Nice, TIL!
 
 ;; hva med em-dash?
+
+(clerk/html (convert-pandoc "Dette er alt---la oss gå videre!"))
+
+;; funker som jeg liker i pandoc ☝️
+
+;; hva med Nextjournal/markdown?
+
+(clerk/html (convert-nextjournal "Dette er alt---la oss gå videre!"))
+
+;; nope, her trenger vi unicode em-dashes.
+
+(clerk/html (convert-nextjournal "Dette er alt—la oss gå videre!"))
+
+;; mmmmm.
