@@ -1,0 +1,12 @@
+#+title: Journal
+
+* 2024-03-16
+** Unødvendig fleksibilitet er dårlig
+I dag har vi:
+
+- Multimetoder for å støtte forskjellige kohorter
+- Pandoc-bruk for å støtte flere inputformater.
+
+Bør vi fjerne den fleksibliteten?
+Og hvis vi fjerner, hva skjer da?
+** Eksperiment: sammenlikne Pandoc nesxtjournal/markdown for konvertering av Markdown til HTML
