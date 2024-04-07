@@ -1,1 +1,2 @@
-{:deps {io.github.iterate/mikrobloggeriet {:local/root "."}}}
+{:deps {io.github.iterate/mikrobloggeriet {:local/root "."}
+        com.lambdaisland/launchpad {:mvn/version "0.28.129-alpha"}}}
