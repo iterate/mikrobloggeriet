@@ -163,7 +163,7 @@
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"]
     {:status 200
-     :headers {}
+     :headers {"Content-type" "text/html"}
      :body
      (page/html5
       (into [:head] (shared-html-header req))
