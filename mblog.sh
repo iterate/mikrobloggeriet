@@ -63,7 +63,9 @@ ednfile() {
 uuid4() {
     awk 'BEGIN {
         srand()
-        print f(8) "-" f(4) "-4" f(3) "-" f(4) "-" f(12)
+        split("89ab", vars, "")
+        variant = vars[1 + int(rand() * 4)]
+        print f(8) "-" f(4) "-4" f(3) "-" variant f(3) "-" f(12)
     }
     function f(len) {
         r = ""
@@ -109,7 +111,10 @@ dryrun() {
 }
 
 test() {
-    pattern='^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+    # The variant field consists of a variable number of
+    # the most significant bits of octet 8 of the UUID. —RFC 4122
+    # 1 0 _ _ => 1 0 0 0 .. 1 0 1 1 => 8..11 => [89ab]
+    pattern='^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
     for i in $(seq 20); do
         value=$(uuid4)
         printf %s "$value" | grep -Eq "$pattern" \
