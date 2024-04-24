@@ -1,0 +1,9 @@
+version: 2
+updates:
+  # generated because this repository has an iterapp.toml file
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "docker: "
