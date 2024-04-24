@@ -1,4 +1,4 @@
-FROM clojure:temurin-21-tools-deps
+FROM clojure:temurin-22-tools-deps
 
 # To build Dockerfile:
 #
