@@ -388,7 +388,7 @@
                            :name :mikrobloggeriet/set-flag}]]
 
      ;; Markdown cohorts
-     (for [c [store/olorm store/jals store/oj store/luke store/vakt store/kiel]]
+     (for [c [store/olorm store/jals store/oj store/luke store/vakt store/kiel store/cohort-iterate]]
        (markdown-cohort-routes c))
 
      ;; RSS
