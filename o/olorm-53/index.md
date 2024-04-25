@@ -44,6 +44,25 @@ Den strategien har jeg opplevd at har fungert svært bra, og jeg har begynt å t
 Hvis jeg hadde laget et skriveverktøy for journalister, hadde jeg jobbet kontinuerlig med å gjøre skriveverktøyet bedre egnet for sånn jeg ønsker å jobbe, og for å forstå hvordan journalister bruker skriveverktøy på måter jeg ennå ikke gjør.
 Deretter ville jeg vært litt varsom med å innføre funksjonalitet som kan bli vanskelig å bruke for journalister --- enten fordi den forutsetter forkunnskaper journalistene ikke har, eller fordi funksjonaliteten ikke løser for hvordan jeg bør _lære å bruke funksjonaliteten_.
 
+## _Ender's Game_ av Orson Scott Card er en kul bok
+
+> In the moment when I truly understand my enemy, understand him well enough to
+> defeat him, then in that very moment I also love him. I think it’s impossible
+> to really understand somebody, what they want, what they believe, and not love
+> them the way they love themselves. And then, in that very moment when I love
+> them.... I destroy them.
+
+Så ... vi vil jo ikke ødelegge brukerene.
+
+Men hvis vi skal overbevise noen om å betale penger for noe vi har laget er utvilsomt en forhandling.
+Da er det fint å forstå hvor personen du forhandler med kommer fra.
+
+Sitet er hentet fra boka _Ender's game_.
+Les mer om den på Goodreads: https://www.goodreads.com/quotes/97512-in-the-moment-when-i-truly-understand-my-enemy-understand
+
+Den handler om en åtte år gammel gutt som blir sendt ut i verdensrommet for å bli trent til å kjempe mot romvesner.
+Jeg synes den er fin!
+
 Fortsatt god morgen!
 Teodor
 
