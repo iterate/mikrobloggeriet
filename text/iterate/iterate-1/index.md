@@ -40,3 +40,5 @@ So, naming this stage as key would potentially make it less of a painful process
 I guess I want the ability to really look at our work, judge it well until we get to the point where we can truly be proud to have created a product that makes people go WOW!
 
 I have now changed my title to product editor.
+
+---Kjersti
