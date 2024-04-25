@@ -82,6 +82,14 @@
    :cohort/type :cohort.type/urlog
    :cohort/members [{:author/email "neno.mindjek@iterate.no", :author/first-name "Neno"}]))
 
+;; for nå kaller jeg den cohort-iterate for å unngå kollisjon med clojure.core/iterate
+(def cohort-iterate
+  (sorted-map
+   :cohort/root "text/iterate"
+   :cohort/slug "iterate"
+   :cohort/type :cohort.type/urlog
+   :cohort/members [{:author/email "kjersti@iterate.no", :author/first-name "Kjersti"}]))
+
 (def cohorts
   (sorted-map
    :olorm olorm
@@ -90,7 +98,8 @@
    :luke luke
    :urlog urlog
    :vakt vakt
-   :kiel kiel))
+   :kiel kiel
+   :iterate cohort-iterate))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELPERS
