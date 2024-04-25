@@ -64,6 +64,7 @@ Den handler om en åtte år gammel gutt som blir sendt ut i verdensrommet for å
 Jeg synes den er fin!
 
 Fortsatt god morgen!
-Teodor
+
+—Teodor
 
 [neil]: https://github.com/babashka/neil
