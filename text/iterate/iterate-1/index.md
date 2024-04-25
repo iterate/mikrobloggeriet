@@ -15,7 +15,7 @@ But, there is also another component to building products that I less often hear
 
 Hence my liking for the term product editor, I guess.
 Especially from the context Adam Moss talks about editing.
-With the term "product editor", it feels like get an "OK" to using my many years of experience building products, without having to explain everything in detail.
+With the term "product editor", it feels like getting an "OK" to using my many years of experience building products, without having to explain everything in detail.
 I can be more fierce in believing in the vision or our direction, whilst hopefully be better at avoiding design by consensus or pure logic.
 Which is where I sometimes find myself, not being particularly happy about it. 
 
@@ -32,4 +32,4 @@ Being pretty good at the first and last, I find we very often don´t focus speci
 
 I think perhaps we are also terrified at the prospect of someone being offended as we critique their/our work. So, naming this stage as key would potentially make it less of a painful process to really edit our products as we wade through customer insights, hypotheses, ideas and aha-moments. I guess I want the ability to really look at our work, judge it well until we get to the point where we can truly be proud to have created a product that makes people go WOW!
 
-I have now changed by title to product editor. 
+I have now changed my title to product editor.
