@@ -34,7 +34,7 @@ Da må du løse for to ting:
 Jeg har bidratt til kommandolinje-programmet [Neil].
 Neil er et program for å legge til Clojure-pakker når du programmerer med Clojure.
 
-Min strategi for bidrag var å følge to strategier kontinuerlig:
+For å bidra fulgte jeg to strategier samtidig:
 
 1. Gjøre Neil til et bedre verktøy for å løse mine behov
 2. Gjøre en innsats for å forstå hvordan andre bruker Neil på måter jeg ikke ennå forstår.
