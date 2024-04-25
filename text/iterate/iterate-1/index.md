@@ -1,9 +1,11 @@
 # ITERATE-1: I want to be a product editor
 
 Finally I found a term that feels like home.
-Listening to Ezra Kleins conversation with Adam Moss yesterday made me think that what my job really is about is finding the right product fit through editing.
+Listening to [Ezra Kleins conversation with Adam Moss] yesterday made me think that what my job really is about is finding the right product fit through editing.
 I never found that the term "product manager" fit me, it sort of denoted a very stringent approach to making a product work.
 All numbers and structure.
+
+[Ezra Kleins conversation with Adam Moss]: https://podcasts.apple.com/no/podcast/the-ezra-klein-show/id1548604447?i=1000653308543
 
 Which is kinda why my design career ventured towards products in the first place, exactly because I missed a greater focus on knowing that I contributed to a better world for users. 
 
