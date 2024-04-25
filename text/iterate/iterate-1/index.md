@@ -22,14 +22,21 @@ Which is where I sometimes find myself, not being particularly happy about it.
 Perhaps this term will also help our clients understand that making products isn't purely a numbers game, or a straight puck.
 It is about vision, execution and measuring impact all at once. 
 
-I love Adam Mosses description of the creative process amongst the many artists he has interviewed to find in which ways they make decision when making art. The artists stories are very individual, yes, but they go through a smiliar top level process. I think we could be better at doing something closer to this. The three steps are (my translation)
+I love Adam Mosses description of the creative process amongst the many artists he has interviewed to find in which ways they make decision when making art.
+The artists stories are very individual, yes, but they go through a similar top level process.
+I think we could be better at doing something closer to this.
+The three steps are (my translation):
 
 1. being creative
 2. judging
 3. detailing
 
-Being pretty good at the first and last, I find we very often don´t focus specifically on the middle one. This part is absolutely essential to find an emotional fit for users - which is really what we´re always searching for. We want to make products that people love (not accept or like). 
+Being pretty good at the first and last, I find we very often don't focus specifically on the middle one.
+This part is absolutely essential to find an emotional fit for users---which is really what we're always searching for.
+We want to make products that people love (not accept or like). 
 
-I think perhaps we are also terrified at the prospect of someone being offended as we critique their/our work. So, naming this stage as key would potentially make it less of a painful process to really edit our products as we wade through customer insights, hypotheses, ideas and aha-moments. I guess I want the ability to really look at our work, judge it well until we get to the point where we can truly be proud to have created a product that makes people go WOW!
+I think perhaps we are also terrified at the prospect of someone being offended as we critique their/our work.
+So, naming this stage as key would potentially make it less of a painful process to really edit our products as we wade through customer insights, hypotheses, ideas and aha-moments.
+I guess I want the ability to really look at our work, judge it well until we get to the point where we can truly be proud to have created a product that makes people go WOW!
 
 I have now changed my title to product editor.
