@@ -27,7 +27,7 @@ Mange kule ting tar tid å lære seg.
 Når noe går veldig fort å lære kan det bety at læringsopplegget er helt fantastisk og du har hatt en vanvittig læringsfart.
 Det kan også bety at du egentlig kunne tingen fra før av, og har du har lært en ny måte å uttrykke et konsept du allerede kan.
 
-Det en type vanskelige ting som er vanskelige uten at du egentlig /burde/ trenge å lære deg det.
+Det en type vanskelige ting som er vanskelige uten at du egentlig _burde_ trenge å lære deg det.
 Hvis du sitter og må huske 29 steg for hvordan du prodsetter kode kan det ta lang tid å lære seg, uten at du har lært deg en nyttig, ny ferdighet.
 Kanskje kunne de 29 stegene vært automatisert bort?
 
