@@ -57,7 +57,7 @@ Enkodingen må derfor inkludere hvilken av dem det er snakk om.
 Så, er det bare driveren som er dårlig?
 Nei, dessverre er det i MariaDB p.t. [ikke](https://jira.mariadb.org/browse/MDEV-11829) mulig å enkode tidssone-info verken som
 [binær](https://mariadb.com/kb/en/resultset-row/#timestamp-binary-encoding)¹- 
-eller [tekst](https://mariadb.com/kb/en/date-and-time-literals/)-verdi.
+eller [tekst](https://mariadb.com/kb/en/date-and-time-literals/)-verdi (i motsetning til [MySQL](https://dev.mysql.com/doc/refman/8.3/en/date-and-time-literals.html)).
 
 *Løsningen er å sette sesjonens `time_zone` og verdiene som skrives til en fast tidssone uten sommertid, f.eks. UTC.*
 
