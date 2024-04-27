@@ -103,3 +103,5 @@ Velg én vanskelig ting du ønsker å lære.
 Kanskje noe en person du har sett allerede behersker, da vet du at det er mulig.
 
 Leke, _lære_, lage har en gang i tiden vært mottoet til Iterate!
+
+---Teodor
