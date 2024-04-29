@@ -63,8 +63,7 @@ ednfile() {
 uuid4() {
     awk 'BEGIN {
         srand()
-        split("89ab", vars, "")
-        variant = vars[1 + int(rand() * 4)]
+        variant = substr("89ab", 1 + int(rand() * 4), 1)
         print f(8) "-" f(4) "-4" f(3) "-" variant f(3) "-" f(12)
     }
     function f(len) {
