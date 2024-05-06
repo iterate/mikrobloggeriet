@@ -1,4 +1,4 @@
-# OJ-3
+# OJ-3: Kjøre språkmodeller på egen maskin
 
 De siste par dagene har Ole Jacob og jeg utforsket hvordan vi kan kjøre språkmodeller (LLM-er) lokalt på vår maskin. Det vil si, vi fikk et par dager til å leke med denne teknologien for å se om det kunne bidra til å løse et reelt problem i et prosjekt.
 
