@@ -36,7 +36,7 @@ Denne spyr den tilbake en response fra din lokale llama3. Her finnes det også b
 
 ### Sette opp et UI for å interagere med språkmodellen
 
-Det finnes også mange med UIer man kan klone ned og kjøre lokalt for å få grensesnitt til kjapt interagere med din lokale LLM. Vi valgte å bruke [Dify](https://github.com/langgenius/dify), som gjør det enkelt å behandle filer og bygge workflows LLMer.
+Det finnes også mange med UI-er man kan klone ned og kjøre lokalt for å få grensesnitt til kjapt interagere med din lokale LLM. Vi valgte å bruke [Dify](https://github.com/langgenius/dify), som gjør det enkelt å behandle filer og bygge workflows LLMer.
 Denne kjørte vi også opp lokalt, men her ved å klone ned repoet og kjøre en `docker compose` etter å ha fulgt [Dify's dokumentasjon](https://docs.dify.ai/getting-started/install-self-hosted/docker-compose). Den starter en del greier, bla. en server, en front-end, en database og en reverse proxy. Her var det litt konfigurering for å sette riktig port i proxyen, og konfigurere den til å kalle endepunktet til Ollama.
 
 Dify har også ganske najs funksjonalitet for å importere data og gjøre det mulig å en LLM å søke i det. Til dette koblet vi på en annen lokal språkmodel for å håndtere _embedding_.
