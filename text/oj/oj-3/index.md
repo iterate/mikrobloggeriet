@@ -47,7 +47,7 @@ Videre kunne vi bruke denne dataen, og en språkmodell for å snakke med vår lo
 
 Så er det bare å kjøre denne, og chatte med språkmodellen som du ville med en annen GPT.
 
-### Litt om knowledge retrieval
+### Knowledge retrieval fra egen maskin
 De fleste språkmodeller er trent på utdatert informasjon, og har videre ikke informasjon spesifikk for din bedrift ol. I vårt tilfelle hadde vi en del filer, som vi ønsket at språkmodellen vår skulle kjenne til innholdet i. Til dette bruker vi teknikker som _embedding_, hvor man kan sende en rekke ulike filer og formater gjennom en annen _embedding_ modell (vi brukte [nomic-embed-text](https://ollama.com/library/nomic-embed-text)). Denne modellen brukte vi til å omgjøre filer til vektorer som kan sendes og tolkes som kontekst av språkmodellen vår. Når vi lagde kontekts kunne vi bla. gjøre mye rart, som å kjøre den på en måte hvor embedding-modellen vår lagde spørsmål-svar kombinasjoner til seg selv. Dette kverna litt på maskina, men tok heller ikke allverdens med tid.
 
 Embedding av tekst er et fundament for å lage det vi ønsket å lage, nemlig en språkmodell som hadde konteksten av våre spesifikke forretningsbehov. Dette er hva som i dag ofte blir omtalt som å Retrieval Agmented Generation ([RAG](https://www.pinecone.io/learn/retrieval-augmented-generation/)). Ideelt sett kan man da bruke også RAG til å søke i egene greier.
