@@ -66,7 +66,7 @@ Min erfaring er at det stort sett stemmer for Haskell, og at det ~alltid stemmer
 Elm har et mer konsistent typeystem enn Haskell som er lettere å sette seg inn i ved å ha færre features.
 Et eksempel er typeklasser, typeklasser er en løsning for polymorfisk dispatch i Haskell.
 Les https://en.wikipedia.org/wiki/Expression_problem for mer info.
-Philip Wadler er en av personene bak Haskell.
+Philip Wadler nevnes tidlig i artikkelen, han er en av personene bak Haskell.
 Elm har _ikke_ typeklasser.
 Det gjør Elm-kode lettere å lese og lettere å sette seg inn i enn Haskell-kode.
 
