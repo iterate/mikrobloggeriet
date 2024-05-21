@@ -5,7 +5,7 @@ Hvordan skriver man tester?
 Hvorfor skriver man tester?
 
 Effektiv enhetstesting i praksis er lettest å lære fra noen som har jobbet effektivt med enhetstesting før.
-Jeg prøver meg alikevel på et argument for testing i tekstform.
+Jeg prøver meg alikevel på en en tekst.
 Mest historiefortelling, bittelitt enhetstesting i praksis.
 Spenn deg fast!
 
