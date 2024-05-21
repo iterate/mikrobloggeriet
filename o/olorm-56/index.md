@@ -170,7 +170,7 @@ Her er Clojure-kode som gjør nettopp dette:
 Som Oddmund tidligere har sagt om TCR, er dette ikke kode man trenger et bibliotek for å bruke.
 Tilpass arbeidsflyten til koden og de som skal jobbe med koden.
 
-Så binder du kode i editoren din til å:
+Så binder du en tastatursnarvei i editoren din til å:
 
 1. Lagre filer
 2. Kjøre `user/tcr`.
