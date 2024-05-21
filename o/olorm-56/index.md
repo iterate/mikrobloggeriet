@@ -114,7 +114,9 @@ Hvorfor kan jeg ikke få til det samme fra en REPL?
 
 Så, jeg prøvde meg på å løse problemet.
 Og jeg fikk til det jeg prøvde!
-https://github.com/teodorlu/clj-tcr beskriver nå hvordan du kan få til TCR i Clojure.
+Github-repoet [teodorlu/clj-tcr] beskriver nå hvordan du kan få til TCR i Clojure.
+
+[teodorlu/clj-tcr]: https://github.com/teodorlu/clj-tcr
 
 Trikset er:
 
