@@ -100,7 +100,7 @@ Interaktiv programmering er å programmere fra innsiden av programmet sitt.
 I stedet for å endre filer som plukkes opp når man rekompilerer eller restarter i en terminal eller med en file watcher, sitter man med en editor koblet til en REPL, der man kan endre oppførselen til egen kode uten å restarte systemet.
 
 Men!
-Interkativ Programmering krever trening og disiplin for å brukes effektivt.
+Interaktiv Programmering krever trening og disiplin for å brukes effektivt.
 Du kan lett ende opp i en tilstand der filenes tilstand på disk ikke reflekterer tilstanden til programmet ditt i minne.
 
 Det problemet hadde jeg aldri da jeg skrev Elm med TCR.
