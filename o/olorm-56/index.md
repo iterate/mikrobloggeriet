@@ -203,8 +203,8 @@ En av utviklerne jeg mener jeg har noe å lære noe av er [Christian Johansen].
 Han er en dyktig programmerer som lager gode biblioteker, og har lang erfaring med test-dreven utvikling og parprogrammering.
 
 På Babaska-meetup i Mai fikk jeg par/mob-programmere med Christian.
-Han navigerte, jeg kjørte.
-Og han dyttet oss mot TDD.
+Jeg kjørte (satt ved tastaturet) og han navigerte (sa hva jeg skulle gjøre).
+Og han navigerte ved å fortelle meg at jeg skulle skrive tester.
 Jeg fikk instruksjoner som "skriv en test som sjekker X" og "fiks koden så testen er grønn".
 
 Jeg innså at vi fikk mesteparten av verdien jeg har fått fra TCR tidligere med god, gammeldags TDD.
