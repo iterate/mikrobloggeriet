@@ -186,7 +186,7 @@ Sånn kan den funksjonen se ut i Emacs Lisp:
   (cider-interactive-eval "(user/tcr)"))
 ```
 
-Så binder du den til en knapp du velger selv.
+Så velger du en tastatursnarvei du vil bruke.
 For å binde til Option+Enter på en Mac som kjører Doom Emacs, kan du gjøre følgende:
 
 ```emacs-lisp
