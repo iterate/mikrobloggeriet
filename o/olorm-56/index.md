@@ -281,7 +281,7 @@ Jeg vil ha et godt utviklingsmiljø lokalt, så jeg kan fokusere på å kode, ik
 Og jeg vil ha kontroll på at koden i produksjon gjør det jeg tror den gjør.
 Derfor skriver jeg tester.
 
-Når jeg møter en kodebase der README sier hvordan jeg kan kjøre testene, og testene dekker det som er viktig i koden min, blir jeg glad.
+Når jeg møter en kodebase der README sier hvordan jeg kan kjøre testene, og testene dekker det som er viktig i koden min, blir jeg glad!
 
 ## Appendix A: les Tolkien!
 
