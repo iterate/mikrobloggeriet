@@ -14,9 +14,9 @@ Som utviklere kan vi oppnå en vanvittig effektivitet ved å kontinuerlig vite o
 Tre teknikker du kan bruke for å komme nærmere flyt når du koder er test-dreven utvikling (TDD), test && commit || revert (TCR) og REPL-dreven utvikling (RDD).
 Hva betyr disse egentlig?
 
-![Dit og tilbake igjen](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
-
 I dag får dere høre om min reise fra TDD til TCR og RDD, og tilbake igjen til TDD.
+
+![Dit og tilbake igjen](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
 
 ## TDD for dimensjonering av armering i betong
 
