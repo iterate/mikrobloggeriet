@@ -290,3 +290,5 @@ Når jeg møter en kodebase der README sier hvordan jeg kan kjøre testene, og t
 Den liker jeg veldig godt!
 
 [There and Back Again]: https://en.wikipedia.org/wiki/There_and_Back_Again_(disambiguation)
+
+---Teodor
