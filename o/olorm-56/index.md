@@ -1,6 +1,6 @@
 # OLORM-56: Dit og tilbake igjen—TDD, TCR fra en REPL og tilbake til TDD
 
-![image](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
+![Dit og tilbake igjen](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
 
 Som utviklere kan vi oppnå en vanvittig effektivitet ved å kontinuerlig vite om systemet vi jobber på er rødt eller grønt, holde oss på grønn, og bli i flytsonen mens vi skriver kode.
 Tre teknikker du kan bruke for å komme nærmere flyt når du koder er test-dreven utvikling (TDD), test && commit || revert (TCR) og REPL-dreven utvikling (RDD).
@@ -182,7 +182,7 @@ For å binde til Option+Enter på en Mac som kjører Doom Emacs, kan du gjøre f
 
 ## TDD 2: Dommedag
 
-![](https://upload.wikimedia.org/wikipedia/en/8/85/Terminator2poster.jpg)
+![Terminator 2: Dommedag](https://upload.wikimedia.org/wikipedia/en/8/85/Terminator2poster.jpg)
 
 Hvis du ønsker å bli en bedre utvikler enn du er i dag, bør du jobbe med folk du har noe å lære av.
 En av utviklerne jeg mener jeg har noe å lære noe av er [Christian Johansen].
