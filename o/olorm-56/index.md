@@ -65,10 +65,12 @@ Hvis det kompilerer, funker det.
 Min erfaring er at det stort sett stemmer for Haskell, og at det ~alltid stemmer for Elm.
 Elm har et mer konsistent typeystem enn Haskell som er lettere å sette seg inn i ved å ha færre features.
 Et eksempel er typeklasser, typeklasser er en løsning for polymorfisk dispatch i Haskell.
-Les https://en.wikipedia.org/wiki/Expression_problem for mer info.
-Philip Wadler nevnes tidlig i artikkelen, han er en av personene bak Haskell.
+Les [wikipedia.org/wiki/Expression_problem] for mer info.
+Philip Wadler nevnes tidlig i Wikipedia-artikkelen, han er en av personene bak Haskell.
 Elm har _ikke_ typeklasser.
 Det gjør Elm-kode lettere å lese og lettere å sette seg inn i enn Haskell-kode.
+
+[wikipedia.org/wiki/Expression_problem]: https://en.wikipedia.org/wiki/Expression_problem
 
 Lars og jeg satte opp TCR til å kjøre "test" som typesjekk.
 Vi skrev kode, lagret, og gikk kun framover hvis testene var grønne.
