@@ -172,7 +172,7 @@ Tilpass arbeidsflyten til koden og de som skal jobbe med koden.
 
 Så binder du en tastatursnarvei i editoren din til å:
 
-1. Lagre filer
+1. Lagre alle åpne filer
 2. Kjøre `user/tcr`.
 
 Sånn kan den funksjonen se ut i Emacs Lisp:
