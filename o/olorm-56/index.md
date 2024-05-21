@@ -13,6 +13,7 @@ Spenn deg fast!
 Som utviklere kan vi oppnå en vanvittig effektivitet ved å kontinuerlig vite om systemet vi jobber på er rødt eller grønt, holde oss på grønn, og bli i flytsonen mens vi skriver kode.
 Tre teknikker du kan bruke for å komme nærmere flyt når du koder er test-dreven utvikling (TDD), test && commit || revert (TCR) og REPL-dreven utvikling (RDD).
 Hva betyr disse egentlig?
+Og hva kan du bruke nå?
 
 I dag får dere høre om min reise fra TDD til TCR og RDD, og tilbake igjen til TDD.
 
