@@ -1,6 +1,6 @@
 # OLORM-56: Dit og tilbake igjen—TDD, TCR fra en REPL og tilbake til TDD
 
-!(https://private-user-images.githubusercontent.com/5285452/332354993-553e08ca-33d9-4999-8e50-e76fcb17a8a5.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTYyODQ0MTAsIm5iZiI6MTcxNjI4NDExMCwicGF0aCI6Ii81Mjg1NDUyLzMzMjM1NDk5My01NTNlMDhjYS0zM2Q5LTQ5OTktOGU1MC1lNzZmY2IxN2E4YTUuanBnP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDUyMSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA1MjFUMDkzNTEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NDFkMDE3MGE1Njc3MGMyMDA5MmQ0Y2U2ZDJjZmFlYWI1ZjFmNTI4NzhkMWU3ZGI3NGFiNzUwMjQ2YTQ0YmRiZCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.ej0GLhqRK8HjBa4Sqd_oXydQI8DCEndDutHNVJcpD7I)[]
+![](https://private-user-images.githubusercontent.com/5285452/332354993-553e08ca-33d9-4999-8e50-e76fcb17a8a5.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTYyODQ0MTAsIm5iZiI6MTcxNjI4NDExMCwicGF0aCI6Ii81Mjg1NDUyLzMzMjM1NDk5My01NTNlMDhjYS0zM2Q5LTQ5OTktOGU1MC1lNzZmY2IxN2E4YTUuanBnP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDUyMSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA1MjFUMDkzNTEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NDFkMDE3MGE1Njc3MGMyMDA5MmQ0Y2U2ZDJjZmFlYWI1ZjFmNTI4NzhkMWU3ZGI3NGFiNzUwMjQ2YTQ0YmRiZCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.ej0GLhqRK8HjBa4Sqd_oXydQI8DCEndDutHNVJcpD7I)
 
 Som utviklere kan vi oppnå en vanvittig effektivitet ved å kontinuerlig vite om systemet vi jobber på er rødt eller grønt, holde oss på grønn, og bli i flytsonen mens vi skriver kode.
 Tre teknikker du kan bruke for å komme nærmere flyt når du koder er test-dreven utvikling (TDD), test && commit || revert (TCR) og REPL-dreven utvikling (RDD).
@@ -182,7 +182,7 @@ For å binde til Option+Enter på en Mac som kjører Doom Emacs, kan du gjøre f
 
 ## TDD 2: Dommedag
 
-!(https://upload.wikimedia.org/wikipedia/en/8/85/Terminator2poster.jpg)[]
+![](https://upload.wikimedia.org/wikipedia/en/8/85/Terminator2poster.jpg)
 
 Hvis du ønsker å bli en bedre utvikler enn du er i dag, bør du jobbe med folk du har noe å lære av.
 En av utviklerne jeg mener jeg har noe å lære noe av er [Christian Johansen].
