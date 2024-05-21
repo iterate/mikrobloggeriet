@@ -4,9 +4,9 @@ Når er det lurt å skrive tester?
 Hvordan skriver man tester?
 Hvorfor skriver man tester?
 
-Disse tingene er litt vanskelig å lære uten å lære fra å jobbe ved siden av noen som har jobbet effektivt ved siden av.
-Men jeg prøver meg alikevel på en tekstlig versjon.
-Mest historiefortelling, og bittelitt enhetstesting i praksis.
+Effektiv enhetstesting i praksis er lettest å lære fra noen som har jobbet effektivt med enhetstesting før.
+Jeg prøver meg alikevel på et argument for testing i tekstform.
+Mest historiefortelling, bittelitt enhetstesting i praksis.
 Spenn deg fast!
 
 ![Dit og tilbake igjen](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
