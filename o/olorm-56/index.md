@@ -9,14 +9,14 @@ Jeg prøver meg alikevel på en en tekst.
 Mest historiefortelling, bittelitt enhetstesting i praksis.
 Spenn deg fast!
 
-![Dit og tilbake igjen](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
 
 Som utviklere kan vi oppnå en vanvittig effektivitet ved å kontinuerlig vite om systemet vi jobber på er rødt eller grønt, holde oss på grønn, og bli i flytsonen mens vi skriver kode.
 Tre teknikker du kan bruke for å komme nærmere flyt når du koder er test-dreven utvikling (TDD), test && commit || revert (TCR) og REPL-dreven utvikling (RDD).
 Hva betyr disse egentlig?
 
-Jeg har gjort en innsats for å finne ut.
-I dagens OLORM får du et svært subjektivt syn på TDD, TCR og RDD, og assorterte erfaringer med de tre teknikkene.
+![Dit og tilbake igjen](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
+
+I dag får dere høre om min reise fra TDD til TCR og RDD, og tilbake igjen til TDD.
 
 ## TDD for dimensjonering av armering i betong
 
