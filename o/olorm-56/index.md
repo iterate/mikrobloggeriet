@@ -9,7 +9,36 @@ Hva betyr disse egentlig?
 Jeg har gjort en innsats for å finne ut.
 I dagens OLORM får du et svært subjektivt syn på TDD, TCR og RDD, og assorterte erfaringer med de tre teknikkene.
 
-## Den spede begynnelsen: TCR med Elm
+## TDD for dimensjonering av armering i betong
+
+Den første kodebasen jeg jobbet på etter endt utdanning regnet ut nødvendig mengde armering per løpemeter for betongdekker i Python.
+Da jeg tok over koden hadde koden null tester.
+Jeg ble overrasket over at utvikleren turte å implementere denne logikken uten tester.
+Hva om utvikleren regnet feil?
+Da kunne jo bygg bli dimensjonert feil?
+
+Det første jeg gjorde i den kodebasen var å innføre tester.
+
+Jeg gikk svært sakte fram, og sjekket hva koden gjorde i dag.
+Og jeg snakket med en eldre byggingeniør med cirka 40 års erfaring med dimensjonering av betongkonstruksjoner.
+Sammen bygde vi en forståelse for hva koden skulle gjøre.
+
+Etter at vi hadde innført tester i koden, var det tryggere for meg å endre koden.
+Testene lot meg sove godt.
+
+Folk legger mange ting i testdreven utvikling, kjent som _TDD_ (fra Test-Driven Development på engelsk).
+Én av definisjonene er at når du koder, gjør du følgende:
+
+1. Skriv en ny test som vil bli grønn når du har implementert noe ny kode
+2. Skriv kode som gjør at testen blir grønn på enklest mulig vis
+3. Observer at testene er grønne, eventuelt gjør at testene blir grønne
+4. Rydd i koden så det er tydelig hva koden gjør (kjent som "refactoring" på engelsk).
+
+Man må ikke nødvendigvis skrive test før implementasjon.
+Men hvis du har tester på koden din, har du bedre kontroll på hva koden gjør.
+Da er det lettere å rydde i koden, og utvide koden til å gjøre nye ting.
+
+## TCR med Elm
 
 Elm er et vakkert, ryddig, lite programmeringsspråk for å lage webapper.
 [Elm-guiden] er den beste introduksjonsguiden til et programmeringsspråk som jeg noen sinne har lest.
