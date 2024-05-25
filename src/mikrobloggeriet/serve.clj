@@ -174,7 +174,7 @@
 
        (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
        (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
-       (default-cohort-section store/cohort-iterate "ITERATE" "Mikrobloggen ITERATE skrives av folk fra Iterate")
+       (default-cohort-section store/cohort-iterate "ITERATE" "Mikrobloggen ITERATE skrives av folk fra Iterate.")
 
        [:section
         [:h2 "URLOG"]
