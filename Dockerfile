@@ -29,6 +29,7 @@ RUN clj -A:test -e :deps-cached
 
 # Copy files
 COPY src/                /mikrobloggeriet/src/
+COPY images/             /mikrobloggeriet/images/
 COPY test/               /mikrobloggeriet/test/
 COPY vanilla.css         /mikrobloggeriet/vanilla.css
 COPY urlog.css           /mikrobloggeriet/urlog.css
