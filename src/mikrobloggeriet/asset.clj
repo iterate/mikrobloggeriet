@@ -24,10 +24,21 @@
                "Last-Modified"  (ring-time/format-date (ring-io/last-modified-date file))
                "Content-Type"   (ring-mime/ext-mime-type (.getName file))}}))
 
+(defn load-image [image-filename]
+  (load-asset (str "images/" image-filename)))
+
 (comment
   (load-asset "images/schnauzer.jpg")
   ;; => {:status 200,
   ;;     :body #object[java.io.File 0x7ad71a1c "images/schnauzer.jpg"],
+  ;;     :headers
+  ;;     {"Content-Length" 157959,
+  ;;      "Last-Modified" "Wed, 31 Jul 2024 11:43:11 GMT",
+  ;;      "Content-Type" "image/jpeg"}}
+
+  (load-image "schnauzer.jpg")
+  ;; => {:status 200,
+  ;;     :body #object[java.io.File 0x6f79cc49 "images/schnauzer.jpg"],
   ;;     :headers
   ;;     {"Content-Length" 157959,
   ;;      "Last-Modified" "Wed, 31 Jul 2024 11:43:11 GMT",

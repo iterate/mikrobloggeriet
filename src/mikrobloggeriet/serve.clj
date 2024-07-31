@@ -15,6 +15,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
+   [mikrobloggeriet.asset :as asset]
    [pg.core :as pg]
    [reitit.core :as reitit]
    [reitit.ring]
@@ -425,6 +426,10 @@
                   :name :mikrobloggeriet/health}]
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
                                    :get last-modified-file-handler}]
+
+      ["/images/:image-path" {:get (fn [req]
+                                     (let [image-path (http/path-param req :image-path)]
+                                       (asset/load-image image-path)))}]
       ]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
