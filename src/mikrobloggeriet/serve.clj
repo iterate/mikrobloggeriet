@@ -371,7 +371,7 @@
     (concat
 
      ;; CSS files we use
-     (for [css-file ["vanilla.css" "mikrobloggeriet.css" "reset.css" "urlog.css"]]
+     (for [css-file ["vanilla.css" "mikrobloggeriet.css" "reset.css" "urlog.css" "pygment.css"]]
        [(str "/" css-file) {:get (constantly (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
