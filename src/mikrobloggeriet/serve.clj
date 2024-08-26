@@ -34,7 +34,7 @@
    [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
    (hiccup.page/include-css "/vanilla.css")
    (hiccup.page/include-css "/mikrobloggeriet.css")
-   (hiccup.page/include-css "/syntax/pygment.css")
+   (hiccup.page/include-css "/themes/syntax/pygment.css")
    (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
                        "vanilla")]
