@@ -26,6 +26,7 @@ a.sourceLine:empty {
 
 .sourceCode {
     overflow: visible;
+    overflow-x: auto;
 }
 
 code.sourceCode {
