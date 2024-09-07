@@ -132,7 +132,7 @@
       [:body
        [:p (feeling-lucky "🎲")]
        [:h1 "Mikrobloggeriet"]
-       [:p "Folk fra Iterate deler fra hverdagen."]
+       [:p "Folk fra Iterate deler fra hverdagen!"]
 
        (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
        (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
