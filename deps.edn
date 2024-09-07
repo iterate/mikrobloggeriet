@@ -9,7 +9,6 @@
   integrant/integrant {:mvn/version "0.11.0"}
   integrant/repl {:mvn/version "0.3.3"}
   io.github.nextjournal/clerk {:mvn/version "0.16.1016"}
-  io.github.nextjournal/markdown {:mvn/version "0.5.148"}
   metosin/malli {:mvn/version "0.16.4"}
   metosin/reitit {:mvn/version "0.7.2"}
   org.babashka/cli {:mvn/version "0.8.60"}

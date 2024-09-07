@@ -9,16 +9,13 @@
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.asset :as asset]
    [reitit.core :as reitit]
    [reitit.ring]
-   [ring.middleware.cookies :as cookies]
-   [nextjournal.markdown]
-   [nextjournal.markdown.transform]))
+   [ring.middleware.cookies :as cookies]))
 
 (declare app)
 (declare url-for)
@@ -77,13 +74,6 @@
                        (let [pandoc (pandoc/from-markdown markdown)]
                          {:doc-html (pandoc/to-html pandoc)
                           :title (pandoc/infer-title pandoc)}))
-                     identity))
-
-(def markdown->html+info2
-  (cache/cache-fn-by (fn markdown->html+info [markdown]
-                       {:doc-html (-> markdown
-                                      nextjournal.markdown/parse
-                                      nextjournal.markdown.transform/->hiccup)})
                      identity))
 
 (comment
@@ -225,13 +215,10 @@
 (defn doc
   [req cohort]
   (when-let [slug (http/path-param req :slug)]
-    (let [markdown-parser-fn (if (some-> req :query-string (str/includes? "markdown-parser=nextjournal"))
-                               markdown->html+info2
-                               markdown->html+info)
-          doc (doc/from-slug slug)
+    (let [doc (doc/from-slug slug)
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
-            (markdown-parser-fn (slurp (store/doc-md-path cohort doc))))]
+            (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
       {:status 200
        :headers {"Content-Type" "text/html; charset=utf-8"}
        :body
