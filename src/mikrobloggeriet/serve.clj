@@ -1,7 +1,6 @@
 (ns mikrobloggeriet.serve
   (:require
    [babashka.fs :as fs]
-   [clj-rss.core :as rss]
    [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
@@ -87,35 +86,8 @@
                                       nextjournal.markdown.transform/->hiccup)})
                      identity))
 
-(defn cohort-rss-section [cohort]
-  (for [doc (store/docs cohort)]
-    {:title (doc/slug doc)
-     :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
-     :pubDate (doc-meta/created-instant (store/load-meta cohort doc))
-     :category (cohort/slug cohort)
-     :description (doc/slug doc)
-     :guid (doc/slug doc)
-     "content:encoded" (str
-                        "<![CDATA["
-                        (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
-                        "]]>")}))
-
 (comment
   (cohort/slug store/olorm))
-
-(defn rss-feed [_req]
-  (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :feed-url "https://mikrobloggeriet.no/feed/" :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
-    {:status 200
-     :headers {"Content-type" "application/rss+xml"}
-     :body (rss/channel-xml title
-                            (cohort-rss-section store/olorm)
-                            (cohort-rss-section store/jals)
-                            (cohort-rss-section store/oj))}))
-
-(comment
-  (def rss1 (rss-feed {}))
-  (spit "rss.xml" (:body rss1))
-  )
 
 (defn cohort-doc-table [req cohort]
   {:status 200
