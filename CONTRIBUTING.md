@@ -67,19 +67,6 @@ user> (start!)
 To stop the HTTP server from within your REPL, run `(stop!)`.
 To restart the HTTP server, run `(start!)` again.
 
-### Start the HTTP server with database access
-
-Per 2024-02-10, running a local database is optional.
-If you want to develop with a local database, first start PostgreSQL with Docker Compose:
-
-    $ docker compose up
-
-Then start the HTTP server,
-
-```clojure
-user> (start!)
-```
-
 ### Run the tests
 
 To run all the tests with Kaocha (our test runner), run

@@ -9,7 +9,6 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
-   [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
@@ -315,20 +314,9 @@
 (defn deploy-info [req]
   (let [env (System/getenv)
         last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
-        hits (when-let [db (:mikrobloggeriet.system/db req)]
-               (-> (pg/query db "select count(*) as hits from access_logs")
-                   first
-                   :hits))
-        access-logs-size (when-let [db (:mikrobloggeriet.system/db req)]
-                           (-> (pg/query db "select pg_size_pretty(pg_relation_size('access_logs')) as access_logs_size")
-                               first
-                               :access_logs_size))
         info {:git/sha (get env  "HOPS_GIT_SHA")
               :last-modified-file-time (str (fs/last-modified-time last-modified))
-              :access-logs-size access-logs-size
-              :hits hits
               ;; :env-keys (keys env)
-              ;; :db-cofig-keys (keys (db/hops-config env))
               }]
     {:status 200
      :headers {"Content-Type" "text/plain"}
@@ -351,18 +339,6 @@
          :name (keyword (str "mikrobloggeriet." (cohort/slug cohort))
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
-
-(defn before-app [req]
-  (future
-    (when-let [conn (:mikrobloggeriet.system/db req)]
-      (let [{:keys [uri request-method]} req
-            info (select-keys (:headers req) ["user-agent"])]
-        (pg/execute conn
-                    "insert into access_logs(method, uri, info) values ($1, $2, $3)"
-                    {:params [(name request-method)
-                              uri
-                              info]}))))
-  req)
 
 (defn app
   []
@@ -415,10 +391,6 @@
      [ ;; Go to a random document
       ["/random-doc" {:get random-doc
                       :name :mikrobloggeriet/random-doc}]
-
-      ;; Does the DB work?
-      ["/trydb-2" {:get db/trydb-2
-                   :name :mikrobloggeriet/trydb-2}]
 
       ;; Deploy
       ["/deploy-info" {:get deploy-info
