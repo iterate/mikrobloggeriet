@@ -67,6 +67,28 @@ user> (start!)
 To stop the HTTP server from within your REPL, run `(stop!)`.
 To restart the HTTP server, run `(start!)` again.
 
+### Deployment to HOPS
+
+HOPS deployment happens automatically.
+See `iterapp.toml` for configuration.
+
+### Deployment to Application.garden
+
+To deploy, run:
+
+```
+garden deploy
+```
+
+Application.garden deployment requires:
+
+- An Application.garden user
+- Membership to the `mikrobloggeriet` group on Application.garden
+
+Application.garden private beta signup: https://application.garden/signup
+
+Application.garden docs: https://docs.apps.garden/
+
 ### Run the tests
 
 To run all the tests with Kaocha (our test runner), run

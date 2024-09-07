@@ -351,7 +351,8 @@
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
      [ ;; Front page
-      ["/" {:get index
+      ["/" {:get index ; forside
+            :head health ; helsesjekk, Application.garden
             :name :mikrobloggeriet/frontpage}]
 
       ;; Themes
@@ -394,8 +395,11 @@
       ;; Deploy
       ["/deploy-info" {:get deploy-info
                        :name :mikrobloggeriet/deploy-info}]
+
+      ;; helsesjekk, HOPS
       ["/health" {:get health
                   :name :mikrobloggeriet/health}]
+
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
                                    :get last-modified-file-handler}]
 

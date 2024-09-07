@@ -50,5 +50,9 @@
   ,)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn start-prod! [_opts]
-  (ig/init (prod)))
+(defn start-prod! [extra-opts]
+  (let [opts
+        (cond-> (prod)
+          (:port extra-opts)
+          (assoc-in [::http-server :port] (:port extra-opts)))]
+    (ig/init opts)))

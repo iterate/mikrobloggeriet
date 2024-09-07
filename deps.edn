@@ -35,4 +35,6 @@
                  :git/sha "dfb30dd"}}}
   :kaocha {:extra-deps {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
            :main-opts ["-m" "kaocha.runner"]}
-  }}
+  :nextjournal/garden {:exec-fn mikrobloggeriet.system/start-prod!}
+
+  ,}}
