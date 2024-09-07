@@ -228,7 +228,6 @@
     (let [markdown-parser-fn (if (some-> req :query-string (str/includes? "markdown-parser=nextjournal"))
                                markdown->html+info2
                                markdown->html+info)
-          _ (prn markdown-parser-fn)
           doc (doc/from-slug slug)
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
