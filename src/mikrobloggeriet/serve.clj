@@ -15,7 +15,6 @@
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.asset :as asset]
-   [pg.core :as pg]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]
