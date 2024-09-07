@@ -340,10 +340,6 @@
      (for [c [store/olorm store/jals store/oj store/luke store/vakt store/kiel store/cohort-iterate]]
        (markdown-cohort-routes c))
 
-     ;; RSS
-     [["/feed/" {:get rss-feed
-                 :name :mikrobloggeriet/feed}]]
-
      ;; Urlog
      [["/urlog/" {:get cohort.urlog/page
                   :name :mikrobloggeriet.urlog/all}]]
