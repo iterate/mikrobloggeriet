@@ -2,7 +2,9 @@
   (:require
    [clojure.string :as str]
    [babashka.process]
-   [cheshire.core :as json]))
+   [cheshire.core :as json]
+   [babashka.fs :as fs]))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LOW LEVEL PANDOC WRAPPER
@@ -12,11 +14,6 @@
 
 (defn- to-json-str [x]
   (json/generate-string x))
-
-(defn- run-pandoc [stdin command]
-  (let [process-handle (deref (babashka.process/process {:in stdin :out :string} command))]
-    (when (= 0 (:exit process-handle))
-      (:out process-handle))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PANDOC IR HELPERS
@@ -87,45 +84,71 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; READ FROM FORMAT INTO IR
 
+(def pandoc-path
+  "Look for a pandoc binary.
+
+  1. First look on the user's PATH
+  2. Then look inside GARDEN_STORAGE
+
+  The GARDEN_STORAGE case is needed for Application.garden, where a Pandoc binary has been uploaded."
+  (or (some-> (fs/which "pandoc") str)
+      (when-let [pandoc-storage-path (some-> (System/getenv "GARDEN_STORAGE") (fs/file "pandoc") str)]
+        (when (fs/exists? pandoc-storage-path)
+          pandoc-storage-path))))
+
+#_ pandoc-path
+
+(defn- run-pandoc [stdin pandoc-args]
+  (let [process-handle (deref (apply babashka.process/process
+                                     {:in stdin :out :string}
+                                     pandoc-path
+                                     pandoc-args))]
+    (when (= 0 (:exit process-handle))
+      (:out process-handle))))
+
 (defn from-markdown [markdown-str]
   (when (string? markdown-str)
-    (from-json-str (run-pandoc markdown-str "pandoc --from markdown+smart --to json"))))
+    (from-json-str (run-pandoc markdown-str ["--from" "markdown+smart" "--to" "json"]))))
 
 (defn from-html [html-str]
   (when (string? html-str)
-    (from-json-str (run-pandoc html-str "pandoc --from html --to json"))))
+    (from-json-str (run-pandoc html-str ["--from" "html" "--to" "json"]))))
+
+#_(from-html "<p>hello!</p>")
 
 (defn from-org [org-str]
   (when (string? org-str)
-    (from-json-str (run-pandoc org-str "pandoc --from org+smart --to json"))))
+    (from-json-str (run-pandoc org-str ["--from" "org+smart" "--to" "json"]))))
+
+#_(from-org "no, /you/ are the best!")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; WRITE IR TO FORMAT
 
 (defn to-html [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --from json --to html")))
+    (run-pandoc (to-json-str pandoc) ["--from" "json" "--to" "html"])))
 
 (defn to-html-standalone [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to html")))
+    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "html"])))
 
 (defn to-markdown [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --from json --to markdown")))
+    (run-pandoc (to-json-str pandoc) ["--from" "json" "--to" "markdown"])))
 
 (defn to-markdown-standalone [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to markdown")))
+    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "markdown"])))
 
 (defn to-org [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --from json --to org")))
+    (run-pandoc (to-json-str pandoc) ["--from" "json" "--to" "org"])))
 
 (defn to-org-standalone [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to org")))
+    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "org"])))
 
 (defn to-plain [pandoc]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) "pandoc --standalone --from json --to plain")))
+    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "plain"])))
