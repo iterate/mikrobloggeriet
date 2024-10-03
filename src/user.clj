@@ -39,18 +39,10 @@
   ([opts]
    (let [opts (merge {:browse? true} opts)
          shell (requiring-resolve 'babashka.process/shell)
-         dev+db (requiring-resolve 'mikrobloggeriet.system/dev+db)
          dev (requiring-resolve 'mikrobloggeriet.system/dev)]
      (require 'mikrobloggeriet.system)
-     ;; Try start with db first.
-     (try
-       (reset! repl/state (integrant.core/init (dev+db)))
-       (println "Started Mikrobloggeriet with database.")
-       (catch Exception _e
-           ;; error starting with db
-           ;; try again without db!
-           (reset! repl/state (integrant.core/init (dev)))
-           (println "Started Mikrobloggeriet without database.")))
+     (reset! repl/state (integrant.core/init (dev)))
+     (println "Started Mikrobloggeriet.")
      (let [browser (System/getenv "BROWSER")
            url (str "http://localhost:" config/http-server-port)]
        (when (:browse? opts)

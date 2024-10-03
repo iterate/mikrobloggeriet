@@ -67,18 +67,27 @@ user> (start!)
 To stop the HTTP server from within your REPL, run `(stop!)`.
 To restart the HTTP server, run `(start!)` again.
 
-### Start the HTTP server with database access
+### Deployment to HOPS
 
-Per 2024-02-10, running a local database is optional.
-If you want to develop with a local database, first start PostgreSQL with Docker Compose:
+HOPS deployment happens automatically.
+See `iterapp.toml` for configuration.
 
-    $ docker compose up
+### Deployment to Application.garden
 
-Then start the HTTP server,
+To deploy, run:
 
-```clojure
-user> (start!)
 ```
+garden deploy
+```
+
+Application.garden deployment requires:
+
+- An Application.garden user
+- Membership to the `mikrobloggeriet` group on Application.garden
+
+Application.garden private beta signup: https://application.garden/signup
+
+Application.garden docs: https://docs.apps.garden/
 
 ### Run the tests
 

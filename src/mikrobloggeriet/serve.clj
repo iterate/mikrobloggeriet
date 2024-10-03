@@ -1,7 +1,6 @@
 (ns mikrobloggeriet.serve
   (:require
    [babashka.fs :as fs]
-   [clj-rss.core :as rss]
    [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
@@ -9,19 +8,14 @@
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
-   [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]
-   [mikrobloggeriet.doc-meta :as doc-meta]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.asset :as asset]
-   [pg.core :as pg]
    [reitit.core :as reitit]
    [reitit.ring]
-   [ring.middleware.cookies :as cookies]
-   [nextjournal.markdown]
-   [nextjournal.markdown.transform]))
+   [ring.middleware.cookies :as cookies]))
 
 (declare app)
 (declare url-for)
@@ -82,42 +76,8 @@
                           :title (pandoc/infer-title pandoc)}))
                      identity))
 
-(def markdown->html+info2
-  (cache/cache-fn-by (fn markdown->html+info [markdown]
-                       {:doc-html (-> markdown
-                                      nextjournal.markdown/parse
-                                      nextjournal.markdown.transform/->hiccup)})
-                     identity))
-
-(defn cohort-rss-section [cohort]
-  (for [doc (store/docs cohort)]
-    {:title (doc/slug doc)
-     :link (str "https://mikrobloggeriet.no" (store/doc-href cohort doc))
-     :pubDate (doc-meta/created-instant (store/load-meta cohort doc))
-     :category (cohort/slug cohort)
-     :description (doc/slug doc)
-     :guid (doc/slug doc)
-     "content:encoded" (str
-                        "<![CDATA["
-                        (:doc-html (markdown->html+info (slurp (store/doc-md-path cohort doc))))
-                        "]]>")}))
-
 (comment
   (cohort/slug store/olorm))
-
-(defn rss-feed [_req]
-  (let [title {:title "Mikrobloggeriet" :link "https://mikrobloggeriet.no" :feed-url "https://mikrobloggeriet.no/feed/" :description "Mikrobloggeriet: der smått blir stort og hverdagsbetraktninger får mikroskopisk oppmerksomhet"}]
-    {:status 200
-     :headers {"Content-type" "application/rss+xml"}
-     :body (rss/channel-xml title
-                            (cohort-rss-section store/olorm)
-                            (cohort-rss-section store/jals)
-                            (cohort-rss-section store/oj))}))
-
-(comment
-  (def rss1 (rss-feed {}))
-  (spit "rss.xml" (:body rss1))
-  )
 
 (defn cohort-doc-table [req cohort]
   {:status 200
@@ -172,7 +132,7 @@
       [:body
        [:p (feeling-lucky "🎲")]
        [:h1 "Mikrobloggeriet"]
-       [:p "Folk fra Iterate deler fra hverdagen."]
+       [:p "Folk fra Iterate deler fra hverdagen!"]
 
        (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
        (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
@@ -255,14 +215,10 @@
 (defn doc
   [req cohort]
   (when-let [slug (http/path-param req :slug)]
-    (let [markdown-parser-fn (if (some-> req :query-string (str/includes? "markdown-parser=nextjournal"))
-                               markdown->html+info2
-                               markdown->html+info)
-          _ (prn markdown-parser-fn)
-          doc (doc/from-slug slug)
+    (let [doc (doc/from-slug slug)
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
-            (markdown-parser-fn (slurp (store/doc-md-path cohort doc))))]
+            (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
       {:status 200
        :headers {"Content-Type" "text/html; charset=utf-8"}
        :body
@@ -315,20 +271,9 @@
 (defn deploy-info [req]
   (let [env (System/getenv)
         last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
-        hits (when-let [db (:mikrobloggeriet.system/db req)]
-               (-> (pg/query db "select count(*) as hits from access_logs")
-                   first
-                   :hits))
-        access-logs-size (when-let [db (:mikrobloggeriet.system/db req)]
-                           (-> (pg/query db "select pg_size_pretty(pg_relation_size('access_logs')) as access_logs_size")
-                               first
-                               :access_logs_size))
         info {:git/sha (get env  "HOPS_GIT_SHA")
               :last-modified-file-time (str (fs/last-modified-time last-modified))
-              :access-logs-size access-logs-size
-              :hits hits
               ;; :env-keys (keys env)
-              ;; :db-cofig-keys (keys (db/hops-config env))
               }]
     {:status 200
      :headers {"Content-Type" "text/plain"}
@@ -352,18 +297,6 @@
                         "all")}]
    ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
 
-(defn before-app [req]
-  (future
-    (when-let [conn (:mikrobloggeriet.system/db req)]
-      (let [{:keys [uri request-method]} req
-            info (select-keys (:headers req) ["user-agent"])]
-        (pg/execute conn
-                    "insert into access_logs(method, uri, info) values ($1, $2, $3)"
-                    {:params [(name request-method)
-                              uri
-                              info]}))))
-  req)
-
 (defn app
   []
   (reitit.ring/ring-handler
@@ -376,7 +309,8 @@
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
      [ ;; Front page
-      ["/" {:get index
+      ["/" {:get index ; forside
+            :head health ; helsesjekk, Application.garden
             :name :mikrobloggeriet/frontpage}]
 
       ;; Themes
@@ -391,10 +325,6 @@
      ;; Markdown cohorts
      (for [c [store/olorm store/jals store/oj store/luke store/vakt store/kiel store/cohort-iterate]]
        (markdown-cohort-routes c))
-
-     ;; RSS
-     [["/feed/" {:get rss-feed
-                 :name :mikrobloggeriet/feed}]]
 
      ;; Urlog
      [["/urlog/" {:get cohort.urlog/page
@@ -416,15 +346,14 @@
       ["/random-doc" {:get random-doc
                       :name :mikrobloggeriet/random-doc}]
 
-      ;; Does the DB work?
-      ["/trydb-2" {:get db/trydb-2
-                   :name :mikrobloggeriet/trydb-2}]
-
       ;; Deploy
       ["/deploy-info" {:get deploy-info
                        :name :mikrobloggeriet/deploy-info}]
+
+      ;; helsesjekk, HOPS
       ["/health" {:get health
                   :name :mikrobloggeriet/health}]
+
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
                                    :get last-modified-file-handler}]
 
