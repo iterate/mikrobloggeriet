@@ -14,8 +14,7 @@ jobs:
       matrix:
         include: [ { appling: main, dockerfile: Dockerfile } ]
 
-    # Uses bigger nodes to speed up builds.
-    runs-on: ubuntu-latest-l
+    runs-on: ubuntu-latest
     steps:
       - uses: 'google-github-actions/auth@v2'
         id: gcp-auth
