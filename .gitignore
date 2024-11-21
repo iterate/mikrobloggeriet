@@ -31,3 +31,6 @@ pom.xml.asc
 
 # Støtt Obsidian til å skrive
 /.obsidian
+
+# Deploy files (Application Garden)
+/.garden
