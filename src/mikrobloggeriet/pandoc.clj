@@ -96,12 +96,25 @@
         (when (fs/exists? pandoc-storage-path)
           pandoc-storage-path))))
 
+(defn get-pandoc-path
+  "Look for a pandoc binary.
+
+    1. First look on the user's PATH
+    2. Then look inside GARDEN_STORAGE
+
+    The GARDEN_STORAGE case is needed for Application.garden, where a Pandoc binary has been uploaded."
+  []
+  (or (some-> (fs/which "pandoc") str)
+      (when-let [pandoc-storage-path (some-> (System/getenv "GARDEN_STORAGE") (fs/file "pandoc") str)]
+        (when (fs/exists? pandoc-storage-path)
+          pandoc-storage-path))))
+
 #_ pandoc-path
 
 (defn- run-pandoc [stdin pandoc-args]
   (let [process-handle (deref (apply babashka.process/process
                                      {:in stdin :out :string}
-                                     pandoc-path
+                                     (get-pandoc-path)
                                      pandoc-args))]
     (when (= 0 (:exit process-handle))
       (:out process-handle))))
