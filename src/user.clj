@@ -2,9 +2,9 @@
   (:require
    [babashka.fs :as fs]
    [clojure.string :as str]
+   [integrant.core :as ig]
    [mikrobloggeriet.config :as config]
-   [mikrobloggeriet.repl :as repl]
-   [integrant.core :as ig]))
+   [mikrobloggeriet.repl :as repl]))
 
 ;; Convenience functions when you start a REPL. The default user namespace is
 ;; always 'user. I'm putting functions here to make it easy to start the server
@@ -49,6 +49,9 @@
          (cond (not (str/blank? browser)) (do (shell browser url) nil)
                (fs/which "open") (shell "open" url)
                :else (println "Please open" url "in your web browser.")))))))
+
+;; Kjør (start!) for å starte systemet!
+#_ (start!)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn require-application-code!
