@@ -1,18 +1,18 @@
 {:paths ["src" "draft"]
  :deps
- {babashka/fs {:mvn/version "0.5.22"}
+ {babashka/fs {:mvn/version "0.5.23"}
   babashka/process {:mvn/version "0.5.22"}
   cheshire/cheshire {:mvn/version "5.13.0"}
+  com.datomic/peer {:mvn/version "1.0.6726"}
   hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
   http-kit/http-kit {:mvn/version "2.8.0"}
-  integrant/integrant {:mvn/version "0.11.0"}
-  integrant/repl {:mvn/version "0.3.3"}
-  io.github.nextjournal/clerk {:mvn/version "0.16.1016"}
-  metosin/malli {:mvn/version "0.16.4"}
+  integrant/integrant {:mvn/version "0.13.1"}
+  integrant/repl {:mvn/version "0.4.0"}
+  io.github.nextjournal/clerk {:mvn/version "0.17.1102"}
+  metosin/malli {:mvn/version "0.17.0"}
   metosin/reitit {:mvn/version "0.7.2"}
-  org.babashka/cli {:mvn/version "0.8.60"}
-  org.clojure/clojure {:mvn/version "1.12.0"}
-  }
+  org.babashka/cli {:mvn/version "0.8.61"}
+  org.clojure/clojure {:mvn/version "1.12.0"}}
  :aliases
  {:dev
   {:extra-paths ["test" "draft"]
