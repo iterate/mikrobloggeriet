@@ -15,7 +15,8 @@
   }
  :aliases
  {:dev
-  {:extra-paths ["test" "draft"]}
+  {:extra-paths ["test" "draft"]
+   :extra-deps {lambdaisland/kaocha {:mvn/version "1.91.1392"}}}
   :run-tests
   {:extra-paths ["test"]
    :extra-deps {io.github.cognitect-labs/test-runner
