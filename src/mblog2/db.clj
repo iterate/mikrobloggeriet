@@ -1,4 +1,4 @@
-(ns mblog2.load
+(ns mblog2.db
   "Load what we know about cohorts and docs."
   (:require
    [babashka.fs :as fs]
@@ -73,7 +73,8 @@
                :cohort/docs
                (assoc (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
                                    [:doc/created :doc/uuid :git.user/email])
-                      :doc/markdown (slurp (fs/file dir "index.md")))}))))
+                      :doc/markdown (slurp (fs/file dir "index.md"))
+                      :doc/slug (fs/file-name dir))}))))
 
 (defn loaddb [cohorts authors]
   (let [uri (str "datomic:mem://" (random-uuid))
@@ -88,16 +89,19 @@
             (d/q '[:find [?e ...]
                    :where [?e :cohort/id]]
                  (d/db conn))]
-      (d/transact conn
+      @(d/transact conn
                   (find-cohort-docs
                    (d/entity (d/db conn) cohort-id))))
     (d/db conn)))
 
 (comment
-
+  (set! *print-namespace-maps* false)
   (def db (loaddb cohorts authors))
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
 
   (:cohort/docs olorm)
+
+  (def olorm-7 (d/entity db [:doc/slug "olorm-7"]))
+  (into {} olorm-7)
   
   )
