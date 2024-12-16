@@ -33,10 +33,17 @@
 ;; than compile-time if there are import errors.
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn stop! []
+  (when-let [sys @repl/state]
+    (ig/halt! sys)
+    (reset! repl/state nil)))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start!
   ([]
    (start! {}))
   ([opts]
+   (stop!)
    (let [opts (merge {:browse? true} opts)
          shell (requiring-resolve 'babashka.process/shell)
          dev (requiring-resolve 'mikrobloggeriet.system/dev)]
@@ -65,12 +72,6 @@
   (require 'mikrobloggeriet.cli)
   (require 'mikrobloggeriet.olorm-cli)
   (require 'mikrobloggeriet.jals-cli))
-
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn stop! []
-  (when-let [sys @repl/state]
-    (ig/halt! sys)
-    (reset! repl/state nil)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-start!
