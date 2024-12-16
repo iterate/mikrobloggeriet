@@ -4,8 +4,8 @@
 
 (deftest loaddb-test
   (testing "Cohorts have names"
-    (is (every? #(contains? % :cohort/name)
-                (vals db/cohorts))))
+    (doseq [cohort (vals db/cohorts)]
+   (is (contains? cohort :cohort/name))))
   (testing "Cohorts have descriptions"
-    (is (every? #(contains? % :cohort/description)
-                (vals db/cohorts)))))
+    (doseq [cohort (vals db/cohorts)]
+    (is (contains? cohort :cohort/description)))))

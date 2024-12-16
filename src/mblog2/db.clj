@@ -16,19 +16,22 @@
     :cohort/name "ITERATE"
     :cohort/description "Mikrobloggen ITERATE skrives av folk fra Iterate."},
    :cohort/jals
-   {:cohort/root "j", :cohort/slug "jals", :cohort/type :cohort.type/markdown},
+   {:cohort/root "j", :cohort/slug "jals", :cohort/type :cohort.type/markdown :cohort/name "JALS"},
    :cohort/kiel
    {:cohort/root "text/kiel",
     :cohort/slug "kiel",
-    :cohort/type :cohort.type/markdown},
+    :cohort/type :cohort.type/markdown
+ :cohort/name "KIEL"},
    :cohort/luke
    {:cohort/root "text/luke",
     :cohort/slug "luke",
-    :cohort/type :cohort.type/markdown},
+    :cohort/type :cohort.type/markdown
+ :cohort/name "LUKE"},
    :cohort/oj
    {:cohort/root "text/oj",
     :cohort/slug "oj",
-    :cohort/type :cohort.type/markdown},
+    :cohort/type :cohort.type/markdown
+ :cohort/name "OJ"},
    :cohort/olorm
    {:cohort/root "o", :cohort/slug "olorm", :cohort/type :cohort.type/markdown
     :cohort/name "OLORM"
@@ -36,11 +39,13 @@
    :cohort/urlog
    {:cohort/root "text/urlog",
     :cohort/slug "urlog",
-    :cohort/type :cohort.type/urlog},
+    :cohort/type :cohort.type/urlog
+ :cohort/name "URLOG"},
    :cohort/vakt
    {:cohort/root "text/vakt",
     :cohort/slug "vakt",
-    :cohort/type :cohort.type/markdown}})
+    :cohort/type :cohort.type/markdown
+   :cohort/name "VAKT"}})
 
 (def authors
   [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
@@ -109,5 +114,5 @@
 
   (def olorm-7 (d/entity db [:doc/slug "olorm-7"]))
   (into {} olorm-7)
-  
+
   )
