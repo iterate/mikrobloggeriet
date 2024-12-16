@@ -1,4 +1,5 @@
 (ns mikrobloggeriet.doc
+  (:refer-clojure :exclude [next])
   (:require
    [clojure.string :as str]
    [datomic.api :as d]))
