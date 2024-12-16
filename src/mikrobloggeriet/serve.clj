@@ -14,6 +14,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
+   [mikrobloggeriet.ui :as ui]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
@@ -118,15 +119,6 @@
     (for [doc (store/published-docs cohort)]
       [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
 
-(defn cohort-section [cohort]
-  [:section
-   [:h2 (:cohort/name cohort)]
-   [:p (:cohort/description cohort)]
-   #_
-   [:ul {:class "doc-list"}
-    (for [doc (store/published-docs cohort)]
-      [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
-
 (comment
   (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
   (into {} (d/entity db [:cohort/id :cohort/olorm]))
@@ -158,7 +150,7 @@
           [:p "Folk fra Iterate deler fra hverdagen!"]
 
           ;; (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
-          (cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
+          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
           (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
           (default-cohort-section store/cohort-iterate "ITERATE" "Mikrobloggen ITERATE skrives av folk fra Iterate.")
 
