@@ -293,10 +293,16 @@
          :name (keyword (str "mikrobloggeriet." (cohort/slug legacy-cohort))
                         "all")}]
    ["/:slug/" {:get (fn [req]
-                      (let [datomic (:mikrobloggeriet.system/datomic req)
-                            doc-slug (http/path-param req :slug)]
-                        (ui.doc/page (d/entity datomic [:doc/slug doc-slug])
-                                     req)))}]])
+                      (let [db (:mikrobloggeriet.system/datomic req)
+                            doc-slug (http/path-param req :slug)
+                            doc (d/entity db [:doc/slug doc-slug])]
+                        (ui.doc/page doc
+                                     req
+                                     (merge
+                                      (when-let [previous (doc/previous db doc)]
+                                        {:previous previous})
+                                      (when-let [next (doc/next db doc)]
+                                        {:next next})))))}]])
 
 (defn app
   []
