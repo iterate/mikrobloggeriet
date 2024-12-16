@@ -3,10 +3,10 @@
     mikrobloggeriet.system
   (:require
    [integrant.core :as ig]
+   [mblog2.db :as db]
    [mikrobloggeriet.config :as config]
    [mikrobloggeriet.serve :as serve]
-   [org.httpkit.server :as httpkit]
-  [mblog2.db :as db]))
+   [org.httpkit.server :as httpkit]))
 
 (defn dev
   "Development system without db"
