@@ -9,3 +9,11 @@
   (testing "Cohorts have descriptions"
     (doseq [cohort (vals db/cohorts)]
       (is (contains? cohort :cohort/description)))))
+
+(deftest doc-test
+  (testing "Docs have cohorts"
+    (let [db (db/loaddb db/cohorts db/authors)
+          olorm-12 (d/entity db [:doc/slug "olorm-12"])
+          olorm (d/entity db [:cohort/id :cohort/olorm])]
+      (is (= olorm
+             (:doc/cohort olorm-12))))))
