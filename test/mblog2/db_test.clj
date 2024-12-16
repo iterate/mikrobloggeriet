@@ -11,7 +11,6 @@
     (doseq [cohort (vals db/cohorts)]
       (is (contains? cohort :cohort/description)))))
 
-#_
 (deftest doc-test
   (testing "Docs have cohorts"
     (let [db (db/loaddb db/cohorts db/authors)

@@ -109,6 +109,12 @@
         @(d/transact conn
                      [{:cohort/id (:cohort/id cohort)
                        :cohort/docs (find-cohort-docs cohort)}])))
+    ;; Create relation :doc/cohort by inverting :cohort/docs
+    (doseq [doc-slug (d/q '[:find [?slug ...] :where [_ :doc/slug ?slug]] (d/db conn))]
+      (let [doc (d/entity (d/db conn) [:doc/slug doc-slug])]
+        @(d/transact conn
+                     [{:doc/slug doc-slug
+                       :doc/cohort [:cohort/id (:cohort/id (first (:cohort/_docs doc)))]}])))
     (d/db conn)))
 
 (comment
@@ -121,4 +127,5 @@
   (def olorm-7 (d/entity db [:doc/slug "olorm-7"]))
   (into {} olorm-7)
 
+  (:cohort/_docs olorm-7)
   )
