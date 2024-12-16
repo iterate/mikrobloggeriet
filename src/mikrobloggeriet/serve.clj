@@ -111,27 +111,12 @@
            [:td (store/author-first-name cohort doc)]
            [:td (:doc/created doc)]])]]])})
 
-(defn default-cohort-section [cohort name description]
-  [:section
-   [:h2 name]
-   [:p description]
-   [:ul {:class "doc-list"}
-    (for [doc (store/published-docs cohort)]
-      [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
-
 (comment
   (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
   (into {} (d/entity db [:cohort/id :cohort/olorm]))
   )
 
-(def last-req nil)
-
-(comment
-  (keys last-req)
-  )
-
 (defn index [req]
-  (def last-req req)
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
