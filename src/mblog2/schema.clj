@@ -21,6 +21,14 @@
     :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one}
 
+   {:db/ident :cohort/name
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   {:db/ident :cohort/description
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
    ;; Authors
    {:db/ident :author/email
     :db/valueType :db.type/string

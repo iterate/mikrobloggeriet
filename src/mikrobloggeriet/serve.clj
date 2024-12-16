@@ -4,7 +4,9 @@
    [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
+   [datomic.api :as d]
    [hiccup.page :as page]
+   [mikrobloggeriet.asset :as asset]
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
@@ -12,7 +14,6 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.asset :as asset]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
@@ -117,87 +118,110 @@
     (for [doc (store/published-docs cohort)]
       [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
 
+(defn cohort-section [cohort]
+  [:section
+   [:h2 (:cohort/name cohort)]
+   [:p (:cohort/description cohort)]
+   #_
+   [:ul {:class "doc-list"}
+    (for [doc (store/published-docs cohort)]
+      [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
+
+(comment
+  (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
+  (into {} (d/entity db [:cohort/id :cohort/olorm]))
+  )
+
+(def last-req nil)
+
+(comment
+  (keys last-req)
+  )
+
 (defn index [req]
+  (def last-req req)
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
         hops-url "https://www.headless-operations.no/"
-        iterate-url "https://www.iterate.no/"]
+        iterate-url "https://www.iterate.no/"
+        datomic (:mikrobloggeriet.system/datomic req)]
     {:status 200
      :headers {"Content-type" "text/html"}
      :body
      (page/html5
-      (into [:head] (shared-html-header req))
-      [:body
-       [:p (feeling-lucky "🎲")]
-       [:h1 "Mikrobloggeriet"]
-       [:p "Folk fra Iterate deler fra hverdagen!"]
+         (into [:head] (shared-html-header req))
+         [:body
+          [:p (feeling-lucky "🎲")]
+          [:h1 "Mikrobloggeriet"]
+          [:p "Folk fra Iterate deler fra hverdagen!"]
 
-       (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
-       (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
-       (default-cohort-section store/cohort-iterate "ITERATE" "Mikrobloggen ITERATE skrives av folk fra Iterate.")
+          ;; (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
+          (cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
+          (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
+          (default-cohort-section store/cohort-iterate "ITERATE" "Mikrobloggen ITERATE skrives av folk fra Iterate.")
 
-       [:section
-        [:h2 "URLOG"]
-        [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-        [:p [:a {:href "/urlog/"} "Gå inn i huset –> 🏨"]]]
-       (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
-       (default-cohort-section store/luke
-                               "Mikrobloggeriets Julekalender 2023"
-                               "Mikrobloggen LUKE ble skrevet av Iterate-ansatte gjennom adventstida 2023.")
-       (default-cohort-section store/vakt
-                               "VAKT"
-                               "Fra oss som lager Mikrobloggeriet.")
+          [:section
+           [:h2 "URLOG"]
+           [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
+           [:p [:a {:href "/urlog/"} "Gå inn i huset –> 🏨"]]]
+          (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
+          (default-cohort-section store/luke
+                                  "Mikrobloggeriets Julekalender 2023"
+                                  "Mikrobloggen LUKE ble skrevet av Iterate-ansatte gjennom adventstida 2023.")
+          (default-cohort-section store/vakt
+                                  "VAKT"
+                                  "Fra oss som lager Mikrobloggeriet.")
 
-       (default-cohort-section store/kiel
-                               "Kunstig Intelligens—Ekte Læring"
-                               (str
-                                "Designer og teknologiformidler, Julian Hallen Eriksen, utforsker muligheter og utfordringer knytta til AI i norske skoler."))
-       [:hr]
+          (default-cohort-section store/kiel
+                                  "Kunstig Intelligens—Ekte Læring"
+                                  (str
+                                   "Designer og teknologiformidler, Julian Hallen Eriksen, utforsker muligheter og utfordringer knytta til AI i norske skoler."))
+          [:hr]
 
-       [:section
-        [:h2 "Hva er dette for noe?"]
-        [:p
-         "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
-         "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
-         "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
-         "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "]]
+          [:section
+           [:h2 "Hva er dette for noe?"]
+           [:p
+            "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
+            "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
+            "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
+            "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "]]
 
-       [:section
-        [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
-        [:p "Vi oppfordrer alle til å kommentere og diskutere!"
-         " Men vi tror det er lettest å gjøre på Slack."
-         " Delta gjerne i diskusjonen i tråd på "
-         [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"]
-         "!"]]
+          [:section
+           [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
+           [:p "Vi oppfordrer alle til å kommentere og diskutere!"
+            " Men vi tror det er lettest å gjøre på Slack."
+            " Delta gjerne i diskusjonen i tråd på "
+            [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"]
+            "!"]]
 
-       [:section
-        [:h2 "Jeg jobber i Iterate og vil skrive, hva gjør jeg?"]
-        [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
-         " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
-         " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
-         " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
-       [:hr]
-       (let [themes (->> (fs/list-dir "theme")
-                         (map fs/file-name)
-                         (map #(str/replace % #".css$" ""))
-                         sort)]
-         [:section
-          [:p "Sett tema: "
-           (into [:span]
-                 (interpose " | "
-                            (for [t themes]
-                              [:a {:href (str "/set-theme/" t)} t])))]
-          (let [flag-element (fn [flag-name]
-                               [:span
-                                (when (= flag-name (flag req))
-                                  "🚩 ")
-                                [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
-            [:p "Sett flagg: "
-             (flag-element "ingen-flagg")
-             " | "
-             (flag-element "god-jul")])])])}))
+          [:section
+           [:h2 "Jeg jobber i Iterate og vil skrive, hva gjør jeg?"]
+           [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
+            " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
+            " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
+            " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
+          [:hr]
+          (let [themes (->> (fs/list-dir "theme")
+                            (map fs/file-name)
+                            (map #(str/replace % #".css$" ""))
+                            sort)]
+            [:section
+             [:p "Sett tema: "
+              (into [:span]
+                    (interpose " | "
+                               (for [t themes]
+                                 [:a {:href (str "/set-theme/" t)} t])))]
+             (let [flag-element (fn [flag-name]
+                                  [:span
+                                   (when (= flag-name (flag req))
+                                     "🚩 ")
+                                   [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
+               [:p "Sett flagg: "
+                (flag-element "ingen-flagg")
+                " | "
+                (flag-element "god-jul")])])])}))
 
 (comment
   (cohort/slug store/oj)

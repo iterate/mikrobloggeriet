@@ -11,7 +11,8 @@
 (defn dev
   "Development system without db"
   []
-  {::app {:recreate-routes :every-request}
+  {::app {:recreate-routes :every-request
+          :datomic (ig/ref ::datomic)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}
    ::datomic {}})
@@ -23,24 +24,28 @@
 (defn prod
   "Production system without db"
   []
-  {::app {:recreate-routes :once}
+  {::app {:recreate-routes :every-request
+          :datomic (ig/ref ::datomic)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}
    ::datomic {}})
 
 (defmethod ig/init-key ::app
-  [_ {:keys [recreate-routes] :as opts}]
+  [_ {:keys [recreate-routes datomic]}]
   (assert (#{:every-request :once} recreate-routes)
           "App must be recreated either on every request, or once.")
   ;; no db to attach
   (cond (= recreate-routes :every-request)
         (fn [req]
           (let [app (serve/app)]
-            (app req)))
-        (= (:recreate-routes opts) :once)
+            (app (-> req
+                     (assoc ::datomic datomic)))))
+
+        (= recreate-routes :once)
         (let [app (serve/app)]
           (fn [req]
-            (app req)))))
+            (app (-> req
+                     (assoc ::datomic datomic)))))))
 
 (defmethod ig/init-key ::http-server
   [_ {:keys [port app]}]

@@ -12,7 +12,9 @@
   {:cohort/iterate
    {:cohort/root "text/iterate",
     :cohort/slug "iterate",
-    :cohort/type :cohort.type/markdown},
+    :cohort/type :cohort.type/markdown
+    :cohort/name "ITERATE"
+    :cohort/description "Mikrobloggen ITERATE skrives av folk fra Iterate."},
    :cohort/jals
    {:cohort/root "j", :cohort/slug "jals", :cohort/type :cohort.type/markdown},
    :cohort/kiel
@@ -28,7 +30,9 @@
     :cohort/slug "oj",
     :cohort/type :cohort.type/markdown},
    :cohort/olorm
-   {:cohort/root "o", :cohort/slug "olorm", :cohort/type :cohort.type/markdown},
+   {:cohort/root "o", :cohort/slug "olorm", :cohort/type :cohort.type/markdown
+    :cohort/name "OLORM"
+    :cohort/description "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor."},
    :cohort/urlog
    {:cohort/root "text/urlog",
     :cohort/slug "urlog",
@@ -69,12 +73,14 @@
                  (and (fs/exists? (fs/file dir "index.md"))
                       (fs/exists? (fs/file dir "meta.edn")))))
        (map (fn [dir]
-              {:cohort/id (:cohort/id cohort)
-               :cohort/docs
-               (assoc (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
-                                   [:doc/created :doc/uuid :git.user/email])
-                      :doc/markdown (slurp (fs/file dir "index.md"))
-                      :doc/slug (fs/file-name dir))}))))
+              (merge
+               {:cohort/id (:cohort/id cohort)
+                :cohort/docs
+                (assoc (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
+                                    [:doc/created :doc/uuid :git.user/email])
+                       :doc/markdown (slurp (fs/file dir "index.md"))
+                       :doc/slug (fs/file-name dir))}
+               (select-keys cohort [:cohort/name :cohort/description]))))))
 
 (defn loaddb [cohorts authors]
   (let [uri (str "datomic:mem://" (random-uuid))
@@ -90,8 +96,8 @@
                    :where [?e :cohort/id]]
                  (d/db conn))]
       @(d/transact conn
-                  (find-cohort-docs
-                   (d/entity (d/db conn) cohort-id))))
+                   (find-cohort-docs
+                    (d/entity (d/db conn) cohort-id))))
     (d/db conn)))
 
 (comment

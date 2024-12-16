@@ -1,10 +1,12 @@
 (ns mikrobloggeriet.serve-test
-  (:require [mikrobloggeriet.serve :as serve]
-            [clojure.test :refer [is testing deftest]]
-            [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.test :refer [deftest is testing]]
+            [mblog2.db :as db]
+            [mikrobloggeriet.serve :as serve]))
 
 (deftest index-test
-  (let [index-resp (serve/index {})
+  (let [datomic (db/loaddb db/cohorts db/authors)
+        index-resp (serve/index {:mikrobloggeriet.system/datomic datomic})
         index (:body index-resp)]
     (testing "An index was returned"
       (is (some? index)))
