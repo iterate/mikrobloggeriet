@@ -5,14 +5,20 @@
    [integrant.core :as ig]
    [mikrobloggeriet.config :as config]
    [mikrobloggeriet.serve :as serve]
-   [org.httpkit.server :as httpkit]))
+   [org.httpkit.server :as httpkit]
+  [mblog2.db :as db]))
 
 (defn dev
   "Development system without db"
   []
   {::app {:recreate-routes :every-request}
    ::http-server {:port config/http-server-port
-                  :app (ig/ref ::app)}})
+                  :app (ig/ref ::app)}
+  ::datomic {}})
+
+(defmethod ig/init-key ::datomic
+  [_ _]
+  (db/loaddb db/cohorts db/authors))
 
 (defn prod
   "Production system without db"
