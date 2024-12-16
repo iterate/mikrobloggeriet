@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.ui
+(ns mikrobloggeriet.ui.index
   (:require
    [mikrobloggeriet.doc :as doc]))
 

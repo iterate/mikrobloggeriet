@@ -14,7 +14,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.ui :as ui]
+   [mikrobloggeriet.ui.index :as ui.index]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
@@ -134,9 +134,9 @@
           [:h1 "Mikrobloggeriet"]
           [:p "Folk fra Iterate deler fra hverdagen!"]
 
-          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
-          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/jals]))
-          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/iterate]))
+          (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/jals]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/iterate]))
 
           (let [urlog (d/entity datomic [:cohort/id :cohort/urlog])]
             [:section
@@ -145,10 +145,10 @@
              [:p [:a {:href (cohort/href urlog)}
                   "Gå inn i huset –> 🏨"]]])
 
-          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/oj]))
-          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/luke]))
-          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/vakt]))
-          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/kiel]))
+          (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/oj]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/luke]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/vakt]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/kiel]))
 
           [:hr]
 
