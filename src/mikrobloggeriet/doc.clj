@@ -2,7 +2,8 @@
   (:require
    [clojure.string :as str]))
 
-(defn from-slug [slug]
+(defn ^{:deprecated true}
+  from-slug [slug]
   {:doc/slug slug})
 
 (defn slug [doc]

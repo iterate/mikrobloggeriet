@@ -104,7 +104,7 @@
                        (map (fn [doc]
                               (store/load-meta cohort doc)))
                        (pmap (fn [doc]
-                               (assoc doc :doc/title (:title (markdown->html+info (slurp (store/doc-md-path cohort doc))))))))]
+                               (assoc doc :doc/title (:title (cache/markdown->html+info (slurp (store/doc-md-path cohort doc))))))))]
           [:tr
            [:td [:a {:href (store/doc-href cohort doc)} (doc/slug doc)]]
            [:td (:doc/title doc)]
@@ -214,7 +214,7 @@
     (let [doc (doc/from-slug slug)
           {:keys [title doc-html]}
           (when (store/doc-exists? cohort doc)
-            (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
+            (cache/markdown->html+info (slurp (store/doc-md-path cohort doc))))]
       {:status 200
        :headers {"Content-Type" "text/html; charset=utf-8"}
        :body
