@@ -12,40 +12,46 @@
   {:cohort/iterate
    {:cohort/root "text/iterate",
     :cohort/slug "iterate",
-    :cohort/type :cohort.type/markdown
-    :cohort/name "ITERATE"
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "ITERATE",
     :cohort/description "Mikrobloggen ITERATE skrives av folk fra Iterate."},
    :cohort/jals
-   {:cohort/root "j", :cohort/slug "jals", :cohort/type :cohort.type/markdown :cohort/name "JALS"},
+   {:cohort/root "j",
+    :cohort/slug "jals",
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "JALS"},
    :cohort/kiel
    {:cohort/root "text/kiel",
     :cohort/slug "kiel",
-    :cohort/type :cohort.type/markdown
- :cohort/name "KIEL"},
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "KIEL"},
    :cohort/luke
    {:cohort/root "text/luke",
     :cohort/slug "luke",
-    :cohort/type :cohort.type/markdown
- :cohort/name "LUKE"},
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "LUKE"},
    :cohort/oj
    {:cohort/root "text/oj",
     :cohort/slug "oj",
-    :cohort/type :cohort.type/markdown
- :cohort/name "OJ"},
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "OJ"},
    :cohort/olorm
-   {:cohort/root "o", :cohort/slug "olorm", :cohort/type :cohort.type/markdown
-    :cohort/name "OLORM"
-    :cohort/description "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor."},
+   {:cohort/root "o",
+    :cohort/slug "olorm",
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "OLORM",
+    :cohort/description
+    "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor."},
    :cohort/urlog
    {:cohort/root "text/urlog",
     :cohort/slug "urlog",
-    :cohort/type :cohort.type/urlog
- :cohort/name "URLOG"},
+    :cohort/type :cohort.type/urlog,
+    :cohort/name "URLOG"},
    :cohort/vakt
    {:cohort/root "text/vakt",
     :cohort/slug "vakt",
-    :cohort/type :cohort.type/markdown
-   :cohort/name "VAKT"}})
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "VAKT"}})
 
 (def authors
   [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
