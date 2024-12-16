@@ -90,14 +90,10 @@
                  (and (fs/exists? (fs/file dir "index.md"))
                       (fs/exists? (fs/file dir "meta.edn")))))
        (map (fn [dir]
-              (merge
-               {:cohort/id (:cohort/id cohort)
-                :cohort/docs
-                (assoc (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
-                                    [:doc/created :doc/uuid :git.user/email])
-                       :doc/markdown (slurp (fs/file dir "index.md"))
-                       :doc/slug (fs/file-name dir))}
-               (select-keys cohort [:cohort/name :cohort/description]))))))
+              (assoc (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
+                                  [:doc/created :doc/uuid :git.user/email])
+                     :doc/markdown (slurp (fs/file dir "index.md"))
+                     :doc/slug (fs/file-name dir))))))
 
 (defn loaddb [cohorts authors]
   (let [uri (str "datomic:mem://" (random-uuid))
@@ -108,13 +104,11 @@
                  (for [[cohort-id cohort] cohorts]
                    (assoc cohort :cohort/id cohort-id)))
     @(d/transact conn authors)
-    (doseq [cohort-id
-            (d/q '[:find [?e ...]
-                   :where [?e :cohort/id]]
-                 (d/db conn))]
-      @(d/transact conn
-                   (find-cohort-docs
-                    (d/entity (d/db conn) cohort-id))))
+    (doseq [cohort-internal-id (d/q '[:find [?e ...] :where [?e :cohort/id]] (d/db conn))]
+      (let [cohort (d/entity (d/db conn) cohort-internal-id)]
+        @(d/transact conn
+                     [{:cohort/id (:cohort/id cohort)
+                       :cohort/docs (find-cohort-docs cohort)}])))
     (d/db conn)))
 
 (comment
