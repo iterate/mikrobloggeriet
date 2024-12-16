@@ -2,7 +2,7 @@
   (:require [clojure.test :refer [deftest is testing]]
             [mblog2.db :as db]))
 
-(deftest loaddb-test
+(deftest cohort-test
   (testing "Cohorts have names"
     (doseq [cohort (vals db/cohorts)]
       (is (contains? cohort :cohort/name))))
