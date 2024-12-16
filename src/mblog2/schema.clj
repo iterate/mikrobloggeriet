@@ -67,8 +67,8 @@
     :db/cardinality :db.cardinality/one}
 
    {:db/ident :doc/cohort
- :db/valueType :db.type/ref
- :db/cardinality :db.cardinality/one}
+    :db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/one}
 
    ;; Doc author
    {:db/ident :doc/primary-author
