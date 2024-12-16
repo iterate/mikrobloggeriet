@@ -14,7 +14,7 @@
   {::app {:recreate-routes :every-request}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}
-  ::datomic {}})
+   ::datomic {}})
 
 (defmethod ig/init-key ::datomic
   [_ _]
@@ -25,7 +25,8 @@
   []
   {::app {:recreate-routes :once}
    ::http-server {:port config/http-server-port
-                  :app (ig/ref ::app)}})
+                  :app (ig/ref ::app)}
+   ::datomic {}})
 
 (defmethod ig/init-key ::app
   [_ {:keys [recreate-routes] :as opts}]
