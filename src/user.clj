@@ -57,8 +57,10 @@
                (fs/which "open") (shell "open" url)
                :else (println "Please open" url "in your web browser.")))))))
 
-;; Kjør (start!) for å starte systemet!
-#_ (start!)
+(comment
+  (start!)
+  (stop!)
+  :rcf)
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn require-application-code!
