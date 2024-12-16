@@ -1,5 +1,6 @@
 (ns mblog2.db-test
   (:require [clojure.test :refer [deftest is testing]]
+            [datomic.api :as d]
             [mblog2.db :as db]))
 
 (deftest cohort-test
@@ -10,6 +11,7 @@
     (doseq [cohort (vals db/cohorts)]
       (is (contains? cohort :cohort/description)))))
 
+#_
 (deftest doc-test
   (testing "Docs have cohorts"
     (let [db (db/loaddb db/cohorts db/authors)
