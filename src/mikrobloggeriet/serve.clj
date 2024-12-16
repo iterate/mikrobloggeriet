@@ -149,27 +149,22 @@
           [:h1 "Mikrobloggeriet"]
           [:p "Folk fra Iterate deler fra hverdagen!"]
 
-          ;; (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
           (ui/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
-          (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
-          (default-cohort-section store/cohort-iterate "ITERATE" "Mikrobloggen ITERATE skrives av folk fra Iterate.")
+          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/jals]))
+          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/iterate]))
 
-          [:section
-           [:h2 "URLOG"]
-           [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-           [:p [:a {:href "/urlog/"} "Gå inn i huset –> 🏨"]]]
-          (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
-          (default-cohort-section store/luke
-                                  "Mikrobloggeriets Julekalender 2023"
-                                  "Mikrobloggen LUKE ble skrevet av Iterate-ansatte gjennom adventstida 2023.")
-          (default-cohort-section store/vakt
-                                  "VAKT"
-                                  "Fra oss som lager Mikrobloggeriet.")
+          (let [urlog (d/entity datomic [:cohort/id :cohort/urlog])]
+            [:section
+             [:h2 (:cohort/name urlog)]
+             [:p (:cohort/description urlog)]
+             [:p [:a {:href (cohort/href urlog)}
+                  "Gå inn i huset –> 🏨"]]])
 
-          (default-cohort-section store/kiel
-                                  "Kunstig Intelligens—Ekte Læring"
-                                  (str
-                                   "Designer og teknologiformidler, Julian Hallen Eriksen, utforsker muligheter og utfordringer knytta til AI i norske skoler."))
+          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/oj]))
+          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/luke]))
+          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/vakt]))
+          (ui/cohort-section (d/entity datomic [:cohort/id :cohort/kiel]))
+
           [:hr]
 
           [:section
