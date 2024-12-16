@@ -1,9 +1,9 @@
 (ns mikrobloggeriet.doc-test
   (:require
    [clojure.test :refer [deftest is]]
-   [mikrobloggeriet.doc :as doc]
-  [mblog2.db :as db]
-  [datomic.api :as d]))
+   [datomic.api :as d]
+   [mblog2.db :as db]
+   [mikrobloggeriet.doc :as doc]))
 
 (deftest number-test
   (is (= 1 (doc/number {:doc/slug "olorm-1"})))
@@ -17,8 +17,10 @@
 
 (deftest previous-test
   (let [db (db/loaddb db/cohorts db/authors)]
-    (is (doc/previous db (d/entity db [:doc/slug "olorm-2"])))))
+    (is (= "olorm-1"
+           (:doc/slug (doc/previous db (d/entity db [:doc/slug "olorm-2"])))))))
 
 (deftest next-test
   (let [db (db/loaddb db/cohorts db/authors)]
-    (is (doc/next db (d/entity db [:doc/slug "olorm-2"])))))
+    (is (= "olorm-3"
+           (:doc/slug (doc/next db (d/entity db [:doc/slug "olorm-2"])))))))

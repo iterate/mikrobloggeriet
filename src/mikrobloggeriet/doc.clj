@@ -28,7 +28,7 @@
     (d/entity db [:doc/slug previous-slug])))
 
 (defn next [db doc]
-  (let [next-number (dec (number doc))
+  (let [next-number (inc (number doc))
         cohort (:doc/cohort doc)
         next-slug (str (:cohort/slug cohort) "-" next-number)]
     (d/entity db [:doc/slug next-slug])))
