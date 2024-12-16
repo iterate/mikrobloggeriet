@@ -14,6 +14,7 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
+   [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.index :as ui.index]
    [reitit.core :as reitit]
    [reitit.ring]
@@ -286,12 +287,16 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-(defn markdown-cohort-routes [cohort]
-  [(str "/" (cohort/slug cohort))
-   ["/" {:get (fn [req] (cohort-doc-table req cohort))
-         :name (keyword (str "mikrobloggeriet." (cohort/slug cohort))
+(defn markdown-cohort-routes [legacy-cohort]
+  [(str "/" (cohort/slug legacy-cohort))
+   ["/" {:get (fn [req] (cohort-doc-table req legacy-cohort))
+         :name (keyword (str "mikrobloggeriet." (cohort/slug legacy-cohort))
                         "all")}]
-   ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
+   ["/:slug/" {:get (fn [req]
+                      (let [datomic (:mikrobloggeriet.system/datomic req)
+                            doc-slug (http/path-param req :slug)]
+                        (ui.doc/page (d/entity datomic [:doc/slug doc-slug])
+                                     req)))}]])
 
 (defn app
   []

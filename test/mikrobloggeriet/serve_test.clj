@@ -19,8 +19,12 @@
       (is (str/includes? index "/olorm/olorm-4")))))
 
 (deftest doc-test
-  (let [app (serve/app)]
-  ;; Sanity test that one document for each cohort renders successfully. Makes it more comfortable to work with doc logic!
+  (let [datomic (db/loaddb db/cohorts db/authors)
+        raw-app (serve/app)
+        app (fn [req]
+              (raw-app (assoc req :mikrobloggeriet.system/datomic datomic)))]
+    ;; Sanity test that one document for each cohort renders successfully. Makes
+    ;; it more comfortable to work with doc logic!
     (let [olorm-1 (app {:uri "/olorm/olorm-1/" :request-method :get})]
       (is (str/includes? (str/lower-case (:body  olorm-1))
                          "søvn")
