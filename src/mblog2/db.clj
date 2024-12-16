@@ -19,22 +19,26 @@
    {:cohort/root "j",
     :cohort/slug "jals",
     :cohort/type :cohort.type/markdown,
-    :cohort/name "JALS"},
+    :cohort/name "JALS"
+    :cohort/description "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere."},
    :cohort/kiel
    {:cohort/root "text/kiel",
     :cohort/slug "kiel",
     :cohort/type :cohort.type/markdown,
-    :cohort/name "KIEL"},
+    :cohort/name "Kunstig Intelligens—Ekte Læring"
+    :cohort/description "Designer og teknologiformidler, Julian Hallen Eriksen, utforsker muligheter og utfordringer knytta til AI i norske skoler."},
    :cohort/luke
    {:cohort/root "text/luke",
     :cohort/slug "luke",
     :cohort/type :cohort.type/markdown,
-    :cohort/name "LUKE"},
+    :cohort/name "Mikrobloggeriets Julekalender 2023"
+    :cohort/description "Mikrobloggen LUKE ble skrevet av Iterate-ansatte gjennom adventstida 2023."},
    :cohort/oj
    {:cohort/root "text/oj",
     :cohort/slug "oj",
     :cohort/type :cohort.type/markdown,
-    :cohort/name "OJ"},
+    :cohort/name "OJ"
+    :cohort/description "Mikrobloggen OJ skrives av Olav og Johan."},
    :cohort/olorm
    {:cohort/root "o",
     :cohort/slug "olorm",
@@ -46,12 +50,14 @@
    {:cohort/root "text/urlog",
     :cohort/slug "urlog",
     :cohort/type :cohort.type/urlog,
-    :cohort/name "URLOG"},
+    :cohort/name "URLOG"
+    :cohort/description "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."},
    :cohort/vakt
    {:cohort/root "text/vakt",
     :cohort/slug "vakt",
     :cohort/type :cohort.type/markdown,
-    :cohort/name "VAKT"}})
+    :cohort/name "VAKT"
+    :cohort/description "Fra oss som lager Mikrobloggeriet."}})
 
 (def authors
   [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
