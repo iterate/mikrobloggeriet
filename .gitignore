@@ -37,3 +37,6 @@ pom.xml.asc
 
 # Local preferences
 /deps.local.edn
+
+# VSCode
+/.vscode
