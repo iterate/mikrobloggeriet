@@ -7,7 +7,7 @@
    [:h2 (:cohort/name cohort)]
    [:p (:cohort/description cohort)]
    [:ul {:class "doc-list"}
-    (for [doc (sort-by doc/number (:cohort/docs cohort))]
+    (for [doc (sort-by doc/number (:doc/_cohort cohort))]
       [:li [:a {:href (doc/href cohort doc)}
             (:doc/slug doc)]])]])
 

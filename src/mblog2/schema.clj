@@ -74,9 +74,4 @@
    {:db/ident :doc/primary-author
     :db/valueType :db.type/ref
     :db/cardinality :db.cardinality/one}
-
-   ;; Cohort docs
-   {:db/ident :cohort/docs
-    :db/valueType :db.type/ref
-    :db/cardinality :db.cardinality/many}
    ])

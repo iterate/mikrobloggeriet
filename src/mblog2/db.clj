@@ -93,7 +93,8 @@
               (assoc (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
                                   [:doc/created :doc/uuid :git.user/email])
                      :doc/markdown (slurp (fs/file dir "index.md"))
-                     :doc/slug (fs/file-name dir))))))
+                     :doc/slug (fs/file-name dir)
+               :doc/cohort [:cohort/id (:cohort/id cohort)])))))
 
 (defn loaddb [cohorts authors]
   (let [uri (str "datomic:mem://" (random-uuid))
@@ -106,15 +107,7 @@
     @(d/transact conn authors)
     (doseq [cohort-internal-id (d/q '[:find [?e ...] :where [?e :cohort/id]] (d/db conn))]
       (let [cohort (d/entity (d/db conn) cohort-internal-id)]
-        @(d/transact conn
-                     [{:cohort/id (:cohort/id cohort)
-                       :cohort/docs (find-cohort-docs cohort)}])))
-    ;; Create relation :doc/cohort by inverting :cohort/docs
-    (doseq [doc-slug (d/q '[:find [?slug ...] :where [_ :doc/slug ?slug]] (d/db conn))]
-      (let [doc (d/entity (d/db conn) [:doc/slug doc-slug])]
-        @(d/transact conn
-                     [{:doc/slug doc-slug
-                       :doc/cohort [:cohort/id (:cohort/id (first (:cohort/_docs doc)))]}])))
+        @(d/transact conn (find-cohort-docs cohort))))
     (d/db conn)))
 
 (comment
@@ -122,10 +115,6 @@
   (def db (loaddb cohorts authors))
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
 
-  (:cohort/docs olorm)
-
   (def olorm-7 (d/entity db [:doc/slug "olorm-7"]))
   (into {} olorm-7)
-
-  (:cohort/_docs olorm-7)
   )
