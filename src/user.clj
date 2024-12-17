@@ -2,9 +2,9 @@
   (:require
    [babashka.fs :as fs]
    [clojure.string :as str]
+   [integrant.core :as ig]
    [mikrobloggeriet.config :as config]
-   [mikrobloggeriet.repl :as repl]
-   [integrant.core :as ig]))
+   [mikrobloggeriet.repl :as repl]))
 
 ;; Convenience functions when you start a REPL. The default user namespace is
 ;; always 'user. I'm putting functions here to make it easy to start the server
@@ -33,10 +33,17 @@
 ;; than compile-time if there are import errors.
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn stop! []
+  (when-let [sys @repl/state]
+    (ig/halt! sys)
+    (reset! repl/state nil)))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start!
   ([]
    (start! {}))
   ([opts]
+   (stop!)
    (let [opts (merge {:browse? true} opts)
          shell (requiring-resolve 'babashka.process/shell)
          dev (requiring-resolve 'mikrobloggeriet.system/dev)]
@@ -50,6 +57,11 @@
                (fs/which "open") (shell "open" url)
                :else (println "Please open" url "in your web browser.")))))))
 
+(comment
+  (start!)
+  (stop!)
+  :rcf)
+
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn require-application-code!
   "loads most/all of the Mikrobloggeriet code into memory
@@ -62,12 +74,6 @@
   (require 'mikrobloggeriet.cli)
   (require 'mikrobloggeriet.olorm-cli)
   (require 'mikrobloggeriet.jals-cli))
-
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn stop! []
-  (when-let [sys @repl/state]
-    (ig/halt! sys)
-    (reset! repl/state nil)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-start!
@@ -100,7 +106,7 @@
         clerk-port config/clerk-port]
     (clerk-serve {:browse? true
                   :port clerk-port
-                  :watch-paths ["src" "test" "draft"]})))
+                  :watch-paths ["src" "test"]})))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-stop! []

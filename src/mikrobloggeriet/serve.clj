@@ -4,7 +4,9 @@
    [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
+   [datomic.api :as d]
    [hiccup.page :as page]
+   [mikrobloggeriet.asset :as asset]
    [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
@@ -12,7 +14,8 @@
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
-   [mikrobloggeriet.asset :as asset]
+   [mikrobloggeriet.ui.doc :as ui.doc]
+   [mikrobloggeriet.ui.index :as ui.index]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
@@ -102,20 +105,17 @@
                        (map (fn [doc]
                               (store/load-meta cohort doc)))
                        (pmap (fn [doc]
-                               (assoc doc :doc/title (:title (markdown->html+info (slurp (store/doc-md-path cohort doc))))))))]
+                               (assoc doc :doc/title (:title (cache/markdown->html+info (slurp (store/doc-md-path cohort doc))))))))]
           [:tr
            [:td [:a {:href (store/doc-href cohort doc)} (doc/slug doc)]]
            [:td (:doc/title doc)]
            [:td (store/author-first-name cohort doc)]
            [:td (:doc/created doc)]])]]])})
 
-(defn default-cohort-section [cohort name description]
-  [:section
-   [:h2 name]
-   [:p description]
-   [:ul {:class "doc-list"}
-    (for [doc (store/published-docs cohort)]
-      [:li [:a {:href (store/doc-href cohort doc)} (:doc/slug doc)]])]])
+(comment
+  (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
+  (into {} (d/entity db [:cohort/id :cohort/olorm]))
+  )
 
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
@@ -123,126 +123,78 @@
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         teodor-url "https://teod.eu/"
         hops-url "https://www.headless-operations.no/"
-        iterate-url "https://www.iterate.no/"]
+        iterate-url "https://www.iterate.no/"
+        datomic (:mikrobloggeriet.system/datomic req)]
     {:status 200
      :headers {"Content-type" "text/html"}
      :body
      (page/html5
-      (into [:head] (shared-html-header req))
-      [:body
-       [:p (feeling-lucky "🎲")]
-       [:h1 "Mikrobloggeriet"]
-       [:p "Folk fra Iterate deler fra hverdagen!"]
+         (into [:head] (shared-html-header req))
+         [:body
+          [:p (feeling-lucky "🎲")]
+          [:h1 "Mikrobloggeriet"]
+          [:p "Folk fra Iterate deler fra hverdagen!"]
 
-       (default-cohort-section store/olorm "OLORM" "Mikrobloggen OLORM skrives av Oddmund, Lars, Richard og Teodor.")
-       (default-cohort-section store/jals "JALS" "Mikrobloggen JALS skrives av Adrian, Lars og Sindre. Jørgen har skrevet tidligere.")
-       (default-cohort-section store/cohort-iterate "ITERATE" "Mikrobloggen ITERATE skrives av folk fra Iterate.")
+          (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/jals]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/iterate]))
 
-       [:section
-        [:h2 "URLOG"]
-        [:p "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]
-        [:p [:a {:href "/urlog/"} "Gå inn i huset –> 🏨"]]]
-       (default-cohort-section store/oj "OJ" "Mikrobloggen OJ skrives av Olav og Johan.")
-       (default-cohort-section store/luke
-                               "Mikrobloggeriets Julekalender 2023"
-                               "Mikrobloggen LUKE ble skrevet av Iterate-ansatte gjennom adventstida 2023.")
-       (default-cohort-section store/vakt
-                               "VAKT"
-                               "Fra oss som lager Mikrobloggeriet.")
+          (let [urlog (d/entity datomic [:cohort/id :cohort/urlog])]
+            [:section
+             [:h2 (:cohort/name urlog)]
+             [:p (:cohort/description urlog)]
+             [:p [:a {:href (cohort/href urlog)}
+                  "Gå inn i huset –> 🏨"]]])
 
-       (default-cohort-section store/kiel
-                               "Kunstig Intelligens—Ekte Læring"
-                               (str
-                                "Designer og teknologiformidler, Julian Hallen Eriksen, utforsker muligheter og utfordringer knytta til AI i norske skoler."))
-       [:hr]
+          (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/oj]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/luke]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/vakt]))
+(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/kiel]))
 
-       [:section
-        [:h2 "Hva er dette for noe?"]
-        [:p
-         "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
-         "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
-         "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
-         "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "]]
+          [:hr]
 
-       [:section
-        [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
-        [:p "Vi oppfordrer alle til å kommentere og diskutere!"
-         " Men vi tror det er lettest å gjøre på Slack."
-         " Delta gjerne i diskusjonen i tråd på "
-         [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"]
-         "!"]]
+          [:section
+           [:h2 "Hva er dette for noe?"]
+           [:p
+            "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
+            "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
+            "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
+            "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "]]
 
-       [:section
-        [:h2 "Jeg jobber i Iterate og vil skrive, hva gjør jeg?"]
-        [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
-         " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
-         " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
-         " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
-       [:hr]
-       (let [themes (->> (fs/list-dir "theme")
-                         (map fs/file-name)
-                         (map #(str/replace % #".css$" ""))
-                         sort)]
-         [:section
-          [:p "Sett tema: "
-           (into [:span]
-                 (interpose " | "
-                            (for [t themes]
-                              [:a {:href (str "/set-theme/" t)} t])))]
-          (let [flag-element (fn [flag-name]
-                               [:span
-                                (when (= flag-name (flag req))
-                                  "🚩 ")
-                                [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
-            [:p "Sett flagg: "
-             (flag-element "ingen-flagg")
-             " | "
-             (flag-element "god-jul")])])])}))
+          [:section
+           [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
+           [:p "Vi oppfordrer alle til å kommentere og diskutere!"
+            " Men vi tror det er lettest å gjøre på Slack."
+            " Delta gjerne i diskusjonen i tråd på "
+            [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"]
+            "!"]]
 
-(comment
-  (cohort/slug store/oj)
-
-  (store/doc-exists? store/oj (doc/from-slug "oj-2"))
-
-  (let [cohort store/oj
-        doc (doc/from-slug "oj-2")
-        prev (dec (doc/number doc))]
-    (store/doc-exists? cohort (doc/from-slug (str (cohort/slug cohort) "-" prev))))
-
-  (store/cohort-href store/oj))
-
-
-(defn doc
-  [req cohort]
-  (when-let [slug (http/path-param req :slug)]
-    (let [doc (doc/from-slug slug)
-          {:keys [title doc-html]}
-          (when (store/doc-exists? cohort doc)
-            (markdown->html+info (slurp (store/doc-md-path cohort doc))))]
-      {:status 200
-       :headers {"Content-Type" "text/html; charset=utf-8"}
-       :body
-       (page/html5
-           (into [:head] (concat (when title [[:title title]])
-                                 (shared-html-header req)))
-           [:body
-            [:p (feeling-lucky "🎲")
-             " — "
-             [:a {:href "/"} "mikrobloggeriet"]
-             " "
-             [:a {:href (str "/" (cohort/slug cohort) "/")}
-              (cohort/slug cohort)]
-             " — "
-             [:span (let [previouse-number (dec (doc/number doc))
-                          prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
-                      (when (store/doc-exists? cohort prev)
-                        [:span [:a {:href (str (store/doc-href cohort prev))} (doc/slug prev)] " · "]))]
-             [:span (:doc/slug doc)]
-             [:span (let [previouse-number (inc (doc/number doc))
-                          prev (doc/from-slug (str (cohort/slug cohort) "-" previouse-number))]
-                      (when (store/doc-exists? cohort prev)
-                        [:span " · " [:a {:href (str (store/doc-href cohort prev))}  (doc/slug prev)]]))]]
-            doc-html])})))
+          [:section
+           [:h2 "Jeg jobber i Iterate og vil skrive, hva gjør jeg?"]
+           [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
+            " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
+            " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
+            " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
+          [:hr]
+          (let [themes (->> (fs/list-dir "theme")
+                            (map fs/file-name)
+                            (map #(str/replace % #".css$" ""))
+                            sort)]
+            [:section
+             [:p "Sett tema: "
+              (into [:span]
+                    (interpose " | "
+                               (for [t themes]
+                                 [:a {:href (str "/set-theme/" t)} t])))]
+             (let [flag-element (fn [flag-name]
+                                  [:span
+                                   (when (= flag-name (flag req))
+                                     "🚩 ")
+                                   [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
+               [:p "Sett flagg: "
+                (flag-element "ingen-flagg")
+                " | "
+                (flag-element "god-jul")])])])}))
 
 (defn random-doc [_req]
   (let [target (or
@@ -290,12 +242,22 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-(defn markdown-cohort-routes [cohort]
-  [(str "/" (cohort/slug cohort))
-   ["/" {:get (fn [req] (cohort-doc-table req cohort))
-         :name (keyword (str "mikrobloggeriet." (cohort/slug cohort))
+(defn markdown-cohort-routes [legacy-cohort]
+  [(str "/" (cohort/slug legacy-cohort))
+   ["/" {:get (fn [req] (cohort-doc-table req legacy-cohort))
+         :name (keyword (str "mikrobloggeriet." (cohort/slug legacy-cohort))
                         "all")}]
-   ["/:slug/" {:get (fn [req] (doc req cohort))}] ])
+   ["/:slug/" {:get (fn [req]
+                      (let [db (:mikrobloggeriet.system/datomic req)
+                            doc-slug (http/path-param req :slug)
+                            doc (d/entity db [:doc/slug doc-slug])]
+                        (ui.doc/page doc
+                                     req
+                                     (merge
+                                      (when-let [previous (doc/previous db doc)]
+                                        {:previous previous})
+                                      (when-let [next (doc/next db doc)]
+                                        {:next next})))))}]])
 
 (defn app
   []

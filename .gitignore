@@ -34,3 +34,9 @@ pom.xml.asc
 
 # Deploy files (Application Garden)
 /.garden
+
+# Local preferences
+/deps.local.edn
+
+# VSCode
+/.vscode

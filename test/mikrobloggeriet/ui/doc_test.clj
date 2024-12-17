@@ -1,0 +1,11 @@
+(ns mikrobloggeriet.ui.doc-test
+  (:require [clojure.test :refer [deftest is]]
+            [datomic.api :as d]
+            [mblog2.db :as db]
+            [mikrobloggeriet.ui.doc :as ui.doc]))
+
+(deftest page-test
+  (let [db (db/loaddb db/cohorts db/authors)
+        oj-2 (d/entity db [:doc/slug "oj-2"])]
+    (is (map? (ui.doc/page oj-2 {})))))
+
