@@ -32,7 +32,7 @@ Dette er avhengig av hva du skal, hvilket bibliotek du bruker, og hvor mye ressu
 
 Her er det også verdt å nevne at nettlesere kan ta inn massevis av argumenter på oppstart, hvor det finnes noen som er ekstra relevant for å kjøre en headless nettleser i containerised miljøer (eksempelvis Docker). Disse varierer fra nettleser til nettleser, og slik jeg tolker det er det viktigere for headless Chromium og headless Firefox, og mindre viktig for headless Webkit. Mange av disse argumentene kommer med avveininger. Eksempelvis ved å skru av sikkerhetsmekanismer som _sandboxing_ for bedre ytelse, eller redusere ytelsen på kost av poteniselt mer flaky tester.
 
-Her er en god oversikt over argumenter til Chromium: https://peter.sh/experiments/chromium-command-line-switches/.
+Her er en god oversikt over argumenter til Chromium: [](https://peter.sh/experiments/chromium-command-line-switches/).
 
 Jeg har ikke funnet en tilsvarende god oversikt for [Firefox config](https://support.mozilla.org/en-US/kb/about-config-editor-firefox) dessverre.
 
@@ -42,9 +42,8 @@ Jeg har også fått inntrykk av at nettlesere har en tendens til å starte egne 
 
 Selv med dette virker det ikke alltid som nettleser-prosessser blir ryddet opp helt skikkelig, i alle fall mens nettleserne driver å kjører. Jeg har brukt programmer som [htop](https://htop.dev/) til å aktivt monitorere prosessene som lever i min container for å prøve å få bedre bukt på dette. Om noen har noen tips akkurat her tar jeg gledelig i mot.
 
-<br>
 
-Avslutningsvis vil jeg gjerne gjenta at poeng 1. Prøv å unngå å prodsette disse beistene om du kan unngå det. Hodebryet er så mangt, og jeg er ikke i mål. Det finnes også selskaper som tilbyr headless nettlesere som en tjeneste. Det virker veldig digg, men jeg har ikke testet de. Jeg har derimot hentet en del tips og inspirasjon fra ett av de her: https://www.browserless.io/blog/observations-running-headless-browser.
+Avslutningsvis vil jeg gjerne gjenta at poeng 1. Prøv å unngå å prodsette disse beistene om du kan unngå det. Hodebryet er så mangt, og jeg er ikke i mål. Det finnes også selskaper som tilbyr headless nettlesere som en tjeneste. Det virker veldig digg, men jeg har ikke testet de. Jeg har derimot hentet en del tips og inspirasjon fra ett av de her: [](https://www.browserless.io/blog/observations-running-headless-browser).
 
 Har du noen tips eller innspill?
 
