@@ -1,7 +1,7 @@
 # OJ-4: Hodeløse nettlesere i produksjon
 
 Det finnes noen grunner til at du ønsker å kjøre en _headless_ nettleser i produksjon. Det kan eksempelvis være å ta skjermbilder av en nettside, generere PDFer, skraping, automasjon, eller ende-til-ende tester. Altså om det er noe du _må_ inn i nettleseren for å verifisere eller fikse.
-Bibliotek som Playwright, Pupeteer, Selenium og Cypress gjør det høvlig enkelt å skrive kode som interagerer med nettleseren. Og rett slik kan du automatisere hva nå enn du ønsker å gjøre i nettleseren. De vanligste headless nettleserene er Chromiums, Firefox, og Webkit, altså som de vanligste ikke-headless nettleserene, bare headless.
+Bibliotek som Playwright, Puppeteer, Selenium og Cypress gjør det høvlig enkelt å skrive kode som interagerer med nettleseren. Og rett slik kan du automatisere hva nå enn du ønsker å gjøre i nettleseren. De vanligste headless nettleserene er Chromiums, Firefox, og Webkit, altså som de vanligste ikke-headless nettleserene, bare headless.
 
 For ordens skyld: en _headless_ nettleser er da en nettleser _uten_ et grafisk brukergrensesnitt, og da ganske egnet for å kjøre i bakgrunnen på din maskin, eller, som jeg skal komme tilbake til, på en server.
 
@@ -38,7 +38,9 @@ Jeg har ikke funnet en tilsvarende god oversikt for [Firefox config](https://sup
 
 ## 4. Nettlesere lager prosesser som ikke nødvendigvis blir ryddet opp skikkelig
 
-Jeg har også fått inntrykk av at nettlesere har en tendens til å starte egne prosesser som ikke nødvendigvis blir avsluttet når man avslutter nettleseren. Dette kalles noe så kult som _zombie processes_! Skrekk og gru! Særlig i containeriserte miljøer er det viktig å huske å drepe disse før de spiser opp PIDer (prossess-IDer for aktive prosesser) og minne. For å drepe zombier anbefales det å bruke et _init_-system i containeren, som [dumb-init](https://github.com/Yelp/dumb-init) eller [tini](https://github.com/krallin/tini). Disse konfigureres da som en parent-prosess til det du tenker å kjøre i containeren, også har innebygd logikk for å rydde opp i nettopp zombie prosesser. I nyere versjoner er forresten _tini_ bygd inn Docker og Podman, men må da startes på `run` med flagget `--init`. Hvordan jeg konfigererer opp args for `docker run` i kubernetes har jeg ikke blitt helt klok på, så jeg ruller med tini for nå.
+Jeg har også fått inntrykk av at nettlesere har en tendens til å starte egne prosesser som ikke nødvendigvis blir avsluttet når man avslutter nettleseren. Dette kalles noe så kult som _zombie processes_! Skrekk og gru!
+
+Særlig i containeriserte miljøer er det viktig å huske å drepe disse før de spiser opp PIDer (prossess-IDer for aktive prosesser) og minne. For å drepe zombier anbefales det å bruke et _init_-system i containeren, som [dumb-init](https://github.com/Yelp/dumb-init) eller [tini](https://github.com/krallin/tini). Disse konfigureres da som en parent-prosess til det du tenker å kjøre i containeren, også har innebygd logikk for å rydde opp i nettopp zombie prosesser. I nyere versjoner er forresten _tini_ bygd inn Docker og Podman, men må da startes på `run` med flagget `--init`. Hvordan jeg konfigererer opp args for `docker run` i kubernetes har jeg ikke blitt helt klok på, så jeg ruller med tini for nå.
 
 Selv med dette virker det ikke alltid som nettleser-prosessser blir ryddet opp helt skikkelig, i alle fall mens nettleserne driver å kjører. Jeg har brukt programmer som [htop](https://htop.dev/) til å aktivt monitorere prosessene som lever i min container for å prøve å få bedre bukt på dette. Om noen har noen tips akkurat her tar jeg gledelig i mot.
 
