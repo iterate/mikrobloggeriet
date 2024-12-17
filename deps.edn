@@ -3,7 +3,7 @@
  {babashka/fs {:mvn/version "0.5.23"}
   babashka/process {:mvn/version "0.5.22"}
   cheshire/cheshire {:mvn/version "5.13.0"}
-  com.datomic/peer {:mvn/version "1.0.6726"}
+  com.datomic/peer {:mvn/version "1.0.7277"}
   hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
   http-kit/http-kit {:mvn/version "2.8.0"}
   integrant/integrant {:mvn/version "0.13.1"}
