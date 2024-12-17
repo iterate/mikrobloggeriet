@@ -106,7 +106,7 @@
         clerk-port config/clerk-port]
     (clerk-serve {:browse? true
                   :port clerk-port
-                  :watch-paths ["src" "test" "draft"]})))
+                  :watch-paths ["src" "test"]})))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn clerk-stop! []
