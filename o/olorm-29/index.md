@@ -41,6 +41,7 @@ do
         ?) printf "Usage: $0 [-a] [-f file] args\n   or: $0 -V\n";;
     esac
 done
+shift $((OPTIND - 1))
 ```
 
 ## Konklusjon
