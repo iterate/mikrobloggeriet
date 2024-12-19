@@ -59,7 +59,8 @@ Jeg lekte meg med å bygge støtte for `--long-option` og kom opp med:
 
 ```
 # usage:
-# set -- $(parselong a/all f/file -- "$@")
+# args=$(parselong a/all f/file -- "$@")
+# eval "set -- $args"
 # while getopts f:a...
 parselong() {
     c=1
@@ -89,6 +90,12 @@ parselong() {
         esac
     done
     shift $c
+    for i; do
+        quoted=$(printf %s\\n "$i" \
+            | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/")
+        shift
+        set -- "$@" $quoted
+    done
     echo "$@"
 }
 ```
