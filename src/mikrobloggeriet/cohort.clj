@@ -1,6 +1,8 @@
 (ns mikrobloggeriet.cohort
-  (:require
-   [mikrobloggeriet.cohort.markdown :as cohort.markdown]))
+  (:require [mikrobloggeriet.cohort.markdown :as cohort.markdown]))
+
+(defn href [cohort]
+  (str "/" (:cohort/slug cohort) "/"))
 
 ;; generic cohort interface
 

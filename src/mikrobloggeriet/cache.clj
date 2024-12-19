@@ -1,4 +1,6 @@
-(ns mikrobloggeriet.cache)
+(ns mikrobloggeriet.cache
+  (:require
+   [mikrobloggeriet.pandoc :as pandoc]))
 
 (defn cache-fn-by
   "A simple in-memory caching mechanism
@@ -33,6 +35,13 @@
                    (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key wrapping" fn-name)
                    (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key"))))
              result)))))))
+
+(def markdown->html+info
+  (cache-fn-by (fn markdown->html+info [markdown]
+                 (let [pandoc (pandoc/from-markdown markdown)]
+                   {:doc-html (pandoc/to-html pandoc)
+                    :title (pandoc/infer-title pandoc)}))
+               identity))
 
 (comment
   (defn slow+ [a b]
