@@ -1,5 +1,6 @@
 (ns mikrobloggeriet.cache
   (:require
+   [duratom.core :refer [duratom]]
    [mikrobloggeriet.pandoc :as pandoc]))
 
 (defn cache-fn-by
@@ -7,10 +8,12 @@
 
   Example usage:
 
-    (def cached+ (cache-fn-by slow+ (fn [a b] (str a \" \" b)))
+    (def cached+ (cache-fn-by slow+ (atom {}) (fn [a b] (str a \" \" b)))
 
     (cached+ 1 2) ; normal speed first time
     (cached+ 1 2) ; next invokation is a cache lookup
+
+  - `cache-atom` is the atom to use as cache.
 
   - `f` is the function you want to cache
 
@@ -36,8 +39,16 @@
                  (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key"))))
            result))))))
 
+(def cache-atom
+  ^{:doc "Disk-backed cache atom when disk (GARDEN_STORAGE) is available"}
+  (when-let [storage-path (System/getenv "GARDEN_STORAGE")]
+    (duratom :local-file
+             :file-path (str storage-path "/mikrobloggeriet.htmlcache.edn")
+             :commit-mode :sync
+             :init {})))
+
 (def markdown->html+info
-  (cache-fn-by (atom {})
+  (cache-fn-by (or cache-atom (atom {}))
                (fn markdown->html+info [markdown]
                  (let [pandoc (pandoc/from-markdown markdown)]
                    {:doc-html (pandoc/to-html pandoc)
