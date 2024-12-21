@@ -20,7 +20,7 @@ Jeg definerte verdi som "vi som skriver på Mikrobloggeriet skal få noe ut av �
 Første milepæl var å få en start på innholdet.
 Her er committen der Lars Barlindhaug skrev OLORM-1:
 
-https://github.com/iterate/mikrobloggeriet/commit/b42b365f00e1ad7630f21cd43186804aee8e392a
+[https://github.com/iterate/mikrobloggeriet/commit/b42b365f00e1ad7630f21cd43186804aee8e392a](https://github.com/iterate/mikrobloggeriet/commit/b42b365f00e1ad7630f21cd43186804aee8e392a)
 
 Og her er hele innholdet:
 
