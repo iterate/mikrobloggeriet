@@ -22,8 +22,7 @@
         [:td (:cohort/slug cohort)]
         [:td "tittel"]
         [:td "forfatter"]
-        [:td "publisert"]
-        [:td "mer"]]
+        [:td "publisert"]]
        [:tbody
         (for [doc (->> (:doc/_cohort cohort)
                        (sort-by doc/number))]
