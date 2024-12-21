@@ -1,4 +1,5 @@
 (ns mikrobloggeriet.cohort)
 
 (defn href [cohort]
-  (str "/" (:cohort/slug cohort) "/"))
+  (when-let [slug (:cohort/slug cohort)]
+    (str "/" slug "/")))
