@@ -5,6 +5,7 @@
    [integrant.core :as ig]
    [mblog2.db :as db]
    [mikrobloggeriet.config :as config]
+   [mikrobloggeriet.repl]
    [mikrobloggeriet.serve :as serve]
    [org.httpkit.server :as httpkit]))
 
@@ -63,8 +64,9 @@
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn start-prod! [extra-opts]
-  (let [opts
-        (cond-> (prod)
-          (:port extra-opts)
-          (assoc-in [::http-server :port] (:port extra-opts)))]
-    (ig/init opts)))
+  (let [opts (cond-> (prod)
+               (:port extra-opts)
+               (assoc-in [::http-server :port] (:port extra-opts)))
+        system (ig/init opts)]
+    (reset! mikrobloggeriet.repl/state system)
+    system))

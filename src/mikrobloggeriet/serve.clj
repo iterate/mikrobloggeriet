@@ -106,7 +106,7 @@
 
 (comment
   (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
-  (into {} (d/entity db [:cohort/id :cohort/olorm]))
+  (def olorm (d/entity db [:cohort/id :cohort/olorm]))
   )
 
 (defn index [req]
