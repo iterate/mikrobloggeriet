@@ -48,7 +48,8 @@ RUN mkdir -p "$HOME/.config/olorm/"
 RUN echo "{:repo-path \"/mikrobloggeriet\"}" > "$HOME/.config/olorm/config.edn"
 RUN git config --global user.name "HOPS Dockerfile"
 RUN git config --global user.email "hops-dockerfile@ci.mikrobloggeriet.no"
-RUN clj -M:run-tests
+
+RUN clojure -M -e :deps-downloaded
 
 # We use dumb-init to handle sigterm/sigint (C-c) gracefully. This causes way
 # faster Kubernetes deploys, as we stop instantly rather after a force kill
