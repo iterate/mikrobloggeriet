@@ -1,6 +1,4 @@
-(ns ^{:experimental true
-      :doc "Try out using Integrant for system state"}
-    mikrobloggeriet.system
+(ns mikrobloggeriet.system
   (:require
    [integrant.core :as ig]
    [mikrobloggeriet.config :as config]
@@ -9,25 +7,9 @@
    [mikrobloggeriet.serve :as serve]
    [org.httpkit.server :as httpkit]))
 
-(defn dev
-  "Development system without db"
-  []
-  {::app {:datomic (ig/ref ::datomic)}
-   ::http-server {:port config/http-server-port
-                  :app (ig/ref ::app)}
-   ::datomic {}})
-
 (defmethod ig/init-key ::datomic
   [_ _]
   (db/loaddb db/cohorts db/authors))
-
-(defn prod
-  "Production system without db"
-  []
-  {::app {:datomic (ig/ref ::datomic)}
-   ::http-server {:port config/http-server-port
-                  :app (ig/ref ::app)}
-   ::datomic {}})
 
 (defmethod ig/init-key ::app
   [_ {:keys [datomic]}]
@@ -45,15 +27,21 @@
   [_ server]
   (httpkit/server-stop! server))
 
-(comment
-  (def sys2 (ig/init (dev)))
-  (ig/halt! sys2)
-  ,)
+(def default-config
+  {::app {:datomic (ig/ref ::datomic)}
+   ::http-server {:port config/http-server-port
+                  :app (ig/ref ::app)}
+   ::datomic {}})
 
 (defn ^:export start! [overrides]
-  (let [opts (cond-> (prod)
-               (:port overrides)
-               (assoc-in [::http-server :port] (:port overrides)))
+  (let [opts (cond-> default-config
+                 (:port overrides)
+                 (assoc-in [::http-server :port] (:port overrides)))
         system (ig/init opts)]
     (reset! mikrobloggeriet.repl/state system)
     system))
+
+(comment
+  (def sys2 (ig/init default-config))
+  (ig/halt! sys2)
+  ,)
