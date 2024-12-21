@@ -6,9 +6,10 @@
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]))
 
+(def db (db/loaddb db/cohorts db/authors))
+
 (deftest index-test
-  (let [datomic (db/loaddb db/cohorts db/authors)
-        index-resp (serve/index {:mikrobloggeriet.system/datomic datomic})
+  (let [index-resp (serve/index {:mikrobloggeriet.system/datomic db})
         index (:body index-resp)]
     (testing "An index was returned"
       (is (some? index)))
@@ -21,10 +22,9 @@
       (is (str/includes? index "/olorm/olorm-4")))))
 
 (deftest doc-test
-  (let [datomic (db/loaddb db/cohorts db/authors)
-        raw-app (serve/app)
+  (let [raw-app (serve/app)
         app (fn [req]
-              (raw-app (assoc req :mikrobloggeriet.system/datomic datomic)))]
+              (raw-app (assoc req :mikrobloggeriet.system/datomic db)))]
     ;; Sanity test that one document for each cohort renders successfully. Makes
     ;; it more comfortable to work with doc logic!
     (let [olorm-1 (app {:uri "/olorm/olorm-1/" :request-method :get})]
