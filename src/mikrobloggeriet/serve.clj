@@ -156,16 +156,15 @@
      :headers {"Content-Type" "text/plain"}
      :body (str (fs/last-modified-time last-modified) "\n")}))
 
-(defn deploy-info [req]
-  (let [env (System/getenv)
-        last-modified (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")
-        info {:git/sha (get env  "HOPS_GIT_SHA")
-              :last-modified-file-time (str (fs/last-modified-time last-modified))
-              ;; :env-keys (keys env)
-              }]
-    {:status 200
-     :headers {"Content-Type" "text/plain"}
-     :body (with-out-str (clojure.pprint/pprint info))}))
+(defn deploy-info [_req]
+  {:status 200
+   :headers {"Content-Type" "text/plain"}
+   :body
+   (with-out-str
+     (clojure.pprint/pprint
+      {:last-modified-file-time
+       (str (fs/last-modified-time
+             (last-modified-file "." "**/*.{js,css,html,clj,md,edn}")))}))})
 
 (defn css-response [file]
   {:status 200
