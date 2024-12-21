@@ -1,7 +1,4 @@
 # Mikrobloggeriet
-#
-# /.local is for local files not intended to be checked into git.
-/.local
 
 # Mac stuff
 .DS_Store
@@ -34,9 +31,6 @@ pom.xml.asc
 
 # Deploy files (Application Garden)
 /.garden
-
-# Local preferences
-/deps.local.edn
 
 # VSCode
 /.vscode

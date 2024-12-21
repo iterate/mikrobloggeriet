@@ -1,8 +1,0 @@
-{;; Vi bruker :dev til utvikling - da får vi med tester og sånn i lokal REPL.
- :launchpad/aliases [:dev]
-
- ;; Sett til --emacs eller --vs-code for å koble til Emacs eller VS Code
- ;; automatisk, eller fjern den for å unngå automatikk.
- :launchpad/main-opts ["--emacs"]
- ;; :launchpad/main-opts ["--vs-code"]
- }
