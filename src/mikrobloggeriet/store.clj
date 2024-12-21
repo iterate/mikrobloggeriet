@@ -35,7 +35,8 @@
    :cohort/slug "oj"
    :cohort/type :cohort.type/markdown
    :cohort/members [{:author/email "jomarn@me.com" :author/first-name "Johan"}
-                    {:author/email "olav.moseng@iterate.no" :author/first-name "Olav"}]))
+                    {:author/email "olav.moseng@iterate.no" :author/first-name "Olav"}
+                    {:author/email "42978548+olavm@users.noreply.github.com" :author/first-name "Olav"}]))
 
 (def luke
   (sorted-map
