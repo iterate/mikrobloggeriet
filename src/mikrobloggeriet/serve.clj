@@ -210,21 +210,22 @@
 
      ;; CSS files we use
      (for [css-file ["vanilla.css" "mikrobloggeriet.css" "pygment.css" "reset.css" "urlog.css"]]
-       [(str "/" css-file) {:get (constantly (css-response css-file))
+       [(str "/" css-file) {:get (fn [_req]
+                                   (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
      [ ;; Front page
-      ["/" {:get index ; forside
-            :head health ; helsesjekk, Application.garden
+      ["/" {:get #'index ; forside
+            :head #'health ; helsesjekk, Application.garden
             :name :mikrobloggeriet/frontpage}]
 
       ;; Themes
-      ["/theme/:theme" {:get theme
+      ["/theme/:theme" {:get #'theme
                         :name :mikrobloggeriet/theme}]
-      ["/set-theme/:theme" {:get set-theme
+      ["/set-theme/:theme" {:get #'set-theme
                             :name :mikrobloggeriet/set-theme}]
       ;; Feature flags
-      ["/set-flag/:theme" {:get set-flag
+      ["/set-flag/:theme" {:get #'set-flag
                            :name :mikrobloggeriet/set-flag}]]
 
      ;; Markdown cohorts
@@ -233,7 +234,7 @@
        (markdown-cohort-routes c))
 
      ;; Urlog
-     [["/urlog/" {:get cohort.urlog/page
+     [["/urlog/" {:get #'cohort.urlog/page
                   :name :mikrobloggeriet.urlog/all}]]
 
      ;; Support old URLs
@@ -249,11 +250,11 @@
 
      ;; DIV
      [ ;; Go to a random document
-      ["/random-doc" {:get random-doc
+      ["/random-doc" {:get #'random-doc
                       :name :mikrobloggeriet/random-doc}]
 
       ;; Deploy
-      ["/deploy-info" {:get deploy-info
+      ["/deploy-info" {:get #'deploy-info
                        :name :mikrobloggeriet/deploy-info}]
 
       ;; helsesjekk, HOPS
@@ -261,7 +262,7 @@
                   :name :mikrobloggeriet/health}]
 
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
-                                   :get last-modified-file-handler}]
+                                   :get #'last-modified-file-handler}]
 
       ["/images/:image-path" {:get (fn [req]
                                      (let [image-path (http/path-param req :image-path)]
