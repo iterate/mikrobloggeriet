@@ -12,8 +12,7 @@
 (defn dev
   "Development system without db"
   []
-  {::app {:recreate-routes :every-request
-          :datomic (ig/ref ::datomic)}
+  {::app {:datomic (ig/ref ::datomic)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}
    ::datomic {}})
@@ -25,8 +24,7 @@
 (defn prod
   "Production system without db"
   []
-  {::app {:recreate-routes :every-request
-          :datomic (ig/ref ::datomic)}
+  {::app {:datomic (ig/ref ::datomic)}
    ::http-server {:port config/http-server-port
                   :app (ig/ref ::app)}
    ::datomic {}})
