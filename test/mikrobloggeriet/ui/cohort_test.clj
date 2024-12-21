@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is]]
             [datomic.api :as d]
-            [mblog2.db :as db]
+            [mikrobloggeriet.db :as db]
             [mikrobloggeriet.ui.cohort :as ui.cohort]))
 
 (str/includes? "blabla olorm-5 blabla" "olorm")

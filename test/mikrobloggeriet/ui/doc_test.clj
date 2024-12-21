@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.ui.doc-test
   (:require [clojure.test :refer [deftest is]]
             [datomic.api :as d]
-            [mblog2.db :as db]
+            [mikrobloggeriet.db :as db]
             [mikrobloggeriet.ui.doc :as ui.doc]))
 
 (deftest page-test

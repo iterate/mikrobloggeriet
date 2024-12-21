@@ -3,7 +3,7 @@
    [clojure.string :as str]
    [clojure.test :refer [deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [mblog2.db :as db]
+   [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]))
 
 (deftest index-test

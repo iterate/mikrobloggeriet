@@ -3,8 +3,8 @@
     mikrobloggeriet.system
   (:require
    [integrant.core :as ig]
-   [mblog2.db :as db]
    [mikrobloggeriet.config :as config]
+   [mikrobloggeriet.db :as db]
    [mikrobloggeriet.repl]
    [mikrobloggeriet.serve :as serve]
    [org.httpkit.server :as httpkit]))

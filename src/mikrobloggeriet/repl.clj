@@ -15,7 +15,7 @@
   (def olorm-12 (d/entity db [:doc/slug "olorm-99"]))
 
   (def oj (d/entity db [:cohort/id :cohort/oj]))
-  (require '[mblog2.db :as db])
+  (require '[mikroblo :as db])
   ()
 
   (keys olorm-12)

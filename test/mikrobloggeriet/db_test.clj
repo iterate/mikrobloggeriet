@@ -1,7 +1,7 @@
-(ns mblog2.db-test
+(ns mikrobloggeriet.db-test
   (:require [clojure.test :refer [deftest is testing]]
             [datomic.api :as d]
-            [mblog2.db :as db]))
+            [mikrobloggeriet.db :as db]))
 
 (deftest cohort-test
   (testing "Cohorts have names"
