@@ -136,7 +136,8 @@
     :cohort/description "Fra oss som lager Mikrobloggeriet."}})
 
 (def authors
-  [{:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
+  [{:author/email "42978548+olavm@users.noreply.github.com" :author/first-name "Olav"}
+   {:author/email "aaberg89@gmail.com", :author/first-name "Jørgen"}
    {:author/email "adrian.tofting@iterate.no", :author/first-name "Adrian"}
    {:author/email "brunstad@iterate.no", :author/first-name "Ole Jacob"}
    {:author/email "camilla@iterate.no", :author/first-name "Camilla"}
