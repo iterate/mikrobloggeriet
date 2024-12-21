@@ -13,8 +13,4 @@
     (let [{:keys [body]} response]
       (is (str/includes? body "Alle OLORM-er"))
       (is (str/includes? body "publisert"))
-      (is (str/includes? body "olorm-13")))
-    #_
-    (is (str/includes? (:body (ui.cohort/doc-table olorm {}))
-                       "olorm-13"))
-    ))
+      (is (str/includes? body "olorm-13")))))
