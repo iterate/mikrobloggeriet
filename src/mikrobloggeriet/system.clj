@@ -57,13 +57,3 @@
         system (ig/init opts)]
     (reset! mikrobloggeriet.repl/state system)
     system))
-
-(defn ^{:export true
-        :deprecated "Use start! instead."}
-  start-prod! [extra-opts]
-  (let [opts (cond-> (prod)
-               (:port extra-opts)
-               (assoc-in [::http-server :port] (:port extra-opts)))
-        system (ig/init opts)]
-    (reset! mikrobloggeriet.repl/state system)
-    system))
