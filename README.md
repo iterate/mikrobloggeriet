@@ -9,6 +9,7 @@ Vocabulary:
 | term            | type            | definition                                        |
 |-----------------|-----------------|---------------------------------------------------|
 | cohort          | abstraction     | a collection of people writing together           |
+| microblog       |                 | alias for "cohort"                                |
 | doc             | abstraction     | a microblog entry                                 |
 | jals            | cohort          | Jørgen, Adrian, Lars and Sindre's cohort          |
 | kiel            | cohort          | about artificial intetelligence and real learning |
