@@ -1,8 +1,10 @@
 (ns mikrobloggeriet.serve-test
-  (:require [clojure.string :as str]
-            [clojure.test :refer [deftest is testing]]
-            [mblog2.db :as db]
-            [mikrobloggeriet.serve :as serve]))
+  (:require
+   [clojure.string :as str]
+   [clojure.test :refer [deftest is testing]]
+   [clojure.walk :refer [prewalk]]
+   [mblog2.db :as db]
+   [mikrobloggeriet.serve :as serve]))
 
 (deftest index-test
   (let [datomic (db/loaddb db/cohorts db/authors)
@@ -39,3 +41,20 @@
       (is (str/includes? (str/lower-case (:body oj-1))
                          "refaktorering")
           "OJ-1 handler refaktorering."))))
+
+(defn strip-function-objects
+  "Remove function objects from a data structure so that the rest can be compared
+  with another using clojure.core/= in tests"
+  [x]
+  (prewalk (fn [node]
+             (if (fn? node)
+               nil
+               node))
+           x))
+
+(deftest markdown-cohort-routes-test
+  (is (= (-> (serve/markdown-cohort-routes (:cohort/olorm db/cohorts))
+             strip-function-objects)
+         ["/olorm"
+          ["/" {:get nil, :name :mikrobloggeriet.olorm/all}]
+          ["/:slug/" {:get nil}]])))

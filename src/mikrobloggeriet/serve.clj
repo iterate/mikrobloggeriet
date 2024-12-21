@@ -6,6 +6,7 @@
    [clojure.string :as str]
    [datomic.api :as d]
    [hiccup.page :as page]
+   [mblog2.db :as db]
    [mikrobloggeriet.asset :as asset]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
@@ -223,6 +224,11 @@
                                       (when-let [next (doc/next db doc)]
                                         {:next next})))))}]])
 
+(comment
+  (markdown-cohort-routes (:cohort/olorm db/cohorts))
+
+  )
+
 (defn app
   []
   (reitit.ring/ring-handler
@@ -249,7 +255,8 @@
                            :name :mikrobloggeriet/set-flag}]]
 
      ;; Markdown cohorts
-     (for [c [store/olorm store/jals store/oj store/luke store/vakt store/kiel store/cohort-iterate]]
+     (for [c (->> (vals db/cohorts)
+                  (filter #(= :cohort.type/markdown (:cohort/type %))))]
        (markdown-cohort-routes c))
 
      ;; Urlog
