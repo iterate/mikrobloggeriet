@@ -38,12 +38,12 @@
   ;; no db to attach
   (cond (= recreate-routes :every-request)
         (fn [req]
-          (let [app (serve/app)]
+          (let [app (serve/assemble-app)]
             (app (-> req
                      (assoc ::datomic datomic)))))
 
         (= recreate-routes :once)
-        (let [app (serve/app)]
+        (let [app (serve/assemble-app)]
           (fn [req]
             (app (-> req
                      (assoc ::datomic datomic)))))))

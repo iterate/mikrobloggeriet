@@ -22,22 +22,21 @@
       (is (str/includes? index "/olorm/olorm-4")))))
 
 (deftest doc-test
-  (let [raw-app (serve/app)
-        app (fn [req]
-              (raw-app (assoc req :mikrobloggeriet.system/datomic db)))]
+  (let [injected-app (fn [req]
+                       (serve/app (assoc req :mikrobloggeriet.system/datomic db)))]
     ;; Sanity test that one document for each cohort renders successfully. Makes
     ;; it more comfortable to work with doc logic!
-    (let [olorm-1 (app {:uri "/olorm/olorm-1/" :request-method :get})]
+    (let [olorm-1 (injected-app {:uri "/olorm/olorm-1/" :request-method :get})]
       (is (str/includes? (str/lower-case (:body  olorm-1))
                          "søvn")
           "OLORM-1 handler om viktigheten av en god natts søvn."))
 
-    (let [jals-1 (app {:uri "/jals/jals-1/" :request-method :get})]
+    (let [jals-1 (injected-app {:uri "/jals/jals-1/" :request-method :get})]
       (is (str/includes? (str/lower-case (:body jals-1))
                          "modeller")
           "JALS-1 handler maskinlæringsmodeller."))
 
-    (let [oj-1 (app {:uri "/oj/oj-1/" :request-method :get})]
+    (let [oj-1 (injected-app {:uri "/oj/oj-1/" :request-method :get})]
       (is (str/includes? (str/lower-case (:body oj-1))
                          "refaktorering")
           "OJ-1 handler refaktorering."))))

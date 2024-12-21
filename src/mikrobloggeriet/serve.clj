@@ -20,7 +20,7 @@
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
 
-(declare app)
+(declare assemble-app)
 (declare url-for)
 
 (defn feeling-lucky [content]
@@ -202,7 +202,7 @@
 
   )
 
-(defn app
+(defn assemble-app
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
@@ -270,25 +270,21 @@
       ]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
+(def app (assemble-app))
+
 (defn url-for
   ([name] (url-for name {}))
   ([name path-params]
    (->
-    (reitit.ring/get-router (app))
+    (reitit.ring/get-router app)
     (reitit/match-by-name name)
     (reitit/match->path path-params))))
 
 (comment
   (url-for :mikrobloggeriet/frontpage)
-
   (url-for :mikrobloggeriet/theme {:theme "bwb"})
-  )
 
-(comment
-  ((app) {:uri "/deploy-info", :request-method :get})
+  (app {:uri "/deploy-info", :request-method :get})
+  (app {:uri "/olorm/olorm-1/" :request-method :get})
+
   :rcf)
-
-(comment
-  (def app-instance (app))
-  (app-instance {:uri "/olorm/olorm-1/" :request-method :get})
-  :rfc)
