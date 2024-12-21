@@ -25,13 +25,8 @@ Vocabulary:
 ## Publishing text on Mikrobloggeriet!
 
 Text on Mikrobloggeriet is written in Markdown.
-To create a new Markdown text file and a metadata file, you can use one of the two available Mikrobloggeriet CLI applications.
-
-- [The CLI with 0 installation steps] (by Richard)
-- [The CLI with 8 installation steps] (by Olav, Johan and Teodor)
-
-[The CLI with 0 installation steps]: cli-quickstart-mblog-sh.md
-[The CLI with 8 installation steps]: cli-quickstart-mblog.md
+To create a new Markdown text file and a metadata file, you can use `mblog.sh`.
+See [CLI quickstart for `mblog.sh`], by Richard.
 
 ## Developing Mikrobloggeriet locally!
 
