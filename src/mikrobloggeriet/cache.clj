@@ -19,25 +19,26 @@
 
   - `warn-fn` (optional, function from string to any) is called when the caching
     mechanism fails. It defaults to nil, no reporting."
-  ([f cache-key-fn] (cache-fn-by f cache-key-fn {}))
-  ([f cache-key-fn {:keys [warn-fn]}]
-   (let [cache (atom {})]
-     (fn [& args]
-       (let [cache-key (apply cache-key-fn args)]
-         (if (contains? @cache cache-key)
-           (get @cache cache-key)
-           (let [result (apply f args)]
-             (if (string? cache-key)
-               (swap! cache assoc cache-key result)
-               ;; Otherwise, warn that the cache key isn't valid
-               (when warn-fn
-                 (if-let [fn-name (:name (meta f))]
-                   (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key wrapping" fn-name)
-                   (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key"))))
-             result)))))))
+  ([cache-atom f cache-key-fn]
+   (cache-fn-by cache-atom f cache-key-fn {}))
+  ([cache-atom f cache-key-fn {:keys [warn-fn]}]
+   (fn [& args]
+     (let [cache-key (apply cache-key-fn args)]
+       (if (contains? @cache-atom cache-key)
+         (get @cache-atom cache-key)
+         (let [result (apply f args)]
+           (if (string? cache-key)
+             (swap! cache-atom assoc cache-key result)
+             ;; Otherwise, warn that the cache key isn't valid
+             (when warn-fn
+               (if-let [fn-name (:name (meta f))]
+                 (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key wrapping" fn-name)
+                 (warn-fn "Warning:" 'fn-with-cache "recived a non-string cache key"))))
+           result))))))
 
 (def markdown->html+info
-  (cache-fn-by (fn markdown->html+info [markdown]
+  (cache-fn-by (atom {})
+               (fn markdown->html+info [markdown]
                  (let [pandoc (pandoc/from-markdown markdown)]
                    {:doc-html (pandoc/to-html pandoc)
                     :title (pandoc/infer-title pandoc)}))
@@ -51,7 +52,7 @@
   (slow+ 10 20)
   ;; slow
 
-  (def fast+ (cache-fn-by slow+ #(str %1 " " %2)))
+  (def fast+ (cache-fn-by (atom {}) slow+ #(str %1 " " %2)))
   ;; fast after values have been cached.
 
   (fast+ 11 2)
