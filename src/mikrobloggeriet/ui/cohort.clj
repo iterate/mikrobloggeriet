@@ -27,7 +27,7 @@
         (for [doc (->> (:doc/_cohort cohort)
                        (sort-by doc/number))]
           [:tr
-           [:td [:a {:href (doc/href cohort doc)} (:doc/slug doc)]]
+           [:td [:a {:href (doc/href doc)} (:doc/slug doc)]]
            [:td (doc/title doc)]
            [:td (doc/author-first-name db doc)]
            [:td (:doc/created doc)]])]]])})

@@ -16,12 +16,11 @@
   (when-let [slug (:doc/slug doc)]
     (parse-long (last (str/split slug #"-")))))
 
-(defn href [cohort doc]
-  (when (and (:cohort/slug cohort)
-             (:doc/slug doc))
-    (str "/" (:cohort/slug cohort)
-         "/" (:doc/slug doc)
-         "/")))
+(defn href
+  [doc]
+  (when-let [cohort-slug (-> doc :doc/cohort :cohort/slug)]
+    (when-let [doc-slug (:doc/slug doc)]
+      (str "/" cohort-slug "/" doc-slug "/"))))
 
 (defn previous [db doc]
   (let [previous-number (dec (number doc))
@@ -48,4 +47,17 @@
   (cache/markdown->html+info "# Funksjonell programmering")
   (title {:doc/markdown "# Funksjonell programmering"})
   (html {:doc/markdown "# Funksjonell programmering"})
+  )
+
+(defn random-doc [db]
+  (d/entity db [:doc/slug (->> (d/q '[:find [?slug ...]
+                                      :where [_ :doc/slug ?slug]]
+                                    db)
+                               vec
+                               rand-nth)]))
+
+(comment
+  (require 'mikrobloggeriet.repl)
+  (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
+  (random-doc db)
   )

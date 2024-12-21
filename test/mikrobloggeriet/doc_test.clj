@@ -13,8 +13,8 @@
 
 (deftest doc-href-test
   (is (= "/olorm/olorm-13/"
-         (doc/href {:cohort/slug "olorm"}
-                   {:doc/slug "olorm-13"}))))
+         (doc/href {:doc/slug "olorm-13"
+                    :doc/cohort {:cohort/slug "olorm"}}))))
 
 (deftest previous-test
   (let [db (db/loaddb db/cohorts db/authors)]
@@ -50,3 +50,9 @@
   (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
                      "<h1"))
   )
+
+(def testdb (db/loaddb db/cohorts db/authors))
+
+(deftest random-cohort+doc-test
+  (is (contains? (doc/random-doc testdb)
+                 :doc/slug)))

@@ -158,10 +158,11 @@
               " | "
               (flag-element "god-jul")])])])}))
 
-(defn random-doc [_req]
-  (let [target (or
-                (when-let [[cohort doc] (store/random-cohort+doc)]
-                  (store/doc-href cohort doc))
+(defn random-doc [req]
+  (let [db (:mikrobloggeriet.system/datomic req)
+        target (or
+                (when-let [doc (doc/random-doc db)]
+                  (doc/href doc))
                 "/")]
     {:status 307 ;; temporary redirect
      :headers {"Location" target}

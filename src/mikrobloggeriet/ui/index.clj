@@ -8,7 +8,7 @@
    [:p (:cohort/description cohort)]
    [:ul {:class "doc-list"}
     (for [doc (sort-by doc/number (:doc/_cohort cohort))]
-      [:li [:a {:href (doc/href cohort doc)}
+      [:li [:a {:href (doc/href doc)}
             (:doc/slug doc)]])]])
 
 (comment

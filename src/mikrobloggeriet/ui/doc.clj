@@ -25,11 +25,11 @@
          " "
          [:a {:href (cohort/href cohort)}
           (:cohort/slug cohort)]
-      " - "
-      (when previous
-        [:span [:a {:href (doc/href cohort previous)} (:doc/slug previous)] " · "])
-      [:span (:doc/slug doc)]
-      (when next
-        [:span  " · " [:a {:href (doc/href cohort next)} (:doc/slug next)]])]
-     doc-html])}))
+         " - "
+         (when previous
+           [:span [:a {:href (doc/href previous)} (:doc/slug previous)] " · "])
+         [:span (:doc/slug doc)]
+         (when next
+           [:span  " · " [:a {:href (doc/href next)} (:doc/slug next)]])]
+        doc-html])}))
 
