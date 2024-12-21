@@ -33,3 +33,6 @@
         cohort (:doc/cohort doc)
         next-slug (str (:cohort/slug cohort) "-" next-number)]
     (d/entity db [:doc/slug next-slug])))
+
+(defn author-first-name [db doc]
+  (:author/first-name (d/entity db [:author/email (:git.user/email doc)])))
