@@ -121,7 +121,7 @@ Hilsen Teodor
 
 ☃❄🎄
 
-## Les, skriv, og lær! Det er lov å være nysgjerrig :)
+## Les, skriv, og lær! Det er lov å være nysgjerrig!
 
 Ikke sant, jeg må huske å stille spørsmål til publikum!
 
