@@ -12,7 +12,6 @@
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
-   [mikrobloggeriet.store :as store]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.index :as ui.index]
@@ -71,9 +70,6 @@
 
 (defn- flag [req]
   (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
-
-(comment
-  (cohort/slug store/olorm))
 
 (comment
   (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
