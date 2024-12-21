@@ -7,7 +7,6 @@
    [datomic.api :as d]
    [hiccup.page :as page]
    [mikrobloggeriet.asset :as asset]
-   [mikrobloggeriet.cache :as cache]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.doc :as doc]
