@@ -39,7 +39,9 @@
     (reset! repl/state nil)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn start!
+(defn
+  ^{:deprecated "Ikke bruk denne, kjør heller `garden repl` og koble til!"}
+  start!
   ([]
    (start! {}))
   ([opts]
