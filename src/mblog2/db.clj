@@ -3,8 +3,84 @@
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [datomic.api :as d]
-   [mblog2.schema]))
+   [datomic.api :as d]))
+
+;; Database schema
+(def schema
+  [;; Cohorts
+   {:db/ident :cohort/id
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}
+
+   {:db/ident :cohort/root
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}
+
+   {:db/ident :cohort/slug
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}
+
+   {:db/ident :cohort/type
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
+
+   {:db/ident :cohort/name
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   {:db/ident :cohort/description
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   ;; Authors
+   {:db/ident :author/email
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}
+
+   {:db/ident :author/first-name
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   ;; Docs
+   {:db/ident :doc/slug
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}
+
+   {:db/ident :doc/created
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   {:db/ident :doc/uuid
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}
+
+   {:db/ident :git.user/email
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   {:db/ident :doc/markdown
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   {:db/ident :doc/html
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+
+   {:db/ident :doc/cohort
+    :db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/one}
+
+   ;; Doc author
+   {:db/ident :doc/primary-author
+    :db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/one}
+   ])
 
 ;; Cohorts and authors are added by hand!
 
@@ -100,7 +176,7 @@
   (let [uri (str "datomic:mem://" (random-uuid))
         _ (d/create-database uri)
         conn (d/connect uri)]
-    @(d/transact conn mblog2.schema/schema)
+    @(d/transact conn schema)
     @(d/transact conn
                  (for [[cohort-id cohort] cohorts]
                    (assoc cohort :cohort/id cohort-id)))
