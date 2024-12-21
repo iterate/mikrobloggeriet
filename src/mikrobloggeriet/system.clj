@@ -63,7 +63,6 @@
   ,)
 
 (defn ^:export start! [overrides]
-  (set! *print-namespace-maps* false)
   (let [opts (cond-> (prod)
                (:port overrides)
                (assoc-in [::http-server :port] (:port overrides)))
