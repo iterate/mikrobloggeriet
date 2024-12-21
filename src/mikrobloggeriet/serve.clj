@@ -15,36 +15,13 @@
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.index :as ui.index]
+   [mikrobloggeriet.ui.shared :as ui.shared]
    [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
 
 (declare app)
 (declare url-for)
-
-(defn shared-html-header
-  "Shared HTML, including CSS.
-  Handles CSS theming system with cookies."
-  [req]
-  [[:meta {:charset "utf-8"}]
-   [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-   (hiccup.page/include-css "/vanilla.css")
-   (hiccup.page/include-css "/mikrobloggeriet.css")
-   (hiccup.page/include-css "/pygment.css")
-   (let [theme (get-in (cookies/cookies-request req)
-                       [:cookies "theme" :value]
-                       "vanilla")]
-     (hiccup.page/include-css (str "/theme/" theme ".css")))
-   (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
-         number (rand-nth (range 4))]
-     (when (= theme "iterate")
-       [:style {:type "text/css"}
-        (str ":root{ --text-color: var(--iterate-base0" number ")}")]))])
-
-(comment
-
-  (url-for :mikrobloggeriet/random-doc)
-  )
 
 (defn feeling-lucky [content]
   [:a {:href (url-for :mikrobloggeriet/random-doc {}) :class :feeling-lucky} content])
@@ -87,7 +64,7 @@
      :headers {"Content-type" "text/html"}
      :body
      (page/html5
-         (into [:head] (shared-html-header req))
+         (into [:head] (ui.shared/html-header req))
        [:body
         [:p (feeling-lucky "🎲")]
         [:h1 "Mikrobloggeriet"]
