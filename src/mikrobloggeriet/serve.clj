@@ -12,7 +12,6 @@
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
-   [mikrobloggeriet.pandoc :as pandoc]
    [mikrobloggeriet.store :as store]
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.index :as ui.index]
@@ -72,13 +71,6 @@
 (defn- flag [req]
   (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
 
-(def markdown->html+info
-  (cache/cache-fn-by (fn markdown->html+info [markdown]
-                       (let [pandoc (pandoc/from-markdown markdown)]
-                         {:doc-html (pandoc/to-html pandoc)
-                          :title (pandoc/infer-title pandoc)}))
-                     identity))
-
 (comment
   (cohort/slug store/olorm))
 
@@ -121,7 +113,6 @@
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
-        teodor-url "https://teod.eu/"
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"
         datomic (:mikrobloggeriet.system/datomic req)]
