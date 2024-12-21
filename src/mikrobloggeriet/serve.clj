@@ -201,13 +201,13 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-(defn markdown-cohort-routes [legacy-cohort]
-  [(str "/" (cohort/slug legacy-cohort))
+(defn markdown-cohort-routes [cohort-data]
+  [(str "/" (:cohort/slug cohort-data))
    ["/" {:get (fn [req]
                 (let [db (:mikrobloggeriet.system/datomic req)
-                      cohort (d/entity db [:cohort/slug (:cohort/slug legacy-cohort)])]
+                      cohort (d/entity db [:cohort/slug (:cohort/slug cohort-data)])]
                   (ui.cohort/doc-table db cohort req)))
-         :name (keyword (str "mikrobloggeriet." (cohort/slug legacy-cohort))
+         :name (keyword (str "mikrobloggeriet." (:cohort/slug cohort-data))
                         "all")}]
    ["/:slug/" {:get (fn [req]
                       (let [db (:mikrobloggeriet.system/datomic req)
