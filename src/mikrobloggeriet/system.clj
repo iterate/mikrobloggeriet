@@ -38,11 +38,12 @@
 
 (defmethod ig/init-key ::http-server
   [_ {:keys [port app]}]
-  (httpkit/run-server app {:port port}))
+  (httpkit/run-server app {:port port
+                           :legacy-return-value? false}))
 
 (defmethod ig/halt-key! ::http-server
-  [_ http-server-halt-fn]
-  (http-server-halt-fn))
+  [_ server]
+  (httpkit/server-stop! server))
 
 (comment
   (def sys2 (ig/init (dev)))
