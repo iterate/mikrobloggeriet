@@ -13,6 +13,7 @@
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.store :as store]
+   [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.index :as ui.index]
    [reitit.core :as reitit]
@@ -235,7 +236,10 @@
 
 (defn markdown-cohort-routes [legacy-cohort]
   [(str "/" (cohort/slug legacy-cohort))
-   ["/" {:get (fn [req] (cohort-doc-table req legacy-cohort))
+   ["/" {:get (fn [req]
+                (let [db (:mikrobloggeriet.system/datomic req)
+                      cohort (d/entity db [:cohort/slug (:cohort/slug legacy-cohort)])]
+                  (ui.cohort/doc-table db cohort req)))
          :name (keyword (str "mikrobloggeriet." (cohort/slug legacy-cohort))
                         "all")}]
    ["/:slug/" {:get (fn [req]
