@@ -21,7 +21,7 @@ Vocabulary:
 | urlog           | cohort          | collection of weird and/or interesting web sites  |
 | vakt            | cohort          | about the making of  Mikrobloggeriet              |
 
-## I want to publish text on Mikrobloggeriet!
+## Publishing text on Mikrobloggeriet!
 
 Text on Mikrobloggeriet is written in Markdown.
 To create a new Markdown text file and a metadata file, you can use one of the two available Mikrobloggeriet CLI applications.
@@ -32,7 +32,7 @@ To create a new Markdown text file and a metadata file, you can use one of the t
 [The CLI with 0 installation steps]: cli-quickstart-mblog-sh.md
 [The CLI with 8 installation steps]: cli-quickstart-mblog.md
 
-## I want to develop Mikrobloggeriet locally!
+## Developing Mikrobloggeriet locally!
 
 You have two options, depending on who you are:
 
@@ -43,6 +43,20 @@ You have two options, depending on who you are:
 
 [clojure-quickstart-homebrew.md]: clojure-quickstart-homebrew.md
 [CONTRIBUTING.md]: CONTRIBUTING.md
+
+## Deploying Mikrobloggeriet!
+
+Mikrobloggeriet runs on Application Garden ([docs.apps.garden](https://docs.apps.garden/).
+
+To deploy,
+
+1. Get an Application Garden user by signing up on [application.garden/signup](https://application.garden/signup)
+
+2. Ask Olav or Teodor to add you to the `mikrobloggeriet` group on Application Garden.
+
+3. Install the `garden` CLI
+
+4. Run `garden deploy` from the `mikrobloggeriet` folder on your computer.
 
 ## Contributors
 
