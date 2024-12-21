@@ -91,71 +91,71 @@
      :body
      (page/html5
          (into [:head] (shared-html-header req))
-         [:body
-          [:p (feeling-lucky "🎲")]
-          [:h1 "Mikrobloggeriet"]
-          [:p "Folk fra Iterate deler fra hverdagen!"]
+       [:body
+        [:p (feeling-lucky "🎲")]
+        [:h1 "Mikrobloggeriet"]
+        [:p "Folk fra Iterate deler fra hverdagen!"]
 
-          (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
-(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/jals]))
-(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/iterate]))
+        (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
+        (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/jals]))
+        (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/iterate]))
 
-          (let [urlog (d/entity datomic [:cohort/id :cohort/urlog])]
-            [:section
-             [:h2 (:cohort/name urlog)]
-             [:p (:cohort/description urlog)]
-             [:p [:a {:href (cohort/href urlog)}
-                  "Gå inn i huset –> 🏨"]]])
-
-          (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/oj]))
-(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/luke]))
-(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/vakt]))
-(ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/kiel]))
-
-          [:hr]
-
+        (let [urlog (d/entity datomic [:cohort/id :cohort/urlog])]
           [:section
-           [:h2 "Hva er dette for noe?"]
-           [:p
-            "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
-            "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
-            "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
-            "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "]]
+           [:h2 (:cohort/name urlog)]
+           [:p (:cohort/description urlog)]
+           [:p [:a {:href (cohort/href urlog)}
+                "Gå inn i huset –> 🏨"]]])
 
-          [:section
-           [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
-           [:p "Vi oppfordrer alle til å kommentere og diskutere!"
-            " Men vi tror det er lettest å gjøre på Slack."
-            " Delta gjerne i diskusjonen i tråd på "
-            [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"]
-            "!"]]
+        (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/oj]))
+        (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/luke]))
+        (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/vakt]))
+        (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/kiel]))
 
+        [:hr]
+
+        [:section
+         [:h2 "Hva er dette for noe?"]
+         [:p
+          "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
+          "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
+          "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
+          "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "]]
+
+        [:section
+         [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
+         [:p "Vi oppfordrer alle til å kommentere og diskutere!"
+          " Men vi tror det er lettest å gjøre på Slack."
+          " Delta gjerne i diskusjonen i tråd på "
+          [:a {:href mikrobloggeriet-announce-url} "#mikrobloggeriet-announce"]
+          "!"]]
+
+        [:section
+         [:h2 "Jeg jobber i Iterate og vil skrive, hva gjør jeg?"]
+         [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
+          " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
+          " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
+          " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
+        [:hr]
+        (let [themes (->> (fs/list-dir "theme")
+                          (map fs/file-name)
+                          (map #(str/replace % #".css$" ""))
+                          sort)]
           [:section
-           [:h2 "Jeg jobber i Iterate og vil skrive, hva gjør jeg?"]
-           [:p "Finn deg 2-3 andre å skrive med, og snakk med Teodor."
-            " Vi setter av en time der vi går gjennom skriveprosessen og installerer tooling."
-            " Deretter får dere en \"prøveuke\" der dere kan prøve dere på å skrive cirka hver tredje dag."
-            " Så kan dere bestemme dere for om dere vil fortsette å skrive eller ikke."]]
-          [:hr]
-          (let [themes (->> (fs/list-dir "theme")
-                            (map fs/file-name)
-                            (map #(str/replace % #".css$" ""))
-                            sort)]
-            [:section
-             [:p "Sett tema: "
-              (into [:span]
-                    (interpose " | "
-                               (for [t themes]
-                                 [:a {:href (str "/set-theme/" t)} t])))]
-             (let [flag-element (fn [flag-name]
-                                  [:span
-                                   (when (= flag-name (flag req))
-                                     "🚩 ")
-                                   [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
-               [:p "Sett flagg: "
-                (flag-element "ingen-flagg")
-                " | "
-                (flag-element "god-jul")])])])}))
+           [:p "Sett tema: "
+            (into [:span]
+                  (interpose " | "
+                             (for [t themes]
+                               [:a {:href (str "/set-theme/" t)} t])))]
+           (let [flag-element (fn [flag-name]
+                                [:span
+                                 (when (= flag-name (flag req))
+                                   "🚩 ")
+                                 [:a {:href (str "/set-flag/" flag-name)} flag-name]])]
+             [:p "Sett flagg: "
+              (flag-element "ingen-flagg")
+              " | "
+              (flag-element "god-jul")])])])}))
 
 (defn random-doc [_req]
   (let [target (or
