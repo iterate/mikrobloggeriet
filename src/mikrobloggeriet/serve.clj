@@ -254,8 +254,7 @@
                       :name :mikrobloggeriet/random-doc}]
 
       ;; Deploy
-      ["/deploy-info" {:get #'deploy-info
-                       :name :mikrobloggeriet/deploy-info}]
+      ["/deploy-info" {:get #'deploy-info :name :mikrobloggeriet/deploy-info}]
 
       ;; helsesjekk, HOPS
       ["/health" {:get health

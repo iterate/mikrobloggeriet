@@ -32,25 +32,14 @@
    ::datomic {}})
 
 (defmethod ig/init-key ::app
-  [_ {:keys [recreate-routes datomic]}]
-  (assert (#{:every-request :once} recreate-routes)
-          "App must be recreated either on every request, or once.")
-  ;; no db to attach
-  (cond (= recreate-routes :every-request)
-        (fn [req]
-          (let [app (serve/assemble-app)]
-            (app (-> req
-                     (assoc ::datomic datomic)))))
-
-        (= recreate-routes :once)
-        (let [app (serve/assemble-app)]
-          (fn [req]
-            (app (-> req
-                     (assoc ::datomic datomic)))))))
+  [_ {:keys [datomic]}]
+  (fn [req]
+    (-> req
+        (assoc ::datomic datomic)
+        serve/app)))
 
 (defmethod ig/init-key ::http-server
   [_ {:keys [port app]}]
-  (println (str "mikrobloggeriet.serve running: http://localhost:" port))
   (httpkit/run-server app {:port port}))
 
 (defmethod ig/halt-key! ::http-server
