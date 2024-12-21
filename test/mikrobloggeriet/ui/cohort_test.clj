@@ -5,8 +5,6 @@
             [mikrobloggeriet.db :as db]
             [mikrobloggeriet.ui.cohort :as ui.cohort]))
 
-(str/includes? "blabla olorm-5 blabla" "olorm")
-
 (deftest doc-table-test
   (let [db (db/loaddb db/cohorts db/authors)
         olorm (d/entity db [:cohort/id :cohort/olorm])
