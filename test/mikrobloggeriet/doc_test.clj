@@ -1,5 +1,6 @@
 (ns mikrobloggeriet.doc-test
   (:require
+   [clojure.string :as str]
    [clojure.test :refer [deftest is]]
    [datomic.api :as d]
    [mblog2.db :as db]
@@ -37,4 +38,15 @@
   (:git.user/email (d/entity db [:doc/slug "olorm-2"]))
   (into {} (d/entity db [:author/email "oddmunds@iterate.no"]))
 
+  )
+
+(deftest title-test
+  (is (= "Funksjonell programmering"
+         (doc/title {:doc/markdown "# Funksjonell programmering"}))))
+
+(deftest html-test
+  (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
+                     "programmering"))
+  (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
+                     "<h1"))
   )

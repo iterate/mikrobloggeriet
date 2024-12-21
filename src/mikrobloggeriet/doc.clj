@@ -2,7 +2,8 @@
   (:refer-clojure :exclude [next])
   (:require
    [clojure.string :as str]
-   [datomic.api :as d]))
+   [datomic.api :as d]
+   [mikrobloggeriet.cache :as cache]))
 
 (defn ^{:deprecated true}
   from-slug [slug]
@@ -36,3 +37,15 @@
 
 (defn author-first-name [db doc]
   (:author/first-name (d/entity db [:author/email (:git.user/email doc)])))
+
+(defn title [doc]
+  (:title (cache/markdown->html+info (:doc/markdown doc))))
+
+(defn html [doc]
+  (:doc-html (cache/markdown->html+info (:doc/markdown doc))))
+
+(comment
+  (cache/markdown->html+info "# Funksjonell programmering")
+  (title {:doc/markdown "# Funksjonell programmering"})
+  (html {:doc/markdown "# Funksjonell programmering"})
+  )
