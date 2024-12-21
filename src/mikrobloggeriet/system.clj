@@ -62,8 +62,18 @@
   (ig/halt! sys2)
   ,)
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn start-prod! [extra-opts]
+(defn ^:export start! [overrides]
+  (set! *print-namespace-maps* false)
+  (let [opts (cond-> (prod)
+               (:port overrides)
+               (assoc-in [::http-server :port] (:port overrides)))
+        system (ig/init opts)]
+    (reset! mikrobloggeriet.repl/state system)
+    system))
+
+(defn ^{:export true
+        :deprecated "Use start! instead."}
+  start-prod! [extra-opts]
   (let [opts (cond-> (prod)
                (:port extra-opts)
                (assoc-in [::http-server :port] (:port extra-opts)))

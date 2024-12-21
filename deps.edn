@@ -21,7 +21,7 @@
   :kaocha {:extra-paths ["test"]
            :extra-deps {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
            :main-opts ["-m" "kaocha.runner"]}
-  :nextjournal/garden {:exec-fn mikrobloggeriet.system/start-prod!
+  :nextjournal/garden {:exec-fn mikrobloggeriet.system/start!
                        :extra-deps {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
                        :extra-paths ["dev" "test"]}
   ,}}
