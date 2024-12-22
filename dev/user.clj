@@ -22,5 +22,4 @@
 (comment
   (reload)
   mikrobloggeriet.state/datomic
-  mikrobloggeriet.state/ring-handler
   )
