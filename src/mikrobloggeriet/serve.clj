@@ -269,7 +269,9 @@
       ]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
-(def app (assemble-app))
+(defonce app (assemble-app))
+
+#_ (reset! app (assemble-app))
 
 (defn url-for
   ([name] (url-for name {}))

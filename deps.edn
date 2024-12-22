@@ -1,4 +1,4 @@
-{:paths ["src"]
+{:paths ["src" "dev" "test"]
  :deps
  {babashka/fs {:mvn/version "0.5.23"}
   babashka/process {:mvn/version "0.5.22"}
@@ -13,15 +13,17 @@
   metosin/malli {:mvn/version "0.17.0"}
   metosin/reitit {:mvn/version "0.7.2"}
   org.babashka/cli {:mvn/version "0.8.61"}
-  org.clojure/clojure {:mvn/version "1.12.0"}}
+  org.clojure/clojure {:mvn/version "1.12.0"}
+
+  ;; For development
+  ;;
+  ;; We want these accessible in prod REPLs too, so into main deps they go.
+  io.github.tonsky/clj-reload {:mvn/version "0.7.1"}
+  lambdaisland/kaocha {:mvn/version "1.91.1392"}
+  }
  :aliases
- {:testrunner {:extra-paths ["test"]
-               :extra-deps {io.github.cognitect-labs/test-runner {:git/url "https://github.com/cognitect-labs/test-runner" :git/tag "v0.5.1" :git/sha "dfb30dd"}}
+ {:testrunner {:extra-deps {io.github.cognitect-labs/test-runner {:git/url "https://github.com/cognitect-labs/test-runner" :git/tag "v0.5.1" :git/sha "dfb30dd"}}
                :main-opts ["-m" "cognitect.test-runner"]}
-  :kaocha {:extra-paths ["test"]
-           :extra-deps {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
-           :main-opts ["-m" "kaocha.runner"]}
-  :nextjournal/garden {:exec-fn mikrobloggeriet.system/start!
-                       :extra-deps {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
-                       :extra-paths ["dev" "test"]}
+  :kaocha {:main-opts ["-m" "kaocha.runner"]}
+  :nextjournal/garden {:exec-fn mikrobloggeriet.system/start!}
   ,}}

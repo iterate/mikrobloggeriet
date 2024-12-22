@@ -1,4 +1,6 @@
-(ns user)
+(ns user
+  (:require
+   [clj-reload.core :refer [reload]]))
 
 ;; Anbefalt måte å starte opp Mikrobloggeriet er:
 ;;
@@ -18,3 +20,10 @@
 
 (defn ^:export state []
   (deref (requiring-resolve 'mikrobloggeriet.repl/state)))
+
+(clj-reload.core/init {:dirs ["src" "dev" "test"]
+                       :no-unload '#{mikrobloggeriet.serve mikrobloggeriet.repl}})
+
+(comment
+  (reload)
+  )
