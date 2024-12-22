@@ -50,7 +50,8 @@
                                rand-nth)]))
 
 (comment
-  (def db mikrobloggeriet.state/datomic)
+  (require '[mikrobloggeriet.state :as state])
+  (def db state/datomic)
   (random-doc db)
 
   )

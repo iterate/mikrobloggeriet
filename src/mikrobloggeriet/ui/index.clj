@@ -14,6 +14,7 @@
 (comment
   (set! *print-namespace-maps* false)
   (require '[datomic.api :as d])
+  (require 'mikrobloggeriet.state)
   (def db mikrobloggeriet.state/datomic)
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
   (into {} olorm)

@@ -1,14 +1,10 @@
 (ns mikrobloggeriet.analytics
   (:require
    [cljc.java-time.instant :as instant]
-   [cljc.java-time.local-date :as ld]
    [cljc.java-time.local-date-time :as ldt]
-   [cljc.java-time.local-time :as lt]
    [cljc.java-time.zone-id :as zone-id]
    [cljc.java-time.zoned-date-time :as zdt]
-   [duratom.core :refer [duratom]])
-  (:import
-   [java.time Instant]))
+   [duratom.core :refer [duratom]]))
 
 (defn instant->zdt [instant]
   (instant/at-zone instant (zone-id/of "Europe/Oslo")))

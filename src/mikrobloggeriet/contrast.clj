@@ -1,8 +1,7 @@
 (ns mikrobloggeriet.contrast
   (:require
    [clojure.string :as str]
-   [mikrobloggeriet.relative-luminance :as relative-luminance]
-   [nextjournal.clerk :as clerk]))
+   [mikrobloggeriet.relative-luminance :as relative-luminance]))
 
 (defn hex->rgb [hex]
   (let [hex (str/replace hex #"^#" "")
