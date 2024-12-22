@@ -49,8 +49,6 @@
                      "<h1"))
   )
 
-
-
 (deftest random-cohort+doc-test
   (is (contains? (doc/random-doc db)
                  :doc/slug)))
