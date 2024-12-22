@@ -9,27 +9,33 @@
   (db/loaddb db/cohorts db/authors))
 #_(alter-var-root #'state/datomic create-datomic)
 
-(defn create-app [_previous]
-  (serve/assemble-app))
-#_(alter-var-root #'state/app create-app)
+(defn create-ring-handler [_previous]
+  (serve/create-ring-handler))
+#_(alter-var-root #'state/ring-handler create-ring-handler)
+
+(defn create-injected-app [_previous]
+  (fn [req]
+    (-> req
+        (assoc ::datomic state/datomic)
+        (assoc ::reitit-ring-handler state/ring-handler)
+        state/ring-handler)))
+#_(alter-var-root #'state/injected-app create-injected-app)
 
 (defn create-http-server [port]
   (fn [previous]
     (when previous
       (httpkit/server-stop! previous))
     (httpkit/run-server (fn [req]
-                          (-> req
-                              (assoc ::datomic state/datomic)
-                              state/app))
+                          (state/injected-app req))
                         {:port port
                          :legacy-return-value? false})))
 #_(alter-var-root #'state/http-server (create-http-server 7223))
 ;; Obs: kan ikke restarte HTTP-serveren når vi kjører med `garden run`, fordi
-;; HTTP-serveren henger sammen med REPL-serveren på et vis. Resten av systemet
-;; kan fint startes på nytt.
+;; HTTP-serveren henger sammen med REPL-serveren.
 
 (defn ^:export start! [{:keys [port]}]
   (alter-var-root #'state/datomic create-datomic)
-  (alter-var-root #'state/app create-app)
+  (alter-var-root #'state/ring-handler create-ring-handler)
+  (alter-var-root #'state/injected-app create-injected-app)
   (alter-var-root #'state/http-server (create-http-server (or port 7223))))
 #_(start! {})
