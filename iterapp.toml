@@ -1,5 +1,0 @@
-default_environment = "prod"
-port = 7223
-domains = ["mikrobloggeriet.no"]
-
-[postgres]
