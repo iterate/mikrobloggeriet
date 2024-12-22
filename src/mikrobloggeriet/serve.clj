@@ -16,20 +16,8 @@
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.index :as ui.index]
    [mikrobloggeriet.ui.shared :as ui.shared]
-   [reitit.core :as reitit]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]))
-
-(declare create-ring-handler)
-(declare url-for)
-
-(defn feeling-lucky [content]
-  [:a {:href (url-for :mikrobloggeriet/random-doc {}) :class :feeling-lucky} content])
-
-(comment
-  (feeling-lucky "")
-  ;; => [:a {:href "/random-doc", :class :feeling-lucky} ""]
-  )
 
 (defn set-theme [req]
   (let [target "/"
@@ -66,8 +54,8 @@
      (page/html5
          (into [:head] (ui.shared/html-header req))
        [:body
-        [:p (feeling-lucky "🎲")]
-        [:h1 "Mikrobloggeriet"]
+        [:p (ui.shared/feeling-lucky)]
+        [:h1 "Mikrobloggeriet 99"]
         [:p "Folk fra Iterate deler fra hverdagen!"]
 
         (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
@@ -268,13 +256,3 @@
                                        (asset/load-image image-path)))}]
       ]))
    (reitit.ring/redirect-trailing-slash-handler)))
-
-(defn url-for
-  ([name] (url-for name {}))
-  ([name path-params]
-   nil
-   #_
-   (->
-    (reitit.ring/get-router app)
-    (reitit/match-by-name name)
-    (reitit/match->path path-params))))
