@@ -44,7 +44,6 @@
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
-        _tech-forum-url "https://garasjen.slack.com/archives/C2K35RDNJ"
         hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"
         datomic (:mikrobloggeriet.system/datomic req)]
