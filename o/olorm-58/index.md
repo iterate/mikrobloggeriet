@@ -69,7 +69,7 @@ Det lagde flere problemer enn fordeler.
 - Når man har én mappe med kode, er bruken av koden frakoblet fra koden.
   Man står fritt til å organisere koden der man vil logisk i strukturen, uten å tenke på hvilket underprosjekt som har hvilken funksjonalitet.
 
-Mikrobloggeriet er nå én mappe med én kodebase, og det har fungert mye mer for meg.
+Mikrobloggeriet er nå én mappe med én kodebase, og det har fungert mye bedre for meg.
 Kutt kompleksitet, og bli glad! 😊
 
 I selve server-koden gjorde jeg et valg jeg i dag er mer fornøyd med: putt server-ting i `mikrobloggeriet.serve` inntill ting har et bedre sted å være.
