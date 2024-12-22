@@ -12,4 +12,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Lint
-      run: clj-kondo --fail-level error --lint src
+      run: clj-kondo --fail-level warn --lint src test
