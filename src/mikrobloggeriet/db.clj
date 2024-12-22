@@ -3,7 +3,8 @@
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
-   [datomic.api :as d]))
+   [datomic.api :as d]
+   [mikrobloggeriet.cohort :as cohort]))
 
 ;; Database schema
 (def schema
@@ -174,7 +175,7 @@
                      :doc/slug (fs/file-name dir)
                :doc/cohort [:cohort/id (:cohort/id cohort)])))))
 
-(defn loaddb [cohorts authors]
+(defn loaddb [{:keys [cohorts authors]}]
   (let [uri (str "datomic:mem://" (random-uuid))
         _ (d/create-database uri)
         conn (d/connect uri)]
@@ -183,14 +184,13 @@
                  (for [[cohort-id cohort] cohorts]
                    (assoc cohort :cohort/id cohort-id)))
     @(d/transact conn authors)
-    (doseq [cohort-internal-id (d/q '[:find [?e ...] :where [?e :cohort/id]] (d/db conn))]
-      (let [cohort (d/entity (d/db conn) cohort-internal-id)]
-        @(d/transact conn (find-cohort-docs cohort))))
+    (doseq [cohort (cohort/all-cohorts (d/db conn))]
+      @(d/transact conn (find-cohort-docs cohort)))
     (d/db conn)))
 
 (comment
   (set! *print-namespace-maps* false)
-  (def db (loaddb cohorts authors))
+  (def db (loaddb {:cohorts cohorts :authors  authors}))
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
 
   (def olorm-7 (d/entity db [:doc/slug "olorm-7"]))

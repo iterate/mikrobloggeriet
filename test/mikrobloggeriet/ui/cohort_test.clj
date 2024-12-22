@@ -6,7 +6,7 @@
             [mikrobloggeriet.ui.cohort :as ui.cohort]))
 
 (deftest doc-table-test
-  (let [db (db/loaddb db/cohorts db/authors)
+  (let [db (db/loaddb {:cohorts db/cohorts :authors db/authors})
         olorm (d/entity db [:cohort/id :cohort/olorm])
         response (ui.cohort/doc-table db olorm {})]
     (is (map? response))

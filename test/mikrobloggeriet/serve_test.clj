@@ -6,7 +6,7 @@
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]))
 
-(def db (db/loaddb db/cohorts db/authors))
+(def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
 
 (deftest index-test
   (let [index-resp (serve/index {:mikrobloggeriet.system/datomic db})

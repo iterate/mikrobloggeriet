@@ -16,7 +16,7 @@
          (doc/href {:doc/slug "olorm-13"
                     :doc/cohort {:cohort/slug "olorm"}}))))
 
-(def db (db/loaddb db/cohorts db/authors))
+(def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
 
 (deftest previous-test
   (is (= "olorm-1"

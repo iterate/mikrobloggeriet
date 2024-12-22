@@ -3,10 +3,11 @@
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]
    [mikrobloggeriet.state :as state]
+   [nextjournal.beholder :as beholder]
    [org.httpkit.server :as httpkit]))
 
 (defn create-datomic [_previous]
-  (db/loaddb db/cohorts db/authors))
+  (db/loaddb {:cohorts db/cohorts :authors db/authors}))
 #_(alter-var-root #'state/datomic create-datomic)
 
 (defn create-injected-app [_previous]
