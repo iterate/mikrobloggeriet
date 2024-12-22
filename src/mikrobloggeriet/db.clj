@@ -154,6 +154,7 @@
    {:author/email "neno.mindjek@iterate.no", :author/first-name "Neno"}
    {:author/email "oddmunds@iterate.no", :author/first-name "Oddmund"}
    {:author/email "olav.moseng@iterate.no", :author/first-name "Olav"}
+   {:author/email "ole.martin.knurvik@iterate.no" :author/first-name "Ole Martin"}
    {:author/email "pernille@iterate.no", :author/first-name "Pernille"}
    {:author/email "rasmus.stride@iterate.no", :author/first-name "Rasmus"}
    {:author/email "richard.tingstad@iterate.no", :author/first-name "Richard"}
