@@ -1,47 +1,35 @@
 (ns mikrobloggeriet.system
   (:require
-   [integrant.core :as ig]
    [mikrobloggeriet.db :as db]
-   [mikrobloggeriet.repl]
    [mikrobloggeriet.serve :as serve]
+   [mikrobloggeriet.state :as state]
    [org.httpkit.server :as httpkit]))
 
-(defmethod ig/init-key ::datomic
-  [_ _]
+(defn create-datomic [_previous]
   (db/loaddb db/cohorts db/authors))
+#_(alter-var-root #'state/datomic create-datomic)
 
-(defmethod ig/init-key ::app
-  [_ {:keys [datomic]}]
-  (fn [req]
-    (-> req
-        (assoc ::datomic datomic)
-        serve/app)))
+(defn create-app [_previous]
+  (serve/assemble-app))
+#_(alter-var-root #'state/app create-app)
 
-(defmethod ig/init-key ::http-server
-  [_ {:keys [port app]}]
-  (assert (number? port) "")
-  (httpkit/run-server app {:port port
-                           :legacy-return-value? false}))
+(defn create-http-server [port]
+  (fn [previous]
+    (when previous
+      (httpkit/server-stop! previous))
+    (httpkit/run-server (fn [req]
+                          (-> req
+                              (assoc ::datomic state/datomic)
+                              state/app))
+                        {:port port
+                         :legacy-return-value? false})))
+#_(alter-var-root #'state/http-server (create-http-server 7223))
+;; Obs: kan ikke restarte HTTP-serveren når vi kjører med `garden run`, fordi
+;; HTTP-serveren henger sammen med REPL-serveren på et vis. Resten av systemet
+;; kan fint startes på nytt.
 
-(defmethod ig/halt-key! ::http-server
-  [_ server]
-  (httpkit/server-stop! server))
-
-(def default-config
-  {::app {:datomic (ig/ref ::datomic)}
-   ::http-server {:port 7223
-                  :app (ig/ref ::app)}
-   ::datomic {}})
-
-(defn ^:export start! [overrides]
-  (let [opts (cond-> default-config
-                 (:port overrides)
-                 (assoc-in [::http-server :port] (:port overrides)))
-        system (ig/init opts)]
-    (reset! mikrobloggeriet.repl/state system)
-    system))
-
-(comment
-  (def sys2 (ig/init default-config))
-  (ig/halt! sys2)
-  ,)
+(defn ^:export start! [{:keys [port]}]
+  (alter-var-root #'state/datomic create-datomic)
+  (alter-var-root #'state/app create-app)
+  (alter-var-root #'state/http-server (create-http-server (or port 7223))))
+#_(start! {})

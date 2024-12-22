@@ -1,6 +1,7 @@
 (ns user
   (:require
-   [clj-reload.core :refer [reload]]))
+   [clj-reload.core :refer [reload]]
+   [mikrobloggeriet.state]))
 
 ;; Anbefalt måte å starte opp Mikrobloggeriet er:
 ;;
@@ -15,15 +16,11 @@
   ((requiring-resolve 'mikrobloggeriet.system/start!)
    {}))
 
-;; Du kan bruke mikrobloggeriet.repl/state direkte for å få tak i systemet,
-;; eller `state` under.
-
-(defn ^:export state []
-  (deref (requiring-resolve 'mikrobloggeriet.repl/state)))
-
 (clj-reload.core/init {:dirs ["src" "dev" "test"]
-                       :no-unload '#{mikrobloggeriet.serve mikrobloggeriet.repl}})
+                       :no-unload '#{mikrobloggeriet.state}})
 
 (comment
   (reload)
+  mikrobloggeriet.state/datomic
+  mikrobloggeriet.state/app
   )

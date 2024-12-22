@@ -33,7 +33,7 @@
            [:td (:doc/created doc)]])]]])})
 
 (comment
-  (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
+  (def db mikrobloggeriet.state/datomic)
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
   (keys olorm)
   ;; => (:cohort/id

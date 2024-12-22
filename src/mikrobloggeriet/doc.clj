@@ -57,7 +57,7 @@
                                rand-nth)]))
 
 (comment
-  (require 'mikrobloggeriet.repl)
-  (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
+  (def db mikrobloggeriet.state/datomic)
   (random-doc db)
+
   )

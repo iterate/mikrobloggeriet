@@ -49,7 +49,7 @@
   (get-in (cookies/cookies-request req) [:cookies "flag" :value]))
 
 (comment
-  (def db (:mikrobloggeriet.system/datomic @mikrobloggeriet.repl/state))
+  (def db mikrobloggeriet.state/datomic)
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
   )
 
