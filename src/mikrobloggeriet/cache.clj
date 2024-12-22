@@ -1,4 +1,7 @@
 (ns mikrobloggeriet.cache
+  "Simple atom-backed caching for Clojure functions
+
+  Bring your own atom, use duration if you want a durable cache."
   (:require
    [duratom.core :refer [duratom]]
    [mikrobloggeriet.pandoc :as pandoc]))
