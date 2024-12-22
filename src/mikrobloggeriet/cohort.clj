@@ -1,21 +1,14 @@
 (ns mikrobloggeriet.cohort
   (:require
-   [mikrobloggeriet.cohort.markdown :as cohort.markdown]))
+   [datomic.api :as d]))
 
-;; generic cohort interface
+(defn href [cohort]
+  (when-let [slug (:cohort/slug cohort)]
+    (str "/" slug "/")))
 
-(defmulti slug :cohort/type)
-(defmethod slug :default [_] nil)
-(defmethod slug :cohort.type/markdown
-  [cohort]
-  (cohort.markdown/slug cohort))
-(defmethod slug :cohort.type/urlog
-  [_]
-  "urlog")
-
-(comment
-  (require 'mikrobloggeriet.store)
-  (slug mikrobloggeriet.store/urlog)
-  (slug mikrobloggeriet.store/olorm)
-
-  )
+(defn all-cohorts [db]
+  (for [cohort-id
+        (d/q '[:find [?id ...]
+               :where [_ :cohort/id ?id]]
+             db)]
+    (d/entity db [:cohort/id cohort-id])))

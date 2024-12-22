@@ -29,9 +29,9 @@ jobs:
       - name: Setup name and email for OLORM CLI
         run: git config --global user.name "Github actions" && git config --global user.email "github-actions@ci.mikrobloggeriet.no"
 
-      - name: Download test deps
-        run: clojure -A:test -e :test-deps-downloaded
+      - name: Download deps
+        run: clojure -M -e :deps-downloaded
       - name: print java version
         run: java -version
       - name: Run tests
-        run: clojure -M:run-tests
+        run: clojure -M:test:run-tests

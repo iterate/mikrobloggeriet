@@ -1,13 +1,20 @@
 (ns mikrobloggeriet.cohort-test
   (:require
-   [clojure.test :refer [deftest is]]
-   [mikrobloggeriet.cohort.markdown :as cohort]
-   [mikrobloggeriet.store :as store]))
+   [clojure.test :refer [deftest is testing]]
+   [mikrobloggeriet.cohort :as cohort]
+   [mikrobloggeriet.db :as db]))
 
-(deftest slug-test
-  (is (= "oj" (cohort/slug store/oj)))
-  (is (nil? (cohort/slug {}))))
+(deftest href-test
+  (is (= "/urlog/"
+         (cohort/href {:cohort/slug "urlog"})))
+  (testing "Returnerer nil hvis vi ikke kjenner slug"
+    (is (nil? (cohort/href {})))))
 
-(deftest name-test
-  (is (= "OLORM"
-         (cohort/name store/olorm))))
+(def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
+
+(deftest all-cohorts-test
+  (let [cohorts (cohort/all-cohorts db)]
+    (is (contains? (->> cohorts
+                        (map :cohort/id)
+                        (into #{}))
+                   :cohort/olorm))))
