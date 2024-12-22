@@ -44,7 +44,6 @@
 (defn index [req]
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
-        hops-url "https://www.headless-operations.no/"
         iterate-url "https://www.iterate.no/"
         datomic (:mikrobloggeriet.system/datomic req)]
     {:status 200
@@ -80,8 +79,7 @@
          [:p
           "Mikrobloggeriet er et initiativ der folk fra " [:a {:href iterate-url} "Iterate"] " deler ting de bryr seg om i hverdagen. "
           "Vi publiserer fritt tilgjengelig på Internett fordi vi har tro på å dele kunnskap. "
-          "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "
-          "Mikrobloggeriet kjører på " [:a {:href hops-url} "Headless Operations"] ". "]]
+          "Innhold og kode for Mikrobloggeriet på " [:a {:href github-mikrobloggeriet-url} "github.com/iterate/mikrobloggeriet"] ". "]]
 
         [:section
          [:h2 "Er det mulig å diskutere publiserte dokumenter?"]
@@ -241,9 +239,10 @@
                       :name :mikrobloggeriet/random-doc}]
 
       ;; Deploy
-      ["/deploy-info" {:get #'deploy-info :name :mikrobloggeriet/deploy-info}]
+      ["/deploy-info" {:get #'deploy-info
+                       :name :mikrobloggeriet/deploy-info}]
 
-      ;; helsesjekk, HOPS
+      ;; Helsesjekk
       ["/health" {:get health
                   :name :mikrobloggeriet/health}]
 
