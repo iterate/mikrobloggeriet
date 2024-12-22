@@ -12,6 +12,7 @@
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.http :as http]
+   [mikrobloggeriet.ui.analytics :as ui.analytics]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.index :as ui.index]
@@ -241,6 +242,10 @@
       ;; Deploy
       ["/deploy-info" {:get #'deploy-info
                        :name :mikrobloggeriet/deploy-info}]
+
+      ;; Analyse
+      ["/analyse/" {:get #'ui.analytics/page
+                   :name :mikrobloggeriet/analytics}]
 
       ;; Helsesjekk
       ["/health" {:get health

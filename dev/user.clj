@@ -14,11 +14,7 @@
 
 (defn ^:export start!
   []
-  ((requiring-resolve 'mikrobloggeriet.system/start!)
-   {}))
-
-(clj-reload.core/init {:dirs ["src" "dev" "test"]
-                       :no-unload '#{mikrobloggeriet.state}})
+  ((requiring-resolve 'mikrobloggeriet.system/start!) {}))
 
 (comment
   (reload)

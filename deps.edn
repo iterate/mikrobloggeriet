@@ -4,6 +4,8 @@
   babashka/process {:mvn/version "0.5.22"}
   cheshire/cheshire {:mvn/version "5.13.0"}
   com.datomic/peer {:mvn/version "1.0.7277"}
+  com.widdindustries/cljc.java-time {:mvn/version "0.1.21"}
+  com.widdindustries/time-literals {:mvn/version "0.1.10"}
   duratom/duratom {:mvn/version "0.5.9"}
   hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
   http-kit/http-kit {:mvn/version "2.8.0"}

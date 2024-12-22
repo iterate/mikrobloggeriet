@@ -1,12 +1,17 @@
 (ns mikrobloggeriet.system
   (:require
+   [clj-reload.core]
    [datomic.api :as d]
+   [mikrobloggeriet.analytics :as analytics]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]
    [mikrobloggeriet.state :as state]
    [nextjournal.beholder :as beholder]
-   [org.httpkit.server :as httpkit]))
+   [org.httpkit.server :as httpkit]
+   [time-literals.read-write])
+  (:import
+   [java.time Instant]))
 
 (defn create-datomic [_previous]
   (db/loaddb {:cohorts db/cohorts :authors db/authors}))
@@ -50,7 +55,10 @@
   (let [handler (serve/create-ring-handler)]
     (fn [req]
       (-> req
+          (assoc ::now (Instant/now))
           (assoc ::datomic state/datomic)
+          (assoc ::pageviews @analytics/!pageviews)
+          analytics/consume!
           handler))))
 #_(alter-var-root #'state/injected-app create-injected-app)
 
@@ -70,6 +78,9 @@
 ;; helt OK, men også kan gjøres med `garden restart`).
 
 (defn ^:export start! [{:keys [port]}]
+  (time-literals.read-write/print-time-literals-clj!)
+  (clj-reload.core/init {:dirs ["src" "dev" "test"]
+                         :no-unload '#{mikrobloggeriet.state}})
   (alter-var-root #'state/datomic create-datomic)
   (alter-var-root #'state/file-watcher (create-file-watcher state/datomic))
   (alter-var-root #'state/injected-app create-injected-app)
