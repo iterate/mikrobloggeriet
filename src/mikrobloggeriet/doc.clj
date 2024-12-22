@@ -5,13 +5,6 @@
    [datomic.api :as d]
    [mikrobloggeriet.cache :as cache]))
 
-(defn ^{:deprecated true}
-  from-slug [slug]
-  {:doc/slug slug})
-
-(defn ^{:deprecated true} slug [doc]
-  (:doc/slug doc))
-
 (defn number [doc]
   (when-let [slug (:doc/slug doc)]
     (parse-long (last (str/split slug #"-")))))
