@@ -9,6 +9,9 @@
 (defonce ^{:doc "Datomic-database"}
   datomic nil)
 
+(defonce ^{:doc "nextjournal/beholder watchers for new docs. Local dev only!"}
+  cohort-watchers nil)
+
 (defonce ^{:doc "Funksjon fra HTTP-request til HTTP-response"}
   injected-app nil)
 
