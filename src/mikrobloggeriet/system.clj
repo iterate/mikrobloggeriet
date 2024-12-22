@@ -1,7 +1,6 @@
 (ns mikrobloggeriet.system
   (:require
    [integrant.core :as ig]
-   [mikrobloggeriet.config :as config]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.repl]
    [mikrobloggeriet.serve :as serve]
