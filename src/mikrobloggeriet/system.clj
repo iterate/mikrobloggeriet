@@ -20,6 +20,7 @@
 
 (defmethod ig/init-key ::http-server
   [_ {:keys [port app]}]
+  (assert (number? port) "")
   (httpkit/run-server app {:port port
                            :legacy-return-value? false}))
 
@@ -29,7 +30,7 @@
 
 (def default-config
   {::app {:datomic (ig/ref ::datomic)}
-   ::http-server {:port config/http-server-port
+   ::http-server {:port 7223
                   :app (ig/ref ::app)}
    ::datomic {}})
 
