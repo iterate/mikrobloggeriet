@@ -10,7 +10,7 @@
   datomic nil)
 
 (defonce ^{:doc "nextjournal/beholder watchers for new docs. Local dev only!"}
-  cohort-watchers nil)
+  file-watcher nil)
 
 (defonce ^{:doc "Funksjon fra HTTP-request til HTTP-response"}
   injected-app nil)

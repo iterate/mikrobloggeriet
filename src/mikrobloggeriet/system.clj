@@ -1,5 +1,6 @@
 (ns mikrobloggeriet.system
   (:require
+   [datomic.api :as d]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]
@@ -11,25 +12,39 @@
   (db/loaddb {:cohorts db/cohorts :authors db/authors}))
 #_(alter-var-root #'state/datomic create-datomic)
 
-(defn create-cohort-watchers [db]
+(defn create-file-watcher [db]
   (fn [previous]
-    (when (seq previous)
-      (run! beholder/stop (vals previous)))
-    ;; We only want to run the wathcer in local developement, eg when we're not
-    ;; running behind a specific Git revision. When we _are_ running a specific
-    ;; Git revision, we assume our source files are static.
-    ;;
-    ;; Does not catch users adding new cohorts. In that case, reload Datomic by
-    ;; hand.
+    (when previous
+      (beholder/stop previous))
+    ;; We watch for changes in local development only, because we don't modify
+    ;; documents in-place in production.
     (when-not (System/getenv "GARDEN_GIT_REVISION")
-      (prn :hello)
-      (->> (for [cohort (cohort/all-cohorts db)]
-             [(:cohort/id cohort)
-              (beholder/watch (fn [_]
-                                (tap> cohort))
-                              (doto (:cohort/root cohort) prn))])
-           (into {})))))
-#_ (alter-var-root #'state/cohort-watchers (create-cohort-watchers state/datomic))
+      (let [roots (map :cohort/root (cohort/all-cohorts db))]
+        (apply beholder/watch
+               (fn [_event]
+                 ;; NOTE: Current reloading behavior is "when ANY doc is
+                 ;; changed, reload EVERY doc". Performance can be improved, but
+                 ;; let's get it correct first.
+                 (let [the-docs (->> (cohort/all-cohorts db)
+                                     (mapcat db/find-cohort-docs))]
+                   (alter-var-root #'state/datomic
+                                   (fn [olddb]
+                                     (-> olddb
+                                         (d/with the-docs)
+                                         :db-after)))))
+               roots)))))
+#_(alter-var-root #'state/file-watcher (create-file-watcher state/datomic))
+
+(comment
+  (def db state/datomic)
+  (->> (cohort/all-cohorts db)
+       (map :cohort/root))
+  (def roots (apply beholder/watch tap> roots))
+  (def olorm (d/entity db [:cohort/id :cohort/olorm]))
+  (def the-docs (db/find-cohort-docs olorm))
+  (-> db (d/with the-docs) :db-after)
+
+  )
 
 (defn create-injected-app [_previous]
   (let [handler (serve/create-ring-handler)]
@@ -48,12 +63,15 @@
                         {:port port
                          :legacy-return-value? false})))
 #_(alter-var-root #'state/http-server (create-http-server 7223))
+
 ;; Obs: kan ikke restarte HTTP-serveren når vi kjører med `garden run`, fordi
-;; HTTP-serveren henger sammen med REPL-serveren.
+;; HTTP-serveren henger sammen med REPL-serveren. Hvis du prøver å restarte
+;; HTTP-servern i prod, vil du krasje prod (som vil føre til en restart, som er
+;; helt OK, men også kan gjøres med `garden restart`).
 
 (defn ^:export start! [{:keys [port]}]
   (alter-var-root #'state/datomic create-datomic)
-  (alter-var-root #'state/cohort-watchers (create-cohort-watchers state/datomic))
+  (alter-var-root #'state/file-watcher (create-file-watcher state/datomic))
   (alter-var-root #'state/injected-app create-injected-app)
   (alter-var-root #'state/http-server (create-http-server (or port 7223))))
 #_(start! {})
