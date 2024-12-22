@@ -9,10 +9,7 @@
 (defonce ^{:doc "Datomic-database"}
   datomic nil)
 
-(defonce ^{:doc "Funksjon fra HTTP-request til HTTP-response, tar avhengigheter som input"}
-  ring-handler nil)
-
-(defonce ^{:doc "Funksjon fra HTTP-request til HTTP-response, legger på avhengigheter"}
+(defonce ^{:doc "Funksjon fra HTTP-request til HTTP-response"}
   injected-app nil)
 
 (defonce ^{:doc "Kjørende HTTP-server"}

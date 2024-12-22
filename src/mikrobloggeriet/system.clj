@@ -9,16 +9,12 @@
   (db/loaddb db/cohorts db/authors))
 #_(alter-var-root #'state/datomic create-datomic)
 
-(defn create-ring-handler [_previous]
-  (serve/create-ring-handler))
-#_(alter-var-root #'state/ring-handler create-ring-handler)
-
 (defn create-injected-app [_previous]
-  (fn [req]
-    (-> req
-        (assoc ::datomic state/datomic)
-        (assoc ::reitit-ring-handler state/ring-handler)
-        state/ring-handler)))
+  (let [handler (serve/create-ring-handler)]
+    (fn [req]
+      (-> req
+          (assoc ::datomic state/datomic)
+          handler))))
 #_(alter-var-root #'state/injected-app create-injected-app)
 
 (defn create-http-server [port]
@@ -35,7 +31,6 @@
 
 (defn ^:export start! [{:keys [port]}]
   (alter-var-root #'state/datomic create-datomic)
-  (alter-var-root #'state/ring-handler create-ring-handler)
   (alter-var-root #'state/injected-app create-injected-app)
   (alter-var-root #'state/http-server (create-http-server (or port 7223))))
 #_(start! {})

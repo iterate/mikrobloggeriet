@@ -55,8 +55,8 @@
          (into [:head] (ui.shared/html-header req))
        [:body
         [:p (ui.shared/feeling-lucky)]
-        [:h1 "Mikrobloggeriet 99"]
-        [:p "Folk fra Iterate deler fra hverdagen!"]
+        [:h1 "Mikrobloggeriet"]
+        [:p "Folk fra Iterate deler fra hverdagen! ✨"]
 
         (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/olorm]))
         (ui.index/cohort-section (d/entity datomic [:cohort/id :cohort/jals]))
