@@ -18,7 +18,7 @@
    (hiccup.page/include-css "/pygment.css")
    (let [theme (get-in (cookies/cookies-request req)
                        [:cookies "theme" :value]
-                       "vanilla")]
+                       "christmas")]
      (hiccup.page/include-css (str "/theme/" theme ".css")))
    (let [theme (get-in (cookies/cookies-request req) [:cookies "theme" :value])
          number (rand-nth (range 4))]
