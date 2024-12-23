@@ -1,10 +1,11 @@
 (ns mikrobloggeriet.ui.index
   (:require
-   [mikrobloggeriet.doc :as doc]))
+   [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.cohort :as cohort]))
 
 (defn cohort-section [cohort]
   [:section
-   [:h2 (:cohort/name cohort) " " [:a {:href (str (:cohort/slug cohort) "/")} "↗"]]
+   [:h2 (:cohort/name cohort) " " [:a {:href (cohort/href cohort)} "↗"]]
    [:p (:cohort/description cohort)]
    [:ul {:class "doc-list"}
     (for [doc (sort-by doc/number (:doc/_cohort cohort))]
