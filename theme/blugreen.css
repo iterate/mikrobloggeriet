@@ -1,0 +1,28 @@
+/* Variables */
+:root {
+    --desktop-font-size: 1.2rem/1.55;
+    --mobile-font-size: 1rem/1.45;
+    --text-color: hsl(124, 100%, 88%);
+    --link-color: hsl(124, 100%, 88%);
+    --link-color-alt: hsl(124, 100%, 88%);
+    --link-color-visit: hsl(124, 100%, 88%);
+    --primary-color: hsl(124, 100%, 88%);
+    --secondary-color: black;
+    --tertiary-color: black;
+}
+
+body {
+    background: black;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: rgb(109 219 253);
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: rgb(109 219 253);
+
+    a {
+        color: rgb(109 219 253);
+    }
+}
