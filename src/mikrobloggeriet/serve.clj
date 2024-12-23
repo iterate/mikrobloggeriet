@@ -15,6 +15,7 @@
    [mikrobloggeriet.ui.analytics :as ui.analytics]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.doc :as ui.doc]
+   [mikrobloggeriet.ui.editor :as ui.editor]
    [mikrobloggeriet.ui.index :as ui.index]
    [mikrobloggeriet.ui.shared :as ui.shared]
    [reitit.ring]
@@ -244,9 +245,13 @@
       ["/deploy-info" {:get #'deploy-info
                        :name :mikrobloggeriet/deploy-info}]
 
-      ;; Analyse
+      ;; Tell sidevisninger per side per dag
       ["/analyse/" {:get #'ui.analytics/page
                    :name :mikrobloggeriet/analytics}]
+
+      ;; Et forsøk på å redigere tekst direkte fra nettleseren
+      ["/editor/" {:get #'ui.editor/page
+                    :name :mikrobloggeriet/edit}]
 
       ;; Helsesjekk
       ["/health" {:get health
