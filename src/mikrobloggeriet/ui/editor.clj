@@ -16,8 +16,7 @@
      [:body
       (ui.shared/navbar)
       [:h1 "Skriveflate"]
-      [:p "Vi eksperimenterer med muligheten til å skrive direkte på nett."
-       " For nå er anbefalt måte å skrive å skrive en markdown-fil i kildekoden."]
+      [:p "Vi eksperimenterer med muligheten til å skrive direkte på nett."]
       [:textarea
        {:style {:resize "vertical"
                 :width "100%"
