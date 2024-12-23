@@ -52,14 +52,13 @@
   )
 
 (defn create-injected-app [_previous]
-  (let [handler (serve/create-ring-handler)]
-    (fn [req]
-      (-> req
-          (assoc ::now (Instant/now))
-          (assoc ::datomic state/datomic)
-          (assoc ::pageviews @analytics/!pageviews)
-          analytics/consume!
-          handler))))
+  (fn [req]
+    (-> req
+        (assoc ::now (Instant/now))
+        (assoc ::datomic state/datomic)
+        (assoc ::pageviews @analytics/!pageviews)
+        analytics/consume!
+        serve/ring-handler)))
 #_(alter-var-root #'state/injected-app create-injected-app)
 
 (defn create-http-server [port]

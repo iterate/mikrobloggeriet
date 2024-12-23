@@ -260,3 +260,6 @@
                                        (asset/load-image image-path)))}]
       ]))
    (reitit.ring/redirect-trailing-slash-handler)))
+
+(def ring-handler
+  (create-ring-handler))
