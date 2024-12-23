@@ -4,7 +4,7 @@
 
 (defn cohort-section [cohort]
   [:section
-   [:h2 (:cohort/name cohort) "/ " [:a {:href (:cohort/slug cohort)} "↗"]]
+   [:h2 (:cohort/name cohort) " " [:a {:href (:cohort/slug cohort)} "↗"]]
    [:p (:cohort/description cohort)]
    [:ul {:class "doc-list"}
     (for [doc (sort-by doc/number (:doc/_cohort cohort))]
