@@ -7,9 +7,10 @@
   {:status 200
    :headers {"Content-Type" "text/html; charset=utf-8"}
    :body
-   (hiccup.page/html5
-       (into [:head] (concat [[:title "Analyse"]]
-                             (ui.shared/html-header req)))
+   (hiccup.page/html5 {}
+     [:head
+      [:title "Analyse"]
+      (ui.shared/html-header req)]
      [:body
       (ui.shared/navbar)
       [:h1 "Analyse"]

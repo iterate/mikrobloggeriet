@@ -52,8 +52,8 @@
     {:status 200
      :headers {"Content-type" "text/html"}
      :body
-     (page/html5
-         (into [:head] (ui.shared/html-header req))
+     (page/html5 {}
+       [:head (ui.shared/html-header req)]
        [:body
         [:p (ui.shared/feeling-lucky)]
         [:h1 "Mikrobloggeriet"]

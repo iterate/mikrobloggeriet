@@ -9,15 +9,16 @@
   {:status 200
    :headers {"Content-Type" "text/html; charset=utf-8"}
    :body
-   (hiccup.page/html5
-    (into [:head] (concat [[:title "Editor"]]
-                          (ui.shared/html-header req)))
-    [:body
-     (ui.shared/navbar)
-     [:h1 "Skriveflate"]
-     [:p "Vi eksperimenterer med muligheten til å skrive direkte på nett."
-      " For nå er anbefalt måte å skrive å skrive en markdown-fil i kildekoden."]
-     [:textarea
-      {:style {:resize "vertical"
-               :width "100%"
-               :min-height "12rem"}}]])})
+   (hiccup.page/html5 {}
+     [:head
+      [:title "Editor"]
+      (ui.shared/html-header req)]
+     [:body
+      (ui.shared/navbar)
+      [:h1 "Skriveflate"]
+      [:p "Vi eksperimenterer med muligheten til å skrive direkte på nett."
+       " For nå er anbefalt måte å skrive å skrive en markdown-fil i kildekoden."]
+      [:textarea
+       {:style {:resize "vertical"
+                :width "100%"
+                :min-height "12rem"}}]])})

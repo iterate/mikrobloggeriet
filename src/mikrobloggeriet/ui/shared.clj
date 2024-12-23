@@ -27,5 +27,5 @@
         (str ":root{ --text-color: var(--iterate-base0" number ")}")]))))
 
 (defn navbar [& children]
-  (into [:p (feeling-lucky) " — " [:a {:href "/"} "mikrobloggeriet"]]
-        children))
+  [:p (feeling-lucky) " — " [:a {:href "/"} "mikrobloggeriet"]
+   children])

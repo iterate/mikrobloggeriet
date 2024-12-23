@@ -10,8 +10,8 @@
   {:status 200
    :headers {"Content-Type" "text/html; charset=utf-8"}
    :body
-   (page/html5
-       (into [:head] (ui.shared/html-header req))
+   (page/html5 {}
+     [:head (ui.shared/html-header req)]
      [:body
       (ui.shared/navbar)
       [:h1 (str "Alle " (str/upper-case (:cohort/slug cohort)) "-er")]

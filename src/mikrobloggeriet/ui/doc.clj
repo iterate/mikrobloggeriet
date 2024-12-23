@@ -23,9 +23,10 @@
     {:status 200
      :headers {"Content-Type" "text/html; charset=utf-8"}
      :body
-     (hiccup.page/html5
-         (into [:head] (concat [[:title title]]
-                               (ui.shared/html-header req)))
+     (hiccup.page/html5 {}
+       [:head
+        [:title title]
+        (ui.shared/html-header req)]
        [:body
         (ui.shared/navbar " "
                           [:a {:href (cohort/href cohort)}
