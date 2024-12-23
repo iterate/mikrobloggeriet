@@ -11,9 +11,7 @@
        (into [:head] (concat [[:title "Analyse"]]
                              (ui.shared/html-header req)))
      [:body
-      [:p (ui.shared/feeling-lucky)
-       " — "
-       [:a {:href "/"} "mikrobloggeriet"]]
+      (ui.shared/navbar)
       [:h1 "Analyse"]
       [:h2 "URLOG"]
       [:table

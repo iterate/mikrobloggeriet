@@ -24,3 +24,7 @@
      (when (= theme "iterate")
        [:style {:type "text/css"}
         (str ":root{ --text-color: var(--iterate-base0" number ")}")]))])
+
+(defn navbar [& children]
+  (into [:p (feeling-lucky) " — " [:a {:href "/"} "mikrobloggeriet"]]
+        children))
