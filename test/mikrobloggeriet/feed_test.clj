@@ -26,8 +26,9 @@ Jeg lover!!!"
          (feed/generate-feed [en-god-latter-forlenger-livet]))))
 
 (comment
-  (require '[datomic.api :as d])
-  (require '[mikrobloggeriet.doc :as doc])
+  (require '[datomic.api :as d]
+           '[mikrobloggeriet.doc :as doc]
+           '[mikrobloggeriet.state])
   (def olorm-1 (d/entity mikrobloggeriet.state/datomic
                          [:doc/slug "olorm-1"]))
   (into {} olorm-1)
