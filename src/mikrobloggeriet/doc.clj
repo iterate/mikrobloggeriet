@@ -36,6 +36,9 @@
 (defn html [doc]
   (:doc-html (cache/markdown->html+info (:doc/markdown doc))))
 
+(defn description [doc]
+  (:description (cache/markdown->html+info (:doc/markdown doc))))
+
 (comment
   (cache/markdown->html+info "# Funksjonell programmering")
   (title {:doc/markdown "# Funksjonell programmering"})

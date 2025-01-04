@@ -42,6 +42,12 @@
   (is (= "Funksjonell programmering"
          (doc/title {:doc/markdown "# Funksjonell programmering"}))))
 
+(deftest description-test
+  (is (= "Mindre er ofte bedre."
+         (doc/description {:doc/markdown "# Funksjonell programmering
+
+Mindre er ofte bedre."}))))
+
 (deftest html-test
   (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
                      "programmering"))
