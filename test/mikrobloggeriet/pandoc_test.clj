@@ -114,3 +114,12 @@ About time we got some shit done."]
   (let [doc (pandoc/from-markdown "# super duper document")]
     (is (= "super duper document"
            (pandoc/infer-title doc)))))
+
+(deftest infer-description-test
+  (let [doc (pandoc/from-markdown "# Title
+
+The description.
+
+The rest of the document.")]
+    (is (= "The description."
+           (pandoc/infer-description doc)))))

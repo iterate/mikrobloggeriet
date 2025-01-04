@@ -1,10 +1,9 @@
 (ns mikrobloggeriet.pandoc
   (:require
-   [clojure.string :as str]
+   [babashka.fs :as fs]
    [babashka.process]
    [cheshire.core :as json]
-   [babashka.fs :as fs]))
-
+   [clojure.string :as str]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LOW LEVEL PANDOC WRAPPER
@@ -70,6 +69,9 @@
     (and (header? el)
          (= header-level 1))))
 
+(defn para? [el]
+  (= (:t el) "Para"))
+
 (defn header->plaintext [el]
   (when (header? el)
     (els->plaintext (get-in el [:c 2]))))
@@ -80,6 +82,12 @@
                                (filter h1?)
                                first)]
         (header->plaintext first-h1))))
+
+(defn infer-description [pandoc]
+  (when-let [first-para (->> (:blocks pandoc)
+                             (filter para?)
+                             first)]
+    (els->plaintext (:c first-para))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; READ FROM FORMAT INTO IR
