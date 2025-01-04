@@ -26,5 +26,6 @@
    :body (serialize (generate-feed (doc/all (:mikrobloggeriet.system/datomic req))))})
 
 (comment
+  (require '[mikrobloggeriet.state])
   (handler {:mikrobloggeriet.system/datomic mikrobloggeriet.state/datomic})
   )
