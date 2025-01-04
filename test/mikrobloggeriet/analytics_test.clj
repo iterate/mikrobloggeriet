@@ -18,3 +18,11 @@
                        {:uri "/urlog/"
                         :mikrobloggeriet.system/now (Instant/parse "2024-12-22T18:20:08.542820Z")})
          {"/urlog/" {"2024-12-22" 1}})))
+
+(deftest uri+date+count-tuples-test
+  (is (= (analytics/uri+date+count-tuples {"/urlog/" {"2024-12-22" 1
+                                                      "2025-01-04" 2}
+                                           "/olorm/olorm-1/" {"2025-01-04" 1}})
+         '(["/olorm/olorm-1/" "2025-01-04" 1]
+           ["/urlog/" "2024-12-22" 1]
+           ["/urlog/" "2025-01-04" 2]))))

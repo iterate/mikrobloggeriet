@@ -1,4 +1,5 @@
 (ns mikrobloggeriet.analytics
+  "We track URI -> Date -> Count for page views."
   (:require
    [cljc.java-time.instant :as instant]
    [cljc.java-time.local-date-time :as ldt]
@@ -33,3 +34,10 @@
   (swap! !pageviews rf req)
   req)
 #_(dotimes [_ 5] (consume! {:uri "/urlog/" :mikrobloggeriet.system/now (Instant/parse "2024-12-22T18:20:08.542820Z")}))
+
+(defn uri+date+count-tuples [state]
+  (->>
+   (for [[uri uri-analytics] state
+         [date count] uri-analytics]
+     [uri date count])
+   sort))

@@ -248,7 +248,7 @@
 
       ;; Tell sidevisninger per side per dag
       ["/analyse/" {:get #'ui.analytics/page
-                   :name :mikrobloggeriet/analytics}]
+                    :name :mikrobloggeriet/analytics}]
 
       ;; Et forsøk på å redigere tekst direkte fra nettleseren
       ["/editor/" {:get #'ui.editor/page
