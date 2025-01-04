@@ -71,9 +71,17 @@
                (fn markdown->html+info [markdown]
                  (let [pandoc (pandoc/from-markdown markdown)]
                    {:doc-html (pandoc/to-html pandoc)
-                    :title (pandoc/infer-title pandoc)}))
+                    :title (pandoc/infer-title pandoc)
+                    :description (pandoc/infer-description pandoc)}))
+               #(str "2025-01-04: added :description\n" %)
                identity))
 
 (comment
   (markdown->html+info "# Funksjonell programmering")
+
+  (->> @cache-atom
+       vals
+       (map :description)
+       (filter identity))
+
   )
