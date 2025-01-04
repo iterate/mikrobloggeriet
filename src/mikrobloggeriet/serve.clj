@@ -11,6 +11,7 @@
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]
+   [mikrobloggeriet.feed :as feed]
    [mikrobloggeriet.http :as http]
    [mikrobloggeriet.ui.analytics :as ui.analytics]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
@@ -263,6 +264,9 @@
       ["/images/:image-path" {:get (fn [req]
                                      (let [image-path (http/path-param req :image-path)]
                                        (asset/load-image image-path)))}]
+
+      ["/feed.xml" {:get #'feed/handler}]
+
       ]))
    (reitit.ring/redirect-trailing-slash-handler)))
 
