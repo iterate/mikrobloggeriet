@@ -21,6 +21,7 @@ Jeg lover!!!"
              [:title "En god latter forlenger livet"]
              [:published "2023-04-17"]
              [:author [:name "Ole Brumm"]]
+             [:summary {:type "html"} "Jeg lover!!!"]
              [:content {:type "html"}
               "<h1 id=\"en-god-latter-forlenger-livet\">En god latter forlenger\nlivet</h1>\n<p>Jeg lover!!!</p>\n"]])]
          (feed/generate-feed [en-god-latter-forlenger-livet]))))

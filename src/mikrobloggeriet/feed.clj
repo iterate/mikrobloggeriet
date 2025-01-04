@@ -13,7 +13,8 @@
              [:published (:doc/created doc)]]
             (when-let [author-name (some-> doc :doc/primary-author :author/first-name)]
               [[:author [:name author-name]]])
-            [[:content {:type "html"} (doc/html doc)]])))])
+            [[:summary {:type "html"} (doc/description doc)]
+             [:content {:type "html"} (doc/html doc)]])))])
 
 (defn serialize [feed]
   (str (hiccup/html {:mode :xml}
