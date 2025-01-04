@@ -49,6 +49,12 @@
                      "<h1"))
   )
 
-(deftest random-cohort+doc-test
+(deftest all-test
+  (is (contains? (->> (doc/all db)
+                      (map :doc/slug)
+                      (into #{}))
+                 "olorm-1")))
+
+(deftest random-doc-test
   (is (contains? (doc/random-doc db)
                  :doc/slug)))

@@ -42,12 +42,15 @@
   (html {:doc/markdown "# Funksjonell programmering"})
   )
 
+(defn all [db]
+  (->> (d/q '[:find [?eid ...]
+              :where [?eid :doc/slug]]
+            db)
+       (map (fn [eid]
+              (d/entity db eid)))))
+
 (defn random-doc [db]
-  (d/entity db [:doc/slug (->> (d/q '[:find [?slug ...]
-                                      :where [_ :doc/slug ?slug]]
-                                    db)
-                               vec
-                               rand-nth)]))
+  (rand-nth (all db)))
 
 (comment
   (require '[mikrobloggeriet.state :as state])
