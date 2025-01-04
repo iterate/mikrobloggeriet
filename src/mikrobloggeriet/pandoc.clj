@@ -43,15 +43,24 @@
   [expr]
   (cond (= "Str" (:t expr))
         (:c expr)
+
         (= "MetaInlines" (:t expr))
         (els->plaintext (:c expr))
+
         (= "Space" (:t expr))
         " "
+
+        (= "SoftBreak" (:t expr))
+        " "
+
         (= "Para" (:t expr))
         (els->plaintext (:c expr))
+
         (= "Emph" (:t expr))
         (els->plaintext (:c expr))
-        :else nil))
+
+        :else
+        nil))
 
 (defn set-title [pandoc title]
   (assert (pandoc? pandoc))
