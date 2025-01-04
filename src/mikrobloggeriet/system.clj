@@ -24,13 +24,13 @@
     ;; We watch for changes in local development only, because we don't modify
     ;; documents in-place in production.
     (when-not (System/getenv "GARDEN_GIT_REVISION")
-      (let [roots (map :cohort/root (cohort/all-cohorts db))]
+      (let [roots (map :cohort/root (cohort/all db))]
         (apply beholder/watch
                (fn [_event]
                  ;; NOTE: Current reloading behavior is "when ANY doc is
                  ;; changed, reload EVERY doc". Performance can be improved, but
                  ;; let's get it correct first.
-                 (let [the-docs (->> (cohort/all-cohorts db)
+                 (let [the-docs (->> (cohort/all db)
                                      (mapcat db/find-cohort-docs))]
                    (alter-var-root #'state/datomic
                                    (fn [olddb]
@@ -42,7 +42,7 @@
 
 (comment
   (def db state/datomic)
-  (->> (cohort/all-cohorts db)
+  (->> (cohort/all db)
        (map :cohort/root))
   (def roots (apply beholder/watch tap> roots))
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))

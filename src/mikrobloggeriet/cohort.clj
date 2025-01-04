@@ -6,7 +6,7 @@
   (when-let [slug (:cohort/slug cohort)]
     (str "/" slug "/")))
 
-(defn all-cohorts [db]
+(defn all [db]
   (for [cohort-id
         (d/q '[:find [?id ...]
                :where [_ :cohort/id ?id]]

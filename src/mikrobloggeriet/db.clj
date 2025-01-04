@@ -188,7 +188,7 @@
                  (for [[cohort-id cohort] cohorts]
                    (assoc cohort :cohort/id cohort-id)))
     @(d/transact conn authors)
-    (doseq [cohort (cohort/all-cohorts (d/db conn))]
+    (doseq [cohort (cohort/all (d/db conn))]
       @(d/transact conn (find-cohort-docs cohort)))
     (d/db conn)))
 

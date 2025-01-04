@@ -12,9 +12,8 @@
 
 (def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
 
-(deftest all-cohorts-test
-  (let [cohorts (cohort/all-cohorts db)]
-    (is (contains? (->> cohorts
-                        (map :cohort/id)
-                        (into #{}))
-                   :cohort/olorm))))
+(deftest all-test
+  (is (contains? (->> (cohort/all db)
+                      (map :cohort/id)
+                      (into #{}))
+                 :cohort/olorm)))
