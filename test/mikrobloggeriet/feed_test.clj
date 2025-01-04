@@ -11,7 +11,8 @@
    :doc/markdown
    "# En god latter forlenger livet
 
-Jeg lover!!!"})
+Jeg lover!!!"
+   :doc/primary-author {:author/first-name "Ole Brumm"}})
 
 (deftest generate-feed-test
   (is (= [:feed
@@ -19,6 +20,7 @@ Jeg lover!!!"})
           '([:entry
              [:title "En god latter forlenger livet"]
              [:published "2023-04-17"]
+             [:author [:name "Ole Brumm"]]
              [:content {:type "html"}
               "<h1 id=\"en-god-latter-forlenger-livet\">En god latter forlenger\nlivet</h1>\n<p>Jeg lover!!!</p>\n"]])]
          (feed/generate-feed [en-god-latter-forlenger-livet]))))
@@ -28,6 +30,8 @@ Jeg lover!!!"})
   (require '[mikrobloggeriet.doc :as doc])
   (def olorm-1 (d/entity mikrobloggeriet.state/datomic
                          [:doc/slug "olorm-1"]))
+  (into {} olorm-1)
+  (-> olorm-1 :doc/primary-author :author/first-name)
   (doc/html olorm-1)
-
+  (feed/generate-feed [olorm-1])
   )

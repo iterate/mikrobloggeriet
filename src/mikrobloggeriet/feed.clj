@@ -7,10 +7,13 @@
   [:feed
    [:title "Mikrobloggeriet"]
    (for [doc docs]
-     [:entry
-      [:title (doc/title doc)]
-      [:published (:doc/created doc)]
-      [:content {:type "html"} (doc/html doc)]])])
+     (into [:entry]
+           (concat
+            [[:title (doc/title doc)]
+             [:published (:doc/created doc)]]
+            (when-let [author-name (some-> doc :doc/primary-author :author/first-name)]
+              [[:author [:name author-name]]])
+            [[:content {:type "html"} (doc/html doc)]])))])
 
 (defn serialize [feed]
   (str (hiccup/html {:mode :xml}

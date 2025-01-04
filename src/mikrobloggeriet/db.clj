@@ -169,11 +169,15 @@
                  (and (fs/exists? (fs/file dir "index.md"))
                       (fs/exists? (fs/file dir "meta.edn")))))
        (map (fn [dir]
-              (assoc (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
-                                  [:doc/created :doc/uuid :git.user/email])
-                     :doc/markdown (slurp (fs/file dir "index.md"))
-                     :doc/slug (fs/file-name dir)
-               :doc/cohort [:cohort/id (:cohort/id cohort)])))))
+              (let [base (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
+                                      [:doc/created :doc/uuid :git.user/email])]
+                (cond->
+                    (assoc base
+                           :doc/markdown (slurp (fs/file dir "index.md"))
+                           :doc/slug (fs/file-name dir)
+                           :doc/cohort [:cohort/id (:cohort/id cohort)])
+                    (:git.user/email base)
+                    (assoc :doc/primary-author {:author/email (:git.user/email base)})))))))
 
 (defn loaddb [{:keys [cohorts authors]}]
   (let [uri (str "datomic:mem://" (random-uuid))
