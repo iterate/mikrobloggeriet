@@ -9,7 +9,8 @@
    (for [doc docs]
      [:entry
       [:title (doc/title doc)]
-      [:published (:doc/created doc)]])])
+      [:published (:doc/created doc)]
+      [:content {:type "html"} (doc/html doc)]])])
 
 (defn serialize [feed]
   (str (hiccup/html {:mode :xml}
