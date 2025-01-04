@@ -32,6 +32,6 @@
                           [:a {:href (cohort/href cohort)}
                            (:cohort/slug cohort)]
                           " - "
-                          (previous-next-navigator previous next doc))
+                          (previous-next-navigator previous doc next))
         doc-html])}))
 
