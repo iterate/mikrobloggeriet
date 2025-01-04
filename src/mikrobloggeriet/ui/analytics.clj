@@ -19,10 +19,11 @@
       [:table
        [:thead [:th "URL"] [:th "Dato"] [:th "Sidevisninger"]]
        [:tbody
+        #_
         (for [[uri dato sidevisniger] (analytics/uri+date+count-tuples
                                        (:mikrobloggeriet.system/pageviews req))]
           [:tr [:td uri] [:td dato] [:td sidevisniger]])
-        #_
+
         (for [[dato sidevisniger] (->> (get (:mikrobloggeriet.system/pageviews req) "/urlog/")
                                        (sort-by first))]
           [:tr [:td "/urlog/"] [:td dato] [:td sidevisniger]])]]])})
