@@ -4,7 +4,9 @@
    [clojure.test :refer [deftest is testing]]
    [clojure.walk :refer [prewalk]]
    [mikrobloggeriet.db :as db]
-   [mikrobloggeriet.serve :as serve]))
+   [mikrobloggeriet.serve :as serve]
+   [reitit.core]
+   [reitit.ring]))
 
 (def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
 
@@ -53,8 +55,20 @@
            x))
 
 (deftest markdown-cohort-routes-test
-  (is (= (-> (serve/markdown-cohort-routes (:cohort/olorm db/cohorts))
-             strip-function-objects)
-         ["/olorm"
+  (is (= ["/olorm"
           ["/" {:get nil, :name :mikrobloggeriet.olorm/all}]
-          ["/:slug/" {:get nil, :name :mikrobloggeriet.olorm/doc}]])))
+          ["/:slug/" {:get nil, :name :mikrobloggeriet.olorm/doc}]]
+         (-> (serve/markdown-cohort-routes (:cohort/olorm db/cohorts))
+             strip-function-objects))))
+
+(deftest cohorts-are-named
+  (is (= :mikrobloggeriet.olorm/all
+         (-> (reitit.core/match-by-path (reitit.ring/get-router serve/ring-handler)
+                                        "/olorm/")
+             :data :name))))
+
+(deftest docs-are-named
+  (is (= :mikrobloggeriet.olorm/doc
+         (-> (reitit.core/match-by-path (reitit.ring/get-router serve/ring-handler)
+                                        "/olorm/olorm-1/")
+             :data :name))))
