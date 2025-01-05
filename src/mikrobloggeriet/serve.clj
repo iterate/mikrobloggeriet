@@ -184,7 +184,9 @@
                                       (when-let [previous (doc/previous db doc)]
                                         {:previous previous})
                                       (when-let [next (doc/next db doc)]
-                                        {:next next})))))}]])
+                                        {:next next})))))
+               :name (keyword (str "mikrobloggeriet." (:cohort/slug cohort-data))
+                              "doc")}]])
 
 (comment
   (markdown-cohort-routes (:cohort/olorm db/cohorts))

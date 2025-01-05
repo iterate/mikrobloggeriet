@@ -57,4 +57,4 @@
              strip-function-objects)
          ["/olorm"
           ["/" {:get nil, :name :mikrobloggeriet.olorm/all}]
-          ["/:slug/" {:get nil}]])))
+          ["/:slug/" {:get nil, :name :mikrobloggeriet.olorm/doc}]])))
