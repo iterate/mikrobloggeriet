@@ -78,10 +78,12 @@ uuid4() {
 
 fail() {
     [ -t 1 ] && notty=false || notty=true
+    {
     $notty || printf '\033[31m' # red
     # shellcheck disable=SC2059 # be careful with %
-    printf >&2 "$@"
+    printf "$@"
     $notty || printf '\033[m' # reset
+    } >&2
     return 1
 }
 
