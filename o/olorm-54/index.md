@@ -47,7 +47,7 @@ og arver ellers verdien fra DB-serveren.
 
 Jeg hopper til poenget:
 Problemet ligger i enkoding av verdien i kombinasjon med sesjonens tidssone.
-Tidspunktet enkodes som `2023-10-29 02:30:00[.000000]` av [driveren](https://github.com/go-sql-driver/mysql/blob/1.8/packets.go#L1164-L1174).
+Tidspunktet enkodes som `2023-10-29 02:30:00[.000000]` av [driveren](https://github.com/go-sql-driver/mysql/blob/v1.8.1/packets.go#L1164-L1174).
 Med tidssone Europe/Oslo er denne tiden som kjent tvetydig,
 fordi den skjer to ganger;
 først for sommertid,
