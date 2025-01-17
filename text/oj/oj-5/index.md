@@ -4,5 +4,5 @@ Akkurat nå jobber jeg med å skrive om noe funksjonalitet i en gammel app. Spes
 For en stund tilbake kom jeg over [denne artikkelen](https://glama.ai/blog/2024-08-29-reverse-engineering-minified-code-using-openai) på HN, som i bunn og grunn er en bedre versjon av dette blogginnlegget jeg nå sitter og skriver.
 Poenget er at LLMer er overraskende gode på å unminifye kode, og det kan man bruke dersom man plutselig har behov for å forstå noe minified kode.
 
-Jeg limte  koden min inn i _Claude_, og ut fikk jo en penere formatert kode, litt mer deskriptive variablenavn, og noen kommentarer. Kommentarene var ikke alltid riktig, men nå manglet jo modellen litt kontekst også.
+Jeg limte  koden min inn i _Claude_, og ut fikk jeg en penere formatert kode, litt mer deskriptive variablenavn, og noen kommentarer. Kommentarene var ikke alltid riktig, men nå manglet jo modellen litt kontekst også.
 Uansett fikk jeg lesbar kode ut, som jeg kunne bruke til å forstå hva jeg trengte å ta med videre når jeg skulle skrive meg ut av denne wrapperen.
