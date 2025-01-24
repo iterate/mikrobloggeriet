@@ -39,38 +39,3 @@ Jo flere grener vi lager, jo flere grener må vi kjenne forskjellene mellom.
 Og når vi skal slå sammen to grener (anti-forgrene?), får vi alle forskjellene tilbake i fleisen.
 
 Hvis vi lar være å forgrene, slipper vi å holde styr på alle grenene.
-
-## Unngå forgrening ved å redusere uferdig arbeid
-
-Flere prominente programvare-folk snakker om at det er bra å redusere uferdig arbeid ("reduce work in progress").
-Martin Fowler formulerer det slik i 2023:
-
-> When working with continuous flow, it's useful to set a work-in-progress limit
-> (WIP Limit) of how many stories the team can work on. Once they reach the WIP
-> limit, they can't start any more stories until they complete one already in
-> progress. WIP limits are important because they keep the team focused on
-> finishing stories, otherwise it's too easy to build up a pile of “nearly done”
-> work.
->
-> https://martinfowler.com/bliki/ContinuousFlow.html
-
-Eliahu Goldratt kom med en kortere formulering i _The Goal_ (1984):
-
-> The Goal: Increase throughput while simultaneously reducing both inventory and operating expense.
-
-I programvareutvikling kan vi tenke på kode vi har skrevet som ikke ennå er i bruk som "inventory".
-
-Men hvorfor er er det dumt å ha masse kode rundt omkring som ikke ennå er i bruk?
-
-"Reduser uferdig arbeid" ("reduce work in progres") sies ofte.
-Men hvorfor?
-Folk har mange grunner.
-Her er en kandidat til den egentlige grunnen:
-
-> Uferdig arbeid forgrener.
-> Forgrening er dumt.
-
-Jo mer uferdig arbeid vi har, jo mer forgrening er det på alle plan.
-Hvis vi i stedet gjør færre ting samtidig, gjør de tingene helt ferdig, før vi flytter fokus, kan vi fokusere.
-Da er det lettere for oss å få gjort ting!
-
