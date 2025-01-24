@@ -29,26 +29,6 @@ Når vi forgrener fra nye grener gjør vi det enda vanskeligere for oss selv.
 
 Jeg liker å forgrene _i starten_, og deretter la koden flyte så rett som mulig.
 
-## Lokal kode og produksjon
-
-Når vi jobber profesjonelt med kode, skiller vi gjerne på koden vi har lokalt og koden som kjører i produksjon.
-Det gir noen fordeler:
-
-1. Ved å stemple hver deploy med Git-SHA den ble laget fra, kan vi spore oppførsel i produksjon tilbake til kildekode som lagde oppførselen
-2. Vi kan kjøre tester og statisk analyse på en commit før vi setter comitten i produksjon.
-
-Det gir også noen ulemper.
-Du og jeg sitter ikke lenger og tar på _samme ting_.
-
-Det er mulig å viske ut skillet mellom lokal kode og produksjon i dag.
-
-1. Bret Victor gjør det i Dynamicland: [dynamicland.org]
-2. Vi som lager Mikrobloggeriet gjør det (i blant) når vi feilsøker produksjonsfeil på Mikrobloggeriet
-
-[dynamicland.org]: https://dynamicland.org/
-
-... men fordelen med å faktisk kjøre testene før ny kode går ut er stor, så jeg velger typisk å beholde skillet mellom lokal kode og produksjon.
-
 ## Hver `git switch --create` lager en ny gren i hodet til utviklerne
 
 Vi stopper ikke alltid ved skillet mellom lokal kode og produksjon.
