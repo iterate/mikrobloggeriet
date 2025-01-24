@@ -9,6 +9,7 @@
    [mikrobloggeriet.state :as state]
    [nextjournal.beholder :as beholder]
    [org.httpkit.server :as httpkit]
+   [reitit.ring]
    [time-literals.read-write])
   (:import
    [java.time Instant]))

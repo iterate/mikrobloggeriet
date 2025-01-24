@@ -17,3 +17,11 @@
                       (map :cohort/id)
                       (into #{}))
                  :cohort/olorm)))
+
+(deftest routes
+  (testing "all docs for a cohort"
+    (is (= :mikrobloggeriet.olorm/all
+           (cohort/route-all {:cohort/slug "olorm"}))))
+  (testing "one doc in a cohort"
+    (is (= :mikrobloggeriet.olorm/doc
+           (cohort/route-doc {:cohort/slug "olorm"})))))

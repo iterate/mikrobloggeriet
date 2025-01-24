@@ -166,7 +166,7 @@
 (defn health [_req]
   {:status 200 :headers {"Content-Type" "text/plain"} :body "all good!"})
 
-(defn markdown-cohort-routes [cohort-data]
+(defn  markdown-cohort-routes [cohort-data]
   [(str "/" (:cohort/slug cohort-data))
    ["/" {:get (fn [req]
                 (let [db (:mikrobloggeriet.system/datomic req)

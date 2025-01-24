@@ -12,3 +12,11 @@
                :where [_ :cohort/id ?id]]
              db)]
     (d/entity db [:cohort/id cohort-id])))
+
+(defn route-all [cohort]
+  (keyword (str "mikrobloggeriet." (:cohort/slug cohort))
+           "all"))
+
+(defn route-doc [cohort]
+  (keyword (str "mikrobloggeriet." (:cohort/slug cohort))
+           "doc"))
