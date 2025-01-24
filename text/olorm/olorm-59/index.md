@@ -42,8 +42,10 @@ Du og jeg sitter ikke lenger og tar på _samme ting_.
 
 Det er mulig å viske ut skillet mellom lokal kode og produksjon i dag.
 
-1. Bret Victor gjør det i Dynamicland: https://dynamicland.org/
+1. Bret Victor gjør det i Dynamicland: [dynamicland.org]
 2. Vi som lager Mikrobloggeriet gjør det (i blant) når vi feilsøker produksjonsfeil på Mikrobloggeriet
+
+[dynamicland.org]: https://dynamicland.org/
 
 ... men fordelen med å faktisk kjøre testene før ny kode går ut er stor, så jeg velger typisk å beholde skillet mellom lokal kode og produksjon.
 
