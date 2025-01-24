@@ -18,7 +18,7 @@ Når trestammen først _forgrener_ seg, får vi grener ut fra trestammen.
 Trestammen _forgrener_ seg og blir til flere grener.
 Grener kan også forgrene seg i flere grener.
 
-## Hver `if` lager en ny gren i kodebasen
+## Hver `if` lager en ny gren i koden
 
 Før hadde denne koden én logisk flyt.
 Nå har den to!
