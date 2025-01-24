@@ -93,7 +93,7 @@
     :cohort/name "ITERATE",
     :cohort/description "Mikrobloggen ITERATE skrives av folk fra Iterate."},
    :cohort/jals
-   {:cohort/root "j",
+   {:cohort/root "text/jals",
     :cohort/slug "jals",
     :cohort/type :cohort.type/markdown,
     :cohort/name "JALS"
@@ -117,7 +117,7 @@
     :cohort/name "OJ"
     :cohort/description "Mikrobloggen OJ skrives av Olav og Johan."},
    :cohort/olorm
-   {:cohort/root "o",
+   {:cohort/root "text/olorm",
     :cohort/slug "olorm",
     :cohort/type :cohort.type/markdown,
     :cohort/name "OLORM",
