@@ -23,7 +23,8 @@
         [:td "publisert"]]
        [:tbody
         (for [doc (->> (:doc/_cohort cohort)
-                       (sort-by doc/number))]
+                       (sort-by doc/number)
+                       (remove :doc/draft?))]
           [:tr
            [:td [:a {:href (doc/href doc)} (:doc/slug doc)]]
            [:td (doc/title doc)]

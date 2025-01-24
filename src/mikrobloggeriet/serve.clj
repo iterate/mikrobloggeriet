@@ -123,7 +123,7 @@
 (defn random-doc [req]
   (let [db (:mikrobloggeriet.system/datomic req)
         target (or
-                (when-let [doc (doc/random-doc db)]
+                (when-let [doc (doc/random-published db)]
                   (doc/href doc))
                 "/")]
     {:status 307 ;; temporary redirect

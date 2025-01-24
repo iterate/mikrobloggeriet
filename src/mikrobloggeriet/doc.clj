@@ -52,12 +52,13 @@
        (map (fn [eid]
               (d/entity db eid)))))
 
-(defn random-doc [db]
-  (rand-nth (all db)))
+(defn random-published [db]
+  (rand-nth (->> (all db)
+                 (remove :doc/draft?))))
 
 (comment
   (require '[mikrobloggeriet.state :as state])
   (def db state/datomic)
-  (random-doc db)
+  (random-published db)
 
   )

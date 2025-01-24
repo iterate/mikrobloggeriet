@@ -62,5 +62,5 @@ Mindre er ofte bedre."}))))
                  "olorm-1")))
 
 (deftest random-doc-test
-  (is (contains? (doc/random-doc db)
+  (is (contains? (doc/random-published db)
                  :doc/slug)))

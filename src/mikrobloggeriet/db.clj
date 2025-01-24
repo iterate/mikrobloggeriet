@@ -77,6 +77,10 @@
     :db/valueType :db.type/ref
     :db/cardinality :db.cardinality/one}
 
+   {:db/ident :doc/draft?
+    :db/valueType :db.type/boolean
+    :db/cardinality :db.cardinality/one}
+
    ;; Doc author
    {:db/ident :doc/primary-author
     :db/valueType :db.type/ref
@@ -170,7 +174,7 @@
                       (fs/exists? (fs/file dir "meta.edn")))))
        (map (fn [dir]
               (let [base (select-keys (edn/read-string (slurp (fs/file dir "meta.edn")))
-                                      [:doc/created :doc/uuid :git.user/email])]
+                                      [:doc/created :doc/uuid :git.user/email :doc/draft?])]
                 (cond->
                     (assoc base
                            :doc/markdown (slurp (fs/file dir "index.md"))
@@ -188,7 +192,7 @@
                  (for [[cohort-id cohort] cohorts]
                    (assoc cohort :cohort/id cohort-id)))
     @(d/transact conn authors)
-    (doseq [cohort (cohort/all (d/db conn))]
+    (doseq [cohort (->> (cohort/all (d/db conn)))]
       @(d/transact conn (find-cohort-docs cohort)))
     (d/db conn)))
 
