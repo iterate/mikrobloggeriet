@@ -1,9 +1,9 @@
 (ns mikrobloggeriet.cohort.urlog
   (:require
-   [hiccup.page :as page]
-   [clojure.edn :as edn]
    [babashka.fs :as fs]
-   [clojure.pprint :as pprint]))
+   [clojure.edn :as edn]
+   [clojure.pprint :as pprint]
+   [hiccup.page :as page]))
 
 ;; TO-DO
 ;; rydde i css-filen, spesielt rundt "wall" klassen
@@ -63,9 +63,10 @@
    :doors (doall (map load-door (door-paths (str assets-dir "/doors/"))))})
 
 (defn select-door [url doors]
-  (let [seed (java.util.Random. (.hashCode url))]
+  (let [seed (.hashCode url)
+        random-gen (java.util.Random. seed)]
     (when (seq doors)
-      (let [index (.nextInt seed (count doors))]
+      (let [index (.nextInt random-gen (count doors))]
         (nth doors index)))))
 
 (def urlogfile-path "text/urlog/urls.edn")
