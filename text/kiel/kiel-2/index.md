@@ -97,3 +97,4 @@ Tegne ut flere fiktive interaksjoner med teknologi i skolekontekst, og formidle 
 - Eksempler på flere AI-verktøy og alternative måter å bruke dem på, til inspirasjon.
 
 Jeg leker også med tanken rundt å gjøre dette til noe “community-based”; altså åpne opp for at flere bidrar inn med sine idéer og ferdigheter. Kanskje kan man se for seg en anonym-Instagram-bruker drevet av en hel haug med designere fra ulike hjørner av bransjen, som tegner og deler troverdige og øye-åpnende scenarier hver dag.
+![64d902d2ea5e4d050bd1656cf0d3437f](https://github.com/user-attachments/assets/f13f9fc5-056d-4f68-a532-724ff7ec9230)
