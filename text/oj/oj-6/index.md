@@ -16,6 +16,6 @@ Nettopp denne utviklingen synes jeg Ekko diskuterer på en god måte. Særlig sy
 Jeg kommer ikke til å diskutere alt dette i denne mikrobloggen, da det fortsatt er vanskelig å sette alle tankene i ord, og. Jeg oppfordrer derimot til å lese _Ekko - Et essay om algoritemer og begjær_. Den er kort og bra skrevet, og veldig dagsaktuell.
 Også ønsker jeg gjerne å diskutere disse temaene videre.
 
-Olav
+Olav 📣
 
 ![_Narcissus_, maleri av Caravaggio, bilde fra Wikimedia (CC-BY-SA 4.0), https://en.wikipedia.org/wiki/Narcissus_(Caravaggio)#/media/File:Narcissus-Caravaggio_(1594-96)_edited.jpg](/images/narcissus.jpg)
