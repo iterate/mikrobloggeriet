@@ -40,19 +40,37 @@ You have two options, depending on who you are:
 [clojure-quickstart-homebrew.md]: clojure-quickstart-homebrew.md
 [CONTRIBUTING.md]: CONTRIBUTING.md
 
-## Deploying Mikrobloggeriet!
+## Get production access
 
 Mikrobloggeriet runs on Application Garden ([docs.apps.garden](https://docs.apps.garden/).
-
-To deploy,
+To deploy Mikrobloggeriet, you need a user account.
 
 1. Get an Application Garden user by signing up on [application.garden/signup](https://application.garden/signup)
 
 2. Ask Olav or Teodor to add you to the `mikrobloggeriet` group on Application Garden.
 
-3. Install the `garden` CLI
+3. Install the `garden` CLI.
 
-4. Run `garden deploy` from the `mikrobloggeriet` folder on your computer.
+You now can now control the production environment.
+Examples:
+
+    # Deploy directly, bypass the tests
+    garden deploy
+
+    # Connect from your computer to a production REPL to change production behavior live
+    garden repl
+
+    # Browse production file system
+    garden sftp
+
+    # View what else you can do
+    garden --help
+
+## Deploying Mikrobloggeriet!
+
+Run the tests, then deploy if tests are green:
+
+    bb test-then-deploy
 
 ## Contributors
 
