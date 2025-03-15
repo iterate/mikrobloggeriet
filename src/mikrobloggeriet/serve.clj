@@ -6,6 +6,7 @@
    [clojure.string :as str]
    [datomic.api :as d]
    [hiccup.page :as page]
+   [mblog.indigo]
    [mikrobloggeriet.asset :as asset]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
@@ -205,8 +206,8 @@
                                    (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
-     [ ;; Front page
-      ["/" {:get #'index ; forside
+     [                     ;; Front page
+      ["/" {:get #'index   ; forside
             :head #'health ; helsesjekk, Application.garden
             :name :mikrobloggeriet/frontpage}]
 
@@ -254,7 +255,7 @@
 
       ;; Et forsøk på å redigere tekst direkte fra nettleseren
       ["/editor/" {:get #'ui.editor/page
-                    :name :mikrobloggeriet/edit}]
+                   :name :mikrobloggeriet/edit}]
 
       ;; Helsesjekk
       ["/health" {:get health
@@ -269,7 +270,15 @@
 
       ["/feed.xml" {:get #'feed/handler}]
 
-      ]))
+      ]
+
+     [;; Hva om vi kaster alt og prøver på nytt?
+      ["/indigo" {:get #'mblog.indigo/handler
+                  :name :mblog/indigo}]]
+
+
+
+     ))
    (reitit.ring/redirect-trailing-slash-handler)))
 
 (def ring-handler
