@@ -61,6 +61,12 @@ Mindre er ofte bedre."}))))
                       (into #{}))
                  "olorm-1")))
 
+(deftest latest-test
+  (is (= (->> (doc/latest db)
+              (take-last 3)
+              (map :doc/slug))
+         '("olorm-3" "olorm-2" "olorm-1"))))
+
 (deftest random-doc-test
   (is (contains? (doc/random-published db)
                  :doc/slug)))

@@ -52,6 +52,11 @@
        (map (fn [eid]
               (d/entity db eid)))))
 
+(defn latest [db]
+  (->> (all db)
+       (sort-by :doc/created)
+       reverse))
+
 (defn random-published [db]
   (rand-nth (->> (all db)
                  (remove :doc/draft?))))
