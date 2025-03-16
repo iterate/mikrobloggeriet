@@ -31,16 +31,16 @@
   (:author/first-name (d/entity db [:author/email (:git.user/email doc)])))
 
 (defn title [doc]
-  (:title (cache/markdown->html+info (:doc/markdown doc))))
+  (:title (cache/parse-markdown (:doc/markdown doc))))
 
 (defn html [doc]
-  (:doc-html (cache/markdown->html+info (:doc/markdown doc))))
+  (:doc-html (cache/parse-markdown (:doc/markdown doc))))
 
 (defn description [doc]
-  (:description (cache/markdown->html+info (:doc/markdown doc))))
+  (:description (cache/parse-markdown (:doc/markdown doc))))
 
 (comment
-  (cache/markdown->html+info "# Funksjonell programmering")
+  (cache/parse-markdown "# Funksjonell programmering")
   (title {:doc/markdown "# Funksjonell programmering"})
   (html {:doc/markdown "# Funksjonell programmering"})
   )

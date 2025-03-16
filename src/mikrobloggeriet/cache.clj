@@ -66,7 +66,7 @@
              :commit-mode :sync
              :init {})))
 
-(def markdown->html+info
+(def parse-markdown
   (cache-fn-by (or cache-atom (atom {}))
                (fn markdown->html+info [markdown]
                  (let [pandoc (pandoc/from-markdown markdown)]
@@ -78,7 +78,7 @@
                identity))
 
 (comment
-  (markdown->html+info "# Funksjonell programmering")
+  (parse-markdown "# Funksjonell programmering")
 
   (->> @cache-atom
        vals
