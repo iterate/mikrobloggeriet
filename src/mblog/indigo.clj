@@ -27,7 +27,7 @@
     (innhold->hiccup (innhold req)))})
 
 (comment
-
+  (require 'clojure.repl.deps)
   (clojure.repl.deps/sync-deps)
   (set! *print-namespace-maps* false)
 
