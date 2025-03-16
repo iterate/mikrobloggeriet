@@ -6,12 +6,39 @@
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]]
-   [:body
-    [:div "venstre"]
-    [:div "høyre"
-     (for [d docs]
-       [:div {:innerHTML
-              (doc/html d)}])]]])
+   [:body {:style
+           {:display "flex"
+            :height "100%"
+            :margin 0
+            :width "auto"}}
+    [:div {:style
+           {:display "flex"
+            :flex-grow 1
+            :height "100vh"
+            :overflow-x "hidden"
+            :overflow-y "auto"}}
+     ;; venstre
+     [:div {:style
+            {:display "flex"
+             :flex-direction "column"
+             :max-width "40vw"
+             :overflow "auto"}}
+      (interpose " " (repeat 50 "venstre"))]]
+    [:div {:style
+           {:display "flex"
+            :flex-grow 1
+            :height "100vh"
+            :overflow-x "hidden"
+            :overflow-y "auto"}}
+     [:div {:style
+            {:display "flex"
+             :flex-direction "column"
+             :max-width "60vw"
+             :overflow "auto"}}
+      "høyre"
+      (for [d (take 10 docs)]
+        [:div {:innerHTML
+               (doc/html d)}])]]]])
 
 (defn innhold [req]
   (doc/latest (:mikrobloggeriet.system/datomic req)))
