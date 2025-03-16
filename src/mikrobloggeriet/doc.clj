@@ -34,7 +34,7 @@
   (:title (cache/parse-markdown (:doc/markdown doc))))
 
 (defn html [doc]
-  (:doc-html (cache/parse-markdown (:doc/markdown doc))))
+  (:doc/html (cache/parse-markdown (:doc/markdown doc))))
 
 (defn description [doc]
   (:description (cache/parse-markdown (:doc/markdown doc))))

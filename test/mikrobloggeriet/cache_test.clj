@@ -56,7 +56,7 @@ så fins en kurs imot et land av sang og sten.
 (deftest parse-markdown
   (testing "parses doc as html"
     (is (= (-> (cache/parse-markdown "tekst med _vekt_")
-               :doc-html
+               :doc/html
                str/trim)
            "<p>tekst med <em>vekt</em></p>")))
 

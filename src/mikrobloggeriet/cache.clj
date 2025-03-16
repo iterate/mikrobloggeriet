@@ -70,10 +70,10 @@
   (cache-fn-by (or cache-atom (atom {}))
                (fn markdown->html+info [markdown]
                  (let [pandoc (pandoc/from-markdown markdown)]
-                   {:doc-html (pandoc/to-html pandoc)
+                   {:doc/html (pandoc/to-html pandoc)
                     :title (pandoc/infer-title pandoc)
                     :description (pandoc/infer-description pandoc)}))
-               #(str "2025-01-04-SoftBreak"
+               #(str "2025-03-16-rename-fn"
                      "\n" %)
                identity))
 
