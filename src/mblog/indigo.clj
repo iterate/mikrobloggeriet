@@ -23,8 +23,10 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body
-   (replicant.string/render
-    (innhold->hiccup (innhold req)))})
+   (str
+    "<!DOCTYPE html>"
+    (replicant.string/render
+     (innhold->hiccup (innhold req))))})
 
 (comment
   (require 'clojure.repl.deps)
