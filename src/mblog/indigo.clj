@@ -9,16 +9,19 @@
     [:style {:type "text/css"}
      (slurp "indigo.css")]]
    [:body
-    [:section
-     ;; venstre
-     [:ul
-      (interpose " " (repeat 50 [:li "venstre"]))]]
+    [:header
+     [:h1 "Mikrobloggeriet"]]
+    [:container
+     [:section
+      [:ul
+       (interpose " " (repeat 100 [:li "venstre"]))]]
 
-    [:section
-     [:div
-      (for [d (take 10 docs)]
-        [:div {:innerHTML
-               (doc/html d)}])]]]])
+     [:section
+      [:div
+       (for [d (take 10 docs)]
+         [:div {:innerHTML
+                (doc/html d)}])]]]
+    [:footer [:h1 "filter, Filter, FILTER!"]]]])
 
 (defn innhold [req]
   (doc/latest (:mikrobloggeriet.system/datomic req)))

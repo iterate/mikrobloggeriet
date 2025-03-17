@@ -16,17 +16,37 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--background); 
+    font-size: 16px;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+header {
+    width: 100%;
+    height: auto;
+    background-color: var(--white100);
+    color: var(--black100);
+
+    h1 {
+        font-weight: 800;
+    }
+}
+
+container {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
-    font-size: 16px;
+    overflow: hidden;
 }
 
 section {
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
     overflow-y: scroll;
     width: 50%;
+    height: 100%;
     border-right: 1px solid var(--white10);
 }
 
@@ -34,8 +54,8 @@ h1, h2, h3, h4, h5, h6, p, li {
     color: var(--white100);
     text-decoration: none;
     list-style-type: none;
-    font-family: monospace;
-    font-weight: 200;
+    font-family: 'Andale Mono', monospace;
+    font-weight: 100;
     font-size: clamp(1rem, 1vw, 1.5rem);
     line-height: 150%;
 }
@@ -45,10 +65,21 @@ ul {
     margin: 0px;
 }
 
+li { 
+    width: 100%;
+    padding: 0px 4px 0px 4px;
+}
+
+li:hover {
+    background-color: var(--white10);
+    cursor: cell;
+}
+
 h1 {
     background-color: var(--white100);
     color: var(--black100);
     padding: 0 4px 0 4px;
+    margin: 0;
 }
 
 p {
@@ -57,4 +88,13 @@ p {
 
 img { 
     max-width: 100%;
+}
+
+footer {
+    background-color: var(--white100);
+    color: var(--black100);
+    width: 100%;
+    z-index: 9;
+    position: fixed;
+    bottom: 0;
 }
