@@ -207,10 +207,13 @@
                                    (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
                                            css-file)}])
-     [                     ;; Front page
-      ["/" {:get #'index   ; forside
+     [
+      ["/" {:get #'mblog.indigo/handler
             :head #'health ; helsesjekk, Application.garden
             :name :mikrobloggeriet/frontpage}]
+
+      ["/indigo" {:get #'mblog.indigo/handler
+                  :name :mblog/indigo}]
 
       ;; Themes
       ["/theme/:theme" {:get #'theme
@@ -273,9 +276,7 @@
 
       ]
 
-     [;; Hva om vi kaster alt og prøver på nytt?
-      ["/indigo" {:get #'mblog.indigo/handler
-                  :name :mblog/indigo}]]
+
 
 
 
