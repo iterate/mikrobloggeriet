@@ -55,8 +55,9 @@ h1, h2, h3, h4, h5, h6, p, li, figcaption {
     color: var(--white100);
     text-decoration: none;
     list-style-type: none;
-    font-family: 'Andale Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-weight: 100;
+    font-style: normal;
     font-size: clamp(1rem, 1vw, 1.5rem);
     line-height: 150%;
 }
@@ -66,20 +67,43 @@ figcaption {
     font-size: 0.8rem;
 }
 
-ul {
-    padding-inline-start: 0px;
+nav {
+    padding: 0px;
     margin: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-li { 
-    width: 100%;
-    padding: 0px 4px 0px 4px;
+.navList {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    cursor: cell;
+    gap: 4px;
 }
 
-li:hover {
+.navList:hover {
     background-color: var(--white10);
     cursor: cell;
 }
+
+.navTitle{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 80%;
+    padding-right: 0;
+    margin: 0;
+}
+
+.navDate {
+    color: var(--white80);
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+}
+
 
 h1 {
     background-color: var(--white100);
@@ -89,7 +113,7 @@ h1 {
 }
 
 p {
-    padding: 0 20% 0 4px;
+    padding: 0 4px 0 4px;
 }
 
 a {

@@ -6,16 +6,19 @@
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
-    [:link {:rel "stylesheet" :href "indigo.css"}]]
+    [:link {:rel "stylesheet" :href "indigo.css"}]
+    [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
+    [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
+    [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"}]]
    [:body
     [:header
      [:h1 "Mikrobloggeriet"]]
     [:container
      [:section
-      [:ul
+      [:nav
        (for [doc docs]
-         [:li (list (doc/cleaned-title doc)
-                    " [" (:doc/created doc) "]")])]]
+         [:div.navList (list [:p.navTitle (doc/cleaned-title doc)]
+                             [:p.navDate "/"] [:p.navDate (:doc/created doc)])])]]
 
      [:section
       [:div
