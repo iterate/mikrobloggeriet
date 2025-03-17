@@ -1,5 +1,6 @@
 :root {
-    --background: #0f0f0f;
+    --background01: #0F0F0F;
+    --background02: #080D92;
     --white100: #fff;
     --white80: rgba(255, 255, 255, 0.8);
     --white50: rgba(255, 255, 255, 0.5);
@@ -15,7 +16,7 @@
 body { 
     margin: 0;
     padding: 0;
-    background-color: var(--background); 
+    background-color: var(--background01); 
     font-size: 16px;
     height: 100vh;
     width: 100vw;
@@ -30,7 +31,7 @@ header {
     height: auto;
     background-color: var(--white100);
     color: var(--black100);
-    border-bottom: 1px solid var(--background);
+    border-bottom: 1px solid var(--background01);
 
     h1 {
         font-weight: 800;
@@ -69,7 +70,7 @@ h1, h2, h3, h4, h5, h6, p, li, figcaption {
 h1 { 
     position: sticky;
     top: -1px;
-    border-bottom: 1px solid var(--background);
+    border-bottom: 1px solid var(--background01);
 }
 
 figcaption {
@@ -180,7 +181,7 @@ hr {
 
 footer {
     background-color: var(--white100);
-    border-top: 1px solid var(--background);
+    border-top: 1px solid var(--background01);
     color: var(--black100);
     width: 100%;
 
