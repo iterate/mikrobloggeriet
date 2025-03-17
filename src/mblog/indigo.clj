@@ -5,7 +5,9 @@
 (defn innhold->hiccup [docs]
   [:html {:lang "en"}
    [:head
-    [:meta {:charset "utf-8"}]]
+    [:meta {:charset "utf-8"}]
+    [:style {:type "text/css"}
+     (slurp "indigo.css")]]
    [:body {:style
            {:display "flex"
             :height "100%"
@@ -67,6 +69,4 @@
 
   (->> (doc/latest dev-db)
        (take 5)
-       (map doc/title))
-
-  )
+       (map doc/title)))
