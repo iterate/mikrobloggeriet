@@ -48,10 +48,10 @@ section {
     overflow-y: scroll;
     width: 50%;
     height: 100%;
-    border-right: 1px solid var(--white10);
+    border-right: 1px solid var(--white20);
 }
 
-h1, h2, h3, h4, h5, h6, p, li {
+h1, h2, h3, h4, h5, h6, p, li, figcaption {
     color: var(--white100);
     text-decoration: none;
     list-style-type: none;
@@ -59,6 +59,11 @@ h1, h2, h3, h4, h5, h6, p, li {
     font-weight: 100;
     font-size: clamp(1rem, 1vw, 1.5rem);
     line-height: 150%;
+}
+
+figcaption {
+    color: var(--white80);
+    font-size: 0.8rem;
 }
 
 ul {
@@ -99,8 +104,23 @@ a:hover {
     cursor: ne-resize;
 }
 
+figure {
+    margin: 0;
+    padding: 0 4px 0 4px;
+}
+
 img { 
     max-width: 100%;
+}
+
+pre {
+    color: var(--white80);
+    overflow: scroll;
+    width: max-content;
+    height: auto;
+    border: 1px solid var(--white20);
+    padding: 2rem;
+    margin-left: 4px;
 }
 
 footer {
