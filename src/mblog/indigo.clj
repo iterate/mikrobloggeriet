@@ -14,7 +14,8 @@
      [:section
       [:ul
        (for [doc docs]
-         [:li (doc/title doc)])]]
+         [:li (list (doc/title doc)
+                    " [" (:doc/created doc) "]")])]]
 
      [:section
       [:div
