@@ -23,8 +23,10 @@
      [:section
       [:div
        (for [d (take 10 docs)]
-         [:div {:innerHTML
-                (doc/html d)}])]]]
+         [:div
+          [:a {:name "lol"}]
+          [:div {:innerHTML
+                 (doc/html d)}]])]]]
     [:footer [:h1 "filter, Filter, FILTER!"]]]])
 
 (defn innhold [req]
