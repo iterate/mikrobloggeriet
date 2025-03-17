@@ -34,9 +34,18 @@
 (deftest el->plaintext-test
   (is (= "hei du"
          (-> "hei _du_" pandoc/from-markdown :blocks first pandoc/el->plaintext)))
+
   (testing "Handles soft line breaks"
     (is (= "hei du"
-           (-> "hei\ndu" pandoc/from-markdown :blocks first pandoc/el->plaintext)))))
+           (-> "hei\ndu" pandoc/from-markdown :blocks first pandoc/el->plaintext))))
+
+  (testing "Handles code inside titles"
+    (is (= (-> "# OLORM-45: `--scale` i Docker Compose"
+               pandoc/from-markdown
+               :blocks
+               first
+               pandoc/header->plaintext)
+           "OLORM-45: --scale i Docker Compose"))))
 
 (deftest title-test
   (let [doc "% ABOUT TIME
@@ -133,5 +142,4 @@ The rest of the document.")]
            '[mikrobloggeriet.doc :as doc])
   (def olorm-58 (d/entity mikrobloggeriet.state/datomic [:doc/slug "olorm-58"]))
   (-> (:doc/markdown olorm-58)
-      pandoc/from-markdown)
-  )
+      pandoc/from-markdown))

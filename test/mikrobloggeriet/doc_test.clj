@@ -53,16 +53,17 @@ Mindre er ofte bedre."}))))
     (is (= (doc/cleaned-title {:doc/title "Funksjonell programmering"})
            "Funksjonell programmering")))
 
-  (testing "remove cohort prefix"
+  (testing "removes cohort prefix"
     (is (= (doc/remove-cohort-prefix "NILS-1: Funksjonell programmering")
            "Funksjonell programmering"))
     (is (= (doc/remove-cohort-prefix "NILS-2 - Funksjonell programmering")
            "Funksjonell programmering")))
-  (testing "does not remove oj"
+
+  (testing "does not the title"
     (is (= (doc/remove-cohort-prefix "OJ JEG ER EN TEST")
-           "OJ JEG ER EN TEST"))))
-
-
+           "OJ JEG ER EN TEST"))
+    (is (= (doc/remove-cohort-prefix "OLORM-45: --scale i Docker Compose")
+           "--scale i Docker Compose"))))
 
 (deftest html-test
   (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
