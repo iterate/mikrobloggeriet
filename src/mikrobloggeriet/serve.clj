@@ -201,7 +201,8 @@
     (concat
 
      ;; CSS files we use
-     (for [css-file ["vanilla.css" "mikrobloggeriet.css" "pygment.css" "reset.css" "urlog.css"]]
+     (for [css-file ["vanilla.css" "mikrobloggeriet.css" "pygment.css" "reset.css" "urlog.css"
+                     "indigo.css"]]
        [(str "/" css-file) {:get (fn [_req]
                                    (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
