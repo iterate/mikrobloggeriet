@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.doc-test
   (:require
    [clojure.string :as str]
-   [clojure.test :refer [deftest is]]
+   [clojure.test :refer [deftest is testing]]
    [datomic.api :as d]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]))
@@ -34,9 +34,7 @@
 (comment
   (into {} (d/entity db [:author/email "git@teod.eu"]))
   (:git.user/email (d/entity db [:doc/slug "olorm-2"]))
-  (into {} (d/entity db [:author/email "oddmunds@iterate.no"]))
-
-  )
+  (into {} (d/entity db [:author/email "oddmunds@iterate.no"])))
 
 (deftest title-test
   (is (= "Funksjonell programmering"
@@ -51,15 +49,26 @@
 Mindre er ofte bedre."}))))
 
 (deftest remove-cohort-prefix
-  (is (= (doc/cleaned-title {:doc/title "Funksjonell programmering"})
-         "Funksjonell programmering")))
+  (testing "leaves clean titles as is"
+    (is (= (doc/cleaned-title {:doc/title "Funksjonell programmering"})
+           "Funksjonell programmering")))
+
+  (testing "remove cohort prefix"
+    (is (= (doc/remove-cohort-prefix "NILS-1: Funksjonell programmering")
+           "Funksjonell programmering"))
+    (is (= (doc/remove-cohort-prefix "NILS-2 - Funksjonell programmering")
+           "Funksjonell programmering")))
+  (testing "does not remove oj"
+    (is (= (doc/remove-cohort-prefix "OJ JEG ER EN TEST")
+           "OJ JEG ER EN TEST"))))
+
+
 
 (deftest html-test
   (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
                      "programmering"))
   (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
-                     "<h1"))
-  )
+                     "<h1")))
 
 (deftest all-test
   (is (contains? (->> (doc/all db)

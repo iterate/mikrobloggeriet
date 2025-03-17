@@ -14,7 +14,7 @@
      [:section
       [:ul
        (for [doc docs]
-         [:li (list (doc/title doc)
+         [:li (list (doc/cleaned-title doc)
                     " [" (:doc/created doc) "]")])]]
 
      [:section
