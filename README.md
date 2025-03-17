@@ -70,7 +70,7 @@ Examples:
 
 Run the tests, then deploy if tests are green:
 
-    bb test-then-deploy
+    bb deploy
 
 ## Contributors
 
