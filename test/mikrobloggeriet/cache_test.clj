@@ -48,24 +48,29 @@ så fins en kurs imot et land av sang og sten.
 "))
 
 (comment
-  (cache/parse-markdown "tekst med _vekt_")
+  (cache/parse-markdown* "tekst med _vekt_")
 
-  (cache/parse-markdown hildringstimen-markdown)
+  (cache/parse-markdown* hildringstimen-markdown)
   )
 
 (deftest parse-markdown
   (testing "parses doc as html"
-    (is (= (-> (cache/parse-markdown "tekst med _vekt_")
+    (is (= (-> (cache/parse-markdown* "tekst med _vekt_")
                :doc/html
                str/trim)
            "<p>tekst med <em>vekt</em></p>")))
 
+  (testing "parses doc as hiccup"
+  (is (= (-> (cache/parse-markdown* "tekst med _vekt_")
+             :doc/hiccup)
+         '([:p {} "tekst med " [:em {} "vekt"]]))))
+
   (testing "extracts title"
-    (is (= (-> hildringstimen-markdown cache/parse-markdown :title)
+    (is (= (-> hildringstimen-markdown cache/parse-markdown* :title)
            "Hildringstimen")))
 
   (testing "extracts first paragraph as description"
-    (is (= (-> hildringstimen-markdown cache/parse-markdown :description)
+    (is (= (-> hildringstimen-markdown cache/parse-markdown* :description)
            (->>
             "
 I hildringstimen er det godt å seile.

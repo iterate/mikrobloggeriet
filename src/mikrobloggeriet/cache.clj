@@ -4,7 +4,10 @@
   Bring your own atom, use duration if you want a durable cache."
   (:require
    [duratom.core :refer [duratom]]
-   [mikrobloggeriet.pandoc :as pandoc]))
+   [clojure.string :as str]
+   [mikrobloggeriet.pandoc :as pandoc]
+   [hickory.core :as hickory]))
+
 
 (defn cache-fn-by
   "A simple in-memory caching mechanism
@@ -66,14 +69,20 @@
              :commit-mode :sync
              :init {})))
 
+(defn parse-markdown* [markdown-str]
+  (let [pandoc (pandoc/from-markdown markdown-str)
+        html (str/trim (pandoc/to-html pandoc))]
+    {:doc/html html
+     :doc/hiccup (->> (hickory/as-hiccup (hickory/parse html))
+                      first last
+                      (drop 2))
+     :title (pandoc/infer-title pandoc)
+     :description (pandoc/infer-description pandoc)}))
+
 (def parse-markdown
   (cache-fn-by (or cache-atom (atom {}))
-               (fn markdown->html+info [markdown]
-                 (let [pandoc (pandoc/from-markdown markdown)]
-                   {:doc/html (pandoc/to-html pandoc)
-                    :title (pandoc/infer-title pandoc)
-                    :description (pandoc/infer-description pandoc)}))
-               #(str "2025-03-16-rename-fn"
+               #'parse-markdown*
+               #(str "2025-03-17-hiccup3"
                      "\n" %)
                identity))
 
