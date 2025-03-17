@@ -66,6 +66,12 @@ h1, h2, h3, h4, h5, h6, p, li, figcaption {
     line-height: 150%;
 }
 
+h1 { 
+    position: sticky;
+    top: -1px;
+    border-bottom: 1px solid var(--background);
+}
+
 figcaption {
     color: var(--white80);
     font-size: 0.8rem;
@@ -151,12 +157,25 @@ img {
 
 pre {
     color: var(--white80);
+    background-color: var(--white10);
     overflow: scroll;
-    width: max-content;
+    width: 100%;
     height: auto;
-    border: 1px solid var(--white20);
     padding: 2rem;
-    margin-left: 4px;
+    margin-left: -1px;
+    line-height: 150%;
+}
+
+.footnotes {
+    width: 100%;
+    background-color: var(--white10);
+    > ol {
+    font-size: 9px !important;
+}
+}
+
+hr {
+    display: none;
 }
 
 footer {

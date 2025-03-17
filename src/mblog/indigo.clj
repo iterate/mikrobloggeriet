@@ -24,7 +24,7 @@
 
      [:section
       [:div
-       (for [d (take 20 docs)]
+       (for [d (take 2000 docs)]
          [:div
           [:a {:name (:doc/slug d)}]
           [:div {:innerHTML
