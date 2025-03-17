@@ -1,6 +1,30 @@
 (ns mblog.indigo
   (:require [mikrobloggeriet.doc :as doc]
-            [replicant.string]))
+            [replicant.string]
+            [clojure.walk :refer [postwalk]]))
+
+(defn hiccup-optmap [form]
+  (if (map? (second form))
+    (second form)
+    {}))
+
+(defn hiccup-children [form]
+  (if (map? (second form))
+    (drop 2 form)
+    (drop 1 form)))
+
+(defn lazyload-images [hiccup]
+  (postwalk
+   (fn [form]
+     (cond
+       (and (vector? form)
+            (= (first form)
+               :img))
+       (into [:img (assoc (hiccup-optmap form)
+                          :loading "lazy")]
+             (hiccup-children form))
+       :else form))
+   hiccup))
 
 (defn innhold->hiccup [docs]
   [:html {:lang "en"}
@@ -27,7 +51,7 @@
        (for [d (take 2000 docs)]
          [:div
           [:a {:name (:doc/slug d)}]
-          [:div (doc/hiccup d)]])]]]
+          [:div (-> d doc/hiccup lazyload-images)]])]]]
     [:footer [:h1 "filter, Filter, FILTER!"]]]])
 
 (defn innhold [req]
