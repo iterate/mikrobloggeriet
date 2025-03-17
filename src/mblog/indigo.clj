@@ -6,15 +6,15 @@
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
-    [:style {:type "text/css"}
-     (slurp "indigo.css")]]
+    [:link {:rel "stylesheet" :href "indigo.css"}]]
    [:body
     [:header
      [:h1 "Mikrobloggeriet"]]
     [:container
      [:section
       [:ul
-       (interpose " " (repeat 100 [:li "venstre"]))]]
+       (for [doc docs]
+         [:li (doc/title doc)])]]
 
      [:section
       [:div

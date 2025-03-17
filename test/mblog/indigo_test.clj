@@ -8,6 +8,7 @@
     (->> [{:doc/title "Unminifying av kode med LLM"
            :doc/markdown "lang tekst"}]
          (indigo/innhold->hiccup)
-         (tree-seq vector? identity)
+         (tree-seq seqable?
+                   identity)
          set)
     "Unminifying av kode med LLM")))

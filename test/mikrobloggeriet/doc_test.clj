@@ -40,7 +40,9 @@
 
 (deftest title-test
   (is (= "Funksjonell programmering"
-         (doc/title {:doc/markdown "# Funksjonell programmering"}))))
+         (doc/title {:doc/markdown "# Funksjonell programmering"})))
+  (is (= "Funksjonell programmering"
+         (doc/title {:doc/title "Funksjonell programmering"}))))
 
 (deftest description-test
   (is (= "Mindre er ofte bedre."

@@ -31,7 +31,8 @@
   (:author/first-name (d/entity db [:author/email (:git.user/email doc)])))
 
 (defn title [doc]
-  (:title (cache/parse-markdown (:doc/markdown doc))))
+  (or (:doc/title doc)
+      (:title (cache/parse-markdown (:doc/markdown doc)))))
 
 (defn html [doc]
   (:doc/html (cache/parse-markdown (:doc/markdown doc))))
