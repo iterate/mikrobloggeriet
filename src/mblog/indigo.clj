@@ -19,7 +19,8 @@
        (for [doc docs]
          [:a.navList {:href (str "#" (:doc/slug doc))}
           (list [:p.navTitle (doc/cleaned-title doc)]
-                [:p.navDate "/"] [:p.navDate (:doc/created doc)])])]]
+                [:p.navDate "/"] [:p.navDate (:doc/created doc)]
+                [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)])])]]
 
      [:section
       [:div
