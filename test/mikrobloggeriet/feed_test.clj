@@ -23,7 +23,7 @@ Jeg lover!!!"
              [:author [:name "Ole Brumm"]]
              [:summary {:type "html"} "Jeg lover!!!"]
              [:content {:type "html"}
-              "<h1 id=\"en-god-latter-forlenger-livet\">En god latter forlenger\nlivet</h1>\n<p>Jeg lover!!!</p>\n"]])]
+              "<h1 id=\"en-god-latter-forlenger-livet\">En god latter forlenger\nlivet</h1>\n<p>Jeg lover!!!</p>"]])]
          (feed/generate-feed [en-god-latter-forlenger-livet]))))
 
 (comment
@@ -35,5 +35,4 @@ Jeg lover!!!"
   (into {} olorm-1)
   (-> olorm-1 :doc/primary-author :author/first-name)
   (doc/html olorm-1)
-  (feed/generate-feed [olorm-1])
-  )
+  (feed/generate-feed [olorm-1]))
