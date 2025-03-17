@@ -8,36 +8,14 @@
     [:meta {:charset "utf-8"}]
     [:style {:type "text/css"}
      (slurp "indigo.css")]]
-   [:body {:style
-           {:display "flex"
-            :height "100%"
-            :margin 0
-            :width "auto"}}
-    [:div {:style
-           {:display "flex"
-            :flex-grow 1
-            :height "100vh"
-            :overflow-x "hidden"
-            :overflow-y "auto"}}
+   [:body
+    [:section
      ;; venstre
-     [:div {:style
-            {:display "flex"
-             :flex-direction "column"
-             :max-width "40vw"
-             :overflow "auto"}}
-      (interpose " " (repeat 50 "venstre"))]]
-    [:div {:style
-           {:display "flex"
-            :flex-grow 1
-            :height "100vh"
-            :overflow-x "hidden"
-            :overflow-y "auto"}}
-     [:div {:style
-            {:display "flex"
-             :flex-direction "column"
-             :max-width "60vw"
-             :overflow "auto"}}
-      "høyre"
+     [:ul
+      (interpose " " (repeat 50 [:li "venstre"]))]]
+
+    [:section
+     [:div
       (for [d (take 10 docs)]
         [:div {:innerHTML
                (doc/html d)}])]]]])
