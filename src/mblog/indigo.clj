@@ -48,10 +48,10 @@
 
      [:section
       [:div
-       (for [d (take 2000 docs)]
+       (for [doc docs]
          [:div
-          [:a {:name (:doc/slug d)}]
-          [:div (-> d doc/hiccup lazyload-images)]])]]]
+          [:a {:name (:doc/slug doc)}]
+          [:div (-> doc doc/hiccup lazyload-images)]])]]]
     [:footer [:h1 "filter, Filter, FILTER!"]]]])
 
 (defn innhold [req]
