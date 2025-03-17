@@ -17,14 +17,15 @@
      [:section
       [:nav
        (for [doc docs]
-         [:div.navList (list [:p.navTitle (doc/cleaned-title doc)]
-                             [:p.navDate "/"] [:p.navDate (:doc/created doc)])])]]
+         [:a {:href (str "#" (:doc/slug doc))}
+          [:div.navList (list [:p.navTitle (doc/cleaned-title doc)]
+                              [:p.navDate "/"] [:p.navDate (:doc/created doc)])]])]]
 
      [:section
       [:div
-       (for [d (take 10 docs)]
+       (for [d (take 20 docs)]
          [:div
-          [:a {:name "lol"}]
+          [:a {:name (:doc/slug d)}]
           [:div {:innerHTML
                  (doc/html d)}]])]]]
     [:footer [:h1 "filter, Filter, FILTER!"]]]])
