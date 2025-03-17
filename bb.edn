@@ -1,9 +1,9 @@
 {:tasks
  {test (clojure "-M:kaocha")
-  deploy (shell "garden deploy")
+  deploy* (shell "garden deploy")
   push (shell "git push")
-  test-then-deploy (do (run 'test)
-                       ;; try to deploy before pushing - in case app startup
-                       ;; fails
-                       (run 'deploy)
-                       (run 'push))}}
+  deploy (do (run 'test)
+             ;; try to deploy before pushing - in case app startup
+             ;; fails
+             (run 'deploy*)
+             (run 'push))}}
