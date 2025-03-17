@@ -55,7 +55,6 @@ section {
 h1, h2, h3, h4, h5, h6, p, li, figcaption {
     color: var(--white100);
     text-decoration: none;
-    list-style-type: none;
     font-family: 'IBM Plex Mono', monospace;
     font-weight: 300;
     font-style: normal;
@@ -99,7 +98,7 @@ nav {
 }
 
 .navDate {
-    color: var(--white80);
+    color: var(--white50);
     white-space: nowrap;
     padding: 0;
     margin: 0;
@@ -127,6 +126,13 @@ a:hover {
     color: var(--black100);
     text-decoration: none;
     cursor: ne-resize;
+}
+
+blockquote {
+    color: var(--white80);
+    border-left: 2px solid var(--white50);
+    padding-left: 1rem;
+    margin-left: 0.5rem;
 }
 
 figure {
