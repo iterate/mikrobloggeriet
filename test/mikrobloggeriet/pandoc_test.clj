@@ -138,8 +138,7 @@ The rest of the document.")]
 
 (comment
   (require '[mikrobloggeriet.state]
-           '[datomic.api :as d]
-           '[mikrobloggeriet.doc :as doc])
+           '[datomic.api :as d])
   (def olorm-58 (d/entity mikrobloggeriet.state/datomic [:doc/slug "olorm-58"]))
   (-> (:doc/markdown olorm-58)
       pandoc/from-markdown))
