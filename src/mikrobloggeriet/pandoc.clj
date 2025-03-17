@@ -59,6 +59,9 @@
         (= "Emph" (:t expr))
         (els->plaintext (:c expr))
 
+        (= "Code" (:t expr))
+        (second (:c expr))
+
         :else
         nil))
 

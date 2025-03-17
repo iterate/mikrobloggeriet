@@ -41,7 +41,7 @@
   (:description (cache/parse-markdown (:doc/markdown doc))))
 
 (defn remove-cohort-prefix [title]
-  (str/replace title #"^[A-Z]+-\d+[: -]+" ""))
+  (str/replace title #"^[A-Z]+-\d+[: -]+ " ""))
 
 (defn cleaned-title [doc]
   (-> doc title remove-cohort-prefix))
