@@ -9,6 +9,7 @@
   com.widdindustries/time-literals {:mvn/version "0.1.10"}
   duratom/duratom {:mvn/version "0.5.9"}
   hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
+  org.clj-commons/hickory {:mvn/version "0.7.7"}
   http-kit/http-kit {:mvn/version "2.8.0"}
   io.github.nextjournal/clerk {:mvn/version "0.17.1102"}
   metosin/reitit {:mvn/version "0.7.2"}
