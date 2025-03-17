@@ -50,6 +50,10 @@
 
 Mindre er ofte bedre."}))))
 
+(deftest remove-cohort-prefix
+  (is (= (doc/cleaned-title {:doc/title "Funksjonell programmering"})
+         "Funksjonell programmering")))
+
 (deftest html-test
   (is (str/includes? (doc/html {:doc/markdown "# Funksjonell programmering"})
                      "programmering"))

@@ -40,6 +40,12 @@
 (defn description [doc]
   (:description (cache/parse-markdown (:doc/markdown doc))))
 
+(defn remove-cohort-prefix [title]
+  title)
+
+(defn cleaned-title [doc]
+  (-> doc title remove-cohort-prefix))
+
 (comment
   (cache/parse-markdown "# Funksjonell programmering")
   (title {:doc/markdown "# Funksjonell programmering"})
