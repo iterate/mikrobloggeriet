@@ -6,7 +6,8 @@
    [duratom.core :refer [duratom]]
    [clojure.string :as str]
    [mikrobloggeriet.pandoc :as pandoc]
-   [hickory.core :as hickory]))
+   [hickory.core :as hickory]
+   [lookup.core :as lookup]))
 
 
 (defn cache-fn-by
@@ -69,20 +70,26 @@
              :commit-mode :sync
              :init {})))
 
+(defn parse-html [html-str]
+  (->> html-str
+       hickory/parse
+       hickory/as-hiccup
+       (lookup/select '[html body])
+       first
+       rest))
+
 (defn parse-markdown* [markdown-str]
   (let [pandoc (pandoc/from-markdown markdown-str)
-        html (str/trim (pandoc/to-html pandoc))]
-    {:doc/html html
-     :doc/hiccup (->> (hickory/as-hiccup (hickory/parse html))
-                      first last
-                      (drop 2))
+        html-str (str/trim (pandoc/to-html pandoc))]
+    {:doc/html html-str
+     :doc/hiccup (parse-html html-str)
      :title (pandoc/infer-title pandoc)
      :description (pandoc/infer-description pandoc)}))
 
 (def parse-markdown
   (cache-fn-by (or cache-atom (atom {}))
                #'parse-markdown*
-               #(str "2025-03-17-pandoc"
+               #(str "2025-03-17-pandoc-2"
                      "\n" %)
                identity))
 

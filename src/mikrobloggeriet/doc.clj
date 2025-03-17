@@ -37,6 +37,9 @@
 (defn html [doc]
   (:doc/html (cache/parse-markdown (:doc/markdown doc))))
 
+(defn hiccup [doc]
+  (:doc/hiccup (cache/parse-markdown (:doc/markdown doc))))
+
 (defn description [doc]
   (:description (cache/parse-markdown (:doc/markdown doc))))
 
