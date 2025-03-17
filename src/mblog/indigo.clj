@@ -27,8 +27,7 @@
        (for [d (take 2000 docs)]
          [:div
           [:a {:name (:doc/slug d)}]
-          [:div {:innerHTML
-                 (doc/html d)}]])]]]
+          [:div (doc/hiccup d)]])]]]
     [:footer [:h1 "filter, Filter, FILTER!"]]]])
 
 (defn innhold [req]

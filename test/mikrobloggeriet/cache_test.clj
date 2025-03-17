@@ -55,23 +55,22 @@ så fins en kurs imot et land av sang og sten.
 
 (deftest parse-markdown
   (testing "parses doc as html"
-    (is (= (-> (cache/parse-markdown* "tekst med _vekt_")
+    (is (= "<p>tekst med <em>vekt</em></p>"
+           (-> (cache/parse-markdown* "tekst med _vekt_")
                :doc/html
-               str/trim)
-           "<p>tekst med <em>vekt</em></p>")))
+               str/trim))))
 
   (testing "parses doc as hiccup"
-  (is (= (-> (cache/parse-markdown* "tekst med _vekt_")
-             :doc/hiccup)
-         '([:p {} "tekst med " [:em {} "vekt"]]))))
+  (is (= '([:p  "tekst med " [:em  "vekt"]])
+         (-> (cache/parse-markdown* "tekst med _vekt_")
+             :doc/hiccup))))
 
   (testing "extracts title"
-    (is (= (-> hildringstimen-markdown cache/parse-markdown* :title)
-           "Hildringstimen")))
+    (is (= "Hildringstimen"
+           (-> hildringstimen-markdown cache/parse-markdown* :title))))
 
   (testing "extracts first paragraph as description"
-    (is (= (-> hildringstimen-markdown cache/parse-markdown* :description)
-           (->>
+    (is (= (->>
             "
 I hildringstimen er det godt å seile.
 En kaffekjeft og stomp med sirup på.
@@ -84,4 +83,5 @@ en håndfull holmer som nå bader i karat.
 "
             (str/trim)
             (str/split-lines)
-            (str/join " "))))))
+            (str/join " "))
+           (-> hildringstimen-markdown cache/parse-markdown* :description)))))
