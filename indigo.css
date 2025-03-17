@@ -20,6 +20,9 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 header {
@@ -50,6 +53,7 @@ section {
     width: 50%;
     height: 100%;
     border-right: 1px solid var(--white20);
+    scroll-behavior: smooth;
 }
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption {
@@ -81,6 +85,7 @@ nav {
     height: fit-content;
     cursor: cell;
     gap: 4px;
+    text-decoration: none;
 }
 
 .navList:hover {
@@ -159,7 +164,5 @@ footer {
     border-top: 1px solid var(--background);
     color: var(--black100);
     width: 100%;
-    z-index: 9;
-    position: fixed;
-    bottom: 0;
+
 }
