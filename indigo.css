@@ -60,7 +60,7 @@ section {
     opacity: 1;
 }
 
-section:has(+ section:hover), section:hover + section {
+section:hover + section, section:has(+ section:hover) {
     opacity: 0.5;
 }
 
