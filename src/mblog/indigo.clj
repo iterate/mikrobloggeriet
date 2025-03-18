@@ -2,8 +2,7 @@
   (:require [clojure.walk :refer [postwalk]]
             [mikrobloggeriet.doc :as doc]
             [replicant.string]
-            [hiccup.page]
-            [hiccup2.core :as hiccup]))
+            [hiccup.page]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
