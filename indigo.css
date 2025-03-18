@@ -59,7 +59,7 @@ section {
     opacity: 1;
 }
 
-section:not(:hover) {
+section::not(:hover) {
     opacity: 0.5;
 }
 
