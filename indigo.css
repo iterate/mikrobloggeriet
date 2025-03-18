@@ -64,7 +64,7 @@ section:has(+ section:hover), section:hover + section {
     opacity: 0.5;
 }
 
-h1, h2, h3, h4, h5, h6, p, li, figcaption {
+h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
     color: var(--white100);
     text-decoration: none;
     font-family: 'IBM Plex Mono', monospace;
@@ -83,6 +83,11 @@ h1 {
 figcaption {
     color: var(--white80);
     font-size: 0.8rem;
+}
+
+aside {
+    background-color: var(--white10);
+    padding: 1rem;
 }
 
 nav {
@@ -159,9 +164,15 @@ a:hover {
 
 blockquote {
     color: var(--white80);
+    background-color: var(--white10);
     border-left: 2px solid var(--white50);
     padding-left: 1rem;
     margin-left: 0.5rem;
+    padding: 0.5rem 0rem 0.5rem 1rem;
+
+    > p {
+    font-style: italic;
+}
 }
 
 figure {
