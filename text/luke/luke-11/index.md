@@ -75,12 +75,11 @@ Flott for bruktmarkedet, da slipper man å kjøpe et grafikkort som har minet bi
 Thank you for considering my complaint,
 Ole Jacob
 
-
-<div id="cusdis_thread" style="display: flex; min-height: 300px;"
+[<div id="cusdis_thread" style="display: flex; min-height: 300px;"
   data-host="https://cusdis.test.iterate.no"
   data-app-id="d760cc6b-deea-4fc4-90b6-b16ece7fbb92"
   data-page-id="1"
   data-page-url="https://mikrobloggeriet.no/luke/"
   data-page-title="Mikrobloggeriet"
 ></div>
-<script async defer src="https://cusdis.test.iterate.no/js/cusdis.es.js"></script>
+<script async defer src="https://cusdis.test.iterate.no/js/cusdis.es.js"></script>]:
