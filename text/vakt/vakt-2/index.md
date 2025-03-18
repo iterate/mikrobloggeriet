@@ -16,6 +16,7 @@ Work in progress:
 - [x] fikse en ting
 - [ ] fikse en annen ting
 - [ ] Line skal fikse masse her inne nå
+- [ ] Neno også
 - [ ] Gjør visited i venstre state bedre
 - [ ] Gjør nav aktiv på click og scroll
 - [ ] gjør post aktiv på click i venstre
