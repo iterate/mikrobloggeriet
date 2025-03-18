@@ -1,30 +1,30 @@
 {:paths ["src" "dev" "test"]
  :deps
  {
-  babashka/fs {:mvn/version "0.5.23"}
+  babashka/fs {:mvn/version "0.5.24"}
   babashka/process {:mvn/version "0.5.22"}
   cheshire/cheshire {:mvn/version "5.13.0"}
   com.datomic/peer {:mvn/version "1.0.7277"}
   com.widdindustries/cljc.java-time {:mvn/version "0.1.21"}
   com.widdindustries/time-literals {:mvn/version "0.1.10"}
   duratom/duratom {:mvn/version "0.5.9"}
-  hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
+  hiccup/hiccup {:mvn/version "2.0.0-RC4"}
   http-kit/http-kit {:mvn/version "2.8.0"}
   io.github.nextjournal/clerk {:mvn/version "0.17.1102"}
   metosin/reitit {:mvn/version "0.7.2"}
   no.cjohansen/lookup {:mvn/version "2024.12.23"}
   no.cjohansen/replicant {:mvn/version "2025.03.02"}
-  org.babashka/cli {:mvn/version "0.8.61"}
+  org.babashka/cli {:mvn/version "0.8.62"}
   org.clj-commons/hickory {:mvn/version "0.7.7"}
   org.clojure/clojure {:mvn/version "1.12.0"}
 
   ;; Supress Java logging warnings
-  org.slf4j/slf4j-nop {:mvn/version "2.0.16"}
+  org.slf4j/slf4j-nop {:mvn/version "2.0.17"}
 
   ;; For development
   ;;
   ;; We want these accessible in prod REPLs too, so into main deps they go.
-  io.github.tonsky/clj-reload {:mvn/version "0.7.1"}
+  io.github.tonsky/clj-reload {:mvn/version "0.9.0"}
   lambdaisland/kaocha {:mvn/version "1.91.1392"}
   com.nextjournal/beholder {:mvn/version "1.0.2"}
 
