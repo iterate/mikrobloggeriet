@@ -58,6 +58,12 @@ section {
     /*
        scroll-behavior: smooth går i beina på lazy-loading av bilder.
 
+       Vi har lazy-loading av bilder med HTML ala denne:
+
+         <img loading="lazy" src="olav.jpg">
+
+       Når vi samtidig har scroll-behavior: smooth, risikerer vi at følgende skjer:
+
        1. En bruker får lastet nettsiden kjapt fordi vi lazy-loader bilder
        2. Brukeren trykker på en lenke langt ned, feks OLORM-7
        3. Brukeren kommer ikke ned til OLORM-7, scrollen stopper feks på OLORM-33.
