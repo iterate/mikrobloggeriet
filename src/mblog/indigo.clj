@@ -1,7 +1,9 @@
 (ns mblog.indigo
   (:require [clojure.walk :refer [postwalk]]
             [mikrobloggeriet.doc :as doc]
-            [replicant.string]))
+            [replicant.string]
+            [hiccup.page]
+            [hiccup2.core :as hiccup]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
@@ -64,7 +66,8 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body
-   (str
+   (hiccup.page/html5 {} (innhold->hiccup (innhold req)))
+   #_(str
     "<!DOCTYPE html>"
     (replicant.string/render
      (innhold->hiccup (innhold req))))})
