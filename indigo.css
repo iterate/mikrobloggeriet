@@ -55,7 +55,7 @@ section {
     width: 50%;
     height: 100%;
     border-right: 1px solid var(--white20);
-    scroll-behavior: smooth;
+    /*scroll-behavior: smooth;*/
     transition: ease-in-out 0.3s;
     opacity: 1;
 }
