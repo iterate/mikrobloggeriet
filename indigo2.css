@@ -1,5 +1,5 @@
-@import "./theme1.css";
-@import "./theme2.css";
+@import url("theme1.css");
+@import url("theme2.css");
 
   ::selection {
     color: var(--background01);
@@ -8,7 +8,7 @@
 
 body { 
     margin: 0;
-    padding: 0;
+    padding: 50px;
     background-color: var(--background01); 
     font-size: 16px;
     height: 100vh;

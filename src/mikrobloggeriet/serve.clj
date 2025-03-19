@@ -202,7 +202,7 @@
 
      ;; CSS files we use
      (for [css-file ["vanilla.css" "mikrobloggeriet.css" "pygment.css" "reset.css" "urlog.css"
-                     "indigo.css"]]
+                     "indigo.css" "indigo2.css" "theme1.css" "theme2.css"]]
        [(str "/" css-file) {:get (fn [_req]
                                    (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
