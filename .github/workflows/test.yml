@@ -27,4 +27,4 @@ jobs:
       - name: print java version
         run: java -version
       - name: Run tests
-        run: clojure -M:testrunner
+        run: bin/kaocha
