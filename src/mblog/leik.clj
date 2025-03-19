@@ -1,5 +1,5 @@
 (ns mblog.leik
-  "en mer leken kohort enn de andre"
+  "en ekstra leken kohort"
   (:require
    [babashka.fs :as fs]))
 
