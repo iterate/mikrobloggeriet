@@ -90,7 +90,7 @@ section:hover + section, section:has(+ section:hover) {
 }
 
 section:hover + section, section:has(+ section:hover),
-section:active + section, section:has(+ section:active) {
+section:focus + section, section:has(+ section:focus) {
     opacity: 0.5;
 
     && img {
