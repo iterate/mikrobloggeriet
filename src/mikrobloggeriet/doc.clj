@@ -64,6 +64,7 @@
 
 (defn latest [db]
   (->> (all db)
+       (filter :doc/created)
        (sort-by :doc/created)
        reverse))
 

@@ -14,6 +14,9 @@
     :db/cardinality :db.cardinality/one
     :db/unique :db.unique/identity}
 
+   ;; Two use cases:
+   ;; - generic loading for markdown cohorts
+   ;; - watching for changes in development.
    {:db/ident :cohort/root
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
@@ -144,7 +147,14 @@
     :cohort/slug "journal",
     :cohort/type :cohort.type/markdown,
     :cohort/name "Journal"
-    :cohort/description "Journalisering."}})
+    :cohort/description "Journalisering."}
+   :cohort/leik
+   {:cohort/root "text/leik"
+    :cohort/slug "leik"
+    :cohort/type :cohort.type/leik
+    :cohort/name "LEIK"
+    :cohort/description "Maks minimalisme, maks lek."
+    }})
 
 (def authors
   [{:author/email "42978548+olavm@users.noreply.github.com" :author/first-name "Olav"}
@@ -174,7 +184,7 @@
    {:author/email "thusan@iterate.no", :author/first-name "Thusan"}
    {:author/email "line@iterate.no", :author/first-name "Line"}])
 
-(defn find-cohort-docs [cohort]
+(defn markdown-cohort-docs [cohort]
   (->> (fs/list-dir (:cohort/root cohort))
        (filter (fn [dir]
                  (and (fs/exists? (fs/file dir "index.md"))
@@ -187,8 +197,18 @@
                            :doc/markdown (slurp (fs/file dir "index.md"))
                            :doc/slug (fs/file-name dir)
                            :doc/cohort [:cohort/id (:cohort/id cohort)])
-                    (:git.user/email base)
-                    (assoc :doc/primary-author {:author/email (:git.user/email base)})))))))
+                  (:git.user/email base)
+                  (assoc :doc/primary-author {:author/email (:git.user/email base)})))))))
+
+(require 'mblog.leik)
+
+(defn find-cohort-docs [cohort]
+  (if (= (:cohort/type cohort)
+         :cohort.type/leik)
+    (mblog.leik/find-docs)
+    (markdown-cohort-docs cohort)))
+
+#_(mapcat find-cohort-docs (vals cohorts))
 
 (defn loaddb [{:keys [cohorts authors]}]
   (let [uri (str "datomic:mem://" (random-uuid))

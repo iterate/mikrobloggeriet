@@ -3,13 +3,11 @@
             [datomic.api :as d]
             [mikrobloggeriet.db :as db]))
 
-(deftest cohort-test
-  (testing "Cohorts have names"
-    (doseq [cohort (vals db/cohorts)]
-      (is (contains? cohort :cohort/name))))
-  (testing "Cohorts have descriptions"
-    (doseq [cohort (vals db/cohorts)]
-      (is (contains? cohort :cohort/description)))))
+(deftest valid-cohort-data
+  (doseq [cohort (vals db/cohorts)]
+    (is (contains? cohort :cohort/name))
+    (is (contains? cohort :cohort/description))
+    (is (contains? cohort :cohort/root))))
 
 (deftest doc-test
   (testing "Docs have cohorts"
