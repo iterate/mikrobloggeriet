@@ -1,6 +1,6 @@
 :root {
-    --background01: #080D92;
-    --background02: #0F0F0F;
+    --background01: #0F0F0F;
+    --background02: #080D92;
     --white100: #fff;
     --white80: rgba(255, 255, 255, 0.8);
     --white50: rgba(255, 255, 255, 0.5);
@@ -88,6 +88,11 @@ section {
 
 section:hover + section, section:has(+ section:hover) {
     opacity: 0.5;
+
+    && img {
+        filter: grayscale(1);
+        mix-blend-mode: screen;
+    }
 }
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
@@ -209,15 +214,10 @@ figure {
 
 img { 
     max-width: 100%;
-    filter: grayscale(1);
-    transition: ease-in-out 0.4s;
-    mix-blend-mode: screen;
-}
-
-img:hover {
     filter: grayscale(0);
     mix-blend-mode: normal;
 }
+
 
 pre {
     color: var(--white80);
