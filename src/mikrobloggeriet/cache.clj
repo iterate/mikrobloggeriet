@@ -89,7 +89,7 @@
 (def parse-markdown
   (cache-fn-by (or cache-atom (atom {}))
                #'parse-markdown*
-               #(str "2025-03-17-pandoc-2"
+               #(str "2025-03-19-journal"
                      "\n" %)
                identity))
 
