@@ -138,7 +138,7 @@
     :cohort/slug "vakt",
     :cohort/type :cohort.type/markdown,
     :cohort/name "VAKT"
-    :cohort/description "Fra oss som lager Mikrobloggeriet."},
+    :cohort/description "Fra oss som lager Mikrobloggeriet."}
    :cohort/journal
    {:cohort/root "text/journal",
     :cohort/slug "journal",
