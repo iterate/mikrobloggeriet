@@ -1,8 +1,9 @@
 (ns mblog.indigo
-  (:require [clojure.walk :refer [postwalk]]
-            [mikrobloggeriet.doc :as doc]
-            [replicant.string]
-            [hiccup.page]))
+  (:require
+   [clojure.walk :refer [postwalk]]
+   [hiccup.page]
+   [mikrobloggeriet.doc :as doc]
+   [replicant.string]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
@@ -45,7 +46,7 @@
     [:header
      [:a {:href "/"} [:h1 "Mikrobloggeriet"]]]
     [:container
-     [:section
+     [:section.navigation
       [:nav
        (for [doc docs]
          [:a.navList {:href (str "#" (:doc/slug doc))}
@@ -53,7 +54,7 @@
           [:p.navDate "/"] [:p.navDate (:doc/created doc)]
           [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
 
-     [:section
+     [:section.content
       [:div
        (for [doc docs]
          [:div
@@ -73,9 +74,9 @@
    :body
    (hiccup.page/html5 {} (innhold->hiccup (innhold req)))
    #_(str
-    "<!DOCTYPE html>"
-    (replicant.string/render
-     (innhold->hiccup (innhold req))))})
+      "<!DOCTYPE html>"
+      (replicant.string/render
+       (innhold->hiccup (innhold req))))})
 
 (comment
   (require 'clojure.repl.deps)

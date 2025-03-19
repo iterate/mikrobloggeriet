@@ -89,6 +89,7 @@ section:hover + section, section:has(+ section:hover) {
     }
 }
 
+
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
     color: var(--white100);
     text-decoration: none;
@@ -98,6 +99,8 @@ h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
     font-size: clamp(1rem, 1vw, 1.5rem);
     line-height: 150%;
 }
+
+
 
 h1 { 
     position: sticky;
@@ -208,6 +211,7 @@ figure {
 
 img { 
     max-width: 100%;
+    filter: grayscale(0);
     mix-blend-mode: normal;
 }
 
