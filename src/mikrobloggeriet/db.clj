@@ -171,7 +171,8 @@
    {:author/email "richard.tingstad@iterate.no", :author/first-name "Richard"}
    {:author/email "rune@iterate.no", :author/first-name "Rune"}
    {:author/email "sindre@iterate.no", :author/first-name "Sindre"}
-   {:author/email "thusan@iterate.no", :author/first-name "Thusan"}])
+   {:author/email "thusan@iterate.no", :author/first-name "Thusan"}
+   {:author/email "line@iterate.no", :author/first-name "Line"}])
 
 (defn find-cohort-docs [cohort]
   (->> (fs/list-dir (:cohort/root cohort))
