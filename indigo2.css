@@ -1,5 +1,3 @@
-@import url("theme1.css");
-@import url("theme2.css");
 
   ::selection {
     color: var(--background01);
@@ -17,6 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
+    
 }
 
 header {
