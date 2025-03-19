@@ -89,8 +89,7 @@ section:hover + section, section:has(+ section:hover) {
     }
 }
 
-section:hover + section, section:has(+ section:hover),
-section:focus + section, section:has(+ section:focus) {
+section:hover + section, section:has(+ section:hover) {
     opacity: 0.5;
 
     && img {
