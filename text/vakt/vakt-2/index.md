@@ -14,6 +14,7 @@ css + visited state
 Work in progress:
 
 - [x] fikse en ting
+- [ ] drikke kaffi
 - [ ] fikse en annen ting
 - [ ] Line skal fikse masse her inne nå
 - [ ] Neno også
