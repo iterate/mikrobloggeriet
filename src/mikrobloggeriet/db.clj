@@ -138,7 +138,13 @@
     :cohort/slug "vakt",
     :cohort/type :cohort.type/markdown,
     :cohort/name "VAKT"
-    :cohort/description "Fra oss som lager Mikrobloggeriet."}})
+    :cohort/description "Fra oss som lager Mikrobloggeriet."},
+   :cohort/journal
+   {:cohort/root "text/journal",
+    :cohort/slug "journal",
+    :cohort/type :cohort.type/markdown,
+    :cohort/name "Journal"
+    :cohort/description "Journalisering."}})
 
 (def authors
   [{:author/email "42978548+olavm@users.noreply.github.com" :author/first-name "Olav"}
