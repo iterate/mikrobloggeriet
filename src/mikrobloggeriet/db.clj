@@ -4,6 +4,7 @@
    [babashka.fs :as fs]
    [clojure.edn :as edn]
    [datomic.api :as d]
+   [mblog.leik]
    [mikrobloggeriet.cohort :as cohort]))
 
 ;; Database schema
@@ -199,8 +200,6 @@
                            :doc/cohort [:cohort/id (:cohort/id cohort)])
                   (:git.user/email base)
                   (assoc :doc/primary-author {:author/email (:git.user/email base)})))))))
-
-(require 'mblog.leik)
 
 (defn find-cohort-docs [cohort]
   (if (= (:cohort/type cohort)
