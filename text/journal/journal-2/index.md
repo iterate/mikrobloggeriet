@@ -1,8 +1,1 @@
-<!-- Hva gjør du akkurat nå? -->
-
-<!-- Finner du kvalitet i det? -->
-
-<!-- Hvorfor / hvorfor ikke? -->
-
-<!-- Call to action—hva ønsker du kommentarer på fra de som leser? -->
-
+![Officevibes](https://github.com/user-attachments/assets/8c0b4127-388d-4355-a1bf-2c365579d6ed)
