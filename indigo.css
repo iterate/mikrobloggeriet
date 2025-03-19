@@ -13,6 +13,11 @@
     --black10: rgba(0, 0, 0, 0.1);
   }
 
+  ::selection {
+    color: var(--background01);
+    background-color: var(--white100);
+}
+
 body { 
     margin: 0;
     padding: 0;
