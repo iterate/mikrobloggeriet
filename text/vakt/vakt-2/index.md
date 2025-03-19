@@ -11,6 +11,11 @@ css, markdown->hiccup, lazy-load, pandoc, ny front og farger
 18.3.2025:
 css + visited state
 
+19.3.2024:
+lagt til POC-kohort som er lettere å skrive rett fra github, LEIK
+Ønske til designerene våre: vurdere (et lite hakk) tydeligere overskrifter?
+Litt vanskelig å spitte seksjonene i http://localhost:7777/#leik-1.md fra hverandre.
+
 Work in progress:
 
 - [x] fikse en ting
