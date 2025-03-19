@@ -10,16 +10,17 @@
 
 (defn load-doc [f]
   (when (fs/exists? f)
-    (when-let [number (first (re-matches #"(\d+)\.md" (fs/file-name f)))]
+    (when-let [number (second (re-matches #"(\d+)\.md" (fs/file-name f)))]
       {:doc/slug (str "leik-" number)
        :doc/markdown (slurp (fs/file f))
        :doc/created (created-date f)})))
 
 (defn find-docs []
   (->> (fs/list-dir "text/leik")
-      (keep load-doc)))
+       (keep load-doc)))
 
 (comment
+  (set! *print-namespace-maps* false)
   (find-docs)
   (def f "text/leik/1.md")
   (fs/file-name f)
