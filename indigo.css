@@ -55,6 +55,9 @@ section {
     width: 50%;
     height: 100%;
     border-right: 1px solid var(--white20);
+    -webkit-scrollbar: none; /* WebKit */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
     /*
        scroll-behavior: smooth går i beina på lazy-loading av bilder.
 
