@@ -208,7 +208,6 @@ figure {
 
 img { 
     max-width: 100%;
-    filter: grayscale(0);
     mix-blend-mode: normal;
 }
 
