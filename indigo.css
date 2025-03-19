@@ -4,10 +4,10 @@
     background-color: var(--white100);
 }
 
-body { 
+body {
     margin: 0;
     padding: 0;
-    background-color: var(--background01); 
+    background-color: var(--background01);
     font-size: 16px;
     height: 100vh;
     width: 100vw;
@@ -89,6 +89,15 @@ section:hover + section, section:has(+ section:hover) {
     }
 }
 
+section:hover + section, section:has(+ section:hover),
+section:active + section, section:has(+ section:active) {
+    opacity: 0.5;
+
+    && img {
+        filter: grayscale(1);
+        mix-blend-mode: screen;
+    }
+}
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
     color: var(--white100);
@@ -102,7 +111,7 @@ h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
 
 
 
-h1 { 
+h1 {
     position: sticky;
     top: -1px;
     border-bottom: 1px solid var(--background01);
@@ -206,10 +215,10 @@ blockquote {
 figure {
     margin: 0;
     padding: 0 4px 0 4px;
-    
+
 }
 
-img { 
+img {
     max-width: 100%;
     filter: grayscale(0);
     mix-blend-mode: normal;
