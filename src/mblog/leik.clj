@@ -5,6 +5,8 @@
    [clojure.string :as str]))
 
 (defn created-date [f]
+  ;; A "simplest possible" approach to when a file was created. If this doesn't
+  ;; work out, we can use the Git log.
   (some-> (fs/creation-time f)
           str (str/split #"T") first))
 
