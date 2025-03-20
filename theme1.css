@@ -1,13 +1,15 @@
+@import url(./themeColors.css);
+
 :root {
-    --background01: #0F0F0F;
-    --white100: #fff;
-    --white80: rgba(255, 255, 255, 0.8);
-    --white50: rgba(255, 255, 255, 0.5);
-    --white20: rgba(255, 255, 255, 0.2);
-    --white10: rgba(255, 255, 255, 0.1);
-    --black100: #000;
-    --black80: rgba(0, 0, 0, 0.8);
-    --black50: rgba(0, 0, 0, 0.5);
-    --black20: rgba(0, 0, 0, 0.2);
-    --black10: rgba(0, 0, 0, 0.1);
+    --background: #0F0F0F;
+    --accent100: var(--white100);
+    --accent80: var(--white80);
+    --accent50: var(--white50);
+    --accent20: var(--white20);
+    --accent10: var(--white10);
+    --invert100: var(--black100);
+    --invert80: var(--black80);
+    --invert50: var(--black50);
+    --invert20: var(--black20);
+    --invert10: var(--black10);
   }

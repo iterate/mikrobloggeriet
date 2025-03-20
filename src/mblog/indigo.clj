@@ -29,12 +29,13 @@
        :else form))
    hiccup))
 
+(require '[clojure.string :as str])
+
 (defn parse-css [css re]
-  (as-> css c
-    (slurp c)
-    (re-find re c)
-    (last c)
-    (str/replace c #"'" "")))
+  (let [content (if (string? css) css (slurp css))
+        match (re-find re content)]
+    (when match
+      (-> match second (str/replace #"'" "")))))
 
 (defn css->background-color [theme]
   (parse-css theme #"--background01:\s*(.*?);"))
@@ -45,8 +46,9 @@
 (defn css->font [style]
   (parse-css style #"font-family:\s*(.*?);"))
 
+
 (def styles ["indigo.css" "indigo2.css"])
-(def themes ["theme1.css" "theme2.css"])
+(def themes ["theme1.css" "theme2.css" "theme3.css" "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css"])
 
 (defn innhold->hiccup [docs]
   (let [rand-style (rand-nth styles)
@@ -96,9 +98,9 @@
    :body
    #_(hiccup.page/html5 {} (innhold->hiccup (innhold req)))
    (str
-      "<!DOCTYPE html>"
-      (replicant.string/render
-       (innhold->hiccup (innhold req))))})
+    "<!DOCTYPE html>"
+    (replicant.string/render
+     (innhold->hiccup (innhold req))))})
 
 (comment
   (require 'clojure.repl.deps)

@@ -1,7 +1,7 @@
 @import url(./themeColors.css);
 
 :root {
-    --background: #080D92;
+    --background: #910808;
     --accent100: var(--white100);
     --accent80: var(--white80);
     --accent50: var(--white50);

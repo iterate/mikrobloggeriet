@@ -1,13 +1,13 @@
 
-  ::selection {
-    color: var(--background01);
-    background-color: var(--white100);
+::selection {
+    color: var(--background);
+    background-color: var(--accent100);
 }
 
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--background01);
+    background-color: var(--background);
     font-size: 16px;
     height: 100vh;
     width: 100vw;
@@ -20,9 +20,9 @@ body {
 header {
     width: 100%;
     height: auto;
-    background-color: var(--white100);
-    color: var(--black100);
-    border-bottom: 1px solid var(--background01);
+    background-color: var(--accent100);
+    color: var(--invert100);
+    border-bottom: 1px solid var(--background);
 
     a {
         display: flex;
@@ -36,7 +36,7 @@ header {
     }
 
     p {
-        color: var(--black100);
+        color: var(--invert100);
         padding: 0 4px 0 4px;
         margin: 0;
         cursor: cell;
@@ -58,7 +58,7 @@ section {
     overflow-x: hidden;
     width: 50%;
     height: 100%;
-    border-right: 1px solid var(--white20);
+    border-right: 1px solid var(--accent20);
     -webkit-scrollbar: none; /* WebKit */
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -112,7 +112,7 @@ section:hover + section, section:has(+ section:hover) {
 }
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
-    color: var(--white100);
+    color: var(--accent100);
     text-decoration: none;
     font-family: 'IBM Plex Mono', monospace;
     font-weight: 300;
@@ -129,12 +129,12 @@ h1 {
 }
 
 figcaption {
-    color: var(--white80);
+    color: var(--accent80);
     font-size: 0.8rem;
 }
 
 aside {
-    background-color: var(--white10);
+    background-color: var(--accent10);
     padding: 1rem;
 }
 
@@ -156,12 +156,12 @@ nav {
 }
 
 .navList:hover {
-    background-color: var(--white10);
+    background-color: var(--accent10);
     cursor: cell;
 }
 
 .navList:active {
-    background-color: var(--white50);
+    background-color: var(--accent50);
 }
 
 .navList:visited > .navTitle {
@@ -180,7 +180,7 @@ nav {
 }
 
 .navDate {
-    color: var(--white50);
+    color: var(--accent50);
     white-space: nowrap;
     padding: 0;
     margin: 0;
@@ -188,8 +188,8 @@ nav {
 
 
 h1 {
-    background-color: var(--white100);
-    color: var(--black100);
+    background-color: var(--accent100);
+    color: var(--invert100);
     padding: 0 4px 0 4px;
     margin: 0;
 }
@@ -199,21 +199,21 @@ p {
 }
 
 a {
-    color: var(--white100);
+    color: var(--accent100);
     text-decoration: underline;
 }
 
 a:hover {
-    background-color: var(--white100);
-    color: var(--black100);
+    background-color: var(--accent100);
+    color: var(--invert100);
     text-decoration: none;
     cursor: ne-resize;
 }
 
 blockquote {
-    color: var(--white80);
-    background-color: var(--white10);
-    border-left: 2px solid var(--white50);
+    color: var(--accent80);
+    background-color: var(--accent10);
+    border-left: 2px solid var(--accent50);
     padding-left: 1rem;
     margin-left: 0.5rem;
     padding: 0.5rem 0rem 0.5rem 1rem;
@@ -237,8 +237,8 @@ img {
 
 
 pre {
-    color: var(--white80);
-    background-color: var(--white10);
+    color: var(--accent80);
+    background-color: var(--accent10);
     overflow: scroll;
     width: 100%;
     height: auto;
@@ -249,7 +249,7 @@ pre {
 
 .footnotes {
     width: 100%;
-    background-color: var(--white10);
+    background-color: var(--accent10);
     > ol {
     font-size: 9px !important;
 }
@@ -260,9 +260,9 @@ hr {
 }
 
 footer {
-    background-color: var(--white100);
-    border-top: 1px solid var(--background01);
-    color: var(--black100);
+    background-color: var(--accent100);
+    border-top: 1px solid var(--background);
+    color: var(--invert100);
     width: 100%;
 
 }
