@@ -31,3 +31,4 @@ Work in progress:
 - [x] switch css dokument (random/button)
 - [ ] Bilde-karusell
 - [ ] Mobil-navigasjon
+- [ ] gi litt CSS-❤️ til tabeller (og kodeblokker). Se: https://mikrobloggeriet.no/#olorm-48
