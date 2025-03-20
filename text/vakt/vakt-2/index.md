@@ -20,14 +20,14 @@ Work in progress:
 
 - [x] fikse en ting
 - [ ] drikke kaffi
-- [ ] fikse en annen ting
-- [ ] Line skal fikse masse her inne nå
-- [ ] Neno også
+- [x] fikse en annen ting
+- [x] Line skal fikse masse her inne nå
+- [x] Neno også
 - [ ] Gjør visited i venstre state bedre
 - [ ] Gjør nav aktiv på click og scroll
 - [ ] gjør post aktiv på click i venstre
-- [ ] randomize body bg
+- [x] randomize body bg
 - [ ] CSS dokument raffinert versjon
-- [ ] switch css dokument (random/button)
+- [x] switch css dokument (random/button)
 - [ ] Bilde-karusell
 - [ ] Mobil-navigasjon
