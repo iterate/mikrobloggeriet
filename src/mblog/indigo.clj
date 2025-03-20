@@ -3,7 +3,8 @@
    [clojure.walk :refer [postwalk]]
    [hiccup.page]
    [mikrobloggeriet.doc :as doc]
-   [replicant.string]))
+   [replicant.string]
+   [clojure.string :as str]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
@@ -28,39 +29,60 @@
        :else form))
    hiccup))
 
+(defn parse-css [css re]
+  (as-> css c
+    (slurp c)
+    (re-find re c)
+    (last c)
+    (str/replace c #"'" "")))
+
+(defn css->background-color [theme]
+  (parse-css theme #"--background01:\s*(.*?);"))
+
+(defn css->text-color [theme]
+  (parse-css theme #"--white100:\s*(.*?);"))
+
+(defn css->font [style]
+  (parse-css style #"font-family:\s*(.*?);"))
 
 (def styles ["indigo.css" "indigo2.css"])
 (def themes ["theme1.css" "theme2.css"])
 
 (defn innhold->hiccup [docs]
-  [:html {:lang "en"}
-   [:head
-    [:meta {:charset "utf-8"}]
-    [:link {:rel "stylesheet" :href (rand-nth styles)}]
-    [:link {:rel "stylesheet" :href (rand-nth themes)}]
+  (let [rand-style (rand-nth styles)
+        rand-theme (rand-nth themes)
+        bg-color (css->background-color rand-theme)
+        text-color (css->text-color rand-theme)
+        font (css->font rand-style)]
+    [:html {:lang "en"}
+     [:head
+      [:meta {:charset "utf-8"}]
+      [:link {:rel "stylesheet" :href rand-style}]
+      [:link {:rel "stylesheet" :href rand-theme}]
    ;; Google fonts
-    [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
-    [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
-    [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"}]]
-   [:body
-    [:header
-     [:a {:href "/"} [:h1 "Mikrobloggeriet"]]]
-    [:container
-     [:section.navigation
-      [:nav
-       (for [doc docs]
-         [:a.navList {:href (str "#" (:doc/slug doc))}
-          [:p.navTitle (doc/cleaned-title doc)]
-          [:p.navDate "/"] [:p.navDate (:doc/created doc)]
-          [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
+      [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
+      [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
+      [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"}]]
+     [:body
+      [:header
+       [:a {:href "/"} [:h1 "Mikrobloggeriet"]
+        [:p (str rand-style " / " rand-theme " / " bg-color " + " text-color " / " font)]]]
+      [:container
+       [:section.navigation
+        [:nav
+         (for [doc docs]
+           [:a.navList {:href (str "#" (:doc/slug doc))}
+            [:p.navTitle (doc/cleaned-title doc)]
+            [:p.navDate "/"] [:p.navDate (:doc/created doc)]
+            [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
 
-     [:section.content
-      [:div
-       (for [doc docs]
-         [:div
-          [:a {:name (:doc/slug doc)}]
-          [:div (-> doc doc/hiccup lazyload-images)]])]]]
-    [:footer [:h1 "filter, Filter, FILTER!"]]]])
+       [:section.content
+        [:div
+         (for [doc docs]
+           [:div
+            [:a {:name (:doc/slug doc)}]
+            [:div (-> doc doc/hiccup lazyload-images)]])]]]
+      [:footer [:h1 "filter, Filter, FILTER!"]]]]))
 
 (defn innhold [req]
   (doc/latest (:mikrobloggeriet.system/datomic req)))
@@ -72,8 +94,8 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body
-   (hiccup.page/html5 {} (innhold->hiccup (innhold req)))
-   #_(str
+   #_(hiccup.page/html5 {} (innhold->hiccup (innhold req)))
+   (str
       "<!DOCTYPE html>"
       (replicant.string/render
        (innhold->hiccup (innhold req))))})
