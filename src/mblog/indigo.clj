@@ -94,8 +94,8 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body
-   #_(hiccup.page/html5 {} (innhold->hiccup (innhold req)))
-   (str
+   (hiccup.page/html5 {} (innhold->hiccup (innhold req)))
+   #_(str
       "<!DOCTYPE html>"
       (replicant.string/render
        (innhold->hiccup (innhold req))))})
