@@ -1,5 +1,5 @@
 (ns mikrobloggeriet.contrast-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [clojure.test :refer [deftest is]]
             [mikrobloggeriet.contrast :as contrast]
             [clojure.string :as str]))
 
