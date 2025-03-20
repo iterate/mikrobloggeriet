@@ -29,22 +29,23 @@
        :else form))
    hiccup))
 
-(require '[clojure.string :as str])
+(defn parse-css [re css-str]
+  (when-let [s (re-find re css-str)]
+    (str/replace (last s) "'" "")))
 
-(defn parse-css [css re]
-  (let [content (if (string? css) css (slurp css))
-        match (re-find re content)]
-    (when match
-      (-> match second (str/replace #"'" "")))))
+(def css-re
+  {:bg #"--background01:\s*(.*?);"
+   :text #"--white100:\s*(.*?);"
+   :font #"font-family:\s*(.*?);"})
 
 (defn css->background-color [theme]
-  (parse-css theme #"--background01:\s*(.*?);"))
+  (parse-css (:bg css-re) theme))
 
 (defn css->text-color [theme]
-  (parse-css theme #"--white100:\s*(.*?);"))
+  (parse-css (:text css-re) theme))
 
 (defn css->font [style]
-  (parse-css style #"font-family:\s*(.*?);"))
+  (parse-css (:font css-re) style))
 
 
 (def styles ["indigo.css" "indigo2.css"])
@@ -53,9 +54,9 @@
 (defn innhold->hiccup [docs]
   (let [rand-style (rand-nth styles)
         rand-theme (rand-nth themes)
-        bg-color (css->background-color rand-theme)
-        text-color (css->text-color rand-theme)
-        font (css->font rand-style)]
+        bg-color (css->background-color (slurp rand-theme))
+        text-color (css->text-color (slurp rand-theme))
+        font (css->font (slurp rand-style))]
     [:html {:lang "en"}
      [:head
       [:meta {:charset "utf-8"}]
@@ -67,7 +68,8 @@
       [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"}]]
      [:body
       [:header
-       [:a {:href "/"} [:h1 "Mikrobloggeriet"]
+       [:a {:href "/"}
+        [:h1 "Mikrobloggeriet"]
         [:p (str rand-style " / " rand-theme " / " bg-color " + " text-color " / " font)]]]
       [:container
        [:section.navigation
@@ -96,11 +98,11 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body
-   #_(hiccup.page/html5 {} (innhold->hiccup (innhold req)))
-   (str
-    "<!DOCTYPE html>"
-    (replicant.string/render
-     (innhold->hiccup (innhold req))))})
+   (hiccup.page/html5 {} (innhold->hiccup (innhold req)))
+   #_(str
+      "<!DOCTYPE html>"
+      (replicant.string/render
+       (innhold->hiccup (innhold req))))})
 
 (comment
   (require 'clojure.repl.deps)
