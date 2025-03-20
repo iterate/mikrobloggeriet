@@ -29,21 +29,25 @@
        :else form))
    hiccup))
 
-(defn parse-css [css re]
-  (as-> css c
-    (slurp c)
+(defn parse-css [re css-str]
+  (as-> css-str c
     (re-find re c)
     (last c)
     (str/replace c #"'" "")))
 
+(def css-re
+  {:bg #"--background01:\s*(.*?);"
+   :text #"--white100:\s*(.*?);"
+   :font #"font-family:\s*(.*?);"})
+
 (defn css->background-color [theme]
-  (parse-css theme #"--background01:\s*(.*?);"))
+  (parse-css (:bg css-re) (slurp theme)))
 
 (defn css->text-color [theme]
-  (parse-css theme #"--white100:\s*(.*?);"))
+  (parse-css (:text css-re) (slurp theme)))
 
 (defn css->font [style]
-  (parse-css style #"font-family:\s*(.*?);"))
+  (parse-css (:font css-re) (slurp style)))
 
 (def styles ["indigo.css" "indigo2.css"])
 (def themes ["theme1.css" "theme2.css"])
@@ -65,7 +69,8 @@
       [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"}]]
      [:body
       [:header
-       [:a {:href "/"} [:h1 "Mikrobloggeriet"]
+       [:a {:href "/"}
+        [:h1 "Mikrobloggeriet"]
         [:p (str rand-style " / " rand-theme " / " bg-color " + " text-color " / " font)]]]
       [:container
        [:section.navigation
