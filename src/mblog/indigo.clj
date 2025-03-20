@@ -30,10 +30,8 @@
    hiccup))
 
 (defn parse-css [re css-str]
-  (as-> css-str c
-    (re-find re c)
-    (last c)
-    (str/replace c #"'" "")))
+  (when-let [s (re-find re css-str)]
+    (str/replace (last s) "'" "")))
 
 (def css-re
   {:bg #"--background01:\s*(.*?);"
@@ -41,13 +39,13 @@
    :font #"font-family:\s*(.*?);"})
 
 (defn css->background-color [theme]
-  (parse-css (:bg css-re) (slurp theme)))
+  (parse-css (:bg css-re) theme))
 
 (defn css->text-color [theme]
-  (parse-css (:text css-re) (slurp theme)))
+  (parse-css (:text css-re) theme))
 
 (defn css->font [style]
-  (parse-css (:font css-re) (slurp style)))
+  (parse-css (:font css-re) style))
 
 (def styles ["indigo.css" "indigo2.css"])
 (def themes ["theme1.css" "theme2.css"])
@@ -55,9 +53,9 @@
 (defn innhold->hiccup [docs]
   (let [rand-style (rand-nth styles)
         rand-theme (rand-nth themes)
-        bg-color (css->background-color rand-theme)
-        text-color (css->text-color rand-theme)
-        font (css->font rand-style)]
+        bg-color (css->background-color (slurp rand-theme))
+        text-color (css->text-color (slurp rand-theme))
+        font (css->font (slurp rand-style))]
     [:html {:lang "en"}
      [:head
       [:meta {:charset "utf-8"}]

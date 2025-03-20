@@ -31,18 +31,20 @@
      h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
      color: var(--white100);
      text-decoration: none;
+     font-style: normal;
      font-family: 'IBM Plex Mono', monospace;
      font-weight: 300;
      font-style: normal;
      font-size: clamp(1rem, 1vw, 1.5rem);
      line-height: 150%;}"]
-    (is (= "IBM Plex Mono, monospace"
-           (indigo/parse-css (:font indigo/css-re) css-str)))
-    (is (= "#080D92"
-           (indigo/parse-css (:bg indigo/css-re) css-str)))
-    (is (= "#fff"
-           (indigo/parse-css (:text indigo/css-re) css-str)))))
 
+    (is (= "IBM Plex Mono, monospace"
+           (indigo/css->font css-str)))
+    (is (= "#080D92"
+           (indigo/css->background-color css-str)))
+    (is (= "#fff"
+           (indigo/css->text-color css-str)))
+    (is (nil? (indigo/css->text-color "ugyldig css")))))
 
 (deftest left-bar
   (is
