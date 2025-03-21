@@ -48,18 +48,18 @@
         blue (bit-and n 255)]
     [red green blue]))
 
+;; Get contrast score from hex-values
 (defn hex->score [a b]
   (rbg->score (hex->rgb a) (hex->rgb b)))
 
-(defn random-hex-color []
+(defn rand-hex-color []
   (str "#" (format "%06x" (rand-int 16777215))))
 
-(defn generate-colors [threshold]
-  (let [color-1 (random-hex-color)
-        color-2 (random-hex-color)
-        score (hex->score color-1 color-2)]
-    (if (> score threshold)
-      {:color-1 color-1
-       :color-2 color-2
-       :score score}
-      (recur threshold))))
+(defn gen-colors [threshold]
+  (loop [c1 (rand-hex-color)
+         c2 (rand-hex-color)
+         iter 0]
+    (let [score (hex->score c1 c2)]
+      (if (> score threshold)
+        {:c1 c1 :c2 c2 :score score :iter iter}
+        (recur c2 (rand-hex-color) (inc iter))))))
