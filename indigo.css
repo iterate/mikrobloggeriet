@@ -153,19 +153,21 @@ nav {
     cursor: cell;
     gap: 4px;
     text-decoration: none;
+    transition: ease-out 0.75s;
 }
 
 .navList:hover {
-    background-color: var(--accent10);
+    background-color: var(--accent50);
     cursor: cell;
+    transition: ease-out 0s;
 }
 
 .navList:active {
-    background-color: var(--accent50);
+    background-color: var(--accent80);
 }
 
-.navList:visited > .navTitle {
-    color: gray;
+a:visited > .navList > .navTitle {
+    text-decoration: line-through; /* Does not work! */
 }
 
 
