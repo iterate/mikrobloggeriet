@@ -57,6 +57,33 @@
   (or (doc/cleaned-title doc)
       (:doc/slug doc)))
 
+(defn view-doc [doc]
+  [:div
+   [:a {:name (:doc/slug doc)}]
+   [:div
+    (list
+     ;; smash in the slug as title if no title is given on the doc.
+     ;;
+     ;; The astute reader will notice that this smells of implementation
+     ;; details compared to the rest of this fine namespace. Perhaps we should
+     ;; lower this logic down a notch. It may be better suited to the doc
+     ;; namespace.
+     ;;
+     ;; For now, we keep the title smashing close to its use (presentation).
+     (when-not (doc/cleaned-title doc)
+       [:h1 (:doc/slug doc)])
+     (-> doc doc/hiccup lazyload-images))]])
+
+(comment
+  (require '[datomic.api :as d])
+  (def leik-3 (d/entity dev-db [:doc/slug "leik-3"]))
+  (view-doc leik-3)
+
+  (def leik-2 (d/entity dev-db [:doc/slug "leik-2"]))
+  (view-doc leik-2)
+
+  )
+
 (defn innhold->hiccup [docs]
   (let [rand-style (rand-nth styles)
         rand-theme (rand-nth themes)
@@ -78,6 +105,7 @@
         [:h1 "Mikrobloggeriet"]
         [:p (str rand-style " / " rand-theme " / " bg-color " + " text-color " / " font)]]]
       [:container
+
        [:section.navigation
         [:nav
          (for [doc docs]
@@ -87,11 +115,7 @@
             [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
 
        [:section.content
-        [:div
-         (for [doc docs]
-           [:div
-            [:a {:name (:doc/slug doc)}]
-            [:div (-> doc doc/hiccup lazyload-images)]])]]]
+        [:div (map view-doc docs)]]]
       [:footer [:h1 "filter, Filter, FILTER!"]]]]))
 
 (defn innhold [req]
