@@ -1,10 +1,10 @@
 (ns mblog.indigo
   (:require
+   [clojure.string :as str]
    [clojure.walk :refer [postwalk]]
    [hiccup.page]
    [mikrobloggeriet.doc :as doc]
-   [replicant.string]
-   [clojure.string :as str]))
+   [replicant.string]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
@@ -51,6 +51,12 @@
 (def styles ["indigo.css" "indigo2.css"])
 (def themes ["theme1.css" "theme2.css" "theme3.css" "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css"])
 
+(defn find-title-ish
+  "Finds the title if present, otherwise falls back to slug"
+  [doc]
+  (or (doc/cleaned-title doc)
+      (:doc/slug doc)))
+
 (defn innhold->hiccup [docs]
   (let [rand-style (rand-nth styles)
         rand-theme (rand-nth themes)
@@ -62,7 +68,7 @@
       [:meta {:charset "utf-8"}]
       [:link {:rel "stylesheet" :href rand-style}]
       [:link {:rel "stylesheet" :href rand-theme}]
-   ;; Google fonts
+      ;; Google fonts
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
       [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
       [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jersey+10&family=Monda:wght@400..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Sono:wght@200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tiny5&display=swap"}]]
@@ -76,7 +82,7 @@
         [:nav
          (for [doc docs]
            [:a.navList {:href (str "#" (:doc/slug doc))}
-            [:p.navTitle (doc/cleaned-title doc)]
+            [:p.navTitle (find-title-ish doc)]
             [:p.navDate "/"] [:p.navDate (:doc/created doc)]
             [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
 

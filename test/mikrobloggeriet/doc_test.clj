@@ -48,6 +48,10 @@
 
 Mindre er ofte bedre."}))))
 
+(deftest allows-for-empty-titles
+  (is (nil? (doc/title {})))
+  (is (nil? (doc/cleaned-title {}))))
+
 (deftest remove-cohort-prefix
   (testing "leaves clean titles as is"
     (is (= (doc/cleaned-title {:doc/title "Funksjonell programmering"})

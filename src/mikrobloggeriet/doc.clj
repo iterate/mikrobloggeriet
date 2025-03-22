@@ -32,7 +32,7 @@
 
 (defn title [doc]
   (or (:doc/title doc)
-      (:title (cache/parse-markdown (:doc/markdown doc)))))
+      (some-> doc :doc/markdown cache/parse-markdown :title)))
 
 (defn html [doc]
   (:doc/html (cache/parse-markdown (:doc/markdown doc))))
@@ -47,7 +47,7 @@
   (str/replace title #"^[A-Z]+-\d+[: -]+ " ""))
 
 (defn cleaned-title [doc]
-  (-> doc title remove-cohort-prefix))
+  (some-> doc title remove-cohort-prefix))
 
 (comment
   (cache/parse-markdown "# Funksjonell programmering")
