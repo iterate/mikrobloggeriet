@@ -15,7 +15,8 @@
     (when-let [number (second (re-matches #"(\d+)\.md" (fs/file-name f)))]
       {:doc/slug (str "leik-" number)
        :doc/markdown (slurp (fs/file f))
-       :doc/created (created-date f)})))
+       :doc/created (created-date f)
+       :doc/cohort [:cohort/slug "leik"]})))
 
 (defn find-docs []
   (->> (fs/list-dir "text/leik")
