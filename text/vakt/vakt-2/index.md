@@ -14,7 +14,7 @@ css + visited state
 19.3.2024:
 lagt til POC-kohort som er lettere å skrive rett fra github, LEIK
 Ønske til designerene våre: vurdere (et lite hakk) tydeligere overskrifter?
-Litt vanskelig å spitte seksjonene i http://localhost:7777/#leik-1.md fra hverandre.
+Litt vanskelig å skille seksjonene i feks https://mikrobloggeriet.no/#leik-1 fra hverandre.
 
 Work in progress:
 
@@ -30,3 +30,9 @@ Work in progress:
 - [ ] Egen font for <code>-blokk
 - [ ] Random font
 - [ ] Controlls for farge, tema og font + låse valg lokalt
+- [ ] Design-review på underoverskrifter
+  Herr Utvikler T har kladda med CSS-en på underoverskrifter (h2-h6).
+  De har fått #-tegn foran, og en linje over.
+  Målet er å la underoverskriftene bryte opp teksten - ellers ser de ut som avsnitt.
+  Ønsker meg at en designer tar en titt :)
+  Se CSS-regler i indigo.css og indigo2.css, og effekt feks på https://mikrobloggeriet.no/#olorm-59
