@@ -17,6 +17,7 @@ lagt til POC-kohort som er lettere å skrive rett fra github, LEIK
 Litt vanskelig å spitte seksjonene i http://localhost:7777/#leik-1.md fra hverandre.
 
 Work in progress:
+
 - [ ] Gjør visited i venstre state bedre
 - [ ] Gjør nav aktiv på click og scroll
 - [ ] gjør post aktiv på click i venstre
