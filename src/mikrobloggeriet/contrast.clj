@@ -44,7 +44,7 @@
   (contrast-ratio (relative-luminance c1) (relative-luminance c2)))
 
 (defn rgb->hex [[r g b]]
-  (format "#%02X%02X%02X" r g b))
+  (format "#%02x%02x%02x" r g b))
 
 (defn rand-rgb []
   [(rand-int 256) (rand-int 256) (rand-int 256)])

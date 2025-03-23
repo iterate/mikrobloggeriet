@@ -20,8 +20,8 @@
   (is (= [255 255 255] (contrast/hex->rgb "#ffffff"))))
 
 (deftest rgb->hex
-  (is (= "#00BFFF" (contrast/rgb->hex [0 191 255])))
-  (is (= "#FFCCFF" (contrast/rgb->hex [255 204 255])))
+  (is (= "#00bfff" (contrast/rgb->hex [0 191 255])))
+  (is (= "#ffccff" (contrast/rgb->hex [255 204 255])))
   (let [rand-color (contrast/rand-rgb)]
     (is (= rand-color
            (contrast/hex->rgb (contrast/rgb->hex rand-color))))))
