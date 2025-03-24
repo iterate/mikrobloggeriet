@@ -91,11 +91,9 @@
        [:section.content
         [:div (map view-doc docs)]]]
       [:footer
-       (->> docs
-            (map :doc/cohort)
-            (into #{})
+       (->> cohorts
             (map (fn [cohort]
-                   [:a {:href (str "/?cohort=" (:cohort/slug cohort) )} (:cohort/name cohort)])))]]]))
+                   [:a {:href (str "/?cohort=" (:cohort/slug cohort))} (:cohort/name cohort)])))]]]))
 
 (def last-req (atom nil))
 
