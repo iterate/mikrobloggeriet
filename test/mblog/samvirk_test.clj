@@ -1,6 +1,7 @@
 (ns mblog.samvirk-test
-  (:require [clojure.test :refer [deftest is]]
-            [mblog.samvirk :as samvirk]))
+  (:require
+   [clojure.test :refer [deftest is]]
+   [mblog.samvirk :as samvirk]))
 
 (deftest parse-css
   (let [css-str ":root {
@@ -8,11 +9,12 @@
     --white100: #fff;
     --white80: rgba(255, 255, 255, 0.8);
     --black100: #000;
+    --main-font: 'IBM Plex Mono', monospace;
   }
      h1, h2 {
      color: var(--white100);
      font-style: normal;
-     font-family: 'IBM Plex Mono', monospace;
+     font-family: var(--main-font);
      font-size: clamp(1rem, 1vw, 1.5rem);
      line-height: 150%;}"]
 
