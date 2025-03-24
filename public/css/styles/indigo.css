@@ -284,7 +284,7 @@ footer {
 }
 
 
-@media screen and (max-width: 700px) and (orientation: portrait) { /* Mobile */
+@media screen and (max-width: 600px), (orientation: portrait) { /* Mobile */
 
     .navigation {
         display: none;
