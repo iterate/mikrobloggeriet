@@ -164,7 +164,7 @@ nav {
     cursor: cell;
     gap: 4px;
     text-decoration: none;
-    transition: ease-out 0.15s;
+    transition: ease-out 0.3s;
 }
 
 .navList:hover {
