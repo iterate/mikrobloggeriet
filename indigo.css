@@ -102,15 +102,6 @@ section:hover + section, section:has(+ section:hover) {
     }
 }
 
-section:hover + section, section:has(+ section:hover) {
-    opacity: 0.5;
-
-    && img {
-        filter: grayscale(1);
-        mix-blend-mode: screen;
-    }
-}
-
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
     color: var(--accent100);
     text-decoration: none;
@@ -186,7 +177,7 @@ nav {
     background-color: var(--accent80);
 }
 
-a:visited > .navList > .navTitle {
+.navList:visited > .navTitle {
     text-decoration: line-through; /* Does not work! */
 }
 
