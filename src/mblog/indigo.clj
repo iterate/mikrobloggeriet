@@ -89,7 +89,12 @@
 
        [:section.content
         [:div (map view-doc docs)]]]
-      [:footer [:h1 "filter, Filter, FILTER!"]]]]))
+      [:footer
+       (->> docs
+            (map :doc/cohort)
+            (into #{})
+            (map (fn [cohort]
+                   [:a {:href (str "/?cohort=" (:cohort/slug cohort) )} (:cohort/name cohort)])))]]]))
 
 (def last-req (atom nil))
 
@@ -108,5 +113,8 @@
 
 (comment
   (def dev-db mikrobloggeriet.state/datomic)
-
+  (def docs (doc/latest dev-db))
+  (into {} (first docs))
+  (def cohort (:doc/cohort (first docs)))
+  (:cohort/name cohort)
   )
