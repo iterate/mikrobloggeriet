@@ -91,28 +91,22 @@
         [:div (map view-doc docs)]]]
       [:footer [:h1 "filter, Filter, FILTER!"]]]]))
 
-(defn req->innhold [req]
-  (doc/latest (:mikrobloggeriet.system/datomic req)))
-
 (def last-req (atom nil))
 
-(defn handler [req]
+(comment
+  (-> @last-req
+      (dissoc :reitit.core/match :mikrobloggeriet.system/pageviews))
+  )
+
+(defn req->innhold [req]
   (reset! last-req req)
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body
-   (hiccup.page/html5 {} (innhold->hiccup (req->innhold req)))})
+  (let [cohort-id (get-in req [:query-params "cohort"])]
+    (cond->> (doc/latest (:mikrobloggeriet.system/datomic req))
+
+      cohort-id
+      (filter #(= cohort-id (-> % :doc/cohort :cohort/slug))))))
 
 (comment
-  (require 'clojure.repl.deps)
-  (clojure.repl.deps/sync-deps)
-  (set! *print-namespace-maps* false)
+  (def dev-db mikrobloggeriet.state/datomic)
 
-  (contains? @last-req :mikrobloggeriet.system/datomic)
-  ;; => true
-
-  (def dev-db (:mikrobloggeriet.system/datomic @last-req))
-
-  (->> (doc/latest dev-db)
-       (take 5)
-       (map doc/title)))
+  )

@@ -63,13 +63,13 @@
 
 (deftest cohorts-are-named
   (is (= :mikrobloggeriet.olorm/all
-         (-> (reitit.core/match-by-path (reitit.ring/get-router serve/ring-handler)
+         (-> (reitit.core/match-by-path (reitit.ring/get-router serve/router)
                                         "/olorm/")
              :data :name))))
 
 (deftest docs-are-named
   (is (= :mikrobloggeriet.olorm/doc
-         (-> (reitit.core/match-by-path (reitit.ring/get-router serve/ring-handler)
+         (-> (reitit.core/match-by-path (reitit.ring/get-router serve/router)
                                         "/olorm/olorm-1/")
              :data :name))))
 

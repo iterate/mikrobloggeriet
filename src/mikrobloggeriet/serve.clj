@@ -21,7 +21,9 @@
    [mikrobloggeriet.ui.index :as ui.index]
    [mikrobloggeriet.ui.shared :as ui.shared]
    [reitit.ring]
-   [ring.middleware.cookies :as cookies]))
+   [ring.middleware.cookies :as cookies]
+   mblog.handler
+   ring.middleware.params))
 
 (defn set-theme [req]
   (let [target "/"
@@ -189,9 +191,8 @@
                               "doc")}]])
 
 (comment
-  (markdown-cohort-routes (:cohort/olorm db/cohorts)))
-
-(require 'mblog.handler)
+  (markdown-cohort-routes (:cohort/olorm db/cohorts))
+  )
 
 (defn create-ring-handler
   []
@@ -206,7 +207,7 @@
       ["/doc/:slug" {:get #'mblog.handler/doc
                      :name :mblog.handler/doc}]
 
-      ["/indigo" {:get #'mblog.indigo/handler
+      ["/indigo" {:get #'mblog.handler/indigo
                   :name :mblog/indigo}]
 
       ;; Themes
@@ -271,5 +272,8 @@
     (reitit.ring/redirect-trailing-slash-handler)
     (reitit.ring/create-file-handler {:path "/" :root "public"}))))
 
+(def router (create-ring-handler))
+
 (def ring-handler
-  (create-ring-handler))
+  (-> router
+      ring.middleware.params/wrap-params))
