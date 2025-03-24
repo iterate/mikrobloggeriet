@@ -75,8 +75,8 @@
      [:body
       [:header
        [:a {:href "/"}
-        [:h1 "Mikrobloggeriet"]
-        [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]
+        "Mikrobloggeriet"]
+       [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]
       [:container
 
        [:section.navigation
