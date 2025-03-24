@@ -210,6 +210,7 @@ h1 {
     padding: 0 4px 0 4px;
     margin: 0;
     font-weight: 600;
+    z-index: 99999;
 }
 
 p {
