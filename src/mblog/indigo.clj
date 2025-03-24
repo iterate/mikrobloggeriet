@@ -61,7 +61,7 @@
   (view-doc leik-2))
 
 (defn innhold->hiccup [docs]
-  (let [samvirk samvirk/load]
+  (let [samvirk (samvirk/load)]
     [:html {:lang "en"}
      [:head
       [:meta {:charset "utf-8"}]
