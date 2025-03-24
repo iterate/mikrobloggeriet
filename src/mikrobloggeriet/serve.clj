@@ -198,8 +198,10 @@
     (concat
 
      ;; CSS files we use
-     (for [css-file ["vanilla.css" "mikrobloggeriet.css" "pygment.css" "reset.css" "urlog.css"
-                     "indigo.css" "indigo2.css" "theme1.css" "theme2.css" "theme3.css" "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css" "themeColors.css"]]
+     #_
+     (for [css-file  (take 0 ["vanilla.css" "mikrobloggeriet.css" "pygment.css" "reset.css" #_"urlog.css"
+                              "indigo.css" "indigo2.css" "theme1.css" "theme2.css" "theme3.css"
+                              "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css" "themeColors.css"])]
        [(str "/" css-file) {:get (fn [_req]
                                    (css-response css-file))
                             :name (keyword "mikrobloggeriet.default-css"
@@ -275,3 +277,5 @@
 
 (def ring-handler
   (create-ring-handler))
+
+

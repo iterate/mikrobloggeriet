@@ -4,7 +4,8 @@
    [clojure.walk :refer [postwalk]]
    [hiccup.page]
    [mikrobloggeriet.doc :as doc]
-   [replicant.string]))
+   [replicant.string]
+   [babashka.fs :as fs]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
@@ -48,8 +49,29 @@
   (parse-css (:font css-re) style))
 
 
-(def styles ["indigo.css" "indigo2.css"])
-(def themes ["theme1.css" "theme2.css" "theme3.css" "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css"])
+#_(def styles ["indigo.css" "indigo2.css"])
+#_(def themes ["theme1.css" "theme2.css" "theme3.css" "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css"])
+
+(defn filenames [path]
+  (->> (fs/list-dir path)
+       (map fs/file-name)
+       (map str)
+       sort
+       vec))
+
+(def styles (filenames "public/css/styles"))
+(def themes (filenames "public/css/themes"))
+
+(defn style-path [style]
+  (str "css/styles/" style))
+
+(defn theme-path [theme]
+  (str "css/themes/" theme))
+
+(defn read-theme [theme-name] (slurp (str "public/css/themes/" theme-name)))
+(defn read-style [style-name] (slurp (str "public/css/styles/" style-name)))
+
+(read-theme (rand-nth themes))
 
 (defn find-title-ish
   "Finds the title if present, otherwise falls back to slug"
@@ -80,21 +102,19 @@
   (view-doc leik-3)
 
   (def leik-2 (d/entity dev-db [:doc/slug "leik-2"]))
-  (view-doc leik-2)
-
-  )
+  (view-doc leik-2))
 
 (defn innhold->hiccup [docs]
   (let [rand-style (rand-nth styles)
         rand-theme (rand-nth themes)
-        bg-color (css->background-color (slurp rand-theme))
-        text-color (css->text-color (slurp rand-theme))
-        font (css->font (slurp rand-style))]
+        bg-color (css->background-color (read-theme rand-theme))
+        text-color (css->text-color (read-theme rand-theme))
+        font (css->font (read-style rand-style))]
     [:html {:lang "en"}
      [:head
       [:meta {:charset "utf-8"}]
-      [:link {:rel "stylesheet" :href rand-style}]
-      [:link {:rel "stylesheet" :href rand-theme}]
+      [:link {:rel "stylesheet" :href (style-path rand-style)}]
+      [:link {:rel "stylesheet" :href (theme-path rand-theme)}]
       ;; Google fonts
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
       [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
