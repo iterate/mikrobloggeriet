@@ -269,7 +269,9 @@
                                        (asset/load-image image-path)))}]
 
       ["/feed.xml" {:get #'feed/handler}]]))
-   (reitit.ring/redirect-trailing-slash-handler)))
+   (reitit.ring/routes
+    (reitit.ring/redirect-trailing-slash-handler)
+    (reitit.ring/create-file-handler {:path "/" :root "public"}))))
 
 (def ring-handler
   (create-ring-handler))
