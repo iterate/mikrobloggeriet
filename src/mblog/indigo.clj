@@ -67,6 +67,7 @@
       [:meta {:charset "utf-8"}]
       [:link {:rel "stylesheet" :href (samvirk/style-path (:style samvirk))}]
       [:link {:rel "stylesheet" :href (samvirk/theme-path (:theme samvirk))}]
+      [:link {:rel "stylesheet" :href (samvirk/font-path (:font samvirk))}]
       ;; Google fonts
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
       [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
@@ -75,7 +76,7 @@
       [:header
        [:a {:href "/"}
         [:h1 "Mikrobloggeriet"]
-        [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (:font samvirk))]]]
+        [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]
       [:container
 
        [:section.navigation
