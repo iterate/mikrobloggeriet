@@ -191,15 +191,20 @@
 (comment
   (markdown-cohort-routes (:cohort/olorm db/cohorts)))
 
+(require 'mblog.handler)
+
 (defn create-ring-handler
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
     (concat
 
-     [["/" {:get #'mblog.indigo/handler
-            :head #'health ; helsesjekk, Application.garden
+     [["/" {:get #'mblog.handler/indigo
+            :head #'health              ; helsesjekk, Application.garden
             :name :mikrobloggeriet/frontpage}]
+
+      ["/doc/:slug" {:get #'mblog.handler/doc
+                     :name :mblog.handler/doc}]
 
       ["/indigo" {:get #'mblog.indigo/handler
                   :name :mblog/indigo}]
@@ -234,7 +239,7 @@
                              (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
 
      ;; DIV
-     [;; Go to a random document
+     [ ;; Go to a random document
       ["/random-doc" {:get #'random-doc
                       :name :mikrobloggeriet/random-doc}]
 
@@ -268,5 +273,3 @@
 
 (def ring-handler
   (create-ring-handler))
-
-

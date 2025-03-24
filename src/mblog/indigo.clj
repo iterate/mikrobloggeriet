@@ -2,8 +2,8 @@
   (:require
    [clojure.walk :refer [postwalk]]
    [hiccup.page]
-   [mikrobloggeriet.doc :as doc]
    [mblog.samvirk :as samvirk]
+   [mikrobloggeriet.doc :as doc]
    [replicant.string]))
 
 (defn hiccup-optmap [form]
@@ -90,7 +90,7 @@
         [:div (map view-doc docs)]]]
       [:footer [:h1 "filter, Filter, FILTER!"]]]]))
 
-(defn innhold [req]
+(defn req->innhold [req]
   (doc/latest (:mikrobloggeriet.system/datomic req)))
 
 (def last-req (atom nil))
@@ -100,11 +100,7 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body
-   (hiccup.page/html5 {} (innhold->hiccup (innhold req)))
-   #_(str
-      "<!DOCTYPE html>"
-      (replicant.string/render
-       (innhold->hiccup (innhold req))))})
+   (hiccup.page/html5 {} (innhold->hiccup (req->innhold req)))})
 
 (comment
   (require 'clojure.repl.deps)
