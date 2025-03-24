@@ -93,7 +93,8 @@
       [:footer
        (->> cohorts
             (map (fn [cohort]
-                   [:a {:href (str "/?cohort=" (:cohort/slug cohort))} (:cohort/name cohort)])))]]]))
+                   [:a {:href (str "/?cohort=" (:cohort/slug cohort))} (:cohort/name cohort)]))
+            (interpose " · "))]]]))
 
 (def last-req (atom nil))
 
