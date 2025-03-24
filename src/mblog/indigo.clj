@@ -1,11 +1,10 @@
 (ns mblog.indigo
   (:require
-   [clojure.string :as str]
    [clojure.walk :refer [postwalk]]
    [hiccup.page]
    [mikrobloggeriet.doc :as doc]
-   [replicant.string]
-   [babashka.fs :as fs]))
+   [mblog.samvirk :as samvirk]
+   [replicant.string]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
@@ -29,49 +28,6 @@
              (hiccup-children form))
        :else form))
    hiccup))
-
-(defn parse-css [re css-str]
-  (when-let [s (re-find re css-str)]
-    (str/replace (last s) "'" "")))
-
-(def css-re
-  {:bg #"--background01:\s*(.*?);"
-   :text #"--white100:\s*(.*?);"
-   :font #"font-family:\s*(.*?);"})
-
-(defn css->background-color [theme]
-  (parse-css (:bg css-re) theme))
-
-(defn css->text-color [theme]
-  (parse-css (:text css-re) theme))
-
-(defn css->font [style]
-  (parse-css (:font css-re) style))
-
-
-#_(def styles ["indigo.css" "indigo2.css"])
-#_(def themes ["theme1.css" "theme2.css" "theme3.css" "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css"])
-
-(defn filenames [path]
-  (->> (fs/list-dir path)
-       (map fs/file-name)
-       (map str)
-       sort
-       vec))
-
-(def styles (filenames "public/css/styles"))
-(def themes (filenames "public/css/themes"))
-
-(defn style-path [style]
-  (str "css/styles/" style))
-
-(defn theme-path [theme]
-  (str "css/themes/" theme))
-
-(defn read-theme [theme-name] (slurp (str "public/css/themes/" theme-name)))
-(defn read-style [style-name] (slurp (str "public/css/styles/" style-name)))
-
-(read-theme (rand-nth themes))
 
 (defn find-title-ish
   "Finds the title if present, otherwise falls back to slug"
@@ -105,16 +61,12 @@
   (view-doc leik-2))
 
 (defn innhold->hiccup [docs]
-  (let [rand-style (rand-nth styles)
-        rand-theme (rand-nth themes)
-        bg-color (css->background-color (read-theme rand-theme))
-        text-color (css->text-color (read-theme rand-theme))
-        font (css->font (read-style rand-style))]
+  (let [samvirk samvirk/load]
     [:html {:lang "en"}
      [:head
       [:meta {:charset "utf-8"}]
-      [:link {:rel "stylesheet" :href (style-path rand-style)}]
-      [:link {:rel "stylesheet" :href (theme-path rand-theme)}]
+      [:link {:rel "stylesheet" :href (samvirk/style-path (:style samvirk))}]
+      [:link {:rel "stylesheet" :href (samvirk/theme-path (:theme samvirk))}]
       ;; Google fonts
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
       [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
@@ -123,7 +75,7 @@
       [:header
        [:a {:href "/"}
         [:h1 "Mikrobloggeriet"]
-        [:p (str rand-style " / " rand-theme " / " bg-color " + " text-color " / " font)]]]
+        [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (:font samvirk))]]]
       [:container
 
        [:section.navigation
