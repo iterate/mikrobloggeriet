@@ -36,7 +36,7 @@
       (:doc/slug doc)))
 
 (defn view-doc [doc]
-  [:div
+  [:div.doc
    [:a {:name (:doc/slug doc)}]
    [:div
     (list
