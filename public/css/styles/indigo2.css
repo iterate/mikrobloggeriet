@@ -110,6 +110,8 @@ section {
     /*scroll-behavior: smooth;*/
     transition: ease-in-out 0.3s;
     opacity: 1;
+    margin-top: -80px;
+    padding-top: 80px;
 }
 
 section:hover + section, section:has(+ section:hover) {
