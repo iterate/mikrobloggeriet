@@ -3,6 +3,7 @@
    [clojure.walk :refer [postwalk]]
    [hiccup.page]
    [mblog.samvirk :as samvirk]
+   [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.doc :as doc]
    [replicant.string]))
 
@@ -60,7 +61,7 @@
   (def leik-2 (d/entity dev-db [:doc/slug "leik-2"]))
   (view-doc leik-2))
 
-(defn innhold->hiccup [docs]
+(defn innhold->hiccup [{:keys [docs cohorts]}]
   (let [samvirk (samvirk/load)]
     [:html {:lang "en"}
      [:head
@@ -105,11 +106,11 @@
 
 (defn req->innhold [req]
   (reset! last-req req)
-  (let [cohort-id (get-in req [:query-params "cohort"])]
-    (cond->> (doc/latest (:mikrobloggeriet.system/datomic req))
-
-      cohort-id
-      (filter #(= cohort-id (-> % :doc/cohort :cohort/slug))))))
+  (let [db (:mikrobloggeriet.system/datomic req)]
+    {:docs (let [cohort-id (get-in req [:query-params "cohort"])]
+             (cond->> (doc/latest db)
+               cohort-id (filter #(= cohort-id (-> % :doc/cohort :cohort/slug)))))
+     :cohorts (cohort/all db)}))
 
 (comment
   (def dev-db mikrobloggeriet.state/datomic)

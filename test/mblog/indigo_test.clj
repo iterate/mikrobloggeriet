@@ -16,8 +16,8 @@
 (deftest left-bar
   (is
    (contains?
-    (->> [{:doc/title "Unminifying av kode med LLM"
-           :doc/markdown "lang tekst"}]
+    (->> {:docs [{:doc/title "Unminifying av kode med LLM"
+                  :doc/markdown "lang tekst"}]}
          (indigo/innhold->hiccup)
          (tree-seq seqable?
                    identity)
