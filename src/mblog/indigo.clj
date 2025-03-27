@@ -77,9 +77,13 @@
      [:body
       [:header
        [:a {:href "/"}
-        "Mikrobloggeriet"]
-       [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]
+        "Mikrobloggeriet"]]
       [:container
+       [:section.filters
+        (->> cohorts
+             (map (fn [cohort]
+                    [:a.navList {:href (str "/?cohort=" (:cohort/slug cohort))} (:cohort/name cohort)])))
+        ]
        [:section.navigation
         [:nav
          (for [doc docs]
@@ -90,11 +94,7 @@
 
        [:section.content
         [:div (map view-doc docs)]]]
-      [:footer
-       (->> cohorts
-            (map (fn [cohort]
-                   [:a {:href (str "/?cohort=" (:cohort/slug cohort))} (:cohort/name cohort)]))
-            (interpose " · "))]]]))
+      [:footer [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]]))
 
 (def last-req (atom nil))
 

@@ -68,7 +68,7 @@
   (let [style (rand-nth styles)
         theme (rand-nth themes)
         font (rand-nth fonts)
-        colors (contrast/gen-colors 4.5)
+        colors (contrast/gen-colors 5)
         text (:c1 colors)
         bg (:c2 colors)
         text-str (str (text 0) "," (text 1) "," (text 2))
