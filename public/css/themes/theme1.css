@@ -1,15 +1,15 @@
 @import url(../themeColors.css);
 
 :root {
-    --background: #0F0F0F;
-    --accent100: var(--white100);
-    --accent80: var(--white80);
-    --accent50: var(--white50);
-    --accent20: var(--white20);
-    --accent10: var(--white10);
-    --invert100: var(--black100);
-    --invert80: var(--black80);
-    --invert50: var(--black50);
-    --invert20: var(--black20);
-    --invert10: var(--black10);
+    --second100: #0F0F0F;
+    --first100: var(--first100);
+    --first80: var(--first80);
+    --first50: var(--first50);
+    --first20: var(--first20);
+    --first10: var(--first10);
+    --second100: var(--second100);
+    --second80: var(--second80);
+    --second50: var(--second50);
+    --second20: var(--second20);
+    --second10: var(--second10);
   }

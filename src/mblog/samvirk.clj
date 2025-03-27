@@ -10,11 +10,11 @@
     (str/replace (last s) "'" "")))
 
 (def css-re
-  {:bg #"--background01:\s*(.*?);"
-   :text #"--white100:\s*(.*?);"
+  {:bg #"--second10001:\s*(.*?);"
+   :text #"--first100:\s*(.*?);"
    :font #"--main-font:\s*(.*?);"})
 
-(defn css->background-color [theme]
+(defn css->second100-color [theme]
   (parse-css (:bg css-re) theme))
 
 (defn css->text-color [theme]
@@ -51,17 +51,16 @@
 
 (def css-template
   ":root {
-   --white100: rgb(%s);
-   --white80: rgba(%s, 0.8);
-   --white50: rgba(%s, 0.5);
-   --white20: rgba(%s, 0.2);
-   --white10: rgba(%s, 0.1);
-   --black100: rgb(%s);
-   --black80: rgba(%s, 0.8);
-   --black50: rgba(%s, 0.5);
-   --black20: rgba(%s, 0.2);
-   --black10: rgba(%s, 0.1);
-   --background: rgb(%s);
+   --first100: rgb(%s);
+   --first80: rgba(%s, 0.8);
+   --first50: rgba(%s, 0.5);
+   --first20: rgba(%s, 0.2);
+   --first10: rgba(%s, 0.1);
+   --second100: rgb(%s);
+   --second80: rgba(%s, 0.8);
+   --second50: rgba(%s, 0.5);
+   --second20: rgba(%s, 0.2);
+   --second10: rgba(%s, 0.1);
 }")
 
 (defn load []
@@ -79,5 +78,5 @@
      :text-color (contrast/rgb->hex bg)
      :font font
      :root (apply format css-template
-                  (concat (repeat 5 text-str) (repeat 6 bg-str)))}))
+                  (concat (repeat 5 text-str) (repeat 5 bg-str)))}))
 

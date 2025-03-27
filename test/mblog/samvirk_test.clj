@@ -5,14 +5,14 @@
 
 (deftest parse-css
   (let [css-str ":root {
-    --background01: #080D92;
-    --white100: #fff;
-    --white80: rgba(255, 255, 255, 0.8);
-    --black100: #000;
+    --second10001: #080D92;
+    --first100: #fff;
+    --first80: rgba(255, 255, 255, 0.8);
+    --second100: #000;
     --main-font: 'IBM Plex Mono', monospace;
   }
      h1, h2 {
-     color: var(--white100);
+     color: var(--first100);
      font-style: normal;
      font-family: var(--main-font);
      font-size: clamp(1rem, 1vw, 1.5rem);
@@ -22,7 +22,7 @@
            (samvirk/css->font css-str)))
 
     (is (= "#080D92"
-           (samvirk/css->background-color css-str)))
+           (samvirk/css->second100-color css-str)))
 
     (is (= "#fff"
            (samvirk/css->text-color css-str)))

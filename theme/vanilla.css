@@ -18,7 +18,7 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     body {
-        background: #191919;
+        second100: #191919;
     }
     :root {
         --text-color: #fff;

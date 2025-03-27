@@ -2,7 +2,7 @@
 
 :root {
     /* Neon CSS */
-    --neon-background: #FF4C4C;
+    --neon-second100: #FF4C4C;
     --neon-base03:  #007BFF;
     --neon-base02:  #1c4fbd;
     --neon-base01:  #4b70d1;
@@ -24,7 +24,7 @@
     /* Assign for use in HTML */
     --desktop-font-size: 1.2rem/1.55;
     --mobile-font-size: 1rem/1.45;
-    --background-color: var(--neon-background);
+    --second100-color: var(--neon-second100);
     --text-color: var(--neon-base03);
     --link-color: var(--neon-blue);
     --link-color-alt: var(--neon-cyan);

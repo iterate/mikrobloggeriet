@@ -1,13 +1,13 @@
 
 ::selection {
-    color: var(--background);
-    background-color: var(--accent100);
+    color: var(--second100);
+    background-color: var(--first100);
 }
 
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--background);
+    background-color: var(--second100);
     font-size: 16px;
     height: 100vh;
     width: 100vw;
@@ -21,9 +21,9 @@ body {
 header {
     width: calc(100% -8px);
     height: auto;
-    background-color: var(--accent100);
-    color: var(--invert100);
-    border-bottom: 1px solid var(--background);
+    background-color: var(--first100);
+    color: var(--second100);
+    border-bottom: 1px solid var(--second100);
     padding: 2px 12px 2px 12px;
     z-index: 99999;
     display: flex;
@@ -41,11 +41,11 @@ header {
         font-weight: 300;
         padding: 0;
         margin: 0;
-        color: var(--invert100) !important;
+        color: var(--second100) !important;
     }
 
     a {
-        color: var(--invert100) !important;
+        color: var(--second100) !important;
         text-decoration: none;
     }
 }
@@ -109,11 +109,11 @@ section:hover + section, section:has(+ section:hover) {
 
 .filters {
     width: 20%;
-    border-right: 1px solid var(--accent20);
+    border-right: 1px solid var(--first20);
 }
 
 .navigation {
-    border-right: 1px solid var(--accent20);
+    border-right: 1px solid var(--first20);
     width: 30%;
 }
 
@@ -122,7 +122,7 @@ section:hover + section, section:has(+ section:hover) {
 }
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
-    color: var(--accent100);
+    color: var(--first100);
     text-decoration: none;
     font-weight: 300;
     font-style: normal;
@@ -158,12 +158,12 @@ h6::before {
 }
 
 figcaption {
-    color: var(--accent80);
+    color: var(--first80);
     font-size: 0.8rem;
 }
 
 aside {
-    background-color: var(--accent10);
+    second100-color: var(--first10);
     padding: 1rem;
 }
 
@@ -177,13 +177,12 @@ nav {
 }
 
 
-
-
 .navList {
     display: flex;
     flex-direction: row;
     height: fit-content;
     cursor: cell;
+    gap: 4px;
     padding: 2px 12px 2px 0px;
     text-decoration: none;
     transition: ease-out 0.3s;
@@ -191,18 +190,16 @@ nav {
 }
 
 .navList:hover {
-    background-color: var(--accent50);
+    background-color: var(--first50);
     cursor: cell;
     transition: ease-out 0s;
 }
 
 .navList:active {
-    background-color: var(--accent80);
+    background-color: var(--first80);
 }
 
-.navList:visited > .navTitle {
-    text-decoration: line-through; /* Does not work! */
-}
+
 
 
 .navTitle{
@@ -216,7 +213,7 @@ nav {
 }
 
 .navDate {
-    color: var(--accent50);
+    color: var(--first50);
     white-space: nowrap;
     padding: 0;
     margin: 0;
@@ -224,9 +221,9 @@ nav {
 
 
 h1 {
-    background-color: var(--accent100);
-    color: var(--invert100);
-    padding: 2px 12px 2px 12px;
+    background-color: var(--first100);
+    color: var(--second100);
+    padding: 4px 12px 4px 12px;
     margin: 0;
     font-weight: 600;
     z-index: 99999;
@@ -237,21 +234,21 @@ p {
 }
 
 a {
-    color: var(--accent100);
+    color: var(--first100);
     text-decoration: underline;
 }
 
 a:hover {
-    background-color: var(--accent100);
-    color: var(--invert100);
+    background-color: var(--first100);
+    color: var(--second100);
     text-decoration: none;
     cursor: ne-resize;
 }
 
 blockquote {
-    color: var(--accent80);
-    background-color: var(--accent10);
-    border-left: 2px solid var(--accent50);
+    color: var(--first80);
+    background-color: var(--first10);
+    border-left: 2px solid var(--first50);
     padding-left: 1rem;
     margin-left: 0.5rem;
     padding: 0.5rem 0rem 0.5rem 1rem;
@@ -275,8 +272,8 @@ img {
 
 
 pre {
-    color: var(--accent80);
-    background-color: var(--accent10);
+    color: var(--first80);
+    background-color: var(--first10);
     overflow: scroll;
     width: 100%;
     height: auto;
@@ -287,7 +284,7 @@ pre {
 
 .footnotes {
     width: 100%;
-    background-color: var(--accent10);
+    background-color: var(--first10);
     > ol {
     font-size: 9px !important;
 }
@@ -298,9 +295,9 @@ hr {
 }
 
 footer {
-    background-color: var(--accent100);
-    border-top: 1px solid var(--background);
-    color: var(--invert100);
+    background-color: var(--first100);
+    border-top: 1px solid var(--second100);
+    color: var(--second100);
     width: 100%;
     padding: 2px 12px 2px 12px;
 
@@ -308,12 +305,18 @@ footer {
         font-weight: 300;
         padding: 0;
         margin: 0;
-        color: var(--invert100);
+        color: var(--second100);
     }
 }
 
 
 @media screen and (max-width: 600px), (orientation: portrait) { /* Mobile */
+
+
+    container { 
+        margin: 0;
+        padding: 0;
+    }
 
     .navigation, .filters {
         display: none;
@@ -321,6 +324,8 @@ footer {
 
     .content {
         width: 100%;
+        margin: 0;
+        padding: 0;
     }
 
     .doc {
