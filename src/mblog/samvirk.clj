@@ -22,11 +22,7 @@
        sort
        vec))
 
-(def styles (filenames "public/css/styles"))
 (def fonts (filenames "public/css/fonts"))
-
-(defn style-path [style]
-  (str "css/styles/" style))
 
 (defn font-path [font]
   (str "css/fonts/" font))
@@ -48,17 +44,14 @@
 }")
 
 (defn load []
-  (let [style (rand-nth styles)
-        font (rand-nth fonts)
+  (let [font (rand-nth fonts)
         colors (contrast/gen-colors 5)
         text (:c1 colors)
         bg (:c2 colors)
         text-str (str (text 0) "," (text 1) "," (text 2))
         bg-str (str (bg 0) "," (bg 1) "," (bg 2))]
-    {:style style
-     :bg-color (contrast/rgb->hex text)
+    {:bg-color (contrast/rgb->hex text)
      :text-color (contrast/rgb->hex bg)
      :font font
      :root (apply format css-template
                   (concat (repeat 5 text-str) (repeat 5 bg-str)))}))
-
