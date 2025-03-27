@@ -63,7 +63,6 @@ section {
     flex-direction: column;
     overflow-y: scroll;
     overflow-x: hidden;
-    width: 50%;
     height: 100%;
     -webkit-scrollbar: none; /* WebKit */
     -ms-overflow-style: none; /* IE and Edge */
@@ -106,6 +105,20 @@ section:hover + section, section:has(+ section:hover) {
         filter: grayscale(1);
         mix-blend-mode: screen;
     }
+}
+
+.filters {
+    width: 20%;
+    border-right: 1px solid var(--accent20);
+}
+
+.navigation {
+    border-right: 1px solid var(--accent20);
+    width: 30%;
+}
+
+.content {
+    width: 50%;
 }
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
@@ -154,6 +167,8 @@ aside {
     padding: 1rem;
 }
 
+
+
 nav {
     padding: 0px;
     margin: 0px;
@@ -161,16 +176,15 @@ nav {
     flex-direction: column;
 }
 
-.navigation {
-    border-right: 1px solid var(--accent20);
-}
+
+
 
 .navList {
     display: flex;
     flex-direction: row;
     height: fit-content;
     cursor: cell;
-    padding: 2px 0px 2px 0px;
+    padding: 2px 12px 2px 0px;
     text-decoration: none;
     transition: ease-out 0.3s;
     border-bottom: 0;
@@ -288,6 +302,7 @@ footer {
     border-top: 1px solid var(--background);
     color: var(--invert100);
     width: 100%;
+    padding: 2px 12px 2px 12px;
 
     p {
         font-weight: 300;

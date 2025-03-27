@@ -80,10 +80,10 @@
         "Mikrobloggeriet"]]
       [:container
        [:section.filters
+        [:a.navList {:href "/"} [:p.navTitle "Alle"]]
         (->> cohorts
              (map (fn [cohort]
-                    [:a.navList {:href (str "/?cohort=" (:cohort/slug cohort))} (:cohort/name cohort)])))
-        ]
+                    [:a.navList {:href (str "/?cohort=" (:cohort/slug cohort))} [:p.navTitle (:cohort/name cohort)]])))]
        [:section.navigation
         [:nav
          (for [doc docs]
@@ -100,8 +100,7 @@
 
 (comment
   (-> @last-req
-      (dissoc :reitit.core/match :mikrobloggeriet.system/pageviews))
-  )
+      (dissoc :reitit.core/match :mikrobloggeriet.system/pageviews)))
 
 (defn req->innhold [req]
   (reset! last-req req)
@@ -116,5 +115,4 @@
   (def docs (doc/latest dev-db))
   (into {} (first docs))
   (def cohort (:doc/cohort (first docs)))
-  (:cohort/name cohort)
-  )
+  (:cohort/name cohort))
