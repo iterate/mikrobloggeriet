@@ -315,11 +315,11 @@ footer {
 
 @media screen and (max-width: 600px), (orientation: portrait) { /* Mobile */
 
-    .navigation {
+    .navigation, .filters {
         display: none;
     }
 
-    section {
+    .content {
         width: 100%;
     }
 
