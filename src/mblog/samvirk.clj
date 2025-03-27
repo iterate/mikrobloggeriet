@@ -10,15 +10,7 @@
     (str/replace (last s) "'" "")))
 
 (def css-re
-  {:bg #"--second10001:\s*(.*?);"
-   :text #"--first100:\s*(.*?);"
-   :font #"--main-font:\s*(.*?);"})
-
-(defn css->second100-color [theme]
-  (parse-css (:bg css-re) theme))
-
-(defn css->text-color [theme]
-  (parse-css (:text css-re) theme))
+  {:font #"--main-font:\s*(.*?);"})
 
 (defn css->font [font]
   (parse-css (:font css-re) font))
@@ -40,8 +32,6 @@
   (str "css/fonts/" font))
 
 (defn read-font [font-name] (slurp (str "public/css/fonts/" font-name)))
-
-(css->font (read-font "font1.css"))
 
 (def css-template
   ":root {

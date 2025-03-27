@@ -19,12 +19,4 @@
      line-height: 150%;}"]
 
     (is (= "IBM Plex Mono, monospace"
-           (samvirk/css->font css-str)))
-
-    (is (= "#080D92"
-           (samvirk/css->second100-color css-str)))
-
-    (is (= "#fff"
-           (samvirk/css->text-color css-str)))
-
-    (is (nil? (samvirk/css->text-color "ugyldig css")))))
+           (samvirk/css->font css-str)))))
