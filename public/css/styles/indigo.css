@@ -295,6 +295,8 @@ hr {
 }
 
 footer {
+    display: flex;
+    justify-content: end;
     background-color: var(--first100);
     border-top: 1px solid var(--second100);
     color: var(--second100);
