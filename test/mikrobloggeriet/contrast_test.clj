@@ -38,5 +38,5 @@
   (let [threshold 7
         colors (contrast/gen-colors threshold)]
     (is (< threshold
-           (contrast/rgb->score (contrast/hex->rgb (:c1 colors))
-                                (contrast/hex->rgb (:c2 colors)))))))
+           (contrast/rgb->score (:c1 colors)
+                                (:c2 colors))))))

@@ -15,6 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
+    font-family: var(--main-font);
 }
 
 header {
@@ -110,7 +111,6 @@ section:hover + section, section:has(+ section:hover) {
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
     color: var(--accent100);
     text-decoration: none;
-    font-family: var(--main-font);
     font-weight: 300;
     font-style: normal;
     font-size: clamp(1rem, 1vw, 1.5rem);

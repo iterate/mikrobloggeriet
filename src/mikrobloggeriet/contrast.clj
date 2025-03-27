@@ -60,8 +60,8 @@
              iter 0]
         (let [score (rgb->score c1 c2)]
           (if (> score threshold)
-            {:c1 (rgb->hex c1)
-             :c2 (rgb->hex c2)
+            {:c1 c1
+             :c2 c2
              :score score
              :iter iter}
             (recur c2 (rand-rgb) (inc iter)))))))
