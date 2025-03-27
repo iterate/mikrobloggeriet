@@ -67,7 +67,6 @@
      [:head
       [:meta {:charset "utf-8"}]
       [:link {:rel "stylesheet" :href (samvirk/style-path (:style samvirk))}]
-      [:link {:rel "stylesheet" :href (samvirk/theme-path (:theme samvirk))}]
       [:link {:rel "stylesheet" :href (samvirk/font-path (:font samvirk))}]
       ;; Google fonts
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
@@ -94,7 +93,7 @@
 
        [:section.content
         [:div (map view-doc docs)]]]
-      [:footer [:p (str (:style samvirk) " / " (:theme samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]]))
+      [:footer [:p (str (:style samvirk) " / " (:bg-color samvirk) " + " (:text-color samvirk) " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]]))
 
 (def last-req (atom nil))
 

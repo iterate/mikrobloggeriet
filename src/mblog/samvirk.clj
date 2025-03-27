@@ -31,20 +31,14 @@
        vec))
 
 (def styles (filenames "public/css/styles"))
-(def themes (filenames "public/css/themes"))
 (def fonts (filenames "public/css/fonts"))
 
 (defn style-path [style]
   (str "css/styles/" style))
 
-(defn theme-path [theme]
-  (str "css/themes/" theme))
-
 (defn font-path [font]
   (str "css/fonts/" font))
 
-(defn read-theme [theme-name] (slurp (str "public/css/themes/" theme-name)))
-(defn read-style [style-name] (slurp (str "public/css/styles/" style-name)))
 (defn read-font [font-name] (slurp (str "public/css/fonts/" font-name)))
 
 (css->font (read-font "font1.css"))
@@ -65,7 +59,6 @@
 
 (defn load []
   (let [style (rand-nth styles)
-        theme (rand-nth themes)
         font (rand-nth fonts)
         colors (contrast/gen-colors 5)
         text (:c1 colors)
@@ -73,7 +66,6 @@
         text-str (str (text 0) "," (text 1) "," (text 2))
         bg-str (str (bg 0) "," (bg 1) "," (bg 2))]
     {:style style
-     :theme theme
      :bg-color (contrast/rgb->hex text)
      :text-color (contrast/rgb->hex bg)
      :font font
