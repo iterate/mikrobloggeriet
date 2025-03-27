@@ -24,7 +24,7 @@ header {
     background-color: var(--accent100);
     color: var(--invert100);
     border-bottom: 1px solid var(--background);
-    padding: 0 4px 0 4px;
+    padding: 2px 12px 2px 12px;
     z-index: 99999;
     display: flex;
     flex-direction: row;
@@ -170,7 +170,7 @@ nav {
     flex-direction: row;
     height: fit-content;
     cursor: cell;
-    padding: 4px 0px 4px 0px;
+    padding: 2px 0px 2px 0px;
     text-decoration: none;
     transition: ease-out 0.3s;
     border-bottom: 0;
@@ -212,14 +212,14 @@ nav {
 h1 {
     background-color: var(--accent100);
     color: var(--invert100);
-    padding: 0 4px 0 4px;
+    padding: 2px 12px 2px 12px;
     margin: 0;
     font-weight: 600;
     z-index: 99999;
 }
 
 p {
-    padding: 0 4px 0 4px;
+    padding: 2px 12px 2px 12px;
 }
 
 a {
