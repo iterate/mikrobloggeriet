@@ -19,7 +19,6 @@ body {
 }
 
 header {
-    width: calc(100% -8px);
     height: auto;
     background-color: var(--first100);
     color: var(--second100);
@@ -163,7 +162,7 @@ figcaption {
 }
 
 aside {
-    second100-color: var(--first10);
+    background-color: var(--first10);
     padding: 1rem;
 }
 
@@ -300,7 +299,6 @@ footer {
     background-color: var(--first100);
     border-top: 1px solid var(--second100);
     color: var(--second100);
-    width: 100%;
     padding: 2px 12px 2px 12px;
 
     p {
