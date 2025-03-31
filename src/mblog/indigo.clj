@@ -110,6 +110,7 @@
      :cohorts (cohort/all db)}))
 
 (comment
+  (require 'mikrobloggeriet.state)
   (def dev-db mikrobloggeriet.state/datomic)
   (def docs (doc/latest dev-db))
   (into {} (first docs))
