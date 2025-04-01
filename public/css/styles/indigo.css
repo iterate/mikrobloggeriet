@@ -98,7 +98,7 @@ section {
 }
 
 section:hover ~ section, section:has(~ section:hover) {
-    opacity: 0.5;
+    opacity: 0.4;
 
     && img {
         filter: grayscale(1);
