@@ -200,14 +200,14 @@
    (reitit.ring/router
     (concat
 
-     [["/" {:get #'mblog.handler/indigo
+     [["/" {:get #((resolve `mblog.handler/handle) % mblog.handler/indigo-page)
             :head #'health              ; helsesjekk, Application.garden
             :name :mikrobloggeriet/frontpage}]
 
-      ["/doc/:slug" {:get #'mblog.handler/doc
+      ["/doc/:slug" {:get #((resolve 'mblog.handler/doc) % mblog.handler/doc-page)
                      :name :mblog.handler/doc}]
 
-      ["/indigo" {:get #'mblog.handler/indigo
+      ["/indigo" {:get #((resolve `mblog.handler/handle) % mblog.handler/indigo-page)
                   :name :mblog/indigo}]
 
       ;; Themes
