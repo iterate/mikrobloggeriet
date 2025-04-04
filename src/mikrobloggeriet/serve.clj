@@ -7,6 +7,7 @@
    [datomic.api :as d]
    [hiccup.page :as page]
    [mblog.indigo]
+   [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
@@ -22,7 +23,6 @@
    [mikrobloggeriet.ui.shared :as ui.shared]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]
-   mblog.handler
    ring.middleware.params))
 
 (defn set-theme [req]
@@ -196,10 +196,10 @@
 
 (defn serve-page
   "Serves any page from the page registry"
-  [req]
-  (when-let [page-id (-> req :reitit.core/match :data :name)]
+  [request]
+  (when-let [page-id (-> request :reitit.core/match :data :name)]
     (when-let [page (get page-registry/registry page-id)]
-      (mblog.handler/handle req page))))
+      (page-machinery/respond request page))))
 
 (defn create-ring-handler
   []
