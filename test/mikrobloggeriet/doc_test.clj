@@ -6,6 +6,10 @@
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.doc :as doc]))
 
+(deftest created-date
+  (is (= "2025-03-19"
+         (doc/created-date {:doc/created "2025-03-19T17:45:20Z"}))))
+
 (deftest number-test
   (is (= 1 (doc/number {:doc/slug "olorm-1"})))
   (is (= 42 (doc/number {:doc/slug "jals-42"})))
