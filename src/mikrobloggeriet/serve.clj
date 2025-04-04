@@ -7,6 +7,7 @@
    [datomic.api :as d]
    [hiccup.page :as page]
    [mblog.indigo]
+   [mblog.page-registry :as page-registry]
    [mikrobloggeriet.asset :as asset]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
@@ -194,18 +195,24 @@
   (markdown-cohort-routes (:cohort/olorm db/cohorts))
   )
 
+(defn serve-page
+  [req]
+  (when-let [page-id (-> req :reitit.core/match :data :name)]
+    (when-let [page (get page-registry/registry page-id)]
+      (mblog.handler/handle req page))))
+
 (defn create-ring-handler
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
     (concat
 
-     [["/" {:get #((resolve `mblog.handler/handle) % mblog.handler/indigo-page)
-            :head #'health              ; helsesjekk, Application.garden
-            :name :mikrobloggeriet/frontpage}]
+     [["/" {:get #'serve-page
+            :head #'health ;; HEAD / is Application.Garden's health check
+            :name :page/indigo}]
 
-      ["/doc/:slug" {:get #((resolve 'mblog.handler/doc) % mblog.handler/doc-page)
-                     :name :mblog.handler/doc}]
+      ["/doc/:slug" {:get #'serve-page
+                     :name :page/doc}]
 
       ;; Themes
       ["/theme/:theme" {:get #'theme

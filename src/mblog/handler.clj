@@ -1,25 +1,7 @@
 (ns mblog.handler
-  (:require [hiccup.page]
-            [mblog.indigo :as indigo]
-            [mblog.ui.doc :as ui.doc]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; SIDER
-
-(defn define-page [page]
-  (when (not (:pagemaker/render page))
-    (throw (ex-info "Invalid page: :page/render function not set." {:page page})))
-  page)
-
-(def indigo-page
-  (define-page
-    {:pagemaker/prepare-data #'indigo/req->innhold
-     :pagemaker/render #'indigo/innhold->hiccup}))
-
-(def doc-page
-  (define-page
-    {:pagemaker/prepare-data #'ui.doc/req->doc
-     :pagemaker/render #'ui.doc/doc->hiccup}))
+  (:require
+   [hiccup.page]
+   [mblog.page-registry]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; MACHINERY
@@ -55,6 +37,8 @@
 
 (comment
 
-  @last-req
+  (keys @last-req)
+
+  (-> @last-req :reitit.core/match :data :name)
 
   )
