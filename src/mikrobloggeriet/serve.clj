@@ -207,9 +207,6 @@
       ["/doc/:slug" {:get #((resolve 'mblog.handler/doc) % mblog.handler/doc-page)
                      :name :mblog.handler/doc}]
 
-      ["/indigo" {:get #((resolve `mblog.handler/handle) % mblog.handler/indigo-page)
-                  :name :mblog/indigo}]
-
       ;; Themes
       ["/theme/:theme" {:get #'theme
                         :name :mikrobloggeriet/theme}]
