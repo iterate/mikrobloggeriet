@@ -8,7 +8,6 @@
    [hiccup.page :as page]
    [mblog.indigo]
    [mblog.page-registry :as page-registry]
-   [mikrobloggeriet.asset :as asset]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.db :as db]
@@ -196,6 +195,7 @@
   )
 
 (defn serve-page
+  "Serves any page from the page registry"
   [req]
   (when-let [page-id (-> req :reitit.core/match :data :name)]
     (when-let [page (get page-registry/registry page-id)]
@@ -266,10 +266,6 @@
 
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
                                    :get #'last-modified-file-handler}]
-
-      ["/images/:image-path" {:get (fn [req]
-                                     (let [image-path (http/path-param req :image-path)]
-                                       (asset/load-image image-path)))}]
 
       ["/feed.xml" {:get #'feed/handler}]]))
    (reitit.ring/routes
