@@ -8,7 +8,12 @@ Designskissen skinner så du ser refleksjonen i den. Alt er perfekt. Fargene, fo
 
 Hvor i all verden skal du starte?
 
-Ifølge DORA leverer produktteam som praktiserer kontinuerlig leveranse jevnt over bedre produkter. Når man skal levere kontinuerlig må én bit leveres om gangen; og bitene som leveres informerer videre utvikling.
+Ifølge DORA ([dora.dev/capabilities/continuous-delivery]) leverer produktteam
+som praktiserer kontinuerlig leveranse jevnt over bedre produkter. Når man skal
+levere kontinuerlig må én bit leveres om gangen; og bitene som leveres
+informerer videre utvikling.
+
+[dora.dev/capabilities/continuous-delivery]: https://dora.dev/capabilities/continuous-delivery/
 
 Men hvor i all verden skal du starte?
 
