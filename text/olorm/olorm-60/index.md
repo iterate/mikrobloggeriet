@@ -19,17 +19,26 @@ Men hvor i all verden skal du starte?
 
 ## Den pixel-perfekte prototypen
 
-Å finne det gode stedet å starte er en designjobb. Men konsumentene av designet er utvikleren og designeren. En piksel-perfekt prototype er verken en løsning på hvor det er best  å starte, eller rett medium. Finn ut av hva produktet skal kunne gjøre.
+Å finne det gode stedet å starte er en designjobb.
+Men det designet treffer ikke sluttbrukeren: det designet treffer utvikleren og designeren.
+En piksel-perfekt prototype peker ikke på hvor det er best å starte.
+Den gjør det motsatte: den sidestiller alle tingene som kan gjøres.
 
-Alternativet er å lage en haug med jobb hvor suksess er "implementert skissen" ikke "løser $KONKRET_PROBLEM for brukeren". Hva oppnår man da?
+I stedet, finn ut hva første versjon av produktet _skal gjøre_.
+Hvem skal oppnå hva?
 
-Ukjent/uklar produktverdi
+Hvis du ikke stiller det spørsmålet og svarer på det med en hypotese, har du ikke et tydelig mål.
+Da smetter "det skal se ut som på skissen" inn som mål i stedet.
+Da får du:
 
-Ukjent/uklar ferdigstillingsdefinisjon
+- Ukjent/uklar produktverdi
+- Ukjent/uklar ferdigstillingsdefinisjon
+- Masse work in progress.
 
-Masse work in progress.
+Jeg mener vi bør unngå å ta opp work in progress når vi kan, se for eksempel [OLORM-50: For mye opsjonalitet].
+Når målet med arbeidet i tillegg er udefinert, har vi lagd flere problemer for oss selv enn vi har løst.
 
-Work in progress bør unngås, selv om vi trenger å ta opp litt nå og da. Når "done" i tillegg er udefinert, har vi lagd flere problemer for hverandre enn vi har hjulpet til.
+[OLORM-50: For mye opsjonalitet]: /#olorm-50
 
 ## Den omfangsorienterte designeren
 
