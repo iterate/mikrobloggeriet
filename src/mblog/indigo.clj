@@ -46,14 +46,6 @@
        [:h1 (:doc/slug doc)])
      (-> doc doc/hiccup lazyload-images))]])
 
-(comment
-  (require '[datomic.api :as d])
-  (def leik-3 (d/entity dev-db [:doc/slug "leik-3"]))
-  (view-doc leik-3)
-
-  (def leik-2 (d/entity dev-db [:doc/slug "leik-2"]))
-  (view-doc leik-2))
-
 (defn innhold->hiccup [{:keys [docs cohorts]}]
   (let [samvirk (samvirk/load)]
     [:html {:lang "en"}
