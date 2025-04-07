@@ -5,6 +5,10 @@
    [datomic.api :as d]
    [mikrobloggeriet.cache :as cache]))
 
+(defn created-date [doc]
+  (some-> doc :doc/created
+          (str/split #"T") first))
+
 (defn number [doc]
   (when-let [slug (:doc/slug doc)]
     (parse-long (last (str/split slug #"-")))))

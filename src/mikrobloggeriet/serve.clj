@@ -7,7 +7,8 @@
    [datomic.api :as d]
    [hiccup.page :as page]
    [mblog.indigo]
-   [mikrobloggeriet.asset :as asset]
+   [mblog.page-machinery :as page-machinery]
+   [mblog.page-registry :as page-registry]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.db :as db]
@@ -22,7 +23,6 @@
    [mikrobloggeriet.ui.shared :as ui.shared]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]
-   mblog.handler
    ring.middleware.params))
 
 (defn set-theme [req]
@@ -194,21 +194,25 @@
   (markdown-cohort-routes (:cohort/olorm db/cohorts))
   )
 
+(defn serve-page
+  "Serves any page from the page registry"
+  [request]
+  (when-let [page-id (-> request :reitit.core/match :data :name)]
+    (when-let [page (get page-registry/registry page-id)]
+      (page-machinery/respond request page))))
+
 (defn create-ring-handler
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
     (concat
 
-     [["/" {:get #'mblog.handler/indigo
-            :head #'health              ; helsesjekk, Application.garden
-            :name :mikrobloggeriet/frontpage}]
+     [["/" {:get #'serve-page
+            :head #'health ;; HEAD / is Application.Garden's health check
+            :name :page/indigo}]
 
-      ["/doc/:slug" {:get #'mblog.handler/doc
-                     :name :mblog.handler/doc}]
-
-      ["/indigo" {:get #'mblog.handler/indigo
-                  :name :mblog/indigo}]
+      ["/doc/:slug" {:get #'serve-page
+                     :name :page/doc}]
 
       ;; Themes
       ["/theme/:theme" {:get #'theme
@@ -262,10 +266,6 @@
 
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
                                    :get #'last-modified-file-handler}]
-
-      ["/images/:image-path" {:get (fn [req]
-                                     (let [image-path (http/path-param req :image-path)]
-                                       (asset/load-image image-path)))}]
 
       ["/feed.xml" {:get #'feed/handler}]]))
    (reitit.ring/routes

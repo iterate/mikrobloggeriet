@@ -116,7 +116,7 @@
    {:cohort/root "text/luke",
     :cohort/slug "luke",
     :cohort/type :cohort.type/markdown,
-    :cohort/name "Mikrobloggeriets Julekalender 2023"
+    :cohort/name "Julekalender 2023"
     :cohort/description "Mikrobloggen LUKE ble skrevet av Iterate-ansatte gjennom adventstida 2023."},
    :cohort/oj
    {:cohort/root "text/oj",

@@ -88,7 +88,7 @@
          (for [doc docs]
            [:a.navList {:href (str "#" (:doc/slug doc))}
             [:p.navTitle (find-title-ish doc)]
-            [:p.navDate "/"] [:p.navDate (:doc/created doc)]
+            [:p.navDate "/"] [:p.navDate (doc/created-date doc)]
             [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
 
        [:section.content

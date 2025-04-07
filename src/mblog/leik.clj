@@ -4,18 +4,12 @@
    [babashka.fs :as fs]
    [clojure.string :as str]))
 
-(defn created-date [f]
-  ;; A "simplest possible" approach to when a file was created. If this doesn't
-  ;; work out, we can use the Git log.
-  (some-> (fs/creation-time f)
-          str (str/split #"T") first))
-
 (defn load-doc [f]
   (when (fs/exists? f)
     (when-let [number (second (re-matches #"(\d+)\.md" (fs/file-name f)))]
       {:doc/slug (str "leik-" number)
        :doc/markdown (slurp (fs/file f))
-       :doc/created (created-date f)
+       :doc/created (-> f fs/creation-time str)
        :doc/cohort [:cohort/slug "leik"]})))
 
 (defn find-docs []
@@ -32,4 +26,11 @@
           str
           (str/split #"T")
           first)
+  ;; => "2025-03-19"
+
+  (some-> (fs/creation-time "text/leik/1.md")
+          str)
+  ;; => "2025-03-19T17:45:20Z"
+
+
   )

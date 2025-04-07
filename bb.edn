@@ -1,9 +1,28 @@
 {:tasks
- {test (clojure "-M:kaocha")
-  deploy* (shell "garden deploy")
-  push (shell "git push")
-  deploy (do (run 'test)
-             ;; try to deploy before pushing - in case app startup
-             ;; fails
-             (run 'deploy*)
-             (run 'push))}}
+ {test
+  (clojure "-M:kaocha")
+
+  deploy*
+  (shell "garden deploy")
+
+  push
+  (shell "git push")
+
+  maybe-lint
+  {:requires ([babashka.fs :as fs])
+   :task
+   (when (fs/which "clj-kondo")
+     ;; Kjører linteren hvis den finnes, men forhindrer ikke Neno
+     ;; eller andre som ikke har installert linteren fra å deploye.
+     ;;
+     ;; Vi kjører allerede linteren i CI - hvis vi får den inn i
+     ;; deploy-loopen, kan vi ta problemene vi lager med én gang.
+     (shell "clj-kondo --fail-level warning --lint src"))}
+
+  deploy
+  (do (run 'test)
+      (run 'maybe-lint)
+      ;; try to deploy before pushing - in case app after attempted deploy
+      ;; fails.
+      (run 'deploy*)
+      (run 'push))}}
