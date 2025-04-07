@@ -21,7 +21,7 @@
     --iterate-blue:    #6699ff;
     --iterate-cyan:    #33ffff;
     --iterate-green:   #99ff99;
-    --iterate-second100: #171717;
+    --iterate-background: #171717;
     --iterate-softclay: #3C4E5A;
     --iterate-teal: #3C6E7A;
 
@@ -38,5 +38,5 @@
     --primary-color: var(--iterate-base1);
     --secondary-color: var(--iterate-teal);
     --tertiary-color: var(--iterate-softclay);
-    --second100-color: var(--iterate-second100)
+    --background-color: var(--iterate-background)
 }

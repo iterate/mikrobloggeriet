@@ -23,7 +23,7 @@
     /* Assign for use in HTML */
     --desktop-font-size: 1.2rem/1.55;
     --mobile-font-size: 1rem/1.45;
-    --second100-color: var(--bwb-light);
+    --background-color: var(--bwb-light);
     --text-color: var(--bwb-dark);
     --link-color: var(--bwb-link-light);
     --link-color-alt: var(--bwb-link-hover-light);
@@ -39,7 +39,7 @@
 @media (prefers-color-scheme: dark) {
 
     :root {
-        --second100-color: var(--bwb-dark);
+        --background-color: var(--bwb-dark);
         --text-color: var(--bwb-light);
         --link-color: var(--bwb-link-dark);
         --link-color-alt: var(--bwb-link-hover-dark);
