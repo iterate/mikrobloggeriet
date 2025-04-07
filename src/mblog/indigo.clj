@@ -68,6 +68,7 @@
         (->> cohorts
              (map (fn [cohort]
                     [:a.navList {:href (str "/?cohort=" (:cohort/slug cohort))} [:p.navTitle (:cohort/name cohort)]])))]
+
        [:section.navigation
         [:nav
          (for [doc docs]
