@@ -42,24 +42,50 @@ Når målet med arbeidet i tillegg er udefinert, har vi lagd flere problemer for
 
 ## Den omfangsorienterte designeren
 
-Nivå 1 av designjobben er å ta "vi skal definere et smalt neste steg" seriøst. Ikke gjør mer enn nødvendig på én gang. Tenk "hvordan skal det tas i bruk" fra steg 1. Da lager vi så lite work in progress vi får til; vi setter oss i posisjon hvor vi kan fullføre.
+Nivå 1 av jobben til den omfangsorienterte designeren er å ta "vi skal definere et smalt neste steg" seriøst. Ikke gjør mer enn nødvendig på én gang. Tenk "hvordan skal det tas i bruk" fra steg 1. Da lager vi så lite work in progress vi får til; vi setter oss i posisjon hvor vi kan fullføre.
 
-Nivå 2 av designjobben er å kode det opp direkte i HTML og CSS. Lag noen HTML-filer og CSS-filer i kodebasen. Det blir da ettertrykkelig tydelig hvordan man kan blåse liv i prototypen med ekte data og ekte interaksjoner.
+Nivå 2 av jobben til den omfangsorienterte designeren er å kode det opp direkte i HTML og CSS. Lag noen HTML-filer og CSS-filer i kodebasen. Det blir da ettertrykkelig tydelig hvordan man kan blåse liv i prototypen med ekte data og ekte interaksjoner.
 
-Med noen runder HTML og CSS i koden kommer utvikleren fort til å klø seg i hodet eller skjegget (eller andre steder med kroppshår) og tenke "hvorfor kan ikke designeren bare endre produktet, da?" Og det er mulig! Men det krever at du rigger til kodebasen så designeren kan få se effekten av visuelle endringer uten å skjønne kode-detaljer som ikke har noe med visuelt arbeid å gjøre.
+Med noen runder HTML og CSS i koden kommer utvikleren fort til å klø seg i hodet
+  eller skjegget (eller andre steder med kroppshår) og tenke "hvorfor kan ikke
+  designeren bare endre produktet direkte?"
+Det er et veldig godt spørsmål!
+Og svaret er _ja_. Det går.
+Men da må du rigge kodebasen så designeren faktisk får gjort jobben sin når desineren setter seg ned for å jobbe.
+Det betyr at designeren får fokusert på det visuelle utrykket, uten å bli distrahert av detaljer som ikke har med visuelt inntrykk å gjøre.
 
 ## Visuelt arbeid på Mikrobloggeriet: ujålete CSS-filer, punktum.
 
-Redesignet Mikrobloggeriet fikk vinteren 2025 er stort sett skrevet rett i CSS av Neno. Neno kjører kodebasen lokalt, endrer CSS-filer og pusher og prodsetter med Git. "push og prod" er én kommando. Hvis det var et bash-script, kunne det sett sånn ut:
+Redesignet Mikrobloggeriet fikk vinteren 2025 er skrevet rett i CSS
+av Neno, som er utdannet designer.
+Neno kjører kodebasen lokalt, endrer CSS-filer og pusher og prodsetter
+med Git.
+Vi har gjort "push og prodsett" til én kommando.
+Hvis den var et bash-script, ville den sett cirka sånn ut:
 
-set -e # ellers stopper ikke Bash når noe tryner, lol ./test.sh ./lint.sh ./try-deploy.sh # deploy feiler hvis appen ikke klarer å starte opp git push
+```shell
+set -e # ellers stopper ikke Bash når noe tryner, lol
+./test.sh
+./lint.sh 
+./try-deploy.sh # deploy feiler hvis appen ikke klarer å starte opp 
+git push
+```
 
-Det har så lang, såvidt meg (Teodor) kjent fanget alle feil relatert til designjobbing.
+"men er ikke gå rett i prod skummelt, da?"
+I praksis, nei.
+Det er tryggere.
+Det er lettere å forbedre systemet, inkludert å legge på nødvendig sikkerhetsnett.
 
 ## Den omfangsorienterte designeren lar produktteamet levere raskere og bedre
 
-Design-utvikler-interaksjonen i Mikrobloggeriet-arbeid er såpass bra at jeg vil jobbe hardt for å beholde den flyten. Som utvikler får jeg fokusert på domeneproblemer og tilgjengeliggjøring av data, og slipper "implementer denne plx"-gjørejobber. Det gjør at vi klarer å shippe redesign på rekordtid på et hobbyprosjekt vi gjør ved siden av vanlig jobb.
+Design-utvikler-interaksjonen i Mikrobloggeriet-arbeid er såpass bra at jeg vil
+jobbe hardt for å beholde den flyten. Som utvikler får jeg fokusert på
+domeneproblemer og tilgjengeliggjøring av data, og slipper "implementer denne
+plx"-gjørejobber. Det gjør at vi klarer å shippe redesign på rekordtid på et
+hobbyprosjekt vi gjør ved siden av vanlig jobb.
 
 Hvis du er designer eller utvikler, anbefaler jeg å prøve det. Gøy og bra :)
 
-Takk til Neno Mindjek og Eirik Backer for gode diskusjoner om samspillet mellom utviklere og designere, og til Christian Johansen og Magnar Sveen for gode tanker om hvordan framside-kode kan struktureres på enkelt vis.
+Takk til Neno Mindjek og Eirik Backer for gode diskusjoner om samspillet mellom
+utviklere og designere, og til Christian Johansen og Magnar Sveen for gode
+tanker om hvordan framside-kode kan struktureres på enkelt vis.
