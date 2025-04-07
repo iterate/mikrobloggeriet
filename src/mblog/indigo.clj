@@ -41,14 +41,7 @@
    [:a {:name (:doc/slug doc)}]
    [:div
     (list
-     ;; smash in the slug as title if no title is given on the doc.
-     ;;
-     ;; The astute reader will notice that this smells of implementation
-     ;; details compared to the rest of this fine namespace. Perhaps we should
-     ;; lower this logic down a notch. It may be better suited to the doc
-     ;; namespace.
-     ;;
-     ;; For now, we keep the title smashing close to its use (presentation).
+     ;; Pretend the slug is the title when the doc doesn't have a "real" title.
      (when-not (doc/cleaned-title doc)
        [:h1 (:doc/slug doc)])
      (-> doc doc/hiccup lazyload-images))]])
