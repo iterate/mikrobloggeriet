@@ -4,26 +4,6 @@
     background-color: var(--first100);
 }
 
-.loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 99999999;
-    opacity: 0;
-    display: none;
-    background:
-     linear-gradient(var(--second100) 0 0) 0/0% no-repeat
-     var(--first100);
-    animation: l1 1.5s ease-in-out;
-  }
-  @keyframes l1 {
-    0% {display: block; opacity: 1;}
-      90% {background-size:100%; opacity: 1;}
-      100% {opacity: 0; display: none; background-size: 100%;}
-  }
-
 body {
     margin: 0;
     padding: 0;
