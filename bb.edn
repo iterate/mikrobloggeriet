@@ -1,6 +1,6 @@
 {:tasks
  {test
-  (clojure "-M:kaocha")
+  (apply clojure "-M:kaocha" *command-line-args*)
 
   deploy*
   (shell "garden deploy")
@@ -25,4 +25,5 @@
       ;; try to deploy before pushing - in case app after attempted deploy
       ;; fails.
       (run 'deploy*)
-      (run 'push))}}
+      (run 'push))
+  }}
