@@ -1,2 +1,5 @@
 [tools]
+clojure = "1.12.0.1530"
 java = "temurin-21.0.4+7.0.LTS"
+pandoc = "3.6.4"
+"ubi:nextjournal/garden-cli" = { version = "0.1.15", exe = "garden" }
