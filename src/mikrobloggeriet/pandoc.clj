@@ -143,6 +143,10 @@
   (when (string? markdown-str)
     (from-json-str (run-pandoc markdown-str ["--from" "markdown+smart" "--to" "json"]))))
 
+(defn from-rst [rst-str]
+  (when (string? rst-str)
+    (from-json-str (run-pandoc rst-str ["--from" "rst+smart" "--to" "json"]))))
+
 (defn from-html [html-str]
   (when (string? html-str)
     (from-json-str (run-pandoc html-str ["--from" "html" "--to" "json"]))))
