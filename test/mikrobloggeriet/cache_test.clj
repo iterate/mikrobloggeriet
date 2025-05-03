@@ -1,6 +1,7 @@
 (ns mikrobloggeriet.cache-test
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is testing]]
+            [lookup.core :as lookup]
             [mikrobloggeriet.cache :as cache]))
 
 (deftest cache-fn-by
@@ -84,4 +85,14 @@ en håndfull holmer som nå bader i karat.
             (str/trim)
             (str/split-lines)
             (str/join " "))
-           (-> hildringstimen-markdown cache/parse-markdown* :description)))))
+           (-> hildringstimen-markdown cache/parse-markdown* :description))))
+
+  (testing "supports attributes on images"
+    (is (= (->> "![fint bilde](bilde.bmp){height=1em}"
+                cache/parse-markdown*
+                (lookup/select-one "img[style]")
+                lookup/attrs
+                :style)
+           "height:1em")))
+
+  )
