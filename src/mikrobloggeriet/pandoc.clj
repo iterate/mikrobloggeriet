@@ -147,6 +147,7 @@
 (defn from-markdown [markdown-str] (read-str markdown-str "markdown+smart"))
 (defn from-org [org-str] (read-str org-str "org+smart"))
 (defn from-rst [rst-str] (read-str rst-str "rst+smart"))
+(defn from-typst [typst-str] (read-str typst-str "typst+smart"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; WRITE IR TO FORMAT
