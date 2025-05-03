@@ -10,6 +10,9 @@
   deploy*
   (shell "garden deploy")
 
+  dev
+  (shell "garden run")
+
   maybe-lint
   {:requires ([babashka.fs :as fs])
    :task
