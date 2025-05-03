@@ -1,12 +1,14 @@
 {:tasks
- {test
-  (apply clojure "-M:kaocha" *command-line-args*)
+ {deploy
+  (do (run 'test)
+      (run 'maybe-lint)
+      ;; try to deploy before pushing - in case app after attempted deploy
+      ;; fails.
+      (run 'deploy*)
+      (run 'push))
 
   deploy*
   (shell "garden deploy")
-
-  push
-  (shell "git push")
 
   maybe-lint
   {:requires ([babashka.fs :as fs])
@@ -19,11 +21,9 @@
      ;; deploy-loopen, kan vi ta problemene vi lager med én gang.
      (shell "clj-kondo --fail-level warning --lint src"))}
 
-  deploy
-  (do (run 'test)
-      (run 'maybe-lint)
-      ;; try to deploy before pushing - in case app after attempted deploy
-      ;; fails.
-      (run 'deploy*)
-      (run 'push))
+  push
+  (shell "git push")
+
+  test
+  (apply clojure "-M:kaocha" *command-line-args*)
   }}
