@@ -139,42 +139,29 @@
     (when (= 0 (:exit process-handle))
       (:out process-handle))))
 
-(defn read-to-json [raw-str from-format]
+(defn read-str [raw-str from-format]
   (when (string? raw-str)
     (from-json-str (run-pandoc raw-str ["--from" from-format "--to" "json"]))))
 
-(defn from-markdown [markdown-str] (read-to-json markdown-str "markdown+smart"))
-(defn from-rst [rst-str] (read-to-json rst-str "rst+smart"))
-(defn from-html [html-str] (read-to-json html-str "html"))
-(defn from-org [org-str] (read-to-json org-str "org+smart"))
+(defn from-html [html-str] (read-str html-str "html"))
+(defn from-markdown [markdown-str] (read-str markdown-str "markdown+smart"))
+(defn from-org [org-str] (read-str org-str "org+smart"))
+(defn from-rst [rst-str] (read-str rst-str "rst+smart"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; WRITE IR TO FORMAT
 
-(defn to-html [pandoc]
+(defn write-str [pandoc to-format & extra-pandoc-cli-args]
   (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) ["--from" "json" "--to" "html"])))
+    (run-pandoc (to-json-str pandoc)
+                (concat extra-pandoc-cli-args
+                        ["--from" "json" "--to" to-format]))))
 
-(defn to-html-standalone [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "html"])))
-
-(defn to-markdown [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) ["--from" "json" "--to" "markdown"])))
-
-(defn to-markdown-standalone [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "markdown"])))
-
-(defn to-org [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) ["--from" "json" "--to" "org"])))
-
-(defn to-org-standalone [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "org"])))
-
-(defn to-plain [pandoc]
-  (when (pandoc? pandoc)
-    (run-pandoc (to-json-str pandoc) ["--standalone" "--from" "json" "--to" "plain"])))
+(defn to-html [pandoc] (write-str pandoc "html"))
+(defn to-html-standalone [pandoc] (write-str pandoc "html" "--standalone"))
+(defn to-markdown [pandoc] (write-str pandoc "markdown"))
+(defn to-markdown-standalone [pandoc] (write-str pandoc "markdown" "--standalone"))
+(defn to-org [pandoc] (write-str pandoc "org"))
+(defn to-org-standalone [pandoc] (write-str pandoc "org" "--standalone"))
+(defn to-plain [pandoc] (write-str pandoc "plain"))
+(defn to-plain-standalone [pandoc] (write-str pandoc "plain" "--standalone"))
