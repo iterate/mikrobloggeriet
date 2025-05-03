@@ -139,25 +139,14 @@
     (when (= 0 (:exit process-handle))
       (:out process-handle))))
 
-(defn from-markdown [markdown-str]
-  (when (string? markdown-str)
-    (from-json-str (run-pandoc markdown-str ["--from" "markdown+smart" "--to" "json"]))))
+(defn read-to-json [raw-str from-format]
+  (when (string? raw-str)
+    (from-json-str (run-pandoc raw-str ["--from" from-format "--to" "json"]))))
 
-(defn from-rst [rst-str]
-  (when (string? rst-str)
-    (from-json-str (run-pandoc rst-str ["--from" "rst+smart" "--to" "json"]))))
-
-(defn from-html [html-str]
-  (when (string? html-str)
-    (from-json-str (run-pandoc html-str ["--from" "html" "--to" "json"]))))
-
-#_(from-html "<p>hello!</p>")
-
-(defn from-org [org-str]
-  (when (string? org-str)
-    (from-json-str (run-pandoc org-str ["--from" "org+smart" "--to" "json"]))))
-
-#_(from-org "no, /you/ are the best!")
+(defn from-markdown [markdown-str] (read-to-json markdown-str "markdown+smart"))
+(defn from-rst [rst-str] (read-to-json rst-str "rst+smart"))
+(defn from-html [html-str] (read-to-json html-str "html"))
+(defn from-org [org-str] (read-to-json org-str "org+smart"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; WRITE IR TO FORMAT
