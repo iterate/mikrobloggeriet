@@ -1,7 +1,8 @@
 (ns mblog.indigo-test
   (:require
-   [clojure.test :refer [deftest is]]
-   [mblog.indigo :as indigo]))
+   [clojure.test :refer [deftest is testing]]
+   [mblog.indigo :as indigo]
+   [mikrobloggeriet.db :as db]))
 
 (deftest lazyload-images
   (is (= [:div [:img {:loading "lazy"}]]
@@ -23,3 +24,24 @@
                    identity)
          set)
     "Unminifying av kode med LLM")))
+
+(def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
+
+(deftest req->innhold
+  (testing "ingen valgt kohort"
+    (let [innhold (indigo/req->innhold {:mikrobloggeriet.system/datomic db})
+          docs (:docs innhold)
+          slugs (->> docs
+                     (map :doc/slug)
+                     (into (sorted-set)))]
+      (is (contains? slugs "olorm-1"))
+      (is (contains? slugs "jals-2"))
+      (is (nil? (:current-cohort docs)))))
+  (testing "valgt OLORM"
+    (let [innhold (indigo/req->innhold {:mikrobloggeriet.system/datomic db
+                                        :query-params {"cohort" "olorm"}})
+          docs (:docs innhold)
+          slugs (into (sorted-set) (map :doc/slug docs))]
+      (is (contains? slugs "olorm-1"))
+      (is (contains? slugs "jals-2"))
+      (is (= (-> innhold :current-cohort :cohort/slug) "olorm")))))

@@ -1,6 +1,7 @@
 (ns mblog.indigo
   (:require
    [clojure.walk :refer [postwalk]]
+   [datomic.api :as d]
    [hiccup.page]
    [mblog.samvirk :as samvirk]
    [mikrobloggeriet.cohort :as cohort]
@@ -46,8 +47,12 @@
        [:h1 (:doc/slug doc)])
      (-> doc doc/hiccup lazyload-images))]])
 
-(defn innhold->hiccup [{:keys [docs cohorts]}]
-  (let [samvirk (samvirk/load)]
+(defn innhold->hiccup [{:keys [docs cohorts current-cohort]}]
+  (let [samvirk (samvirk/load)
+        doc-visibility (fn [doc]
+                         (when (and current-cohort
+                                    (not= (:doc/cohort doc) current-cohort))
+                           {:display "none"}))]
     [:html {:lang "en"}
      [:head
       [:meta {:charset "utf-8"}]
@@ -72,13 +77,16 @@
        [:section.navigation
         [:nav
          (for [doc docs]
-           [:a.navList {:href (str "#" (:doc/slug doc))}
+           [:a.navList {:href (str "#" (:doc/slug doc))
+                        :style (doc-visibility doc)}
             [:p.navTitle (find-title-ish doc)]
             [:p.navDate "/"] [:p.navDate (doc/created-date doc)]
             [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
 
        [:section.content
-        [:div (map view-doc docs)]]]
+        [:div (for [doc docs]
+                [:div {:style (doc-visibility doc)}
+                 (view-doc doc)])]]]
       [:footer [:p (str (:bg-color samvirk) " □" " + " (:text-color samvirk) " ■" " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]]))
 
 (def last-req (atom nil))
@@ -90,15 +98,15 @@
 (defn req->innhold [req]
   (reset! last-req req)
   (let [db (:mikrobloggeriet.system/datomic req)]
-    {:docs (let [cohort-id (get-in req [:query-params "cohort"])]
-             (cond->> (doc/latest db)
-               cohort-id (filter #(= cohort-id (-> % :doc/cohort :cohort/slug)))))
-     :cohorts (cohort/all db)}))
+    (merge {:docs (doc/latest db)
+            :cohorts (cohort/all db)}
+           (when-let [cohort-slug (get-in req [:query-params "cohort"])]
+             {:current-cohort (d/entity db [:cohort/slug cohort-slug])}))))
 
 (comment
   (require 'mikrobloggeriet.state)
-  (def dev-db mikrobloggeriet.state/datomic)
-  (def docs (doc/latest dev-db))
+  (def db mikrobloggeriet.state/datomic)
+  (def docs (doc/latest db))
   (into {} (first docs))
   (def cohort (:doc/cohort (first docs)))
   (:cohort/name cohort))
