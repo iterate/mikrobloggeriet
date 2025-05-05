@@ -1,4 +1,20 @@
 # MIKROBLOGGERIET_2.0_WIP
+
+## Mai 2025
+
+2025-05-05
+
+Opsjoner:
+- [ ] Revurdere bilder
+- [ ] flere inputformater - feks rst og typst
+- [ ] fikse fotnoter
+- [ ] delbar enkeltside
+- [ ] Bedre UX for navigering og filtrering
+- [ ] tags
+- [ ] "vanskelig å skrive markdown" for noen
+
+## Gammalt
+
 Mars 2025 /
 Ny forside
 
