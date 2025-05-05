@@ -31,6 +31,20 @@
        :else form))
    hiccup))
 
+(defn lazyload-iframes [hiccup]
+  (postwalk
+   (fn [form]
+     (cond
+       (and (vector? form)
+            (= (first form)
+               :iframe))
+       (into [:iframe (assoc (hiccup-optmap form)
+                             :loading "lazy")]
+             (hiccup-children form))
+       :else form))
+   hiccup)
+  )
+
 (defn find-title-ish
   "Finds the title if present, otherwise falls back to slug"
   [doc]
@@ -45,7 +59,7 @@
      ;; Pretend the slug is the title when the doc doesn't have a "real" title.
      (when-not (doc/cleaned-title doc)
        [:h1 (:doc/slug doc)])
-     (-> doc doc/hiccup lazyload-images))]])
+     (-> doc doc/hiccup lazyload-images lazyload-iframes))]])
 
 (defn innhold->hiccup [{:keys [docs cohorts current-cohort]}]
   (let [samvirk (samvirk/load)
