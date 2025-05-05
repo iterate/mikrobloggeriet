@@ -36,11 +36,16 @@
              str/trim))))
 
 (deftest typst
-  (is (= (-> "hei #emph[du]!"
+  (is (= "hei *du*!"
+          (-> "hei #emph[du];!"
              pandoc/from-typst
              pandoc/to-markdown
-             str/trim)
-          "hei *du*!")))
+             str/trim)))
+  (is (= "hei #emph[du];!"
+         (-> "hei *du*!"
+             pandoc/from-markdown
+             pandoc/to-typst
+             str/trim))))
 
 (deftest convert-test
   (is (= "<p><em>teodor</em></p>" (-> "_teodor_" pandoc/from-markdown pandoc/to-html str/trim))))

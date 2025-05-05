@@ -102,7 +102,7 @@
     (els->plaintext (:c first-para))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; READ FROM FORMAT INTO IR
+;; PANDOC BINARY
 
 (defn get-pandoc-path
   "Look for a pandoc binary.
@@ -125,6 +125,9 @@
     (when (= 0 (:exit process-handle))
       (:out process-handle))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; FROM TEXT FORMAT TO IR
+
 (defn read-str [raw-str from-format]
   (when (string? raw-str)
     (from-json-str (run-pandoc raw-str ["--from" from-format "--to" "json"]))))
@@ -136,7 +139,7 @@
 (defn from-typst [typst-str] (read-str typst-str "typst+smart"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; WRITE IR TO FORMAT
+;; FROM IR TO TEXT FORMAT
 
 (defn write-str [pandoc to-format & extra-pandoc-cli-args]
   (when (pandoc? pandoc)
@@ -152,3 +155,4 @@
 (defn to-org-standalone [pandoc] (write-str pandoc "org" "--standalone"))
 (defn to-plain [pandoc] (write-str pandoc "plain"))
 (defn to-plain-standalone [pandoc] (write-str pandoc "plain" "--standalone"))
+(defn to-typst [pandoc] (write-str pandoc "typst"))
