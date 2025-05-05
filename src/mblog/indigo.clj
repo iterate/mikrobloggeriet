@@ -62,6 +62,7 @@
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
       [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
       [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Cormorant:ital,wght@0,300..700;1,300..700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Fira+Mono:wght@400;500;700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Onest:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&family=Taviraj:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"}]
+      [:script {:type "module" :src "/js/filter.js" :defer true}]
       [:style (:root samvirk)]]
      [:body
       [:header
@@ -72,20 +73,22 @@
         [:a.navList {:href "/"} [:p.navTitle "Alle"]]
         (->> cohorts
              (map (fn [cohort]
-                    [:a.navList {:href (str "/?cohort=" (:cohort/slug cohort))} [:p.navTitle (:cohort/name cohort)]])))]
-
+                    [:a.navList.cohortSelector {:href (str "/?cohort=" (:cohort/slug cohort))
+                                                :data-cohort (:cohort/slug cohort)}
+                     [:p.navTitle (:cohort/name cohort)]])))]
        [:section.navigation
         [:nav
          (for [doc docs]
-           [:a.navList {:href (str "#" (:doc/slug doc))
-                        :style (doc-visibility doc)}
+           [:a.navList.docSelector {:href (str "#" (:doc/slug doc))
+                                    :style (doc-visibility doc)
+                                    :data-cohort (-> doc :doc/cohort :cohort/slug)}
             [:p.navTitle (find-title-ish doc)]
             [:p.navDate "/"] [:p.navDate (doc/created-date doc)]
             [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
-
        [:section.content
         [:div (for [doc docs]
-                [:div {:style (doc-visibility doc)}
+                [:div.docView {:style (doc-visibility doc)
+                               :data-cohort (-> doc :doc/cohort :cohort/slug)}
                  (view-doc doc)])]]]
       [:footer [:p (str (:bg-color samvirk) " □" " + " (:text-color samvirk) " ■" " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]]))
 
