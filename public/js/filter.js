@@ -1,3 +1,8 @@
+// Filtering approach inspired by https://diskprices.com/
+//
+// - HTML always contains all content
+// - Javascript toggles visibility of elements.
+
 const navigate = (element) => {
   history.pushState({}, "", element.href);
 
