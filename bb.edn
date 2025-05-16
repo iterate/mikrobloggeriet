@@ -1,6 +1,8 @@
-{:tasks
+{:paths ["bb/src"]
+
+ :tasks
  {deploy
-  (do (run 'test)
+  (do (run 'test-latest-commit)
       (run 'maybe-lint)
       ;; try to deploy before pushing - in case app after attempted deploy
       ;; fails.
@@ -29,4 +31,14 @@
 
   test
   (apply clojure "-M:kaocha" *command-line-args*)
+
+  timemachine
+  {:requires ([mikrobloggeriet.timemachine :as timemachine])
+   :task
+   (apply timemachine/main *command-line-args*)}
+
+  test-latest-commit
+  {:requires ([mikrobloggeriet.timemachine :as timemachine])
+   :task
+   (timemachine/main "HEAD" "--" "bb test")}
   }}
