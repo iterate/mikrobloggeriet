@@ -1,36 +1,20 @@
-# Mikrobloggeriet
-
-# Mac stuff
+# Mac
 .DS_Store
-.idea
-*.log
-tmp/
 
-# Clojure and java
-/target
-/classes
-/checkouts
-profiles.clj
-pom.xml
-pom.xml.asc
-*.jar
-*.class
-/.lein-*
-/.nrepl-port
-/.prepl-port
-/.cpcache
-
-# Clojure tools and linters
-/.clerk
+# Clojure
 /.calva
+/.clerk
 /.clj-kondo
-/.lsp
-
-# Støtt Obsidian til å skrive
-/.obsidian
-
-# Deploy files (Application Garden)
+/.cpcache
 /.garden
+/.lsp
+/.nrepl-port
+/.shadow-cljs
+/public/portfolio-js
 
-# VSCode
+# Editorer
+/.obsidian
 /.vscode
+
+# NPM
+/node_modules

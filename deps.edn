@@ -25,9 +25,11 @@
   ;; For development
   ;;
   ;; We want these accessible in prod REPLs too, so into main deps they go.
+  com.nextjournal/beholder {:mvn/version "1.0.2"}
   io.github.tonsky/clj-reload {:mvn/version "0.9.7"}
   lambdaisland/kaocha {:mvn/version "1.91.1392"}
-  com.nextjournal/beholder {:mvn/version "1.0.2"}
+  no.cjohansen/portfolio {:mvn/version "2025.01.28"}
+  thheller/shadow-cljs {:mvn/version "2.28.18"}
   }
  :aliases
  {

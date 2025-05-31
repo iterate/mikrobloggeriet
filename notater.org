@@ -1,0 +1,6 @@
+* 2025-05-31
+- Ønsker å gjøre Mikrobloggeriet-jobbing hyggeligere for Neno
+- Vi har i dag treg feedback for UI-jobbing.
+
+Jeg tror Portfolio kan være en fin måte å bli kjent med det.
+Portfolio var lett å sette opp da jeg leste https://replicant.fun/tutorials/tic-tac-toe/.
