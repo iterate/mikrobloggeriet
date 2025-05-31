@@ -28,9 +28,9 @@
   io.github.tonsky/clj-reload {:mvn/version "0.9.7"}
   lambdaisland/kaocha {:mvn/version "1.91.1392"}
   com.nextjournal/beholder {:mvn/version "1.0.2"}
-
   }
  :aliases
- {:kaocha {:main-opts ["-m" "kaocha.runner"]}
+ {
+  :kaocha {:main-opts ["-m" "kaocha.runner"]}
   :nextjournal/garden {:exec-fn mikrobloggeriet.system/start!}
-  ,}}
+  }}
