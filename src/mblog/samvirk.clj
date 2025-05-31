@@ -39,10 +39,12 @@
    --second10: rgba(%s, 0.1);
 }")
 
-(defn load []
-  (let [font (rand-nth fonts)
-        colors (contrast/gen-colors 5)
-        text (:c1 colors)
+(defn randomize []
+  {:font (rand-nth fonts)
+   :colors (contrast/gen-colors 5)})
+
+(defn hydrate [{:keys [font colors]}]
+  (let [text (:c1 colors)
         bg (:c2 colors)
         text-str (str (text 0) "," (text 1) "," (text 2))
         bg-str (str (bg 0) "," (bg 1) "," (bg 2))]
@@ -51,5 +53,13 @@
      :font font
      :root (apply format css-template
                   (concat (repeat 5 text-str) (repeat 5 bg-str)))}))
+
+(def load #(hydrate (randomize)))
+
+(comment
+  (def selection (randomize))
+  (hydrate selection)
+  (= (hydrate selection) (hydrate selection))
+  )
 
 #_(load)
