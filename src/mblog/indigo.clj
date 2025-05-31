@@ -70,7 +70,7 @@
      [:head
       [:meta {:charset "utf-8"}]
       [:link {:rel "stylesheet" :href "css/styles/indigo.css"}]
-      [:link {:rel "stylesheet" :href (samvirk/font-path (:font samvirk))}]
+      [:link {:rel "stylesheet" :href (samvirk/font-path samvirk)}]
       ;; Google fonts
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
       [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
@@ -103,7 +103,11 @@
                 [:div.docView {:style (doc-visibility doc)
                                :data-cohort (-> doc :doc/cohort :cohort/slug)}
                  (view-doc doc)])]]]
-      [:footer [:p (str (:bg-color samvirk) " □" " + " (:text-color samvirk) " ■" " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]]))
+      [:footer [:p
+                (str (:bg-color samvirk)
+                     " □" " + "
+                     (:text-color samvirk) " ■" " / "
+                     (samvirk/infer-main-font (samvirk/read-font samvirk)))]]]]))
 
 (defonce !last-req (atom nil))
 (def last-req #(dissoc @!last-req :reitit.core/match :mikrobloggeriet.system/pageviews))

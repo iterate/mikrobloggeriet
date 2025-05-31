@@ -3,8 +3,7 @@
    [clojure.test :refer [deftest is]]
    [mblog.samvirk :as samvirk]))
 
-(deftest parse-css
-  (let [css-str ":root {
+(def css-str-with-font ":root {
     --second10001: #080D92;
     --first100: #fff;
     --first80: rgba(255, 255, 255, 0.8);
@@ -16,7 +15,8 @@
      font-style: normal;
      font-family: var(--main-font);
      font-size: clamp(1rem, 1vw, 1.5rem);
-     line-height: 150%;}"]
+     line-height: 150%;}")
 
-    (is (= "IBM Plex Mono, monospace"
-           (samvirk/css->font css-str)))))
+(deftest parse-css
+  (is (= "IBM Plex Mono, monospace"
+         (samvirk/infer-main-font css-str-with-font))))

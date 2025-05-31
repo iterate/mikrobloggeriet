@@ -5,15 +5,10 @@
    [clojure.string :as str]
    [mikrobloggeriet.contrast :as contrast]))
 
-(defn parse-css [re css-str]
-  (when-let [s (re-find re css-str)]
-    (str/replace (last s) "'" "")))
-
-(def css-re
-  {:font #"--main-font:\s*(.*?);"})
-
-(defn css->font [font]
-  (parse-css (:font css-re) font))
+(defn infer-main-font [css-str]
+  (some-> (re-find #"--main-font:\s*(.*?);" css-str)
+          last
+          (str/replace "'" "")))
 
 (defn filenames [path]
   (->> (fs/list-dir path)
@@ -24,10 +19,11 @@
 
 (def fonts (filenames "public/css/fonts"))
 
-(defn font-path [font]
+(defn font-path [{:keys [font]}]
   (str "css/fonts/" font))
 
-(defn read-font [font-name] (slurp (str "public/css/fonts/" font-name)))
+(defn read-font [{:keys [font]}]
+  (slurp (str "public/css/fonts/" font)))
 
 (def css-template
   ":root {
