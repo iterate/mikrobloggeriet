@@ -2,6 +2,7 @@
   (:require
    [clojure.test :refer [deftest is testing]]
    [mblog.indigo :as indigo]
+   [mblog.samvirk :as samvirk]
    [mikrobloggeriet.db :as db]))
 
 (deftest lazyload-images
@@ -18,7 +19,8 @@
   (is
    (contains?
     (->> {:docs [{:doc/title "Unminifying av kode med LLM"
-                  :doc/markdown "lang tekst"}]}
+                  :doc/markdown "lang tekst"}]
+          :samvirk (samvirk/load)}
          (indigo/innhold->hiccup)
          (tree-seq seqable?
                    identity)

@@ -61,9 +61,8 @@
        [:h1 (:doc/slug doc)])
      (-> doc doc/hiccup lazyload-images lazyload-iframes))]])
 
-(defn innhold->hiccup [{:keys [docs cohorts current-cohort]}]
-  (let [samvirk (samvirk/load)
-        doc-visibility (fn [doc]
+(defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
+  (let [doc-visibility (fn [doc]
                          (when (and current-cohort
                                     (not= (:doc/cohort doc) current-cohort))
                            {:display "none"}))]
@@ -106,17 +105,17 @@
                  (view-doc doc)])]]]
       [:footer [:p (str (:bg-color samvirk) " □" " + " (:text-color samvirk) " ■" " / " (samvirk/css->font (samvirk/read-font (:font samvirk))))]]]]))
 
-(def last-req (atom nil))
+(defonce !last-req (atom nil))
+(def last-req #(dissoc @!last-req :reitit.core/match :mikrobloggeriet.system/pageviews))
 
-(comment
-  (-> @last-req
-      (dissoc :reitit.core/match :mikrobloggeriet.system/pageviews)))
+#_(last-req)
 
 (defn req->innhold [req]
-  (reset! last-req req)
+  (reset! !last-req req)
   (let [db (:mikrobloggeriet.system/datomic req)]
     (merge {:docs (doc/latest db)
-            :cohorts (cohort/all db)}
+            :cohorts (cohort/all db)
+            :samvirk (samvirk/load)}
            (when-let [cohort-slug (get-in req [:query-params "cohort"])]
              {:current-cohort (d/entity db [:cohort/slug cohort-slug])}))))
 
@@ -126,4 +125,5 @@
   (def docs (doc/latest db))
   (into {} (first docs))
   (def cohort (:doc/cohort (first docs)))
-  (:cohort/name cohort))
+  (:cohort/name cohort)
+  )

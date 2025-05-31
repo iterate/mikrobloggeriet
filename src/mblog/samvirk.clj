@@ -55,3 +55,5 @@
      :font font
      :root (apply format css-template
                   (concat (repeat 5 text-str) (repeat 5 bg-str)))}))
+
+#_(load)
