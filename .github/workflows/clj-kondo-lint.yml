@@ -7,7 +7,7 @@ jobs:
     - name: Install clj-kondo
       uses: DeLaGuardo/setup-clj-kondo@master
       with:
-        version: '2025.02.20'
+        version: '2025.04.07'
 
     - uses: actions/checkout@v4
 
