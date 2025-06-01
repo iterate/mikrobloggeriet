@@ -14,5 +14,8 @@ jobs:
     - name: Show clj-kondo version
       run: clj-kondo --version
 
+    - name: Download kondo-configs for libraries
+      run: clj-kondo --lint $(clojure -Spath) --dependencies --skip-lint --copy-configs
+
     - name: Lint
       run: clj-kondo --fail-level warning --lint src
