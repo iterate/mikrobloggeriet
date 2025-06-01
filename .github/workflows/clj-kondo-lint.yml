@@ -4,6 +4,18 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+
+    - name: Install Java
+      uses: actions/setup-java@master
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Install clojure tools
+      uses: DeLaGuardo/setup-clojure@master
+      with:
+        cli: latest
+
     - name: Install clj-kondo
       uses: DeLaGuardo/setup-clj-kondo@master
       with:
