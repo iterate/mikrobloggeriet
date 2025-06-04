@@ -85,6 +85,7 @@
        [:section.filters
         [:a.navList {:href "/"} [:p.navTitle "Alle"]]
         (->> cohorts
+             (sort-by :cohort/name)
              (map (fn [cohort]
                     [:a.navList.cohortSelector {:href (str "/?cohort=" (:cohort/slug cohort))
                                                 :data-cohort (:cohort/slug cohort)}
