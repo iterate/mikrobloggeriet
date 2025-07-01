@@ -69,7 +69,7 @@
 (defn latest [db]
   (->> (all db)
        (filter :doc/created)
-       (sort-by :doc/created)
+       (sort-by (juxt :doc/created number cleaned-title))
        reverse))
 
 (defn random-published [db]
