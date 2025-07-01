@@ -62,6 +62,11 @@
      (-> doc doc/hiccup lazyload-images lazyload-iframes))]])
 
 (defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
+  ;; The fact that this function currently both converts data (with Pandoc) and
+  ;; presents docs in HTML makes it hard to test.
+  ;;
+  ;; If we can tease apart visuals from logic, we can view the visuals with
+  ;; Portfolio.
   (let [doc-visibility (fn [doc]
                          (when (and current-cohort
                                     (not= (:doc/cohort doc) current-cohort))
