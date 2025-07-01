@@ -4,9 +4,7 @@
  {deploy
   (do (run 'test-latest-commit)
       (run 'maybe-lint)
-      ;; try to deploy before pushing - in case app after attempted deploy
-      ;; fails.
-      (run 'deploy*)
+      (run 'deploy*) ; attempt deploy before push avoid startup errors in the git log
       (run 'push))
 
   deploy*
@@ -18,13 +16,15 @@
   maybe-lint
   {:requires ([babashka.fs :as fs])
    :task
-   (when (fs/which "clj-kondo")
-     ;; Kjører linteren hvis den finnes, men forhindrer ikke Neno
-     ;; eller andre som ikke har installert linteren fra å deploye.
-     ;;
-     ;; Vi kjører allerede linteren i CI - hvis vi får den inn i
-     ;; deploy-loopen, kan vi ta problemene vi lager med én gang.
+   (when (fs/which "clj-kondo")         ; linting is optional
      (shell "clj-kondo --fail-level warning --lint src"))}
+
+  portfolio
+  (do
+    (future (Thread/sleep 5000)
+            ((requiring-resolve 'clojure.java.browse/browse-url)
+             "http://localhost:3001"))
+    (shell "npx shadow-cljs watch client portfolio"))
 
   push
   (shell "git push")
@@ -41,4 +41,5 @@
   {:requires ([mikrobloggeriet.timemachine :as timemachine])
    :task
    (timemachine/main "HEAD" "--" "bb test")}
+
   }}
