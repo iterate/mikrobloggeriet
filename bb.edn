@@ -19,13 +19,6 @@
    (when (fs/which "clj-kondo")         ; linting is optional
      (shell "clj-kondo --fail-level warning --lint src"))}
 
-  portfolio
-  (do
-    (future (Thread/sleep 5000)
-            ((requiring-resolve 'clojure.java.browse/browse-url)
-             "http://localhost:3001"))
-    (shell "npx shadow-cljs watch client portfolio"))
-
   push
   (shell "git push")
 
