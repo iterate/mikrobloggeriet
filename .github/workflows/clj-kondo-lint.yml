@@ -21,7 +21,7 @@ jobs:
       with:
         version: '2025.04.07'
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Show clj-kondo version
       run: clj-kondo --version
