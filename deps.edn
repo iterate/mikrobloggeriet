@@ -19,6 +19,10 @@
   org.clj-commons/hickory {:mvn/version "0.7.7"}
   org.clojure/clojure {:mvn/version "1.12.0"}
 
+  ;; Datastar experiment
+  dev.data-star.clojure/sdk {:mvn/version "1.0.0-RC1"}
+  dev.data-star.clojure/http-kit {:mvn/version "1.0.0-RC1"}
+
   ;; Supress Java logging warnings
   org.slf4j/slf4j-nop {:mvn/version "2.0.17"}
 

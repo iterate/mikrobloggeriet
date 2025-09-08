@@ -6,6 +6,7 @@
    [clojure.string :as str]
    [datomic.api :as d]
    [hiccup.page :as page]
+   [mblog.datastar-minimal :as dsminimal]
    [mblog.indigo]
    [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
@@ -21,9 +22,10 @@
    [mikrobloggeriet.ui.editor :as ui.editor]
    [mikrobloggeriet.ui.index :as ui.index]
    [mikrobloggeriet.ui.shared :as ui.shared]
+   [reitit.ring.middleware.parameters]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]
-   ring.middleware.params))
+   [ring.middleware.params]))
 
 (defn set-theme [req]
   (let [target "/"
@@ -267,7 +269,14 @@
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
                                    :get #'last-modified-file-handler}]
 
-      ["/feed.xml" {:get #'feed/handler}]]))
+      ["/feed.xml" {:get #'feed/handler}]]
+
+     ;; Datastar-eksperiment
+     [["/dsminimal" {:handler #'dsminimal/home}]
+      ["/dsminimal-messsage" {:handler #'dsminimal/hello-world
+                              :middleware [reitit.ring.middleware.parameters/parameters-middleware]}]]
+
+     ))
    (reitit.ring/routes
     (reitit.ring/redirect-trailing-slash-handler)
     (reitit.ring/create-file-handler {:path "/" :root "public"}))))
