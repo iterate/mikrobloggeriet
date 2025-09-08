@@ -42,8 +42,7 @@
                              :loading "lazy")]
              (hiccup-children form))
        :else form))
-   hiccup)
-  )
+   hiccup))
 
 (defn find-title-ish
   "Finds the title if present, otherwise falls back to slug"
@@ -61,12 +60,21 @@
        [:h1 (:doc/slug doc)])
      (-> doc doc/hiccup lazyload-images lazyload-iframes))]])
 
+(def samvirk
+  {:bg-color "#91c1e9"
+   :text-color "#1a2c5b"
+   :font "font16.css"
+   :root ":root {\n   --first100: rgb(145,193,233);\n   --first80: rgba(145,193,233, 0.8);\n   --first50: rgba(145,193,233, 0.5);\n   --first20: rgba(145,193,233, 0.2);\n   --first10: rgba(145,193,233, 0.1);\n   --second100: rgb(26,44,91);\n   --second80: rgba(26,44,91, 0.8);\n   --second50: rgba(26,44,91, 0.5);\n   --second20: rgba(26,44,91, 0.2);\n   --second10: rgba(26,44,91, 0.1);\n}"})
+
+
+
 (defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
   ;; The fact that this function currently both converts data (with Pandoc) and
   ;; presents docs in HTML makes it hard to test.
   ;;
   ;; If we can tease apart visuals from logic, we can view the visuals with
   ;; Portfolio.
+  (prn samvirk)
   (let [doc-visibility (fn [doc]
                          (when (and current-cohort
                                     (not= (:doc/cohort doc) current-cohort))
@@ -135,5 +143,4 @@
   (def docs (doc/latest db))
   (into {} (first docs))
   (def cohort (:doc/cohort (first docs)))
-  (:cohort/name cohort)
-  )
+  (:cohort/name cohort))
