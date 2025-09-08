@@ -2,20 +2,20 @@
          "bb/src" "bb/test"]
  :deps
  {
-  babashka/fs {:mvn/version "0.5.25"}
+  babashka/fs {:mvn/version "0.5.27"}
   babashka/process {:mvn/version "0.6.23"}
-  cheshire/cheshire {:mvn/version "6.0.0"}
-  com.datomic/peer {:mvn/version "1.0.7364"}
+  cheshire/cheshire {:mvn/version "6.1.0"}
+  com.datomic/peer {:mvn/version "1.0.7387"}
   com.widdindustries/cljc.java-time {:mvn/version "0.1.21"}
   com.widdindustries/time-literals {:mvn/version "0.1.10"}
   duratom/duratom {:mvn/version "0.5.9"}
-  hiccup/hiccup {:mvn/version "2.0.0-RC4"}
-  http-kit/http-kit {:mvn/version "2.8.0"}
-  io.github.nextjournal/clerk {:mvn/version "0.17.1102"}
+  hiccup/hiccup {:mvn/version "2.0.0"}
+  http-kit/http-kit {:mvn/version "2.8.1"}
+  io.github.nextjournal/clerk {:mvn/version "0.18.1150"}
   metosin/reitit {:mvn/version "0.9.1"}
   no.cjohansen/lookup {:mvn/version "2025.04.12"}
-  no.cjohansen/replicant {:mvn/version "2025.03.27"}
-  org.babashka/cli {:mvn/version "0.8.65"}
+  no.cjohansen/replicant {:mvn/version "2025.06.21"}
+  org.babashka/cli {:mvn/version "0.8.66"}
   org.clj-commons/hickory {:mvn/version "0.7.7"}
   org.clojure/clojure {:mvn/version "1.12.0"}
 
@@ -25,8 +25,8 @@
   ;; For development
   ;;
   ;; We want these accessible in prod REPLs too, so into main deps they go.
-  com.nextjournal/beholder {:mvn/version "1.0.2"}
-  io.github.tonsky/clj-reload {:mvn/version "0.9.7"}
+  com.nextjournal/beholder {:mvn/version "1.0.3"}
+  io.github.tonsky/clj-reload {:mvn/version "0.9.8"}
   lambdaisland/kaocha {:mvn/version "1.91.1392"}
   }
  :aliases
