@@ -25,11 +25,13 @@ https://github.com/starfederation/datastar-clojure/blob/76041542602cd5f7838f39cf
             [:body
              [:div
               {:data-signals-delay "345"}
+              ;; {:datastar/signals {"delay" 345}}
               [:div
                [:h1 "Datastar SDK Demo"]]
               [:p "SSE events will be streamed from the backend to the frontend."]
               [:div [:label {:for "delay"} "Delay in milliseconds"]
                [:input#delay {:data-bind-delay "" :type "number", :step "100", :min "0"}]]
+              ;; {:datastar/bind {:delay ""}}
               [:button {:data-on-click "@get('/dsminimal-messsage')"} "Start"]]
              [:div#message "Hello, world!"]]])))
 
