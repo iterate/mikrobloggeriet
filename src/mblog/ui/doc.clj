@@ -6,7 +6,8 @@
 (defn doc->hiccup [doc]
   [:html {:lang "en"}
    [:head
-    [:meta {:charset "utf-8"}]]
+    [:meta {:charset "utf-8"}]
+    [:link {:rel "stylesheet" :href "/css/styles/indigo.css"}]]
    [:body
     [:header
      [:a {:href "/"}
