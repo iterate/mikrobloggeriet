@@ -15,14 +15,13 @@
     [:meta {:charset "utf-8"}]
     [:link {:rel "stylesheet" :href "/css/styles/indigo.css"}]
     [:style (:root samvirk)]
-    [:style ""]]
+    [:style "p {max-width: 60rem};"]]
    [:body
-    [:container {:style "p {max-width: 60rem};"}
-     [:header
-      [:a {:href "/"}
-       [:p "Mikrobloggeriet"]]]
-     [:div
-      (-> doc doc/hiccup)]]]])
+    [:div
+     (-> doc doc/hiccup)]
+    [:footer
+     [:a {:href "/"}
+      [:p "Mikrobloggeriet"]]]]])
 
 (defn req->doc [req]
   (d/entity (:mikrobloggeriet.system/datomic req)
